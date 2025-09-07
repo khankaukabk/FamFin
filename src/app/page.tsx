@@ -6,10 +6,10 @@ import { Leaf } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 
 import { SummaryCards } from "@/components/summary-cards";
-import { RecentTransactions } from "@/components/recent-transactions";
+import { ExpenseDetails } from "@/components/expense-details";
 import { SpendingChart } from "@/components/spending-chart";
 import { FinancialAdvice } from "@/components/financial-advice";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { IncomeDetails } from "@/components/income-details";
 
 const initialTransactions: Transaction[] = [
@@ -94,11 +94,7 @@ export default function Home() {
                 </Card>
                 <Card>
                   <CardContent className="p-4 md:p-6">
-                    <RecentTransactions
-                      title="Expenses"
-                      description="A list of your spending."
-                      transactions={expenseTransactions}
-                    />
+                    <ExpenseDetails transactions={expenseTransactions} />
                   </CardContent>
                 </Card>
             </div>
