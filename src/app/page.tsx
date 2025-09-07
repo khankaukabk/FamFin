@@ -12,55 +12,29 @@ import { FinancialAdvice } from "@/components/financial-advice";
 import { Card, CardContent } from "@/components/ui/card";
 
 const initialTransactions: Transaction[] = [
-  {
-    id: "1",
-    type: "income",
-    amount: 5200,
-    category: "Salary",
-    description: "Monthly Salary",
-    date: "2024-07-01",
-  },
-  {
-    id: "2",
-    type: "expense",
-    amount: 1500,
-    category: "Housing",
-    description: "Rent",
-    date: "2024-07-01",
-  },
-  {
-    id: "3",
-    type: "expense",
-    amount: 450.75,
-    category: "Food",
-    description: "Groceries",
-    date: "2024-07-05",
-  },
-  {
-    id: "4",
-    type: "expense",
-    amount: 120.0,
-    category: "Transportation",
-    description: "Gas",
-    date: "2024-07-08",
-  },
-  {
-    id: "5",
-    type: "income",
-    amount: 300,
-    category: "Freelance",
-    description: "Web Design Project",
-    date: "2024-07-10",
-  },
-  {
-    id: "6",
-    type: "expense",
-    amount: 85.5,
-    category: "Entertainment",
-    description: "Movie tickets",
-    date: "2024-07-12",
-  },
+  // Income Data
+  { id: "1", type: "income", amount: 1000.0, category: "Employment", description: "DFAS (Kausain)", date: "2024-07-01" },
+  { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice (Ammu)", date: "2024-07-01" },
+  { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income (Musaab)", date: "2024-07-01" },
+  { id: "4", type: "income", amount: 250.0, category: "Government", description: "EBT (Kaukab)", date: "2024-07-01" },
+  { id: "5", type: "income", amount: 360.0, category: "Government", description: "Unemployment (Kaukab)", date: "2024-07-01" },
+  { id: "6", type: "income", amount: 500.0, category: "Government", description: "EBT (Abbu)", date: "2024-07-01" },
+
+  // Expense Data
+  { id: "7", type: "expense", amount: 807.75, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
+  { id: "8", type: "expense", amount: 632.09, category: "Loan", description: "Wells Fargo Loan", date: "2024-07-01" },
+  { id: "9", type: "expense", amount: 440.0, category: "Utilities", description: "Phone & WiFi", date: "2024-07-01" },
+  { id: "10", type: "expense", amount: 411.72, category: "Transportation", description: "Tesla Finance", date: "2024-07-01" },
+  { id: "11", type: "expense", amount: 350.0, category: "Utilities", description: "Alabama Utility", date: "2024-07-01" },
+  { id: "12", type: "expense", amount: 201.52, category: "Loan", description: "HomeDepot Loan", date: "2024-07-01" },
+  { id: "13", type: "expense", amount: 200.0, category: "Insurance", description: "State Farm Insurance", date: "2024-07-01" },
+  { id: "14", type: "expense", amount: 160.0, category: "Transportation", description: "Toyota Gas", date: "2024-07-01" },
+  { id: "15", type: "expense", amount: 120.0, category: "Loan", description: "Student Loan", date: "2024-07-01" },
+  { id: "16", type: "expense", amount: 50.0, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
+  { id: "19", type: "expense", amount: 500.0, category: "Credit Card", description: "Kaukab Credit Card", date: "2024-07-01" },
+  { id: "20", type: "expense", amount: 500.0, category: "Credit Card", description: "Abbu Credit Card", date: "2024-07-01" },
 ];
+
 
 export default function Home() {
   const [transactions, setTransactions] =

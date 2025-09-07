@@ -43,16 +43,16 @@ import type { Transaction } from "@/lib/types";
 
 const expenseCategories = [
   "Housing",
-  "Transportation",
-  "Food",
+  "Loan",
   "Utilities",
-  "Entertainment",
-  "Healthcare",
-  "Personal",
+  "Transportation",
+  "Insurance",
+  "Discretionary",
+  "Credit Card",
   "Other",
 ];
 
-const incomeCategories = ["Salary", "Freelance", "Investment", "Gift", "Other"];
+const incomeCategories = ["Employment", "Personal", "Government", "Other"];
 
 const formSchema = z.object({
   type: z.enum(["income", "expense"]),
@@ -90,7 +90,13 @@ export function TransactionForm({ addTransaction }: TransactionFormProps) {
     setIsSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
     addTransaction(values);
-    form.reset();
+    form.reset({
+      type: values.type,
+      amount: undefined,
+      description: "",
+      category: "",
+      date: new Date(),
+    });
     setIsSubmitting(false);
   }
 
@@ -115,7 +121,7 @@ export function TransactionForm({ addTransaction }: TransactionFormProps) {
                     <RadioGroup
                       onValueChange={(value) => {
                         field.onChange(value);
-                        form.reset({ ...form.getValues(), category: ''});
+                        form.setValue("category", "");
                       }}
                       defaultValue={field.value}
                       className="flex space-x-4"
