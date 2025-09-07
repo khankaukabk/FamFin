@@ -10,15 +10,16 @@ import { RecentTransactions } from "@/components/recent-transactions";
 import { SpendingChart } from "@/components/spending-chart";
 import { FinancialAdvice } from "@/components/financial-advice";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { IncomeDetails } from "@/components/income-details";
 
 const initialTransactions: Transaction[] = [
   // Income Data
-  { id: "1", type: "income", amount: 1000.0, category: "Employment", description: "DFAS (Kausain)", date: "2024-07-01" },
-  { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice (Ammu)", date: "2024-07-01" },
-  { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income (Musaab)", date: "2024-07-01" },
-  { id: "4", type: "income", amount: 250.0, category: "Government", description: "EBT (Kaukab)", date: "2024-07-01" },
-  { id: "5", type: "income", amount: 360.0, category: "Government", description: "Unemployment (Kaukab)", date: "2024-07-01" },
-  { id: "6", type: "income", amount: 500.0, category: "Government", description: "EBT (Abbu)", date: "2024-07-01" },
+  { id: "1", type: "income", amount: 1000.0, category: "Employment", description: "DFAS", member: "Kausain", date: "2024-07-01" },
+  { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice", member: "Ammu", date: "2024-07-01" },
+  { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income", member: "Musaab", date: "2024-07-01" },
+  { id: "4", type: "income", amount: 250.0, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
+  { id: "5", type: "income", amount: 360.0, category: "Government", description: "Unemployment", member: "Kaukab", date: "2024-07-01" },
+  { id: "6", type: "income", amount: 500.0, category: "Government", description: "EBT", member: "Abbu", date: "2024-07-01" },
 
   // Expense Data
   { id: "7", type: "expense", amount: 807.75, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
@@ -80,7 +81,7 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
           <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
-             <Card>
+            <Card>
               <CardContent className="p-4 md:p-6">
                 <SpendingChart transactions={transactions} />
               </CardContent>
@@ -88,19 +89,15 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
                <Card>
                   <CardContent className="p-4 md:p-6">
-                    <RecentTransactions 
-                      title="Income"
-                      description="A list of your earnings."
-                      transactions={incomeTransactions} 
-                    />
+                    <IncomeDetails transactions={incomeTransactions} />
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4 md:p-6">
-                    <RecentTransactions 
+                    <RecentTransactions
                       title="Expenses"
                       description="A list of your spending."
-                      transactions={expenseTransactions} 
+                      transactions={expenseTransactions}
                     />
                   </CardContent>
                 </Card>

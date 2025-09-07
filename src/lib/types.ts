@@ -5,4 +5,5 @@ export type Transaction = {
   category: string;
   description: string;
   date: Date | string;
+  member?: string;
 };
