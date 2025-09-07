@@ -80,6 +80,11 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
           <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
+             <Card>
+              <CardContent className="p-4 md:p-6">
+                <SpendingChart transactions={transactions} />
+              </CardContent>
+            </Card>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
                <Card>
                   <CardContent className="p-4 md:p-6">
@@ -88,12 +93,6 @@ export default function Home() {
                       description="A list of your earnings."
                       transactions={incomeTransactions} 
                     />
-                  </CardContent>
-                </Card>
-              <div className="flex flex-col gap-4">
-                <Card>
-                  <CardContent className="p-4 md:p-6">
-                    <SpendingChart transactions={transactions} />
                   </CardContent>
                 </Card>
                 <Card>
@@ -105,7 +104,6 @@ export default function Home() {
                     />
                   </CardContent>
                 </Card>
-              </div>
             </div>
           </div>
           <div className="col-span-1 flex flex-col gap-4">
