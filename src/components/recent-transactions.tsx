@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import type { Transaction } from "@/lib/types";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import {
   Table,
   TableBody,
@@ -26,6 +26,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 export function RecentTransactions({ transactions }: RecentTransactionsProps) {
+  const formatDate = (date: string | Date) => {
+    if (typeof date === 'string') {
+      // The `T00:00:00` part makes sure it's parsed as local time, not UTC
+      return format(parseISO(date + 'T00:00:00'), "LLL dd, y");
+    }
+    return format(date, "LLL dd, y");
+  };
+
   return (
     <>
       <CardHeader className="px-0 pt-0">
@@ -58,7 +66,7 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
                 <TableCell>
                   <Badge variant="outline">{transaction.category}</Badge>
                 </TableCell>
-                <TableCell>{format(transaction.date, "LLL dd, y")}</TableCell>
+                <TableCell>{formatDate(transaction.date)}</TableCell>
                 <TableCell
                   className={cn(
                     "text-right font-semibold",

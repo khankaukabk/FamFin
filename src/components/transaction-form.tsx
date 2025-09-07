@@ -67,7 +67,7 @@ const formSchema = z.object({
 });
 
 interface TransactionFormProps {
-  addTransaction: (transaction: Omit<Transaction, "id">) => void;
+  addTransaction: (transaction: Omit<Transaction, "id" | "date"> & {date: Date}) => void;
 }
 
 export function TransactionForm({ addTransaction }: TransactionFormProps) {
@@ -113,7 +113,10 @@ export function TransactionForm({ addTransaction }: TransactionFormProps) {
                   <FormLabel>Type</FormLabel>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        form.reset({ ...form.getValues(), category: ''});
+                      }}
                       defaultValue={field.value}
                       className="flex space-x-4"
                     >
@@ -169,7 +172,8 @@ export function TransactionForm({ addTransaction }: TransactionFormProps) {
                   <FormLabel>Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
+                    key={transactionType}
                   >
                     <FormControl>
                       <SelectTrigger>

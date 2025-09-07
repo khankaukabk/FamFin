@@ -18,7 +18,7 @@ const initialTransactions: Transaction[] = [
     amount: 5200,
     category: "Salary",
     description: "Monthly Salary",
-    date: new Date("2024-07-01"),
+    date: "2024-07-01",
   },
   {
     id: "2",
@@ -26,7 +26,7 @@ const initialTransactions: Transaction[] = [
     amount: 1500,
     category: "Housing",
     description: "Rent",
-    date: new Date("2024-07-01"),
+    date: "2024-07-01",
   },
   {
     id: "3",
@@ -34,7 +34,7 @@ const initialTransactions: Transaction[] = [
     amount: 450.75,
     category: "Food",
     description: "Groceries",
-    date: new Date("2024-07-05"),
+    date: "2024-07-05",
   },
   {
     id: "4",
@@ -42,7 +42,7 @@ const initialTransactions: Transaction[] = [
     amount: 120.0,
     category: "Transportation",
     description: "Gas",
-    date: new Date("2024-07-08"),
+    date: "2024-07-08",
   },
   {
     id: "5",
@@ -50,7 +50,7 @@ const initialTransactions: Transaction[] = [
     amount: 300,
     category: "Freelance",
     description: "Web Design Project",
-    date: new Date("2024-07-10"),
+    date: "2024-07-10",
   },
   {
     id: "6",
@@ -58,7 +58,7 @@ const initialTransactions: Transaction[] = [
     amount: 85.5,
     category: "Entertainment",
     description: "Movie tickets",
-    date: new Date("2024-07-12"),
+    date: "2024-07-12",
   },
 ];
 
@@ -67,7 +67,7 @@ export default function Home() {
     React.useState<Transaction[]>(initialTransactions);
 
   const addTransaction = (transaction: Omit<Transaction, "id">) => {
-    const newTransaction = { ...transaction, id: crypto.randomUUID() };
+    const newTransaction = { ...transaction, id: crypto.randomUUID(), date: new Date() };
     setTransactions((prev) => [newTransaction, ...prev]);
   };
 
