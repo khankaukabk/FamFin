@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -18,6 +19,8 @@ import { cn } from "@/lib/utils";
 
 interface RecentTransactionsProps {
   transactions: Transaction[];
+  title: string;
+  description: string;
 }
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -25,7 +28,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-export function RecentTransactions({ transactions }: RecentTransactionsProps) {
+export function RecentTransactions({ transactions, title, description }: RecentTransactionsProps) {
   const formatDate = (date: string | Date) => {
     if (typeof date === 'string') {
       // The `T00:00:00` part makes sure it's parsed as local time, not UTC
@@ -37,9 +40,9 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
   return (
     <>
       <CardHeader className="px-0 pt-0">
-        <CardTitle className="font-headline text-lg">Recent Transactions</CardTitle>
+        <CardTitle className="font-headline text-lg">{title}</CardTitle>
         <CardDescription>
-          A list of your recent income and expenses.
+          {description}
         </CardDescription>
       </CardHeader>
       <div className="relative h-[400px] overflow-auto">

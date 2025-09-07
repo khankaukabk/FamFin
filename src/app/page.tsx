@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -8,7 +9,9 @@ import { SummaryCards } from "@/components/summary-cards";
 import { RecentTransactions } from "@/components/recent-transactions";
 import { SpendingChart } from "@/components/spending-chart";
 import { FinancialAdvice } from "@/components/financial-advice";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 const initialTransactions: Transaction[] = [
   // Income Data
@@ -39,15 +42,13 @@ export default function Home() {
   const [transactions, setTransactions] =
     React.useState<Transaction[]>(initialTransactions);
 
-  const { totalIncome, totalExpenses, balance } = React.useMemo(() => {
-    const totalIncome = transactions
-      .filter((t) => t.type === "income")
-      .reduce((acc, t) => acc + t.amount, 0);
-    const totalExpenses = transactions
-      .filter((t) => t.type === "expense")
-      .reduce((acc, t) => acc + t.amount, 0);
+  const { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions } = React.useMemo(() => {
+    const incomeTransactions = transactions.filter((t) => t.type === "income");
+    const expenseTransactions = transactions.filter((t) => t.type === "expense");
+    const totalIncome = incomeTransactions.reduce((acc, t) => acc + t.amount, 0);
+    const totalExpenses = expenseTransactions.reduce((acc, t) => acc + t.amount, 0);
     const balance = totalIncome - totalExpenses;
-    return { totalIncome, totalExpenses, balance };
+    return { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions };
   }, [transactions]);
 
   const spendingHabits = React.useMemo(() => {
@@ -81,16 +82,39 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
           <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
-            <Card>
-              <CardContent className="p-4 md:p-6">
-                <SpendingChart transactions={transactions} />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4 md:p-6">
-                <RecentTransactions transactions={transactions} />
-              </CardContent>
-            </Card>
+             <Tabs defaultValue="expenses">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="expenses">Expenses</TabsTrigger>
+                  <TabsTrigger value="income">Income</TabsTrigger>
+                </TabsList>
+                <TabsContent value="expenses">
+                    <Card>
+                        <CardContent className="p-4 md:p-6">
+                            <SpendingChart transactions={transactions} />
+                        </CardContent>
+                    </Card>
+                    <Card className="mt-4">
+                        <CardContent className="p-4 md:p-6">
+                            <RecentTransactions 
+                                title="Recent Expenses"
+                                description="A list of your recent spending."
+                                transactions={expenseTransactions} 
+                            />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+                <TabsContent value="income">
+                    <Card>
+                        <CardContent className="p-4 md:p-6">
+                            <RecentTransactions 
+                                title="Recent Income"
+                                description="A list of your recent earnings."
+                                transactions={incomeTransactions} 
+                            />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+             </Tabs>
           </div>
           <div className="col-span-1 flex flex-col gap-4">
             <FinancialAdvice
@@ -104,3 +128,4 @@ export default function Home() {
     </div>
   );
 }
+
