@@ -70,38 +70,36 @@ export default function Home() {
   }, [transactions]);
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <div className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />
-          <h1 className="font-headline text-xl font-bold tracking-tight text-primary md:text-2xl">
+          <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
             Family Financials
           </h1>
         </div>
       </header>
-      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+      <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
         <SummaryCards
           totalIncome={totalIncome}
           totalExpenses={totalExpenses}
           balance={balance}
         />
-        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <Card className="xl:col-span-2">
-            <CardContent className="p-4 md:p-6">
-              <RecentTransactions transactions={transactions} />
-            </CardContent>
-          </Card>
-          <div className="space-y-4">
-             <TransactionForm addTransaction={addTransaction} />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
+          <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <SpendingChart transactions={transactions} />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <RecentTransactions transactions={transactions} />
+              </CardContent>
+            </Card>
           </div>
-        </div>
-        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <Card className="xl:col-span-2">
-            <CardContent className="p-2 md:p-6">
-              <SpendingChart transactions={transactions} />
-            </CardContent>
-          </Card>
-          <div className="space-y-4">
+          <div className="col-span-1 flex flex-col gap-4">
+            <TransactionForm addTransaction={addTransaction} />
             <FinancialAdvice
               income={totalIncome}
               expenses={totalExpenses}
