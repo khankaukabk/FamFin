@@ -81,6 +81,15 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
           <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+               <Card>
+                  <CardContent className="p-4 md:p-6">
+                    <RecentTransactions 
+                      title="Income"
+                      description="A list of your earnings."
+                      transactions={incomeTransactions} 
+                    />
+                  </CardContent>
+                </Card>
               <div className="flex flex-col gap-4">
                 <Card>
                   <CardContent className="p-4 md:p-6">
@@ -90,20 +99,9 @@ export default function Home() {
                 <Card>
                   <CardContent className="p-4 md:p-6">
                     <RecentTransactions 
-                      title="Recent Expenses"
-                      description="A list of your recent spending."
+                      title="Expenses"
+                      description="A list of your spending."
                       transactions={expenseTransactions} 
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Card>
-                  <CardContent className="p-4 md:p-6">
-                    <RecentTransactions 
-                      title="Recent Income"
-                      description="A list of your recent earnings."
-                      transactions={incomeTransactions} 
                     />
                   </CardContent>
                 </Card>

@@ -45,9 +45,9 @@ export function RecentTransactions({ transactions, title, description }: RecentT
           {description}
         </CardDescription>
       </CardHeader>
-      <div className="relative h-[400px] overflow-auto">
+      <div className="relative">
         <Table>
-          <TableHeader className="sticky top-0 bg-background">
+          <TableHeader>
             <TableRow>
               <TableHead className="w-[200px]">Description</TableHead>
               <TableHead>Category</TableHead>
