@@ -80,9 +80,14 @@ export function TransactionForm({ addTransaction }: TransactionFormProps) {
       amount: undefined,
       description: "",
       category: "",
-      date: new Date(),
+      date: undefined, // Initialize as undefined
     },
   });
+
+  // Set the date on the client side to avoid hydration errors
+  React.useEffect(() => {
+    form.setValue("date", new Date());
+  }, [form]);
 
   const transactionType = form.watch("type");
 
