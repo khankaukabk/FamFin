@@ -5,7 +5,6 @@ import { Leaf } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 
 import { SummaryCards } from "@/components/summary-cards";
-import { TransactionForm } from "@/components/transaction-form";
 import { RecentTransactions } from "@/components/recent-transactions";
 import { SpendingChart } from "@/components/spending-chart";
 import { FinancialAdvice } from "@/components/financial-advice";
@@ -39,11 +38,6 @@ const initialTransactions: Transaction[] = [
 export default function Home() {
   const [transactions, setTransactions] =
     React.useState<Transaction[]>(initialTransactions);
-
-  const addTransaction = (transaction: Omit<Transaction, "id">) => {
-    const newTransaction = { ...transaction, id: crypto.randomUUID(), date: new Date() };
-    setTransactions((prev) => [newTransaction, ...prev]);
-  };
 
   const { totalIncome, totalExpenses, balance } = React.useMemo(() => {
     const totalIncome = transactions
@@ -99,7 +93,6 @@ export default function Home() {
             </Card>
           </div>
           <div className="col-span-1 flex flex-col gap-4">
-            <TransactionForm addTransaction={addTransaction} />
             <FinancialAdvice
               income={totalIncome}
               expenses={totalExpenses}
