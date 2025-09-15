@@ -41,7 +41,7 @@ export default function TravelPlanPage() {
                 <Clock className="h-5 w-5 text-accent" />
                 <div>
                   <p className="font-semibold">Estimated Driving Time</p>
-                  <p className="text-muted-foreground">14-16 hours (without stops)</p>
+                  <p className="text-muted-foreground">13-14 hours (without stops)</p>
                 </div>
               </div>
 
@@ -52,18 +52,21 @@ export default function TravelPlanPage() {
                   <DollarSign className="h-5 w-5 text-accent" />
                   Estimated Cost
                 </h4>
-                <div className="space-y-3 pl-6">
+                <div className="space-y-4 pl-6">
                   <div>
-                    <p className="font-semibold">Tesla EV (2024)</p>
-                    <p className="text-sm text-muted-foreground">Charging: ~$120-150</p>
+                    <p className="font-semibold">Vehicle Costs</p>
+                    <p className="text-sm text-muted-foreground">Tesla (EV): ~$120-150 for charging</p>
+                    <p className="text-sm text-muted-foreground">Toyota (Gas): ~$105-130 for fuel</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Common Costs</p>
                     <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
-                    <p className="text-sm font-bold">Total: ~$270-300</p>
+                    <p className="text-sm text-muted-foreground">Food &amp; Snacks: ~$100</p>
                   </div>
                    <div>
-                    <p className="font-semibold">Toyota Camry (2016)</p>
-                    <p className="text-sm text-muted-foreground">Gasoline: ~$105-130</p>
-                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
-                    <p className="text-sm font-bold">Total: ~$255-280</p>
+                    <p className="font-semibold">Total Estimated Cost</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$370-400</p>
+                     <p className="text-sm text-muted-foreground">With Toyota: ~$355-380</p>
                   </div>
                 </div>
               </div>
@@ -80,35 +83,35 @@ export default function TravelPlanPage() {
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Start: Hoover, AL</p>
-                      <p className="text-sm text-muted-foreground">Begin your journey bright and early!</p>
+                      <p className="text-sm text-muted-foreground">Begin your journey bright and early to make the most of the day!</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <MapPin className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Leg 1: I-65 N to Nashville, TN</p>
-                      <p className="text-sm text-muted-foreground">~3 hours. A good spot for a quick coffee break.</p>
+                      <p className="text-sm text-muted-foreground">~3 hours. A perfect spot for a brunch break in the Music City.</p>
                     </div>
                   </div>
                    <div className="flex items-start gap-4">
                     <Hotel className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Overnight Stop: Roanoke, VA</p>
-                      <p className="text-sm text-muted-foreground">~8-9 hours from start. Ideal for resting overnight.</p>
+                      <p className="text-sm text-muted-foreground">~8-9 hours from start. Nestled in the Blue Ridge Mountains, it's an ideal place to rest and recharge overnight.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Coffee className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Leg 2: I-81 N towards Pennsylvania</p>
-                      <p className="text-sm text-muted-foreground">The final stretch of your drive.</p>
+                      <p className="font-semibold">Leg 2: I-81 N to I-76 E</p>
+                      <p className="text-sm text-muted-foreground">The final stretch. Enjoy the scenic views as you drive towards Pennsylvania.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Destination: Philadelphia, PA</p>
-                      <p className="text-sm text-muted-foreground">Welcome to the City of Brotherly Love!</p>
+                      <p className="text-sm text-muted-foreground">Welcome to the City of Brotherly Love! Time to explore.</p>
                     </div>
                   </div>
                 </div>
@@ -146,7 +149,13 @@ export default function TravelPlanPage() {
                   <div className="space-y-3 pl-6">
                     <div>
                       <p className="font-semibold">Round-Trip Airfare</p>
-                      <p className="text-sm text-muted-foreground">Per Person: ~$250-400 (booked in advance)</p>
+                      <p className="text-sm text-muted-foreground">Per Person: ~$150 (booked in advance)</p>
+                       <p className="text-sm text-muted-foreground">Total for 4 people: ~$600</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Additional Costs</p>
+                      <p className="text-sm text-muted-foreground">Baggage Fees: ~$30-60 per bag</p>
+                      <p className="text-sm text-muted-foreground">Ground Transport: ~$50-100</p>
                     </div>
                   </div>
                 </div>
@@ -162,28 +171,28 @@ export default function TravelPlanPage() {
                     <Car className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Drive to Birmingham-Shuttlesworth (BHM)</p>
-                      <p className="text-sm text-muted-foreground">~20-30 minute drive from Hoover.</p>
+                      <p className="text-sm text-muted-foreground">A quick ~20-30 minute drive from Hoover.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Flight: BHM to PHL</p>
-                      <p className="text-sm text-muted-foreground">~2 hour flight. Arrive 1.5-2 hours early for security.</p>
+                      <p className="text-sm text-muted-foreground">~2 hour flight. Be sure to arrive 1.5-2 hours early to get through security smoothly.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Car className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Travel from Philadelphia Int'l (PHL)</p>
-                      <p className="text-sm text-muted-foreground">~20-30 minute drive or train to city center.</p>
+                      <p className="text-sm text-muted-foreground">Grab a rideshare or take the SEPTA train for a ~20-30 minute trip to the city center.</p>
                     </div>
                   </div>
                    <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <p className="font-semibold">Destination: Philadelphia, PA</p>
-                      <p className="text-sm text-muted-foreground">Enjoy your trip!</p>
+                      <p className="text-sm text-muted-foreground">You've arrived! Enjoy your trip and all the city has to offer.</p>
                     </div>
                   </div>
                 </div>
