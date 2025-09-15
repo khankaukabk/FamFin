@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee } from "lucide-react";
+import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -42,6 +42,29 @@ export default function TravelPlanPage() {
                 <div>
                   <p className="font-semibold">Estimated Driving Time</p>
                   <p className="text-muted-foreground">14-16 hours (without stops)</p>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-accent" />
+                  Estimated Cost
+                </h4>
+                <div className="space-y-3 pl-6">
+                  <div>
+                    <p className="font-semibold">Tesla EV (2024)</p>
+                    <p className="text-sm text-muted-foreground">Charging: ~$120-150</p>
+                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
+                    <p className="text-sm font-bold">Total: ~$270-300</p>
+                  </div>
+                   <div>
+                    <p className="font-semibold">Toyota Camry (2016)</p>
+                    <p className="text-sm text-muted-foreground">Gasoline: ~$105-130</p>
+                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
+                    <p className="text-sm font-bold">Total: ~$255-280</p>
+                  </div>
                 </div>
               </div>
 
@@ -113,6 +136,21 @@ export default function TravelPlanPage() {
                   </div>
                 </div>
 
+                <Separator />
+
+                <div>
+                  <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                    <DollarSign className="h-5 w-5 text-accent" />
+                    Estimated Cost
+                  </h4>
+                  <div className="space-y-3 pl-6">
+                    <div>
+                      <p className="font-semibold">Round-Trip Airfare</p>
+                      <p className="text-sm text-muted-foreground">Per Person: ~$250-400 (booked in advance)</p>
+                    </div>
+                  </div>
+                </div>
+                
                 <Separator />
                 
                 <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
