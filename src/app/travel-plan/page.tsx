@@ -223,7 +223,7 @@ export default function TravelPlanPage() {
                 <div className="space-y-4 pl-6">
                   <div>
                     <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
-                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,050 - $1,750</p>
+                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,680 (2 rooms @ $120/night)</p>
                   </div>
                    <div>
                     <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
@@ -271,30 +271,30 @@ export default function TravelPlanPage() {
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$345</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,685</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$3,180 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,525</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$395</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,735</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$3,180 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,575</p>
                   </div>
                   
                   {/* By Plane */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$950</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$2,290</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$3,180 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,130</p>
                   </div>
                 </div>
               </div>
                <Separator />
                <div className="px-6 text-sm text-muted-foreground">
-                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Costs for lodging and food in Philadelphia are calculated as: 7 nights hotel (~$1400) + 7 days food (~$1500 for 5 people) for a weekly stay total of ~$2900. Travel costs are added on top. Your actual expenses may vary.</p>
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Costs for lodging and food in Philadelphia are calculated as: 7 nights hotel (~$1680) + 7 days food (~$1500 for 5 people) for a weekly stay total of ~$3180. Travel costs are added on top. Your actual expenses may vary.</p>
                </div>
             </CardContent>
           </Card>
