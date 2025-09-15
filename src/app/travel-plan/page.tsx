@@ -60,13 +60,13 @@ export default function TravelPlanPage() {
                   </div>
                   <div>
                     <p className="font-semibold">Common Costs</p>
-                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
+                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$240 (2 rooms)</p>
                     <p className="text-sm text-muted-foreground">Food & Snacks (5 people): ~$125</p>
                   </div>
                    <div>
                     <p className="font-semibold">Total Estimated Cost</p>
-                     <p className="text-sm text-muted-foreground">With Tesla: ~$340-350</p>
-                     <p className="text-sm text-muted-foreground">With Toyota: ~$380-405</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$430-440</p>
+                     <p className="text-sm text-muted-foreground">With Toyota: ~$470-495</p>
                   </div>
                 </div>
               </div>
@@ -270,17 +270,17 @@ export default function TravelPlanPage() {
                   {/* By Car (Tesla) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
-                    <p className="text-sm text-muted-foreground">Travel: ~$345</p>
+                    <p className="text-sm text-muted-foreground">Travel: ~$435</p>
                     <p className="text-sm text-muted-foreground">Weekly Stay: ~$3,180 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,525</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,615</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
-                    <p className="text-sm text-muted-foreground">Travel: ~$395</p>
+                    <p className="text-sm text-muted-foreground">Travel: ~$485</p>
                     <p className="text-sm text-muted-foreground">Weekly Stay: ~$3,180 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,575</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,665</p>
                   </div>
                   
                   {/* By Plane */}
