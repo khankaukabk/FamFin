@@ -210,7 +210,7 @@ export default function TravelPlanPage() {
                 <Hotel className="h-8 w-8 text-primary" />
                 <div>
                   <CardTitle className="font-headline text-xl">Philadelphia Stay</CardTitle>
-                  <CardDescription>Budget for your week-long visit.</CardDescription>
+                  <CardDescription>Lodging budget for your week-long visit.</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -224,11 +224,6 @@ export default function TravelPlanPage() {
                   <div>
                     <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
                     <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,680 (2 rooms @ $120/night each)</p>
-                  </div>
-                   <div>
-                    <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
-                    <p className="text-sm text-muted-foreground">Daily Budget: ~$180-250 for a family of 5</p>
-                    <p className="text-sm text-muted-foreground">Weekly Total: ~$1260-1750</p>
                   </div>
                 </div>
               </div>
@@ -273,7 +268,10 @@ export default function TravelPlanPage() {
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$140</p>
                     <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
-                    <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$4,175</p>
                   </div>
@@ -283,7 +281,10 @@ export default function TravelPlanPage() {
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$240</p>
                     <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
-                    <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$4,275</p>
                   </div>
@@ -292,7 +293,10 @@ export default function TravelPlanPage() {
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
                     <p className="text-sm text-muted-foreground">Travel (Airfare & Extras): ~$950</p>
-                    <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
+                     <div>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$4,130</p>
                   </div>
