@@ -23,7 +23,8 @@ const initialTransactions: Transaction[] = [
   // Expense Data
   { id: "7", type: "expense", amount: 807.75, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
   { id: "8", type: "expense", amount: 632.09, category: "Loan", description: "Wells Fargo Loan", date: "2024-07-01" },
-  { id: "9", type: "expense", amount: 440.0, category: "Utilities", description: "Phone & WiFi", date: "2024-07-01" },
+  { id: "9", type: "expense", amount: 140.0, category: "Utilities", description: "Phone Bill", date: "2024-07-01" },
+  { id: "21", type: "expense", amount: 300.0, category: "Utilities", description: "Internet Bill", date: "2024-07-01" },
   { id: "10", type: "expense", amount: 411.72, category: "Transportation", description: "Tesla Finance", date: "2024-07-01" },
   { id: "11", type: "expense", amount: 350.0, category: "Utilities", description: "Alabama Utility", date: "2024-07-01" },
   { id: "12", type: "expense", amount: 201.52, category: "Loan", description: "HomeDepot Loan", date: "2024-07-01" },
@@ -65,7 +66,7 @@ export default function Home() {
           totalExpenses={totalExpenses}
           balance={balance}
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
+        <div className="grid grid-cols-1 gap-4 md:gap-8">
             <Card>
               <CardContent className="p-4 md:p-6">
                 <SpendingChart transactions={transactions} />
