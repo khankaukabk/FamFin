@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign, Utensils, Camera, Bus, Wallet } from "lucide-react";
+import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign, Utensils, Camera, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -223,7 +223,7 @@ export default function TravelPlanPage() {
                 <div className="space-y-4 pl-6">
                   <div>
                     <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
-                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,680 (2 rooms @ $120/night)</p>
+                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,680 (2 rooms @ $120/night each)</p>
                   </div>
                    <div>
                     <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
@@ -271,25 +271,27 @@ export default function TravelPlanPage() {
                   {/* By Car (Tesla) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
-                    <p className="text-sm text-muted-foreground">Travel: ~$435</p>
+                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$70</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging: ~$240</p>
                     <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
+                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,625</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$3,615</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
-                    <p className="text-sm text-muted-foreground">Travel: ~$485</p>
+                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$120</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging: ~$240</p>
                     <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
+                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,625</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$3,665</p>
                   </div>
                   
                   {/* By Plane */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
-                    <p className="text-sm text-muted-foreground">Travel: ~$950</p>
+                    <p className="text-sm text-muted-foreground">Travel (Airfare & Extras): ~$950</p>
                     <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
                     <p className="font-bold text-primary text-lg mt-2">Total: ~$4,130</p>
@@ -298,7 +300,7 @@ export default function TravelPlanPage() {
               </div>
                <Separator />
                <div className="px-6 text-sm text-muted-foreground">
-                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Food & Dining is based on a daily budget of ~$215 for 5 people over 7 days. Your actual expenses may vary.</p>
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Food & Dining includes a travel-day budget of ~$125 and a weekly budget of ~$1500 (based on ~$215/day for 7 days). Your actual expenses may vary.</p>
                </div>
             </CardContent>
           </Card>
@@ -311,3 +313,5 @@ export default function TravelPlanPage() {
     </div>
   );
 }
+
+    
