@@ -86,6 +86,9 @@ export default function Home() {
             </div>
         </div>
       </main>
+      <footer className="text-center p-4 text-muted-foreground text-sm">
+        Created by the Khan Family
+      </footer>
     </div>
   );
 }
