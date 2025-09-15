@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign } from "lucide-react";
+import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign, Utensils, Camera, Bus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -24,7 +24,7 @@ export default function TravelPlanPage() {
         </div>
       </header>
       <main className="flex-1 p-4 sm:px-6 md:p-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
           {/* By Car */}
           <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl">
             <CardHeader>
@@ -202,6 +202,56 @@ export default function TravelPlanPage() {
                 </div>
             </CardContent>
           </Card>
+
+          {/* Philadelphia Stay */}
+           <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl xl:col-span-1">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Hotel className="h-8 w-8 text-primary" />
+                <div>
+                  <CardTitle className="font-headline text-xl">Philadelphia Stay</CardTitle>
+                  <CardDescription>Budget for your week-long visit.</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-accent" />
+                  Estimated Weekly Costs
+                </h4>
+                <div className="space-y-4 pl-6">
+                  <div>
+                    <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
+                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,050 - $1,750</p>
+                  </div>
+                   <div>
+                    <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
+                    <p className="text-sm text-muted-foreground">Daily Budget: ~$150-200 for a family of 4</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold flex items-center gap-2"><Bus className="h-4 w-4" /> Local Transport</p>
+                    <p className="text-sm text-muted-foreground">SEPTA Passes & Ride-Sharing: ~$100-150</p>
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                  <Camera className="h-5 w-5 text-accent" />
+                  Activity & Sightseeing Ideas
+                </h4>
+                <div className="space-y-2 pl-6 text-sm text-muted-foreground">
+                  <p>• Visit Independence Hall & the Liberty Bell</p>
+                  <p>• Explore Reading Terminal Market</p>
+                  <p>• Run up the "Rocky Steps" at the Art Museum</p>
+                  <p>• Enjoy the Magic Gardens</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
@@ -210,3 +260,5 @@ export default function TravelPlanPage() {
     </div>
   );
 }
+
+    
