@@ -26,7 +26,7 @@ export default function TravelPlanPage() {
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* By Car */}
-          <Card className="shadow-lg backdrop-blur-sm bg-background/20">
+          <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Car className="h-8 w-8 text-primary" />
@@ -55,17 +55,17 @@ export default function TravelPlanPage() {
                 <div className="space-y-4 pl-6">
                   <div>
                     <p className="font-semibold">Vehicle Costs</p>
-                    <p className="text-sm text-muted-foreground">Tesla (EV): ~$120-150 for charging</p>
+                    <p className="text-sm text-muted-foreground">Tesla (EV): ~$65-75 for charging</p>
                     <p className="text-sm text-muted-foreground">Toyota (Gas): ~$105-130 for fuel</p>
                   </div>
                   <div>
                     <p className="font-semibold">Common Costs</p>
                     <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
-                    <p className="text-sm text-muted-foreground">Food &amp; Snacks: ~$100</p>
+                    <p className="text-sm text-muted-foreground">Food & Snacks: ~$100</p>
                   </div>
                    <div>
                     <p className="font-semibold">Total Estimated Cost</p>
-                     <p className="text-sm text-muted-foreground">With Tesla: ~$370-400</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$315-325</p>
                      <p className="text-sm text-muted-foreground">With Toyota: ~$355-380</p>
                   </div>
                 </div>
@@ -82,35 +82,35 @@ export default function TravelPlanPage() {
                   <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Start: Hoover, AL</p>
+                      <p className="font-semibold">Start: Hoover, AL (Day 1 - 7:00 AM)</p>
                       <p className="text-sm text-muted-foreground">Begin your journey bright and early to make the most of the day!</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <MapPin className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Leg 1: I-65 N to Nashville, TN</p>
-                      <p className="text-sm text-muted-foreground">~3 hours. A perfect spot for a brunch break in the Music City.</p>
+                      <p className="font-semibold">Brunch Stop: Nashville, TN (~10:00 AM)</p>
+                      <p className="text-sm text-muted-foreground">Take I-65 N for ~3 hours. A perfect spot for a break in the Music City.</p>
                     </div>
                   </div>
                    <div className="flex items-start gap-4">
                     <Hotel className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Overnight Stop: Roanoke, VA</p>
+                      <p className="font-semibold">Overnight Stop: Roanoke, VA (~5:00 PM)</p>
                       <p className="text-sm text-muted-foreground">~8-9 hours from start. Nestled in the Blue Ridge Mountains, it's an ideal place to rest and recharge overnight.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Coffee className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Leg 2: I-81 N to I-76 E</p>
-                      <p className="text-sm text-muted-foreground">The final stretch. Enjoy the scenic views as you drive towards Pennsylvania.</p>
+                      <p className="font-semibold">Final Stretch (Day 2 - 9:00 AM)</p>
+                      <p className="text-sm text-muted-foreground">After breakfast, take I-81 N to I-76 E. Enjoy the scenic views as you drive towards Pennsylvania.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Destination: Philadelphia, PA</p>
+                      <p className="font-semibold">Destination: Philadelphia, PA (~4:00 PM)</p>
                       <p className="text-sm text-muted-foreground">Welcome to the City of Brotherly Love! Time to explore.</p>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ export default function TravelPlanPage() {
           </Card>
           
           {/* By Plane */}
-          <Card className="shadow-lg backdrop-blur-sm bg-background/20">
+          <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <Plane className="h-8 w-8 text-primary" />
@@ -170,28 +170,28 @@ export default function TravelPlanPage() {
                   <div className="flex items-start gap-4">
                     <Car className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Drive to Birmingham-Shuttlesworth (BHM)</p>
-                      <p className="text-sm text-muted-foreground">A quick ~20-30 minute drive from Hoover.</p>
+                      <p className="font-semibold">To the Airport (e.g., 10:00 AM)</p>
+                      <p className="text-sm text-muted-foreground">A quick ~20-30 minute drive from Hoover to Birmingham-Shuttlesworth (BHM).</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Flight: BHM to PHL</p>
-                      <p className="text-sm text-muted-foreground">~2 hour flight. Be sure to arrive 1.5-2 hours early to get through security smoothly.</p>
+                      <p className="font-semibold">Flight: BHM to PHL (~12:30 PM)</p>
+                      <p className="text-sm text-muted-foreground">A ~2 hour flight. Arrive at the airport 1.5-2 hours early to get through security smoothly.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Car className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Travel from Philadelphia Int'l (PHL)</p>
+                      <p className="font-semibold">Arrival & City Transit (~3:00 PM)</p>
                       <p className="text-sm text-muted-foreground">Grab a rideshare or take the SEPTA train for a ~20-30 minute trip to the city center.</p>
                     </div>
                   </div>
                    <div className="flex items-start gap-4">
                     <Milestone className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <p className="font-semibold">Destination: Philadelphia, PA</p>
+                      <p className="font-semibold">Destination: Philadelphia, PA (~3:30 PM)</p>
                       <p className="text-sm text-muted-foreground">You've arrived! Enjoy your trip and all the city has to offer.</p>
                     </div>
                   </div>
