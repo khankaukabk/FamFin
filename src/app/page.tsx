@@ -2,14 +2,16 @@
 "use client";
 
 import * as React from "react";
-import { Leaf } from "lucide-react";
+import { Leaf, Plane } from "lucide-react";
 import type { Transaction } from "@/lib/types";
+import Link from "next/link";
 
 import { SummaryCards } from "@/components/summary-cards";
 import { ExpenseDetails } from "@/components/expense-details";
 import { SpendingChart } from "@/components/spending-chart";
 import { Card, CardContent } from "@/components/ui/card";
 import { IncomeDetails } from "@/components/income-details";
+import { Button } from "@/components/ui/button";
 
 const initialTransactions: Transaction[] = [
   // Income Data
@@ -53,13 +55,19 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
         <div className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />
           <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
             Family Financials
           </h1>
         </div>
+        <Link href="/travel-plan" passHref>
+          <Button variant="outline">
+            <Plane className="h-4 w-4 mr-2" />
+            Travel Plan
+          </Button>
+        </Link>
       </header>
       <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
         <SummaryCards
