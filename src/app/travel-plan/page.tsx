@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign, Utensils, Camera, Bus } from "lucide-react";
+import { ArrowLeft, Car, Plane, Hotel, Route, Clock, Milestone, MapPin, Coffee, DollarSign, Utensils, Camera, Bus, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -252,6 +252,57 @@ export default function TravelPlanPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Total Trip Estimate */}
+          <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl xl:col-span-3 border-primary/50">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Wallet className="h-8 w-8 text-primary" />
+                <div>
+                  <CardTitle className="font-headline text-xl">Total Trip Estimate</CardTitle>
+                  <CardDescription>Grand total for your family's 1-week trip.</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-accent" />
+                  Overall Cost Breakdown
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pl-6">
+                  {/* By Car (Tesla) */}
+                  <div className="space-y-2">
+                    <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
+                    <p className="text-sm text-muted-foreground">Travel: ~$345</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,810</p>
+                  </div>
+
+                  {/* By Car (Toyota) */}
+                  <div className="space-y-2">
+                    <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
+                    <p className="text-sm text-muted-foreground">Travel: ~$395</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,860</p>
+                  </div>
+                  
+                  {/* By Plane */}
+                  <div className="space-y-2">
+                    <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
+                    <p className="text-sm text-muted-foreground">Travel: ~$950</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$2,415</p>
+                  </div>
+                </div>
+              </div>
+               <Separator />
+               <div className="px-6 text-sm text-muted-foreground">
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Costs for lodging and food in Philadelphia are calculated as: 7 nights hotel (~$1400) + 7 days food (~$1500 for 5 people) + local transport (~$125) for a weekly stay total of ~$3025. Travel costs are added on top. Your actual expenses may vary.</p>
+               </div>
+            </CardContent>
+          </Card>
+
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
