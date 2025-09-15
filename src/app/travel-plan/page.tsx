@@ -61,12 +61,11 @@ export default function TravelPlanPage() {
                   <div>
                     <p className="font-semibold">Common Costs</p>
                     <p className="text-sm text-muted-foreground">Lodging (1 night): ~$220 (2 rooms)</p>
-                    <p className="text-sm text-muted-foreground">Food & Snacks (5 people): ~$125</p>
                   </div>
                    <div>
                     <p className="font-semibold">Total Estimated One-Way Cost</p>
-                     <p className="text-sm text-muted-foreground">With Tesla: ~$410-420</p>
-                     <p className="text-sm text-muted-foreground">With Toyota: ~$450-475</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$285-295</p>
+                     <p className="text-sm text-muted-foreground">With Toyota: ~$325-355</p>
                   </div>
                 </div>
               </div>
@@ -210,7 +209,7 @@ export default function TravelPlanPage() {
                 <Hotel className="h-8 w-8 text-primary" />
                 <div>
                   <CardTitle className="font-headline text-xl">Philadelphia Stay</CardTitle>
-                  <CardDescription>Lodging budget for your week-long visit.</CardDescription>
+                  <CardDescription>Lodging budget for your 4-day visit.</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -218,12 +217,12 @@ export default function TravelPlanPage() {
               <div>
                 <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-accent" />
-                  Estimated Weekly Costs
+                  Estimated Costs (4 Nights)
                 </h4>
                 <div className="space-y-4 pl-6">
                   <div>
-                    <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
-                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,540 (2 rooms @ $220/night)</p>
+                    <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Lodging</p>
+                    <p className="text-sm text-muted-foreground">Hotel (4 nights): ~$880 (2 rooms @ $220/night)</p>
                   </div>
                 </div>
               </div>
@@ -252,7 +251,7 @@ export default function TravelPlanPage() {
                 <Wallet className="h-8 w-8 text-primary" />
                 <div>
                   <CardTitle className="font-headline text-xl">Total Round-Trip Estimate</CardTitle>
-                  <CardDescription>Grand total for your family's 1-week trip.</CardDescription>
+                  <CardDescription>Grand total for your family's 4-day trip.</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -269,11 +268,10 @@ export default function TravelPlanPage() {
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$140</p>
                     <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$440</p>
                     <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-sm text-muted-foreground">Lodging in Philly (4 nights): ~$880</p>
                       <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,995</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,460</p>
                   </div>
 
                   {/* By Car (Toyota) */}
@@ -282,11 +280,10 @@ export default function TravelPlanPage() {
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$240</p>
                     <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$440</p>
                     <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-sm text-muted-foreground">Lodging in Philly (4 nights): ~$880</p>
                       <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,095</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,560</p>
                   </div>
                   
                   {/* By Plane */}
@@ -294,17 +291,16 @@ export default function TravelPlanPage() {
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
                     <p className="text-sm text-muted-foreground">Travel (Airfare & Extras): ~$950</p>
                      <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-sm text-muted-foreground">Lodging in Philly (4 nights): ~$880</p>
                       <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,990</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,830</p>
                   </div>
                 </div>
               </div>
                <Separator />
                <div className="px-6 text-sm text-muted-foreground">
-                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Food & Dining for car travel includes a budget for 2 travel days (~$250) plus the weekly budget (~$1625). Your actual expenses may vary.</p>
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Your actual expenses may vary.</p>
                </div>
             </CardContent>
           </Card>
@@ -317,3 +313,5 @@ export default function TravelPlanPage() {
     </div>
   );
 }
+
+    
