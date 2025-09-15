@@ -40,7 +40,7 @@ export default function TravelPlanPage() {
               <div className="flex items-center gap-4">
                 <Clock className="h-5 w-5 text-accent" />
                 <div>
-                  <p className="font-semibold">Estimated Driving Time</p>
+                  <p className="font-semibold">Estimated Driving Time (One-Way)</p>
                   <p className="text-muted-foreground">13-14 hours (without stops)</p>
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function TravelPlanPage() {
               <div>
                 <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-accent" />
-                  Estimated Cost
+                  Estimated One-Way Cost
                 </h4>
                 <div className="space-y-4 pl-6">
                   <div>
@@ -64,7 +64,7 @@ export default function TravelPlanPage() {
                     <p className="text-sm text-muted-foreground">Food & Snacks (5 people): ~$125</p>
                   </div>
                    <div>
-                    <p className="font-semibold">Total Estimated Cost</p>
+                    <p className="font-semibold">Total Estimated One-Way Cost</p>
                      <p className="text-sm text-muted-foreground">With Tesla: ~$430-440</p>
                      <p className="text-sm text-muted-foreground">With Toyota: ~$470-495</p>
                   </div>
@@ -76,7 +76,7 @@ export default function TravelPlanPage() {
               <div>
                 <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
                   <Route className="h-5 w-5 text-accent" />
-                  Roadmap
+                  Roadmap (One-Way)
                 </h4>
                 <div className="space-y-4 relative pl-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-border">
                   <div className="flex items-start gap-4">
@@ -144,7 +144,7 @@ export default function TravelPlanPage() {
                 <div>
                   <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-accent" />
-                    Estimated Cost
+                    Estimated Cost (Round-Trip)
                   </h4>
                   <div className="space-y-3 pl-6">
                     <div>
@@ -256,7 +256,7 @@ export default function TravelPlanPage() {
               <div className="flex items-center gap-3">
                 <Wallet className="h-8 w-8 text-primary" />
                 <div>
-                  <CardTitle className="font-headline text-xl">Total Trip Estimate</CardTitle>
+                  <CardTitle className="font-headline text-xl">Total Round-Trip Estimate</CardTitle>
                   <CardDescription>Grand total for your family's 1-week trip.</CardDescription>
                 </div>
               </div>
@@ -271,21 +271,21 @@ export default function TravelPlanPage() {
                   {/* By Car (Tesla) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
-                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$70</p>
-                    <p className="text-sm text-muted-foreground">Overnight Lodging: ~$240</p>
+                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$140</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
                     <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,625</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,615</p>
+                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,175</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
-                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$120</p>
-                    <p className="text-sm text-muted-foreground">Overnight Lodging: ~$240</p>
+                    <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$240</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
                     <p className="text-sm text-muted-foreground">Weekly Lodging: ~$1,680</p>
-                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,625</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,665</p>
+                    <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,275</p>
                   </div>
                   
                   {/* By Plane */}
@@ -300,7 +300,7 @@ export default function TravelPlanPage() {
               </div>
                <Separator />
                <div className="px-6 text-sm text-muted-foreground">
-                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Food & Dining includes a travel-day budget of ~$125 and a weekly budget of ~$1500 (based on ~$215/day for 7 days). Your actual expenses may vary.</p>
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Food & Dining for car travel includes a budget for 2 travel days (~$250) plus the weekly budget (~$1625). Your actual expenses may vary.</p>
                </div>
             </CardContent>
           </Card>
@@ -313,5 +313,3 @@ export default function TravelPlanPage() {
     </div>
   );
 }
-
-    
