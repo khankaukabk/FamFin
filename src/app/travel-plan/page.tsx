@@ -150,12 +150,16 @@ export default function TravelPlanPage() {
                     <div>
                       <p className="font-semibold">Round-Trip Airfare</p>
                       <p className="text-sm text-muted-foreground">Per Person: ~$150 (booked in advance)</p>
-                       <p className="text-sm text-muted-foreground">Total for 4 people: ~$600</p>
                     </div>
                     <div>
                       <p className="font-semibold">Additional Costs</p>
                       <p className="text-sm text-muted-foreground">Baggage Fees: ~$30-60 per bag</p>
                       <p className="text-sm text-muted-foreground">Ground Transport: ~$50-100</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Total Estimated Cost (4 people)</p>
+                      <p className="text-sm text-muted-foreground">Airfare: ~$600</p>
+                      <p className="text-sm text-muted-foreground">Total: ~$750-850 (including extras)</p>
                     </div>
                   </div>
                 </div>
