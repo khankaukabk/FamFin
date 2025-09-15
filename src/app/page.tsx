@@ -16,9 +16,9 @@ const initialTransactions: Transaction[] = [
   { id: "1", type: "income", amount: 1000.0, category: "Employment", description: "DFAS", member: "Kausain", date: "2024-07-01" },
   { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice", member: "Ammu", date: "2024-07-01" },
   { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income", member: "Musaab", date: "2024-07-01" },
-  { id: "4", type: "income", amount: 250.0, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
+  { id: "4", type: "income", amount: 292, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
   { id: "5", type: "income", amount: 360.0, category: "Government", description: "Unemployment", member: "Kaukab", date: "2024-07-01" },
-  { id: "6", type: "income", amount: 500.0, category: "Government", description: "EBT", member: "Abbu", date: "2024-07-01" },
+  { id: "6", type: "income", amount: 536, category: "Government", description: "EBT", member: "Abbu", date: "2024-07-01" },
 
   // Expense Data
   { id: "7", type: "expense", amount: 807.75, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
