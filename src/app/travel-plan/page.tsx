@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 export default function TravelPlanPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop_blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
         <div className="flex items-center gap-4">
           <Link href="/" passHref>
             <Button variant="outline" size="icon">
@@ -61,12 +61,12 @@ export default function TravelPlanPage() {
                   <div>
                     <p className="font-semibold">Common Costs</p>
                     <p className="text-sm text-muted-foreground">Lodging (1 night): ~$150</p>
-                    <p className="text-sm text-muted-foreground">Food & Snacks: ~$100</p>
+                    <p className="text-sm text-muted-foreground">Food & Snacks (5 people): ~$125</p>
                   </div>
                    <div>
                     <p className="font-semibold">Total Estimated Cost</p>
-                     <p className="text-sm text-muted-foreground">With Tesla: ~$315-325</p>
-                     <p className="text-sm text-muted-foreground">With Toyota: ~$355-380</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$340-350</p>
+                     <p className="text-sm text-muted-foreground">With Toyota: ~$380-405</p>
                   </div>
                 </div>
               </div>
@@ -157,9 +157,9 @@ export default function TravelPlanPage() {
                       <p className="text-sm text-muted-foreground">Ground Transport: ~$50-100</p>
                     </div>
                     <div>
-                      <p className="font-semibold">Total Estimated Cost (4 people)</p>
-                      <p className="text-sm text-muted-foreground">Airfare: ~$600</p>
-                      <p className="text-sm text-muted-foreground">Total: ~$750-850 (including extras)</p>
+                      <p className="font-semibold">Total Estimated Cost (5 people)</p>
+                      <p className="text-sm text-muted-foreground">Airfare: ~$750</p>
+                      <p className="text-sm text-muted-foreground">Total: ~$900-1000 (including extras)</p>
                     </div>
                   </div>
                 </div>
@@ -227,7 +227,7 @@ export default function TravelPlanPage() {
                   </div>
                    <div>
                     <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
-                    <p className="text-sm text-muted-foreground">Daily Budget: ~$150-200 for a family of 4</p>
+                    <p className="text-sm text-muted-foreground">Daily Budget: ~$180-250 for a family of 5</p>
                   </div>
                   <div>
                     <p className="font-semibold flex items-center gap-2"><Bus className="h-4 w-4" /> Local Transport</p>
@@ -260,5 +260,3 @@ export default function TravelPlanPage() {
     </div>
   );
 }
-
-    
