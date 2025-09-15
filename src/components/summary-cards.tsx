@@ -62,7 +62,7 @@ export function SummaryCards({
           <div
             className={cn(
               "text-2xl font-bold",
-              balance >= 0 ? "text-primary" : "text-accent"
+              balance >= 0 ? "text-primary" : "text-destructive text-3xl"
             )}
           >
             {currencyFormatter.format(balance)}

@@ -8,7 +8,6 @@ import type { Transaction } from "@/lib/types";
 import { SummaryCards } from "@/components/summary-cards";
 import { ExpenseDetails } from "@/components/expense-details";
 import { SpendingChart } from "@/components/spending-chart";
-import { FinancialAdvice } from "@/components/financial-advice";
 import { Card, CardContent } from "@/components/ui/card";
 import { IncomeDetails } from "@/components/income-details";
 
@@ -50,19 +49,6 @@ export default function Home() {
     return { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions };
   }, [transactions]);
 
-  const spendingHabits = React.useMemo(() => {
-    const expenseByCategory = transactions
-      .filter((t) => t.type === "expense")
-      .reduce((acc, t) => {
-        acc[t.category] = (acc[t.category] || 0) + t.amount;
-        return acc;
-      }, {} as Record<string, number>);
-
-    return Object.entries(expenseByCategory)
-      .map(([category, amount]) => `${category}: $${amount.toFixed(2)}`)
-      .join(", ");
-  }, [transactions]);
-
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
@@ -79,8 +65,7 @@ export default function Home() {
           totalExpenses={totalExpenses}
           balance={balance}
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
-          <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
             <Card>
               <CardContent className="p-4 md:p-6">
                 <SpendingChart transactions={transactions} />
@@ -98,14 +83,6 @@ export default function Home() {
                   </CardContent>
                 </Card>
             </div>
-          </div>
-          <div className="col-span-1 flex flex-col gap-4">
-            <FinancialAdvice
-              income={totalIncome}
-              expenses={totalExpenses}
-              spendingHabits={spendingHabits}
-            />
-          </div>
         </div>
       </main>
     </div>
