@@ -60,13 +60,13 @@ export default function TravelPlanPage() {
                   </div>
                   <div>
                     <p className="font-semibold">Common Costs</p>
-                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$240 (2 rooms)</p>
+                    <p className="text-sm text-muted-foreground">Lodging (1 night): ~$220 (2 rooms)</p>
                     <p className="text-sm text-muted-foreground">Food & Snacks (5 people): ~$125</p>
                   </div>
                    <div>
                     <p className="font-semibold">Total Estimated One-Way Cost</p>
-                     <p className="text-sm text-muted-foreground">With Tesla: ~$430-440</p>
-                     <p className="text-sm text-muted-foreground">With Toyota: ~$470-495</p>
+                     <p className="text-sm text-muted-foreground">With Tesla: ~$410-420</p>
+                     <p className="text-sm text-muted-foreground">With Toyota: ~$450-475</p>
                   </div>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function TravelPlanPage() {
                 <div className="space-y-4 pl-6">
                   <div>
                     <p className="font-semibold flex items-center gap-2"><Hotel className="h-4 w-4" /> Weekly Lodging</p>
-                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,680 (2 rooms @ $120/night each)</p>
+                    <p className="text-sm text-muted-foreground">Hotel (7 nights): ~$1,540 (2 rooms @ $220/night)</p>
                   </div>
                 </div>
               </div>
@@ -267,26 +267,26 @@ export default function TravelPlanPage() {
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$140</p>
-                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$440</p>
                     <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
-                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,175</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,995</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
                     <p className="text-sm text-muted-foreground">Travel (Fuel/Charge): ~$240</p>
-                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$480</p>
+                    <p className="text-sm text-muted-foreground">Overnight Lodging (2 nights): ~$440</p>
                     <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
-                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,875</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,275</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,095</p>
                   </div>
                   
                   {/* By Plane */}
@@ -294,11 +294,11 @@ export default function TravelPlanPage() {
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
                     <p className="text-sm text-muted-foreground">Travel (Airfare & Extras): ~$950</p>
                      <div>
-                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,680</p>
-                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $120/night)</p>
+                      <p className="text-sm text-muted-foreground">Weekly Lodging (7 nights): ~$1,540</p>
+                      <p className="text-xs text-muted-foreground/80 pl-4">(2 rooms @ $220/night)</p>
                     </div>
                     <p className="text-sm text-muted-foreground">Food & Dining: ~$1,500</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$4,130</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$3,990</p>
                   </div>
                 </div>
               </div>
