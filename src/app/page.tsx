@@ -88,7 +88,7 @@ export default function Home() {
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
-        © 2024 Created by the Khan Family
+        © 2025 Created by the Khan Family
       </footer>
     </div>
   );
