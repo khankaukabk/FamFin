@@ -154,7 +154,7 @@ export default function TravelPlanPage() {
                     <div>
                       <p className="font-semibold">Additional Costs</p>
                       <p className="text-sm text-muted-foreground">Baggage Fees: ~$30-60 per bag</p>
-                      <p className="text-sm text-muted-foreground">Ground Transport: ~$50-100</p>
+                      <p className="text-sm text-muted-foreground">Ground Transport (to/from airport): ~$50-100</p>
                     </div>
                     <div>
                       <p className="font-semibold">Total Estimated Cost (5 people)</p>
@@ -229,10 +229,6 @@ export default function TravelPlanPage() {
                     <p className="font-semibold flex items-center gap-2"><Utensils className="h-4 w-4" /> Food & Dining</p>
                     <p className="text-sm text-muted-foreground">Daily Budget: ~$180-250 for a family of 5</p>
                   </div>
-                  <div>
-                    <p className="font-semibold flex items-center gap-2"><Bus className="h-4 w-4" /> Local Transport</p>
-                    <p className="text-sm text-muted-foreground">SEPTA Passes & Ride-Sharing: ~$100-150</p>
-                  </div>
                 </div>
               </div>
 
@@ -275,30 +271,30 @@ export default function TravelPlanPage() {
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Tesla)</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$345</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,810</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,685</p>
                   </div>
 
                   {/* By Car (Toyota) */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Car className="h-5 w-5" /> Trip by Car (Toyota)</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$395</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,860</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$1,735</p>
                   </div>
                   
                   {/* By Plane */}
                   <div className="space-y-2">
                     <p className="font-semibold text-base flex items-center gap-2"><Plane className="h-5 w-5" /> Trip by Plane</p>
                     <p className="text-sm text-muted-foreground">Travel: ~$950</p>
-                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,465 (mid-range)</p>
-                    <p className="font-bold text-primary text-lg mt-2">Total: ~$2,415</p>
+                    <p className="text-sm text-muted-foreground">Weekly Stay: ~$1,340 (mid-range)</p>
+                    <p className="font-bold text-primary text-lg mt-2">Total: ~$2,290</p>
                   </div>
                 </div>
               </div>
                <Separator />
                <div className="px-6 text-sm text-muted-foreground">
-                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Costs for lodging and food in Philadelphia are calculated as: 7 nights hotel (~$1400) + 7 days food (~$1500 for 5 people) + local transport (~$125) for a weekly stay total of ~$3025. Travel costs are added on top. Your actual expenses may vary.</p>
+                  <p><span className="font-semibold">Note:</span> These are mid-range estimates. Costs for lodging and food in Philadelphia are calculated as: 7 nights hotel (~$1400) + 7 days food (~$1500 for 5 people) for a weekly stay total of ~$2900. Travel costs are added on top. Your actual expenses may vary.</p>
                </div>
             </CardContent>
           </Card>
@@ -311,3 +307,5 @@ export default function TravelPlanPage() {
     </div>
   );
 }
+
+    
