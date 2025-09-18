@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Hospital, Stethoscope, Pill, Shield, FilePlus, PlusCircle } from "lucide-react";
+import { ArrowLeft, Hospital, Stethoscope, Pill, Shield, PlusCircle, CalendarDays, PartyPopper, CalendarCheck, CircleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -45,6 +45,43 @@ export default function MedicareRoadmapPage() {
                   <p className="text-muted-foreground">Covers certain doctors' services, outpatient care, medical supplies, and preventive services. You'll pay a monthly premium for this.</p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-8">
+            <CardHeader>
+                <div className="flex items-center gap-3">
+                    <CalendarDays className="h-8 w-8 text-primary" />
+                    <div>
+                        <CardTitle className="font-headline text-xl">When to Enroll: Key Medicare Deadlines</CardTitle>
+                        <CardDescription>Signing up on time is crucial to avoid late enrollment penalties.</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex items-start gap-4">
+                        <PartyPopper className="h-8 w-8 text-accent mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="font-semibold text-lg">Initial Enrollment Period (IEP)</h3>
+                            <p className="text-muted-foreground">This is your main window to sign up. It's a 7-month period that starts 3 months before your 65th birthday month, includes your birthday month, and ends 3 months after.</p>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                        <CalendarCheck className="h-8 w-8 text-accent mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="font-semibold text-lg">Open Enrollment Period</h3>
+                            <p className="text-muted-foreground"><span className="font-bold">October 15 – December 7</span> each year. During this time, you can join, switch, or drop a Medicare Advantage or Part D plan.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg">
+                    <CircleAlert className="h-6 w-6 text-muted-foreground mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-semibold text-lg">Other Enrollment Times</h3>
+                        <p className="text-muted-foreground text-sm">If you miss your IEP, you can sign up during the <span className="font-semibold">General Enrollment Period (Jan 1 - Mar 31)</span>, but you may face late penalties. Special Enrollment Periods are also available for certain life events, like losing other health coverage.</p>
+                    </div>
+                </div>
             </CardContent>
           </Card>
 
