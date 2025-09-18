@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield } from "lucide-react";
+import { Leaf, Plane, Shield, Warehouse } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import Link from "next/link";
 
@@ -55,7 +55,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex flex-col items-start gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:flex-row sm:h-16 sm:items-center sm:justify-between sm:px-6">
+      <header className="sticky top-0 z-30 flex h-auto flex-col items-start gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />
           <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
@@ -73,6 +73,12 @@ export default function Home() {
             <Button variant="outline" className="w-full sm:w-auto">
               <Plane className="h-4 w-4 mr-2" />
               Travel Plan
+            </Button>
+          </Link>
+          <Link href="/farm-business-plan" passHref className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto">
+              <Warehouse className="h-4 w-4 mr-2" />
+              Farm Business Plan
             </Button>
           </Link>
         </div>
