@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 export default function TravelPlanPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop_blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
         <div className="flex items-center gap-4">
           <Link href="/" passHref>
             <Button variant="outline" size="icon">
@@ -313,5 +313,3 @@ export default function TravelPlanPage() {
     </div>
   );
 }
-
-    
