@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Hospital, Stethoscope, Pill, Shield, PlusCircle, CalendarDays, PartyPopper, CalendarCheck, CircleAlert } from "lucide-react";
+import { ArrowLeft, Hospital, Stethoscope, Pill, Shield, PlusCircle, CalendarDays, PartyPopper, CalendarCheck, CircleAlert, Phone, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -78,8 +78,8 @@ export default function MedicareRoadmapPage() {
                  <div className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg">
                     <CircleAlert className="h-6 w-6 text-muted-foreground mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-semibold text-lg">Other Enrollment Times</h3>
-                        <p className="text-muted-foreground text-sm">If you miss your IEP, you can sign up during the <span className="font-semibold">General Enrollment Period (Jan 1 - Mar 31)</span>, but you may face late penalties. Special Enrollment Periods are also available for certain life events, like losing other health coverage.</p>
+                        <h3 className="font-semibold text-lg">Late Penalties & Other Enrollment Times</h3>
+                        <p className="text-muted-foreground text-sm">If you miss your IEP, you can sign up during the <span className="font-semibold">General Enrollment Period (Jan 1 - Mar 31)</span>, but you may face a life-long late penalty on your premiums. <span className="font-semibold">Special Enrollment Periods</span> are also available for certain life events, like losing other health coverage, which allow you to enroll without penalty.</p>
                     </div>
                 </div>
             </CardContent>
@@ -196,10 +196,44 @@ export default function MedicareRoadmapPage() {
               </CardContent>
             </Card>
           </div>
+
+          <Card className="mt-8 border-accent/50">
+            <CardHeader>
+                <div className="flex items-center gap-3">
+                <Phone className="h-8 w-8 text-accent" />
+                <div>
+                    <CardTitle className="font-headline text-xl">Get Official Help</CardTitle>
+                    <CardDescription>Contact Medicare directly for personalized advice.</CardDescription>
+                </div>
+                </div>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-6">
+                <div className="flex items-start gap-4">
+                    <Globe className="h-6 w-6 text-muted-foreground mt-1 flex-shrink-0" />
+                    <div>
+                        <h4 className="font-semibold">Official Website</h4>
+                        <a href="https://www.medicare.gov" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                            Medicare.gov
+                        </a>
+                        <p className="text-sm text-muted-foreground">Find plans, check eligibility, and get official publications.</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-4">
+                    <Phone className="h-6 w-6 text-muted-foreground mt-1 flex-shrink-0" />
+                    <div>
+                        <h4 className="font-semibold">Phone Number</h4>
+                        <a href="tel:1-800-633-4227" className="text-primary hover:underline">
+                            1-800-MEDICARE
+                        </a>
+                        <p className="text-sm text-muted-foreground">(1-800-633-4227) available 24/7. TTY users can call 1-877-486-2048.</p>
+                    </div>
+                </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
-        This is for informational purposes only. Consult an official Medicare advisor for personal guidance.
+        This is for informational purposes only and is not affiliated with the U.S. government or Medicare. Consult an official Medicare advisor for personal guidance.
       </footer>
     </div>
   );
