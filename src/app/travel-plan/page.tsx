@@ -11,14 +11,14 @@ import { Separator } from "@/components/ui/separator";
 export default function TravelPlanPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-b sm:bg-transparent sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
         <div className="flex items-center gap-4">
           <Link href="/" passHref>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" className="h-8 w-8 flex-shrink-0 sm:h-10 sm:w-10">
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
+          <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
             Travel Plan: Alabama to Philadelphia
           </h1>
         </div>
