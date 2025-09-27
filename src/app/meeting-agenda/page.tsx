@@ -132,7 +132,7 @@ export default function MeetingAgendaPage() {
                     <CardTitle className="font-headline text-xl">Action Items</CardTitle>
                 </div>
                 <CardDescription>Tasks and responsibilities assigned during the meeting.</CardDescription>
-            </Header>
+            </CardHeader>
             <CardContent>
                <Table>
                     <TableHeader>
