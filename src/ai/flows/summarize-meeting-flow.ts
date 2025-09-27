@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import { z } from 'genkit';
 
 const AgendaItemDecisionSchema = z.object({
     topic: z.string().describe('The main topic of the agenda item.'),
