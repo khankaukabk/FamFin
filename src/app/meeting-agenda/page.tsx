@@ -22,7 +22,7 @@ type AgendaItem = {
 
 export default function MeetingAgendaPage() {
   const attendees = [
-    { name: "Aminuddin", initials: "A", role: "Project Lead" },
+    { name: "Aminuddin Khan", initials: "AK", role: "Project Lead" },
     { name: "Abul Mansur", initials: "AM", role: "Head of Finance" },
     { name: "Abid Abdullah", initials: "AA", role: "Operations" },
     { name: "Ashif Jahan", initials: "AJ", role: "Community Outreach" },
@@ -30,7 +30,7 @@ export default function MeetingAgendaPage() {
   ];
 
   const initialAgendaItems: AgendaItem[] = [
-    { time: "10 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin", icon: Briefcase, vote: 'pending' },
+    { time: "10 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board. Crucially, we need to clarify the nature of his $1,000,000 payment—is it for the directorship or a separate contribution?", presenter: "Aminuddin", icon: Briefcase, vote: 'pending' },
     { time: "5 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin", icon: UserCheck, vote: 'pending' },
     { time: "5 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark, vote: 'pending' },
     { time: "5 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText, vote: 'pending' },
