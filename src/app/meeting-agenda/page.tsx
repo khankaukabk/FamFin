@@ -3,11 +3,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Users, User, Mic, ListChecks, CheckSquare } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Users, User, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function MeetingAgendaPage() {
@@ -17,21 +16,20 @@ export default function MeetingAgendaPage() {
     { name: "Musaab Khan", initials: "MK", role: "Operations" },
     { name: "Kaukab Khan", initials: "KK", role: "Community Outreach" },
     { name: "Abbu Khan", initials: "AK", role: "Technical Advisor" },
+    { name: "Usman", initials: "U", role: "Potential Director" },
+    { name: "Mansur", initials: "M", role: "CFO" },
   ];
 
   const agendaItems = [
-    { time: "10 min", topic: "Review of Q3 Financials & Performance", presenter: "Ammu Khan" },
-    { time: "15 min", topic: "Poultry Farm Project: Final Budget Review", presenter: "Kausain Khan" },
-    { time: "10 min", topic: "Community Labor Exchange: Program Update", presenter: "Kaukab Khan" },
-    { time: "15 min", topic: "Infrastructure Plan & Timeline for Coops", presenter: "Abbu & Musaab Khan" },
-    { time: "10 min", topic: "Next Steps & Action Item Assignments", presenter: "Kausain Khan" },
+    { time: "15 min", topic: "New Directorship: Should Usman be a director?", presenter: "Kausain Khan", icon: Briefcase },
+    { time: "15 min", topic: "Confirm Mansur as CFO & Finance Team Structure", presenter: "Ammu Khan", icon: UserCheck },
+    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Kausain Khan", icon: CalendarClock },
   ];
 
   const actionItems = [
-      { task: "Finalize and approve the Q4 startup budget for the poultry farm.", owner: "Ammu Khan", status: "Completed" },
-      { task: "Purchase materials for the two chicken coops and fencing.", owner: "Abbu Khan", status: "In Progress" },
-      { task: "Coordinate with the two community members for the labor exchange shifts.", owner: "Kaukab Khan", status: "Not Started" },
-      { task: "Draft a one-page summary of the business plan for grant applications.", owner: "Kausain Khan", status: "Not Started" },
+      { task: "Finalize decision on Usman's directorship.", owner: "All", status: "Not Started" },
+      { task: "Send official confirmation to Mansur regarding CFO role.", owner: "Kausain Khan", status: "Not Started" },
+      { task: "Confirm attendance for investor and Selim meetings.", owner: "Musaab Khan", status: "Not Started" },
   ];
 
   return (
@@ -53,15 +51,15 @@ export default function MeetingAgendaPage() {
           
           <Card>
             <CardHeader>
-                <CardTitle className="font-headline text-2xl">Quarterly Planning Meeting</CardTitle>
+                <CardTitle className="font-headline text-2xl">Board & Strategy Meeting</CardTitle>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-muted-foreground pt-2">
                     <div className="flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
-                        <span>October 28, 2025</span>
+                        <span>October 29, 2025</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5" />
-                        <span>7:00 PM - 8:00 PM</span>
+                        <span>8:00 PM - 8:45 PM</span>
                     </div>
                 </div>
             </CardHeader>
@@ -111,7 +109,10 @@ export default function MeetingAgendaPage() {
                             {agendaItems.map((item) => (
                                 <TableRow key={item.topic}>
                                     <TableCell className="font-medium text-muted-foreground">{item.time}</TableCell>
-                                    <TableCell className="font-semibold">{item.topic}</TableCell>
+                                    <TableCell className="font-semibold flex items-center gap-3">
+                                        <item.icon className="h-5 w-5 text-primary/80" />
+                                        {item.topic}
+                                    </TableCell>
                                     <TableCell className="flex items-center gap-2">
                                       <Mic className="h-4 w-4 text-muted-foreground" />
                                       {item.presenter}
