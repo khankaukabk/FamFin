@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield, Warehouse } from "lucide-react";
+import { Leaf, Plane, Shield, Warehouse, ListChecks } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import Link from "next/link";
 
@@ -62,7 +62,7 @@ export default function Home() {
             Family Financials
           </h1>
         </div>
-        <div className="flex w-full items-center gap-2 sm:w-auto">
+        <div className="flex w-full items-center gap-2 sm:w-auto flex-wrap">
           <Link href="/medicare-roadmap" passHref className="w-full sm:w-auto">
             <Button variant="outline" className="w-full sm:w-auto">
               <Shield className="h-4 w-4 mr-2" />
@@ -79,6 +79,12 @@ export default function Home() {
             <Button variant="outline" className="w-full sm:w-auto">
               <Warehouse className="h-4 w-4 mr-2" />
               Farm Business Plan
+            </Button>
+          </Link>
+          <Link href="/meeting-agenda" passHref className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto">
+              <ListChecks className="h-4 w-4 mr-2" />
+              Meeting Agenda
             </Button>
           </Link>
         </div>
