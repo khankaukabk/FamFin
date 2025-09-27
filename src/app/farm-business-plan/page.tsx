@@ -233,7 +233,7 @@ export default function FarmBusinessPlanPage() {
                     <Separator />
                      <div>
                         <h4 className="font-semibold mb-2">Breakeven Point Analysis</h4>
-                        <p className="text-sm text-muted-foreground">With a projected monthly net of <span className="font-semibold text-primary">$75</span>, the project could break even in ~34 months. However, with upfront capital covered and shared costs, cash-flow positive operations could be achieved as early as <span className="font-semibold text-primary">Month 7-8 (May-June 2026)</span>.</p>
+                        <p className="text-sm text-muted-foreground">With a projected monthly net of <span className="font-semibold text-primary">$220</span>, the project could break even in ~34 months. However, with upfront capital covered and shared costs, cash-flow positive operations could be achieved as early as <span className="font-semibold text-primary">Month 7-8 (May-June 2026)</span>.</p>
                     </div>
                 </CardContent>
             </Card>
@@ -262,3 +262,5 @@ export default function FarmBusinessPlanPage() {
     </div>
   );
 }
+
+    
