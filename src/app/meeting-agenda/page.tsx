@@ -3,56 +3,78 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock, Target, Landmark, FileText } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, Briefcase, UserCheck, CalendarClock, Target, Landmark, FileText, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Checkbox } from "@/components/ui/checkbox";
+import { summarizeDecisions, type AgendaItemDecision } from "@/ai/flows/summarize-meeting-flow";
+import { Skeleton } from "@/components/ui/skeleton";
 
-type ActionItem = {
-  id: number;
-  task: string;
-  owner: string;
-  status: "Completed" | "Not Started";
+type AgendaItem = {
+  time: string;
+  topic: string;
+  description: string;
+  presenter: string;
+  icon: React.ElementType;
+  vote: 'yes' | 'no' | 'pending';
 };
 
 export default function MeetingAgendaPage() {
   const attendees = [
-    { name: "Aminuddin Khan", initials: "AK", role: "Project Lead" },
+    { name: "Aminuddin", initials: "A", role: "Project Lead" },
     { name: "Abul Mansur", initials: "AM", role: "Head of Finance" },
     { name: "Abid Abdullah", initials: "AA", role: "Operations" },
     { name: "Ashif Jahan", initials: "AJ", role: "Community Outreach" },
     { name: "Usman Niwaz", initials: "UN", role: "Potential Director" },
   ];
 
-  const agendaItems = [
-    { time: "15 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin K", icon: Briefcase },
-    { time: "15 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin K", icon: UserCheck },
-    { time: "10 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark },
-    { time: "10 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText },
-    { time: "10 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin K", icon: CalendarClock },
+  const initialAgendaItems: AgendaItem[] = [
+    { time: "15 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin", icon: Briefcase, vote: 'pending' },
+    { time: "15 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin", icon: UserCheck, vote: 'pending' },
+    { time: "10 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark, vote: 'pending' },
+    { time: "10 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText, vote: 'pending' },
+    { time: "10 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin", icon: CalendarClock, vote: 'pending' },
   ];
 
-  const initialActionItems: ActionItem[] = [
-      { id: 1, task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
-      { id: 2, task: "Send official confirmation to Abul Mansur regarding Head of Finance role.", owner: "Aminuddin K", status: "Not Started" },
-      { id: 3, task: "Draft investment proposal for TN investors regarding AL-first strategy.", owner: "Abul M", status: "Not Started" },
-      { id: 4, task: "Outline a plan for tax preparation and assign a responsible party.", owner: "Abul M", status: "Not Started" },
-      { id: 5, task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
-  ];
+  const [agendaItems, setAgendaItems] = React.useState<AgendaItem[]>(initialAgendaItems);
+  const [summary, setSummary] = React.useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = React.useState(false);
 
-  const [actionItems, setActionItems] = React.useState<ActionItem[]>(initialActionItems);
-
-  const handleActionItemToggle = (id: number) => {
-    setActionItems(prevItems =>
+  const handleVote = (topic: string, decision: 'yes' | 'no') => {
+    setAgendaItems(prevItems =>
       prevItems.map(item =>
-        item.id === id
-          ? { ...item, status: item.status === "Completed" ? "Not Started" : "Completed" }
-          : item
+        item.topic === topic ? { ...item, vote: decision } : item
       )
     );
   };
+
+  const allVotesMade = React.useMemo(() => {
+    return agendaItems.every(item => item.vote !== 'pending');
+  }, [agendaItems]);
+
+  const handleGenerateSummary = async () => {
+    if (!allVotesMade) return;
+    setIsGenerating(true);
+    setSummary(null);
+
+    const decisions: AgendaItemDecision[] = agendaItems.map(item => ({
+      topic: item.topic,
+      description: item.description,
+      outcome: item.vote,
+    }));
+    
+    try {
+        const result = await summarizeDecisions({ decisions });
+        setSummary(result.summary);
+    } catch (error) {
+        console.error("Error generating summary:", error);
+        setSummary("There was an error generating the summary. Please try again.");
+    } finally {
+        setIsGenerating(false);
+    }
+  };
+
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -124,34 +146,46 @@ export default function MeetingAgendaPage() {
                 <CardHeader>
                      <div className="flex items-center gap-3">
                         <ListChecks className="h-8 w-8 text-primary" />
-                        <CardTitle className="font-headline text-xl">Agenda</CardTitle>
+                        <CardTitle className="font-headline text-xl">Agenda & Voting</CardTitle>
                     </div>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[80px]">Time</TableHead>
                                 <TableHead>Topic</TableHead>
-                                <TableHead>Presenter</TableHead>
+                                <TableHead className="text-right">Decision</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {agendaItems.map((item) => (
                                 <TableRow key={item.topic}>
-                                    <TableCell className="font-medium text-muted-foreground">{item.time}</TableCell>
                                     <TableCell className="font-semibold">
                                         <div className="flex items-start gap-3">
                                             <item.icon className="h-5 w-5 text-primary/80 mt-1 flex-shrink-0" />
                                             <div>
                                               {item.topic}
-                                              {item.description && <p className="text-sm font-normal text-muted-foreground mt-1">{item.description}</p>}
+                                              <p className="text-sm font-normal text-muted-foreground mt-1">{item.description}</p>
+                                              <p className="text-xs text-muted-foreground/80 mt-2 flex items-center gap-1.5"><Mic className="h-3 w-3"/>{item.presenter} • {item.time}</p>
                                             </div>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="flex items-center gap-2">
-                                      <Mic className="h-4 w-4 text-muted-foreground" />
-                                      {item.presenter}
+                                    <TableCell className="text-right space-x-2">
+                                        <Button
+                                            size="sm"
+                                            variant={item.vote === 'yes' ? 'default' : 'outline'}
+                                            onClick={() => handleVote(item.topic, 'yes')}
+                                            className={`transition-all ${item.vote === 'yes' ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                                        >
+                                            Yes
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            variant={item.vote === 'no' ? 'destructive' : 'outline'}
+                                            onClick={() => handleVote(item.topic, 'no')}
+                                        >
+                                            No
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -164,46 +198,35 @@ export default function MeetingAgendaPage() {
           <Card>
             <CardHeader>
                  <div className="flex items-center gap-3">
-                    <CheckSquare className="h-8 w-8 text-primary" />
-                    <CardTitle className="font-headline text-xl">Action Items</CardTitle>
+                    <Bot className="h-8 w-8 text-primary" />
+                    <div>
+                        <CardTitle className="font-headline text-xl">AI-Powered Summary</CardTitle>
+                        <CardDescription>Once all items are voted on, generate a meeting summary.</CardDescription>
+                    </div>
                 </div>
-                <CardDescription>Tasks and responsibilities assigned during the meeting.</CardDescription>
             </CardHeader>
             <CardContent>
-               <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[60px]">Done</TableHead>
-                            <TableHead>Task Description</TableHead>
-                            <TableHead className="w-[150px]">Owner</TableHead>
-                            <TableHead className="w-[120px] text-right">Status</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {actionItems.map((item) => (
-                             <TableRow key={item.id} className={item.status === 'Completed' ? 'bg-muted/50' : ''}>
-                                <TableCell>
-                                  <Checkbox
-                                    id={`action-${item.id}`}
-                                    checked={item.status === 'Completed'}
-                                    onCheckedChange={() => handleActionItemToggle(item.id)}
-                                    aria-label={`Mark '${item.task}' as done`}
-                                  />
-                                </TableCell>
-                                <TableCell className={`font-medium ${item.status === 'Completed' ? 'text-muted-foreground line-through' : ''}`}>{item.task}</TableCell>
-                                <TableCell>{item.owner}</TableCell>
-                                <TableCell className="text-right">
-                                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                                        item.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                                        'bg-yellow-100 text-yellow-800'
-                                    }`}>
-                                        {item.status}
-                                    </span>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <div className="space-y-4">
+                    <Button
+                        onClick={handleGenerateSummary}
+                        disabled={!allVotesMade || isGenerating}
+                    >
+                        {isGenerating ? "Generating..." : "Generate Summary"}
+                        {!isGenerating && <Sparkles className="ml-2 h-4 w-4" />}
+                    </Button>
+                     {isGenerating && (
+                        <div className="space-y-2 pt-2">
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-3/4" />
+                        </div>
+                    )}
+                    {summary && (
+                        <div className="prose prose-sm max-w-none text-muted-foreground rounded-md border bg-muted/50 p-4">
+                            <p>{summary}</p>
+                        </div>
+                    )}
+                </div>
             </CardContent>
           </Card>
           
