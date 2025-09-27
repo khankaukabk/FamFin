@@ -150,11 +150,12 @@ export default function MeetingAgendaPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <Table>
+                    {/* Desktop Table */}
+                    <Table className="hidden md:table">
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Topic</TableHead>
-                                <TableHead className="text-right">Decision</TableHead>
+                                <TableHead className="text-right w-[150px]">Decision</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -191,6 +192,40 @@ export default function MeetingAgendaPage() {
                             ))}
                         </TableBody>
                     </Table>
+
+                     {/* Mobile List */}
+                    <div className="space-y-6 md:hidden">
+                        {agendaItems.map((item) => (
+                            <div key={item.topic} className="border-b pb-4 last:border-b-0">
+                                <div className="flex items-start gap-3">
+                                    <item.icon className="h-5 w-5 text-primary/80 mt-1 flex-shrink-0" />
+                                    <div>
+                                        <p className="font-semibold">{item.topic}</p>
+                                        <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                                        <p className="text-xs text-muted-foreground/80 mt-2 flex items-center gap-1.5"><Mic className="h-3 w-3"/>{item.presenter} • {item.time}</p>
+                                    </div>
+                                </div>
+                                <div className="mt-4 flex justify-end space-x-2">
+                                     <Button
+                                        size="sm"
+                                        variant={item.vote === 'yes' ? 'default' : 'outline'}
+                                        onClick={() => handleVote(item.topic, 'yes')}
+                                        className={`transition-all w-20 ${item.vote === 'yes' ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                                    >
+                                        Yes
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        variant={item.vote === 'no' ? 'destructive' : 'outline'}
+                                        onClick={() => handleVote(item.topic, 'no')}
+                                        className="w-20"
+                                    >
+                                        No
+                                    </Button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </CardContent>
             </Card>
           </div>
@@ -238,3 +273,5 @@ export default function MeetingAgendaPage() {
     </div>
   );
 }
+
+    
