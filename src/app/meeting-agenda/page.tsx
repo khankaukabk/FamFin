@@ -20,22 +20,22 @@ type ActionItem = {
 export default function MeetingAgendaPage() {
   const attendees = [
     { name: "Aminuddin Khan", initials: "AK", role: "Project Lead" },
-    { name: "Abul Mansur", initials: "AM", role: "CFO" },
+    { name: "Abul Mansur", initials: "AM", role: "Head of Finance" },
     { name: "Abid Abdullah", initials: "AA", role: "Operations" },
     { name: "Ashif Jahan", initials: "AJ", role: "Community Outreach" },
     { name: "Usman Niwaz", initials: "UN", role: "Potential Director" },
   ];
 
   const agendaItems = [
-    { time: "15 min", topic: "New Directorship: Should Usman Niwaz be a director?", presenter: "Aminuddin K", icon: Briefcase },
-    { time: "15 min", topic: "Confirm Abul Mansur as CFO & Finance Team Structure", presenter: "Aminuddin K", icon: UserCheck },
-    { time: "10 min", topic: "Investment Strategy: TN Investors", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark },
-    { time: "10 min", topic: "Review Tomorrow's investors Meeting Schedule", presenter: "Aminuddin K", icon: CalendarClock },
+    { time: "15 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin K", icon: Briefcase },
+    { time: "15 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin K", icon: UserCheck },
+    { time: "10 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark },
+    { time: "10 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin K", icon: CalendarClock },
   ];
 
   const initialActionItems: ActionItem[] = [
       { id: 1, task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
-      { id: 2, task: "Send official confirmation to Abul Mansur regarding CFO role.", owner: "Aminuddin K", status: "Not Started" },
+      { id: 2, task: "Send official confirmation to Abul Mansur regarding Head of Finance role.", owner: "Aminuddin K", status: "Not Started" },
       { id: 3, task: "Draft investment proposal for TN investors regarding AL-first strategy.", owner: "Abul M", status: "Not Started" },
       { id: 4, task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
   ];
