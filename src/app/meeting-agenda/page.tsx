@@ -3,11 +3,19 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Users, User, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock, Target, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Checkbox } from "@/components/ui/checkbox";
+
+type ActionItem = {
+  id: number;
+  task: string;
+  owner: string;
+  status: "Completed" | "Not Started";
+};
 
 export default function MeetingAgendaPage() {
   const attendees = [
@@ -21,14 +29,28 @@ export default function MeetingAgendaPage() {
   const agendaItems = [
     { time: "15 min", topic: "New Directorship: Should Usman Niwaz be a director?", presenter: "Aminuddin K", icon: Briefcase },
     { time: "15 min", topic: "Confirm Abul Mansur as CFO & Finance Team Structure", presenter: "Aminuddin K", icon: UserCheck },
+    { time: "10 min", topic: "Investment Strategy: TN Investors", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark },
     { time: "10 min", topic: "Review Tomorrow's investors Meeting Schedule", presenter: "Aminuddin K", icon: CalendarClock },
   ];
 
-  const actionItems = [
-      { task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
-      { task: "Send official confirmation to Abul Mansur regarding CFO role.", owner: "Aminuddin K", status: "Not Started" },
-      { task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
+  const initialActionItems: ActionItem[] = [
+      { id: 1, task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
+      { id: 2, task: "Send official confirmation to Abul Mansur regarding CFO role.", owner: "Aminuddin K", status: "Not Started" },
+      { id: 3, task: "Draft investment proposal for TN investors regarding AL-first strategy.", owner: "Abul M", status: "Not Started" },
+      { id: 4, task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
   ];
+
+  const [actionItems, setActionItems] = React.useState<ActionItem[]>(initialActionItems);
+
+  const handleActionItemToggle = (id: number) => {
+    setActionItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id
+          ? { ...item, status: item.status === "Completed" ? "Not Started" : "Completed" }
+          : item
+      )
+    );
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -57,10 +79,19 @@ export default function MeetingAgendaPage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5" />
-                        <span>8:00 PM - 8:45 PM</span>
+                        <span>8:00 PM - 9:00 PM</span>
                     </div>
                 </div>
             </CardHeader>
+             <CardContent>
+                <div className="flex items-start gap-4">
+                    <Target className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-headline text-xl">Meeting Summary</h3>
+                        <p className="text-muted-foreground">This meeting will finalize key leadership roles, align on a critical investment strategy for cross-state funding, and prepare for upcoming high-stakes investor meetings.</p>
+                    </div>
+                </div>
+            </CardContent>
           </Card>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -107,9 +138,14 @@ export default function MeetingAgendaPage() {
                             {agendaItems.map((item) => (
                                 <TableRow key={item.topic}>
                                     <TableCell className="font-medium text-muted-foreground">{item.time}</TableCell>
-                                    <TableCell className="font-semibold flex items-center gap-3">
-                                        <item.icon className="h-5 w-5 text-primary/80" />
-                                        {item.topic}
+                                    <TableCell className="font-semibold">
+                                        <div className="flex items-start gap-3">
+                                            <item.icon className="h-5 w-5 text-primary/80 mt-1 flex-shrink-0" />
+                                            <div>
+                                              {item.topic}
+                                              {item.description && <p className="text-sm font-normal text-muted-foreground mt-1">{item.description}</p>}
+                                            </div>
+                                        </div>
                                     </TableCell>
                                     <TableCell className="flex items-center gap-2">
                                       <Mic className="h-4 w-4 text-muted-foreground" />
@@ -135,6 +171,7 @@ export default function MeetingAgendaPage() {
                <Table>
                     <TableHeader>
                         <TableRow>
+                            <TableHead className="w-[60px]">Done</TableHead>
                             <TableHead>Task Description</TableHead>
                             <TableHead className="w-[150px]">Owner</TableHead>
                             <TableHead className="w-[120px] text-right">Status</TableHead>
@@ -142,14 +179,21 @@ export default function MeetingAgendaPage() {
                     </TableHeader>
                     <TableBody>
                         {actionItems.map((item) => (
-                             <TableRow key={item.task}>
-                                <TableCell className="font-medium">{item.task}</TableCell>
+                             <TableRow key={item.id} className={item.status === 'Completed' ? 'bg-muted/50' : ''}>
+                                <TableCell>
+                                  <Checkbox
+                                    id={`action-${item.id}`}
+                                    checked={item.status === 'Completed'}
+                                    onCheckedChange={() => handleActionItemToggle(item.id)}
+                                    aria-label={`Mark '${item.task}' as done`}
+                                  />
+                                </TableCell>
+                                <TableCell className={`font-medium ${item.status === 'Completed' ? 'text-muted-foreground line-through' : ''}`}>{item.task}</TableCell>
                                 <TableCell>{item.owner}</TableCell>
                                 <TableCell className="text-right">
                                     <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                                         item.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                                        item.status === 'In Progress' ? 'bg-yellow-100 text-yellow-800' :
-                                        'bg-red-100 text-red-800'
+                                        'bg-yellow-100 text-yellow-800'
                                     }`}>
                                         {item.status}
                                     </span>
@@ -169,3 +213,5 @@ export default function MeetingAgendaPage() {
     </div>
   );
 }
+
+    
