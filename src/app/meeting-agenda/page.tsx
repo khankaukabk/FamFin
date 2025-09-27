@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock, Target, Landmark } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, CheckSquare, Briefcase, UserCheck, CalendarClock, Target, Landmark, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -30,6 +30,7 @@ export default function MeetingAgendaPage() {
     { time: "15 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin K", icon: Briefcase },
     { time: "15 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin K", icon: UserCheck },
     { time: "10 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark },
+    { time: "10 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText },
     { time: "10 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin K", icon: CalendarClock },
   ];
 
@@ -37,7 +38,8 @@ export default function MeetingAgendaPage() {
       { id: 1, task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
       { id: 2, task: "Send official confirmation to Abul Mansur regarding Head of Finance role.", owner: "Aminuddin K", status: "Not Started" },
       { id: 3, task: "Draft investment proposal for TN investors regarding AL-first strategy.", owner: "Abul M", status: "Not Started" },
-      { id: 4, task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
+      { id: 4, task: "Outline a plan for tax preparation and assign a responsible party.", owner: "Abul M", status: "Not Started" },
+      { id: 5, task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
   ];
 
   const [actionItems, setActionItems] = React.useState<ActionItem[]>(initialActionItems);
