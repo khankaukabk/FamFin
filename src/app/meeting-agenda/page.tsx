@@ -11,25 +11,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function MeetingAgendaPage() {
   const attendees = [
-    { name: "Kausain", initials: "K", role: "Project Lead" },
-    { name: "Ammu", initials: "A", role: "Finance Advisor" },
-    { name: "Musaab", initials: "M", role: "Operations" },
-    { name: "Kaukab", initials: "K", role: "Community Outreach" },
-    { name: "Abbu", initials: "A", role: "Technical Advisor" },
-    { name: "Usman", initials: "U", role: "Potential Director" },
-    { name: "Mansur", initials: "M", role: "CFO" },
+    { name: "Aminuddin Khan", initials: "AK", role: "Project Lead" },
+    { name: "Abul Mansur", initials: "AM", role: "CFO" },
+    { name: "Abid Abdullah", initials: "AA", role: "Operations" },
+    { name: "Ashif Jahan", initials: "AJ", role: "Community Outreach" },
+    { name: "Usman Niwaz", initials: "UN", role: "Potential Director" },
   ];
 
   const agendaItems = [
-    { time: "15 min", topic: "New Directorship: Should Usman be a director?", presenter: "Kausain", icon: Briefcase },
-    { time: "15 min", topic: "Confirm Mansur as CFO & Finance Team Structure", presenter: "Ammu", icon: UserCheck },
-    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Kausain", icon: CalendarClock },
+    { time: "15 min", topic: "New Directorship: Should Usman Niwaz be a director?", presenter: "Aminuddin K", icon: Briefcase },
+    { time: "15 min", topic: "Confirm Abul Mansur as CFO & Finance Team Structure", presenter: "Aminuddin K", icon: UserCheck },
+    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Aminuddin K", icon: CalendarClock },
   ];
 
   const actionItems = [
-      { task: "Finalize decision on Usman's directorship.", owner: "All", status: "Not Started" },
-      { task: "Send official confirmation to Mansur regarding CFO role.", owner: "Kausain", status: "Not Started" },
-      { task: "Confirm attendance for investor and Selim meetings.", owner: "Musaab", status: "Not Started" },
+      { task: "Finalize decision on Usman Niwaz's directorship.", owner: "All", status: "Not Started" },
+      { task: "Send official confirmation to Abul Mansur regarding CFO role.", owner: "Aminuddin K", status: "Not Started" },
+      { task: "Confirm attendance for investor and Selim meetings.", owner: "Abid A", status: "Not Started" },
   ];
 
   return (
