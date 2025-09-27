@@ -11,25 +11,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function MeetingAgendaPage() {
   const attendees = [
-    { name: "Kausain Khan", initials: "KK", role: "Project Lead" },
-    { name: "Ammu Khan", initials: "AK", role: "Finance Advisor" },
-    { name: "Musaab Khan", initials: "MK", role: "Operations" },
-    { name: "Kaukab Khan", initials: "KK", role: "Community Outreach" },
-    { name: "Abbu Khan", initials: "AK", role: "Technical Advisor" },
+    { name: "Kausain", initials: "K", role: "Project Lead" },
+    { name: "Ammu", initials: "A", role: "Finance Advisor" },
+    { name: "Musaab", initials: "M", role: "Operations" },
+    { name: "Kaukab", initials: "K", role: "Community Outreach" },
+    { name: "Abbu", initials: "A", role: "Technical Advisor" },
     { name: "Usman", initials: "U", role: "Potential Director" },
     { name: "Mansur", initials: "M", role: "CFO" },
   ];
 
   const agendaItems = [
-    { time: "15 min", topic: "New Directorship: Should Usman be a director?", presenter: "Kausain Khan", icon: Briefcase },
-    { time: "15 min", topic: "Confirm Mansur as CFO & Finance Team Structure", presenter: "Ammu Khan", icon: UserCheck },
-    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Kausain Khan", icon: CalendarClock },
+    { time: "15 min", topic: "New Directorship: Should Usman be a director?", presenter: "Kausain", icon: Briefcase },
+    { time: "15 min", topic: "Confirm Mansur as CFO & Finance Team Structure", presenter: "Ammu", icon: UserCheck },
+    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Kausain", icon: CalendarClock },
   ];
 
   const actionItems = [
       { task: "Finalize decision on Usman's directorship.", owner: "All", status: "Not Started" },
-      { task: "Send official confirmation to Mansur regarding CFO role.", owner: "Kausain Khan", status: "Not Started" },
-      { task: "Confirm attendance for investor and Selim meetings.", owner: "Musaab Khan", status: "Not Started" },
+      { task: "Send official confirmation to Mansur regarding CFO role.", owner: "Kausain", status: "Not Started" },
+      { task: "Confirm attendance for investor and Selim meetings.", owner: "Musaab", status: "Not Started" },
   ];
 
   return (
@@ -132,7 +132,7 @@ export default function MeetingAgendaPage() {
                     <CardTitle className="font-headline text-xl">Action Items</CardTitle>
                 </div>
                 <CardDescription>Tasks and responsibilities assigned during the meeting.</CardDescription>
-            </CardHeader>
+            </Header>
             <CardContent>
                <Table>
                     <TableHeader>
@@ -166,7 +166,7 @@ export default function MeetingAgendaPage() {
         </div>
       </main>
        <footer className="text-center p-4 text-muted-foreground text-xs">
-        Meeting agenda generated for the Khan Family
+        Meeting agenda generated for the project team
       </footer>
     </div>
   );
