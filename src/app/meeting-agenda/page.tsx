@@ -30,11 +30,11 @@ export default function MeetingAgendaPage() {
   ];
 
   const initialAgendaItems: AgendaItem[] = [
-    { time: "15 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin", icon: Briefcase, vote: 'pending' },
-    { time: "15 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin", icon: UserCheck, vote: 'pending' },
-    { time: "10 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark, vote: 'pending' },
-    { time: "10 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText, vote: 'pending' },
-    { time: "10 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin", icon: CalendarClock, vote: 'pending' },
+    { time: "10 min", topic: "New Directorship Proposal", description: "Discuss and vote on Usman Niwaz joining the board as a director.", presenter: "Aminuddin", icon: Briefcase, vote: 'pending' },
+    { time: "5 min", topic: "Confirm Head of Finance & Team Structure", description: "Officially confirm Abul Mansur as Head of the Finance Team and outline the team's roles and responsibilities.", presenter: "Aminuddin", icon: UserCheck, vote: 'pending' },
+    { time: "5 min", topic: "Investment Strategy: TN & AL Projects", description: "Discuss plan to have Tennessee investors prioritize funding for the Alabama project first, then circle back to the Tennessee project.", presenter: "Abul M", icon: Landmark, vote: 'pending' },
+    { time: "5 min", topic: "Tax Preparation Strategy", description: "Discuss who will be responsible for preparing taxes and the overall strategy for the upcoming tax season.", presenter: "Abul M", icon: FileText, vote: 'pending' },
+    { time: "5 min", topic: "Review Tomorrow's Investor Meeting Schedule", description: "Final run-through of the schedule and roles for the 9:30 AM investor meeting and the 10:30 AM meeting with Selim.", presenter: "Aminuddin", icon: CalendarClock, vote: 'pending' },
   ];
 
   const [agendaItems, setAgendaItems] = React.useState<AgendaItem[]>(initialAgendaItems);
@@ -99,11 +99,11 @@ export default function MeetingAgendaPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-muted-foreground pt-2">
                     <div className="flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
-                        <span>October 29, 2025</span>
+                        <span>Weekly on Saturday</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Clock className="h-5 w-5" />
-                        <span>8:00 PM - 9:00 PM</span>
+                        <span>11:00 AM - 11:30 AM</span>
                     </div>
                 </div>
             </CardHeader>
