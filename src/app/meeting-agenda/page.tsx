@@ -21,7 +21,7 @@ export default function MeetingAgendaPage() {
   const agendaItems = [
     { time: "15 min", topic: "New Directorship: Should Usman Niwaz be a director?", presenter: "Aminuddin K", icon: Briefcase },
     { time: "15 min", topic: "Confirm Abul Mansur as CFO & Finance Team Structure", presenter: "Aminuddin K", icon: UserCheck },
-    { time: "10 min", topic: "Review Tomorrow's Meeting Schedule", presenter: "Aminuddin K", icon: CalendarClock },
+    { time: "10 min", topic: "Review Tomorrow's investors Meeting Schedule", presenter: "Aminuddin K", icon: CalendarClock },
   ];
 
   const actionItems = [
