@@ -3,12 +3,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Users, Mic, ListChecks, Bot, Sparkles, PlusCircle, Trash2 } from "lucide-react";
+import { ArrowLeft, Calendar, Users, Mic, ListChecks, Bot, Sparkles, PlusCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useDoc, useFirestore } from "@/firebase";
+import { useDoc, useFirestore, useUser } from "@/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import type { Meeting, AgendaItem } from "@/lib/types";
 import { summarizeDecisions, type AgendaItemDecision } from "@/ai/flows/summarize-meeting-flow";
@@ -16,9 +16,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { nanoid } from 'nanoid';
 import { format } from "date-fns";
+import { useRouter } from 'next/navigation';
 
 export default function MeetingPage({ params }: { params: { id: string } }) {
   const firestore = useFirestore();
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
+
   const meetingRef = React.useMemo(() => {
     if (!firestore || !params.id) return null;
     return doc(firestore, "meetings", params.id);
@@ -26,6 +30,15 @@ export default function MeetingPage({ params }: { params: { id: string } }) {
 
   const { data: meeting, loading, error } = useDoc<Meeting>(meetingRef);
   const [isGenerating, setIsGenerating] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+     if (!loading && meeting && user && meeting.userId !== user.uid) {
+      router.push('/meetings');
+    }
+  }, [user, isUserLoading, router, meeting, loading]);
 
   const updateMeeting = async (updatedData: Partial<Meeting>) => {
     if (!meetingRef) return;
@@ -92,12 +105,16 @@ export default function MeetingPage({ params }: { params: { id: string } }) {
     }
   };
 
-  if (loading) {
+  if (loading || isUserLoading) {
     return <div>Loading...</div>;
   }
   
   if (error) {
     return <div>Error: {error.message}</div>;
+  }
+  
+  if (!meeting) {
+    return <div>Meeting not found.</div>
   }
 
   return (
@@ -262,6 +279,3 @@ export default function MeetingPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
-
-
-    

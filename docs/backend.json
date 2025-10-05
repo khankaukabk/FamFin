@@ -21,149 +21,113 @@
         "email"
       ]
     },
-    "Income": {
+    "Meeting": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Income",
+      "title": "Meeting",
       "type": "object",
-      "description": "Represents a source of income for a user.",
+      "description": "Represents a meeting.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the Income entity."
+          "description": "Unique identifier for the Meeting entity."
         },
         "userId": {
           "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Income)"
+          "description": "The ID of the user who owns this meeting."
         },
-        "source": {
+        "title": {
           "type": "string",
-          "description": "The source of the income (e.g., salary, investment)."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The amount of income received."
+          "description": "The title of the meeting."
         },
         "date": {
           "type": "string",
-          "description": "The date the income was received.",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "The date and time of the meeting."
+        },
+        "attendees": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of attendees' names."
+        },
+        "agenda": {
+          "type": "array",
+          "items": {
+            "$ref": "#/entities/AgendaItem"
+          },
+          "description": "An array of agenda items for the meeting."
+        },
+        "summary": {
+          "type": "string",
+          "description": "An AI-generated summary of the meeting."
         }
       },
       "required": [
         "id",
         "userId",
-        "source",
-        "amount",
-        "date"
+        "title",
+        "date",
+        "attendees",
+        "agenda"
       ]
     },
-    "Expense": {
+    "AgendaItem": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Expense",
+      "title": "Agenda Item",
       "type": "object",
-      "description": "Represents an expense incurred by a user.",
       "properties": {
         "id": {
-          "type": "string",
-          "description": "Unique identifier for the Expense entity."
+          "type": "string"
         },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Expense)"
-        },
-        "category": {
-          "type": "string",
-          "description": "The category of the expense (e.g., food, rent, entertainment)."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The amount of the expense."
-        },
-        "date": {
-          "type": "string",
-          "description": "The date the expense was incurred.",
-          "format": "date-time"
+        "topic": {
+          "type": "string"
         },
         "description": {
+          "type": "string"
+        },
+        "presenter": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "vote": {
           "type": "string",
-          "description": "A description of the expense."
+          "enum": [
+            "yes",
+            "no",
+            "pending"
+          ]
         }
       },
       "required": [
         "id",
-        "userId",
-        "category",
-        "amount",
-        "date",
-        "description"
+        "topic",
+        "description",
+        "presenter",
+        "time",
+        "vote"
       ]
     }
   },
   "auth": {
     "providers": [
-      "password",
-      "anonymous"
+      "password"
     ]
   },
   "firestore": {
     "structure": [
       {
-        "path": "/users/{userId}",
+        "path": "/meetings/{meetingId}",
         "definition": {
-          "entityName": "User",
+          "entityName": "Meeting",
           "schema": {
-            "$ref": "#/backend/entities/User"
+            "$ref": "#/entities/Meeting"
           },
-          "description": "Collection to store user profiles.  The 'userId' parameter is the Firebase Auth UID.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The Firebase Auth UID of the user."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/incomes/{incomeId}",
-        "definition": {
-          "entityName": "Income",
-          "schema": {
-            "$ref": "#/backend/entities/Income"
-          },
-          "description": "Collection to store income records for each user. The 'userId' path segment enforces ownership.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The Firebase Auth UID of the user."
-            },
-            {
-              "name": "incomeId",
-              "description": "The unique identifier for the income record."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/expenses/{expenseId}",
-        "definition": {
-          "entityName": "Expense",
-          "schema": {
-            "$ref": "#/backend/entities/Expense"
-          },
-          "description": "Collection to store expense records for each user. The 'userId' path segment enforces ownership.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The Firebase Auth UID of the user."
-            },
-            {
-              "name": "expenseId",
-              "description": "The unique identifier for the expense record."
-            }
-          ]
+          "description": "Collection to store meeting documents."
         }
       }
-    ],
-    "reasoning": "The Firestore structure is designed to ensure security, scalability, and ease of debugging, adhering to the principles of Authorization Independence, Clarity of Intent, DBAC, and QAPs. User-owned data (Income and Expenses) is stored under the `/users/{userId}` path, ensuring clear ownership and straightforward security rules. This eliminates the need for complex `get()` calls to determine authorization and facilitates atomic operations. The design leverages path-based ownership, making the security rules simple and efficient. There is no collaborative data in the model. Since all the data is user-owned, there is no need for membership maps. This structure supports required QAPs by ensuring that `list` operations are secure and restricted to the user's own data."
+    ]
   }
 }

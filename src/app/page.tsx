@@ -2,9 +2,12 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield, Warehouse, ListChecks } from "lucide-react";
+import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { useUser, useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 import { SummaryCards } from "@/components/summary-cards";
 import { ExpenseDetails } from "@/components/expense-details";
@@ -52,6 +55,26 @@ export default function Home() {
     const balance = totalIncome - totalExpenses;
     return { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions };
   }, [transactions]);
+  
+  const router = useRouter();
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+  
+  React.useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, isUserLoading, router]);
+
+  const handleSignOut = async () => {
+    await signOut(auth);
+    router.push('/login');
+  };
+  
+  if (isUserLoading || !user) {
+    return <div>Loading...</div>
+  }
+
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -81,12 +104,18 @@ export default function Home() {
               Farm Business Plan
             </Button>
           </Link>
-          <Link href="/meeting-agenda" passHref className="w-full sm:w-auto">
+          <Link href="/meetings" passHref className="w-full sm:w-auto">
             <Button variant="outline" className="w-full sm:w-auto">
               <ListChecks className="h-4 w-4 mr-2" />
-              Meeting Agenda
+              Meetings
             </Button>
           </Link>
+          {user && (
+            <Button variant="outline" onClick={handleSignOut} className="w-full sm:w-auto">
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          )}
         </div>
       </header>
       <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">

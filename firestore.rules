@@ -1,96 +1,112 @@
 /**
- * @fileoverview Firestore Security Rules for Family Financials application.
- *
- * Core Philosophy:
- * This ruleset enforces a strict user-ownership model where each user can only
- * access their own data, ensuring data privacy and security.
- *
- * Data Structure:
- * - /users/{userId}: Stores user profiles, with 'userId' matching the Firebase Auth UID.
- * - /users/{userId}/incomes/{incomeId}: Stores income records for each user.
- * - /users/{userId}/expenses/{expenseId}: Stores expense records for each user.
- *
- * Key Security Decisions:
- * - User data is nested under /users/{userId} to enforce strict ownership.
- * - All 'list' operations are restricted to the owner of the data.
- * - The rules explicitly deny any unauthorized access attempts.
- *
- * Denormalization for Authorization:
- * - Each income and expense document contains a 'userId' field that must match
- *   the 'userId' in the path. This denormalization avoids the need for complex
- *   lookups and ensures that ownership can be verified directly on the document.
+ * @file Firestore Security Rules for Family Financials App
+ * @core_philosophy This ruleset enforces a strict user-ownership model, where each user can only access their own data.
+ * @data_structure All data is nested under /users/{userId}, with subcollections for incomes and expenses. This structure ensures clear ownership and simplifies security rules.
+ * @key_security_decisions User listing is disallowed.  All write operations require the user to be authenticated and to own the data being modified.
+ * @denormalization_for_authorization The 'userId' field is present on all Income and Expense documents, allowing for simple ownership checks without additional reads.
+ * @structural_segregation N/A - All data is private to the user.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Secure access to user profile data.
+     * @description Allows a user to create, read, update, and delete their own user document.
      * @path /users/{userId}
-     * @allow (create) User with UID 'user123' can create their own profile.
-     * @allow (get) User with UID 'user123' can read their own profile.
-     * @deny (create) User with UID 'user456' cannot create a profile with ID 'user123'.
-     * @deny (update) User with UID 'user456' cannot update the profile of 'user123'.
-     * @deny (delete) User with UID 'user456' cannot delete the profile of 'user123'.
-     * @principle Enforces user ownership for profile data, allowing only the
-     *          authenticated user to create, read, update, or delete their own profile.
+     * @allow (create) User with UID 'user_abc' can create a document where document ID matches their UID.
+     * @allow (get) User with UID 'user_abc' can read their own user document.
+     * @allow (update) User with UID 'user_abc' can update their own user document.
+     * @allow (delete) User with UID 'user_abc' can delete their own user document.
+     * @deny (create) User with UID 'user_def' cannot create a document with ID 'user_abc'.
+     * @deny (get) User with UID 'user_def' cannot read user document of 'user_abc'.
+     * @deny (update) User with UID 'user_def' cannot update user document of 'user_abc'.
+     * @deny (delete) User with UID 'user_def' cannot delete user document of 'user_abc'.
+     * @principle Enforces document ownership for all operations on user profiles.
      */
     match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
       function isOwner(userId) {
-        return request.auth != null && request.auth.uid == userId;
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && exists(resource);
       }
 
       allow get: if isOwner(userId);
-      allow list: if false; // Listing users is not permitted.
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isOwner(userId) && resource.data.id == userId;
-      allow delete: if isOwner(userId) && resource.data.id == userId;
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
     }
 
     /**
-     * @description Secure access to income records for each user.
+     * @description Allows a user to create, read, update, and delete their own income records.
      * @path /users/{userId}/incomes/{incomeId}
-     * @allow (create) User with UID 'user123' can create an income record under their ID.
-     * @allow (get) User with UID 'user123' can read an income record under their ID.
-     * @deny (create) User with UID 'user456' cannot create an income record under user 'user123'.
-     * @deny (update) User with UID 'user456' cannot update an income record under user 'user123'.
-     * @deny (delete) User with UID 'user456' cannot delete an income record under user 'user123'.
-     * @principle Enforces user ownership of income records, allowing only the
-     *          authenticated user to manage their own income data.
+     * @allow (create) User with UID 'user_abc' can create an income document under their user path with userId 'user_abc'.
+     * @allow (get) User with UID 'user_abc' can read an income document under their user path.
+     * @allow (update) User with UID 'user_abc' can update an income document under their user path.
+     * @allow (delete) User with UID 'user_abc' can delete an income document under their user path.
+     * @deny (create) User with UID 'user_def' cannot create an income document under the user path of 'user_abc'.
+     * @deny (get) User with UID 'user_def' cannot read an income document under the user path of 'user_abc'.
+     * @deny (update) User with UID 'user_def' cannot update an income document under the user path of 'user_abc'.
+     * @deny (delete) User with UID 'user_def' cannot delete an income document under the user path of 'user_abc'.
+     * @principle Enforces document ownership for all operations on income records.
      */
     match /users/{userId}/incomes/{incomeId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
       function isOwner(userId) {
-        return request.auth != null && request.auth.uid == userId;
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && exists(resource);
       }
 
       allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isOwner(userId) && resource.data.userId == userId;
-      allow delete: if isOwner(userId) && resource.data.userId == userId;
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
     }
 
     /**
-     * @description Secure access to expense records for each user.
+     * @description Allows a user to create, read, update, and delete their own expense records.
      * @path /users/{userId}/expenses/{expenseId}
-     * @allow (create) User with UID 'user123' can create an expense record under their ID.
-     * @allow (get) User with UID 'user123' can read an expense record under their ID.
-     * @deny (create) User with UID 'user456' cannot create an expense record under user 'user123'.
-     * @deny (update) User with UID 'user456' cannot update an expense record under user 'user123'.
-     * @deny (delete) User with UID 'user456' cannot delete an expense record under user 'user123'.
-     * @principle Enforces user ownership of expense records, allowing only the
-     *          authenticated user to manage their own expense data.
+     * @allow (create) User with UID 'user_abc' can create an expense document under their user path with userId 'user_abc'.
+     * @allow (get) User with UID 'user_abc' can read an expense document under their user path.
+     * @allow (update) User with UID 'user_abc' can update an expense document under their user path.
+     * @allow (delete) User with UID 'user_abc' can delete an expense document under their user path.
+     * @deny (create) User with UID 'user_def' cannot create an expense document under the user path of 'user_abc'.
+     * @deny (get) User with UID 'user_def' cannot read an expense document under the user path of 'user_abc'.
+     * @deny (update) User with UID 'user_def' cannot update an expense document under the user path of 'user_abc'.
+     * @deny (delete) User with UID 'user_def' cannot delete an expense document under the user path of 'user_abc'.
+     * @principle Enforces document ownership for all operations on expense records.
      */
     match /users/{userId}/expenses/{expenseId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
       function isOwner(userId) {
-        return request.auth != null && request.auth.uid == userId;
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && exists(resource);
       }
 
       allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isOwner(userId) && resource.data.userId == userId;
-      allow delete: if isOwner(userId) && resource.data.userId == userId;
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isExistingOwner(userId);
+      allow delete: if isSignedIn() && isExistingOwner(userId);
     }
   }
 }

@@ -12,6 +12,7 @@ export type Transaction = {
 
 export type Meeting = {
   id: string;
+  userId: string;
   title: string;
   date: Timestamp;
   attendees: string[];
