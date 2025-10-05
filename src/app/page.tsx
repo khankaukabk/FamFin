@@ -67,6 +67,7 @@ export default function Home() {
   }, [user, isUserLoading, router]);
 
   const handleSignOut = async () => {
+    if (!auth) return;
     await signOut(auth);
     router.push('/login');
   };
@@ -85,33 +86,33 @@ export default function Home() {
             Family Financials
           </h1>
         </div>
-        <div className="flex w-full items-center gap-2 sm:w-auto flex-wrap">
-          <Link href="/medicare-roadmap" passHref className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full sm:w-auto">
+        <div className="flex w-full items-center justify-start gap-2 sm:w-auto sm:justify-end">
+          <Link href="/medicare-roadmap" passHref>
+            <Button variant="outline">
               <Shield className="h-4 w-4 mr-2" />
-              Medicare Roadmap
+              Medicare
             </Button>
           </Link>
-          <Link href="/travel-plan" passHref className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full sm:w-auto">
+          <Link href="/travel-plan" passHref>
+            <Button variant="outline">
               <Plane className="h-4 w-4 mr-2" />
-              Travel Plan
+              Travel
             </Button>
           </Link>
-          <Link href="/farm-business-plan" passHref className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full sm:w-auto">
+          <Link href="/farm-business-plan" passHref>
+            <Button variant="outline">
               <Warehouse className="h-4 w-4 mr-2" />
-              Farm Business Plan
+              Farm
             </Button>
           </Link>
-          <Link href="/meetings" passHref className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full sm:w-auto">
+          <Link href="/meetings" passHref>
+            <Button variant="outline">
               <ListChecks className="h-4 w-4 mr-2" />
               Meetings
             </Button>
           </Link>
           {user && (
-            <Button variant="outline" onClick={handleSignOut} className="w-full sm:w-auto">
+            <Button variant="outline" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
