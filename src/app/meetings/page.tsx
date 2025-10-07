@@ -35,19 +35,21 @@ export default function MeetingsPage() {
     return query(meetingsCollection, where("userId", "==", user.uid));
   }, [meetingsCollection, user]);
 
-  const { data: meetings, loading } = useCollection<Meeting>(userMeetingsQuery);
+  const { data: meetings, isLoading: loading } = useCollection<Meeting>(userMeetingsQuery);
 
   const createNewMeeting = async () => {
     if (!meetingsCollection || !user) return;
 
-    const newMeeting: Omit<Meeting, 'id'> = {
+    const newMeeting: Omit<Meeting, 'id' | 'date'> = {
       title: 'New Meeting',
-      date: serverTimestamp() as any,
       attendees: [],
       agenda: [],
       userId: user.uid,
     };
-    const docRef = await addDoc(meetingsCollection, newMeeting);
+    const docRef = await addDoc(meetingsCollection, {
+        ...newMeeting,
+        date: serverTimestamp(),
+    });
     router.push(`/meetings/${docRef.id}`);
   };
 
@@ -105,7 +107,7 @@ export default function MeetingsPage() {
               <CardHeader>
                 <CardTitle>{meeting.title}</CardTitle>
                 <CardDescription>
-                  {meeting.date ? format(meeting.date.toDate(), 'MMMM d, yyyy') : 'Date not set'}
+                  {meeting.date && meeting.date.toDate ? format(meeting.date.toDate(), 'MMMM d, yyyy') : 'Date not set'}
                 </CardDescription>
               </CardHeader>
               <CardContent>

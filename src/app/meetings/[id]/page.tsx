@@ -28,7 +28,7 @@ export default function MeetingPage({ params }: { params: { id: string } }) {
     return doc(firestore, "meetings", params.id);
   }, [firestore, params.id]);
 
-  const { data: meeting, loading, error } = useDoc<Meeting>(meetingRef);
+  const { data: meeting, isLoading: loading, error } = useDoc<Meeting>(meetingRef);
   const [isGenerating, setIsGenerating] = React.useState(false);
 
   React.useEffect(() => {
@@ -141,7 +141,7 @@ export default function MeetingPage({ params }: { params: { id: string } }) {
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-muted-foreground pt-2">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-5 w-5" />
-                  <span>{meeting?.date ? format(meeting.date.toDate(), 'MMMM d, yyyy') : 'Date not set'}</span>
+                  <span>{meeting?.date && meeting.date.toDate ? format(meeting.date.toDate(), 'MMMM d, yyyy') : 'Date not set'}</span>
                 </div>
               </div>
             </CardHeader>
