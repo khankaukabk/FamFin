@@ -6,12 +6,13 @@ import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Landmark, BookOpen, Handshake, Heart, Megaphone, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 type Quality = {
   icon: React.ElementType;
   title: string;
   subtitle: string;
-  description: string;
+  description: React.ReactNode;
 };
 
 const qualities: Quality[] = [
@@ -19,7 +20,19 @@ const qualities: Quality[] = [
     icon: Quote,
     title: "Kalimah Tayyibah",
     subtitle: "The Pure Word",
-    description: "To have correct and strong faith (Imaan) in the oneness of Allah and the prophethood of Muhammad (ﷺ), and to live our lives according to this belief.",
+    description: (
+      <div className="space-y-4">
+        <div>
+            <p className="font-bold text-base text-primary">#1 Iman & Yaqin</p>
+             <p className="text-sm text-muted-foreground mt-2">To believe that everything happens only by the will of Allah. Nothing can happen without the will of Allah. The only way of life acceptable to Allah is the lifestyle of the Rasul (ﷺ).</p>
+        </div>
+        <Separator />
+        <div className="text-center">
+            <p className="text-xl font-bold arabic-text">لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَسُولُ اللهِ</p>
+            <p className="text-sm text-muted-foreground italic mt-1">"There is no god but Allah, Muhammad is the Messenger of Allah."</p>
+        </div>
+      </div>
+    ),
   },
   {
     icon: Landmark,
@@ -56,6 +69,12 @@ const qualities: Quality[] = [
 export default function SixQualitiesPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
+       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+        .arabic-text {
+          font-family: 'Noto Naskh Arabic', serif;
+        }
+      `}</style>
       <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
           <Link href="/" passHref>
@@ -92,7 +111,7 @@ export default function SixQualitiesPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-muted-foreground">{quality.description}</p>
+                  <div className="text-muted-foreground">{quality.description}</div>
                 </CardContent>
               </Card>
             ))}
