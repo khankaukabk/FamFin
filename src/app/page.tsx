@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut } from "lucide-react";
+import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut, Star } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
@@ -79,14 +79,20 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-auto flex-col items-start gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
         <div className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />
           <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
             Family Financials
           </h1>
         </div>
-        <div className="flex w-full items-center justify-start gap-2 sm:w-auto sm:justify-end">
+        <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
+           <Link href="/six-qualities" passHref>
+            <Button variant="outline">
+              <Star className="h-4 w-4 mr-2" />
+              Six Qualities
+            </Button>
+          </Link>
           <Link href="/medicare-roadmap" passHref>
             <Button variant="outline">
               <Shield className="h-4 w-4 mr-2" />
