@@ -169,7 +169,7 @@ export default function Tesla2024Page() {
                 <div className="flex flex-col md:flex-row gap-8">
                   <div className="md:w-1/3 flex-shrink-0">
                       <Image 
-                          src="https://firebasestorage.googleapis.com/v0/b/growshare-capital.firebasestorage.app/o/sentry-uhp-tire.png?alt=media&token=1d01724f-b6a4-47f2-959c-dc550307c133" 
+                          src="https://i.imgur.com/zYOJlsF.png" 
                           alt="Sentry UHP Tire" 
                           width={235}
                           height={300}
