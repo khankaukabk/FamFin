@@ -46,30 +46,36 @@ export default function Tesla2024Page() {
   const endDate = new Date('2027-05-13T00:00:00');
   
   React.useEffect(() => {
-    const today = new Date();
-    
-    const totalDurationInDays = differenceInDays(endDate, startDate);
-    const elapsedDays = differenceInDays(today, startDate);
-    const currentProgress = Math.max(0, Math.min(100, (elapsedDays / totalDurationInDays) * 100));
-    setProgress(currentProgress);
+    const calculateCountdown = () => {
+      const today = new Date();
+      
+      const totalDurationInDays = differenceInDays(endDate, startDate);
+      const elapsedDays = differenceInDays(today, startDate);
+      const currentProgress = Math.max(0, Math.min(100, (elapsedDays / totalDurationInDays) * 100));
+      setProgress(currentProgress);
 
-    const remainingDays = differenceInDays(endDate, today);
-    const remainingWeeks = differenceInWeeks(endDate, today);
+      const remainingDays = differenceInDays(endDate, today);
+      const remainingWeeks = differenceInWeeks(endDate, today);
 
-    // Calculate remaining months
-    let remainingMonths = (endDate.getFullYear() - today.getFullYear()) * 12;
-    remainingMonths -= today.getMonth();
-    remainingMonths += endDate.getMonth();
-    if (today.getDate() > endDate.getDate()) {
-        remainingMonths--;
-    }
-    
-    setCountdown({
-      months: remainingMonths <= 0 ? 0 : remainingMonths,
-      weeks: remainingWeeks,
-      days: remainingDays,
-    });
-  }, []);
+      let remainingMonths = (endDate.getFullYear() - today.getFullYear()) * 12;
+      remainingMonths -= today.getMonth();
+      remainingMonths += endDate.getMonth();
+      if (today.getDate() > endDate.getDate()) {
+          remainingMonths--;
+      }
+      
+      setCountdown({
+        months: remainingMonths <= 0 ? 0 : remainingMonths,
+        weeks: remainingWeeks,
+        days: remainingDays,
+      });
+    };
+
+    calculateCountdown(); // Initial calculation
+    const intervalId = setInterval(calculateCountdown, 1000); // Update every second
+
+    return () => clearInterval(intervalId); // Cleanup on component unmount
+  }, [startDate, endDate]);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-slate-50">
