@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, ListChecks, LogOut, ClipboardCheck } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, ListChecks, LogOut, LayoutDashboard, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
@@ -44,8 +44,11 @@ export function Navigation() {
 
   const navLinks = (
     <>
-      <NavLink href="/daily-tasks" onClick={() => setIsSheetOpen(false)}>
-        <ClipboardCheck className="mr-3" /> Daily Tasks
+      <NavLink href="/" onClick={() => setIsSheetOpen(false)}>
+        <Home className="mr-3" /> Home
+      </NavLink>
+      <NavLink href="/dashboard" onClick={() => setIsSheetOpen(false)}>
+        <LayoutDashboard className="mr-3" /> Dashboard
       </NavLink>
       <NavLink href="/six-qualities" onClick={() => setIsSheetOpen(false)}>
         <Star className="mr-3" /> Six Qualities
