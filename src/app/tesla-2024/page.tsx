@@ -4,12 +4,13 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star } from 'lucide-react';
+import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star, Car, FileText } from 'lucide-react';
 import { differenceInDays, differenceInWeeks } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const StatCard = ({
   icon: Icon,
@@ -90,6 +91,42 @@ export default function Tesla2024Page() {
              <p className="text-slate-500 mt-2 text-lg text-center">
               A Three-Year Plan from May 2024 to May 2027
             </p>
+
+            <Card className="bg-white/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                    <Car className="w-6 h-6 text-primary" />
+                    Vehicle & Lease Details
+                </CardTitle>
+                 <CardDescription>Tesla 2024 Sedan Model 3, Rear-Wheel Drive</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell className="font-semibold">Lease Start Date</TableCell>
+                            <TableCell className="text-right">May 14, 2024</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="font-semibold">Total Vehicle Price</TableCell>
+                            <TableCell className="text-right">$40,630.00</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="font-semibold pl-8 text-muted-foreground">Online Order Fee</TableCell>
+                            <TableCell className="text-right text-muted-foreground">$250.00</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="font-semibold pl-8 text-muted-foreground">Destination Fee</TableCell>
+                            <TableCell className="text-right text-muted-foreground">$1,390.00</TableCell>
+                        </TableRow>
+                        <TableRow className="border-t-2 border-primary/20">
+                            <TableCell className="font-bold text-lg text-primary">Total Lease Payment</TableCell>
+                            <TableCell className="font-bold text-lg text-right text-primary">$9,889.33</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
             
             <Card className="bg-white/50">
               <CardHeader>
