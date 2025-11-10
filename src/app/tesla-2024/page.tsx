@@ -45,7 +45,6 @@ export default function Tesla2024Page() {
   const endDate = new Date('2027-05-13T00:00:00');
   
   React.useEffect(() => {
-    // This code runs only on the client, after hydration, to prevent a mismatch
     const today = new Date();
     
     const totalDurationInDays = differenceInDays(endDate, startDate);
@@ -103,11 +102,11 @@ export default function Tesla2024Page() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    <div className="bg-slate-50 p-4 rounded-lg border">
                         <p className="text-sm font-semibold text-slate-500">Start Date</p>
-                        <p className="text-lg font-medium text-slate-800">May 14, 2024</p>
+                        <p className="text-lg font-medium text-slate-800">{startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                    </div>
                    <div className="bg-slate-50 p-4 rounded-lg border">
                         <p className="text-sm font-semibold text-slate-500">End Date</p>
-                        <p className="text-lg font-medium text-slate-800">May 13, 2027</p>
+                        <p className="text-lg font-medium text-slate-800">{endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                    </div>
                 </div>
                 <div className="text-center bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg">
