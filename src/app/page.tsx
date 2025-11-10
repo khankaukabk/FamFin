@@ -2,20 +2,16 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut, Star, Car, Menu } from "lucide-react";
+import { Leaf } from "lucide-react";
 import type { Transaction } from "@/lib/types";
-import Link from "next/link";
-import { useRouter } from 'next/navigation';
-import { useUser, useAuth } from '@/firebase';
-import { signOut } from 'firebase/auth';
 
 import { SummaryCards } from "@/components/summary-cards";
 import { ExpenseDetails } from "@/components/expense-details";
 import { SpendingChart } from "@/components/spending-chart";
 import { Card, CardContent } from "@/components/ui/card";
 import { IncomeDetails } from "@/components/income-details";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Navigation } from "@/components/ui/navigation";
+
 
 const initialTransactions: Transaction[] = [
   // Income Data
@@ -47,7 +43,6 @@ const initialTransactions: Transaction[] = [
 export default function Home() {
   const [transactions, setTransactions] =
     React.useState<Transaction[]>(initialTransactions);
-  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions } = React.useMemo(() => {
     const incomeTransactions = transactions.filter((t) => t.type === "income");
@@ -58,106 +53,17 @@ export default function Home() {
     return { totalIncome, totalExpenses, balance, incomeTransactions, expenseTransactions };
   }, [transactions]);
   
-  const router = useRouter();
-  const { user, isUserLoading } = useUser();
-  const auth = useAuth();
-  
-  React.useEffect(() => {
-    if (!isUserLoading && !user) {
-      router.push('/login');
-    }
-  }, [user, isUserLoading, router]);
-
-  const handleSignOut = async () => {
-    if (!auth) return;
-    await signOut(auth);
-    router.push('/login');
-  };
-  
-  if (isUserLoading || !user) {
-    return <div>Loading...</div>
-  }
-
-  const navLinks = (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-       <Link href="/six-qualities" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <Star className="h-4 w-4 mr-2" />
-          Six Qualities
-        </Button>
-      </Link>
-      <Link href="/medicare-roadmap" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <Shield className="h-4 w-4 mr-2" />
-          Medicare
-        </Button>
-      </Link>
-       <Link href="/tesla-2024" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <Car className="h-4 w-4 mr-2" />
-          Tesla
-        </Button>
-      </Link>
-      <Link href="/travel-plan" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <Plane className="h-4 w-4 mr-2" />
-          Travel
-        </Button>
-      </Link>
-      <Link href="/farm-business-plan" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <Warehouse className="h-4 w-4 mr-2" />
-          Farm
-        </Button>
-      </Link>
-      <Link href="/meetings" passHref>
-        <Button variant="ghost" className="w-full justify-start sm:w-auto" onClick={() => setIsSheetOpen(false)}>
-          <ListChecks className="h-4 w-4 mr-2" />
-          Meetings
-        </Button>
-      </Link>
-      {user && (
-        <Button variant="ghost" onClick={() => { handleSignOut(); setIsSheetOpen(false); }} className="w-full justify-start sm:w-auto">
-          <LogOut className="h-4 w-4 mr-2" />
-          Sign Out
-        </Button>
-      )}
-    </div>
-  )
-
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+      <Navigation />
+      <header className="sticky top-0 z-10 flex h-16 items-center justify-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <div className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />
           <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
             Family Financials
           </h1>
         </div>
-        
-        <div className="hidden sm:flex items-center justify-end gap-2">
-          {navLinks}
-        </div>
-        
-        <div className="sm:hidden">
-            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetTrigger asChild>
-                    <Button variant="outline" size="icon">
-                        <Menu className="h-6 w-6" />
-                    </Button>
-                </SheetTrigger>
-                <SheetContent side="left">
-                    <SheetHeader>
-                        <SheetTitle className="font-headline text-2xl">Navigation</SheetTitle>
-                    </SheetHeader>
-                    <div className="mt-8 flex flex-col gap-2">
-                        {navLinks}
-                    </div>
-                </SheetContent>
-            </Sheet>
-        </div>
-
       </header>
       <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
         <SummaryCards

@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { useCollection, useFirestore, useUser } from '@/firebase';
 import { collection, addDoc, serverTimestamp, query, where } from 'firebase/firestore';
 import { type Meeting } from '@/lib/types';
+import { Navigation } from '@/components/ui/navigation';
 
 
 export default function MeetingsPage() {
@@ -56,7 +57,8 @@ export default function MeetingsPage() {
   if (isUserLoading || loading) {
     return (
         <div className="flex min-h-screen w-full flex-col">
-            <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
+            <Navigation />
+            <header className="sticky top-0 z-10 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
                     <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
                     Meetings
@@ -84,13 +86,9 @@ export default function MeetingsPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-       <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
+       <Navigation />
+       <header className="sticky top-0 z-10 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link href="/" passHref>
-            <Button variant="outline" className="w-full sm:w-auto">
-              Back to Dashboard
-            </Button>
-          </Link>
           <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
             Meetings
           </h1>
