@@ -250,7 +250,6 @@ export default function Tesla2024Page() {
                 </div>
               </CardContent>
             </Card>
-          </main>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
