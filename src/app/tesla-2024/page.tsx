@@ -8,7 +8,7 @@ import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, St
 import { differenceInDays, differenceInWeeks } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
 const StatCard = ({
@@ -164,6 +164,9 @@ export default function Tesla2024Page() {
                       <Wallet className="w-6 h-6 text-primary" />
                       Tire Buying Decision: Sentry UHP
                   </CardTitle>
+                  <CardDescription>
+                      <span className="font-bold text-lg text-primary">$75</span> / tire | <span className="font-semibold text-base text-muted-foreground">Total: $300 for four</span>
+                  </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-8">
@@ -211,6 +214,9 @@ export default function Tesla2024Page() {
                       <Star className="w-6 h-6 text-primary" />
                       Tire Buying Decision: Premium Option
                   </CardTitle>
+                   <CardDescription>
+                      <span className="font-bold text-lg text-primary">$214</span> / tire | <span className="font-semibold text-base text-muted-foreground">Total: $856 for four</span>
+                  </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-8">
