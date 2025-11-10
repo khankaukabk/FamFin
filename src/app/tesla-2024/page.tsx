@@ -4,7 +4,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Calendar, Gauge, GanttChartSquare, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star } from 'lucide-react';
+import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star } from 'lucide-react';
 import { differenceInDays, differenceInWeeks } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
@@ -146,7 +146,7 @@ export default function Tesla2024Page() {
               <CardContent>
                 {countdown ? (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <StatCard icon={GanttChartSquare} label="Months Remaining" value={`${countdown.months}`} />
+                    <StatCard icon={Hourglass} label="Months Remaining" value={`${countdown.months}`} />
                     <StatCard icon={Calendar} label="Weeks Remaining" value={`${countdown.weeks}`} />
                     <StatCard icon={Hourglass} label="Days Remaining" value={`${countdown.days}`} />
                   </div>
@@ -251,7 +251,6 @@ export default function Tesla2024Page() {
                 </div>
               </CardContent>
             </Card>
-
           </main>
         </div>
       </main>
