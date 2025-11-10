@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut, Star } from "lucide-react";
+import { Leaf, Plane, Shield, Warehouse, ListChecks, LogOut, Star, Car } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
@@ -97,6 +97,12 @@ export default function Home() {
             <Button variant="outline">
               <Shield className="h-4 w-4 mr-2" />
               Medicare
+            </Button>
+          </Link>
+           <Link href="/tesla-2024" passHref>
+            <Button variant="outline">
+              <Car className="h-4 w-4 mr-2" />
+              Tesla
             </Button>
           </Link>
           <Link href="/travel-plan" passHref>
