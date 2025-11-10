@@ -10,8 +10,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"Quicksand"', 'sans-serif'],
-        headline: ['"Quicksand"', 'sans-serif'],
+        sans: ['var(--font-sans)', 'sans-serif'],
+        serif: ['var(--font-serif)', 'serif'],
+        body: ['var(--font-sans)', 'sans-serif'],
+        headline: ['var(--font-serif)', 'serif'],
         code: ['monospace'],
       },
       colors: {
