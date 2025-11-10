@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Landmark, BookOpen, Handshake, Heart, Megaphone, Quote } from "lucide-react";
+import { ArrowLeft, Landmark, BookOpen, Handshake, Heart, Megaphone, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
