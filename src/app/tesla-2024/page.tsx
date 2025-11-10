@@ -91,7 +91,7 @@ export default function Tesla2024Page() {
                 <Progress value={progress} className="h-4" />
                 <div className="mt-2 flex justify-between text-sm text-muted-foreground">
                   <span>Loan Start: {loanStartDate.toLocaleDateString()}</span>
-                  <span>Payoff Date: {loanEndDate.toLocaleDateDateString()}</span>
+                  <span>Payoff Date: {loanEndDate.toLocaleDateString()}</span>
                 </div>
               </div>
             </CardContent>
@@ -165,5 +165,3 @@ export default function Tesla2024Page() {
     </div>
   );
 }
-
-    
