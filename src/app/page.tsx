@@ -86,7 +86,7 @@ export default function Home() {
             Family Financials
           </h1>
         </div>
-        <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
+        <div className="flex items-center justify-end gap-2">
            <Link href="/six-qualities" passHref>
             <Button variant="outline">
               <Star className="h-4 w-4 mr-2" />
