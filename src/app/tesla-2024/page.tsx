@@ -4,13 +4,13 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star, Car, FileText } from 'lucide-react';
+import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star, Car, FileText, Wrench } from 'lucide-react';
 import { differenceInDays, differenceInWeeks } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const StatCard = ({
   icon: Icon,
@@ -33,6 +33,18 @@ const StatCard = ({
     </div>
   </div>
 );
+
+const receiptItems = [
+    { description: 'Sentry UHP Tires (235/45 R18)', qty: 4, unitPrice: 75.00, amount: 300.00 },
+    { description: 'Installation & Life of Tire Maintenance', qty: 4, unitPrice: 25.00, amount: 100.00 },
+    { description: 'Certificates for Refund, Replacement', qty: 4, unitPrice: 12.95, amount: 51.80 },
+    { description: 'Waste Tire Disposal Fee', qty: 4, unitPrice: 3.50, amount: 14.00 },
+    { description: 'State Required Tire Fee', qty: 4, unitPrice: 1.00, amount: 4.00 },
+    { description: 'Sales Tax', qty: 1, unitPrice: 29.83, amount: 29.83 },
+];
+
+const totalCost = receiptItems.reduce((acc, item) => acc + item.amount, 0);
+
 
 export default function Tesla2024Page() {
   const [countdown, setCountdown] = React.useState<{
@@ -71,10 +83,10 @@ export default function Tesla2024Page() {
       });
     };
 
-    calculateCountdown(); // Initial calculation
-    const intervalId = setInterval(calculateCountdown, 1000); // Update every second
+    calculateCountdown();
+    const intervalId = setInterval(calculateCountdown, 1000);
 
-    return () => clearInterval(intervalId); // Cleanup on component unmount
+    return () => clearInterval(intervalId);
   }, [startDate, endDate]);
 
   return (
@@ -200,6 +212,80 @@ export default function Tesla2024Page() {
                  </div>
               </CardContent>
             </Card>
+            
+            <Card className="bg-white/50">
+              <CardHeader>
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                    <Wrench className="w-6 h-6 text-primary" />
+                    Next Tire Rotation: 5,000 Mile Service
+                  </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                        <p className="text-sm font-semibold text-blue-600">NEXT SERVICE DUE AT</p>
+                        <p className="text-3xl font-bold text-blue-800">22,367 mi</p>
+                    </div>
+                    <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-center">
+                        <p className="text-sm font-semibold text-yellow-600">EST. MILES REMAINING</p>
+                        <p className="text-3xl font-bold text-yellow-800">0 mi</p>
+                    </div>
+                </div>
+                 <div className="bg-slate-100 border border-slate-200 text-center rounded-lg p-4">
+                    <p className="font-semibold text-slate-800">Estimated Service Date: Tuesday, November 11, 2025</p>
+                    <p className="text-xs text-slate-500 mt-1">Based on an estimated current mileage of 37,167 mi and an average of 1,100 miles/month.</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                      <FileText className="w-6 h-6 text-primary" />
+                      Final Receipt Details
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div className="bg-slate-50 p-4 rounded-lg border">
+                            <p className="text-sm font-semibold text-slate-500">Vehicle</p>
+                            <p className="text-lg font-medium text-slate-800">2024 Tesla Model 3 RWD</p>
+                       </div>
+                       <div className="bg-slate-50 p-4 rounded-lg border">
+                            <p className="text-sm font-semibold text-slate-500">Mileage at Installation</p>
+                            <p className="text-lg font-medium text-slate-800">17,367 miles</p>
+                       </div>
+                    </div>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Description</TableHead>
+                                <TableHead className="text-center">Qty</TableHead>
+                                <TableHead className="text-right">Unit Price</TableHead>
+                                <TableHead className="text-right">Amount</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {receiptItems.map((item, index) => (
+                                <TableRow key={index}>
+                                    <TableCell className="font-medium">{item.description}</TableCell>
+                                    <TableCell className="text-center">{item.qty}</TableCell>
+                                    <TableCell className="text-right">${item.unitPrice.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right">${item.amount.toFixed(2)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <div className="mt-4 flex justify-end">
+                        <div className="w-full md:w-1/3">
+                            <div className="flex justify-between items-center bg-slate-100 p-3 rounded-lg border">
+                                <p className="text-lg font-bold text-slate-800">Total Cost</p>
+                                <p className="text-lg font-bold text-slate-900">${totalCost.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             <Card className="bg-white/50">
               <CardHeader>
@@ -307,3 +393,4 @@ export default function Tesla2024Page() {
     </div>
   );
 }
+
