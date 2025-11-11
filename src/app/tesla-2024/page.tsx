@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 const StatCard = ({
   icon: Icon,
@@ -212,7 +213,7 @@ export default function Tesla2024Page() {
                  </div>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader>
                   <CardTitle className="flex items-center gap-3 font-headline text-2xl">
@@ -268,10 +269,10 @@ export default function Tesla2024Page() {
                         <TableBody>
                             {receiptItems.map((item, index) => (
                                 <TableRow key={index}>
-                                    <TableCell className="font-medium">{item.description}</TableCell>
-                                    <TableCell className="text-center">{item.qty}</TableCell>
-                                    <TableCell className="text-right">${item.unitPrice.toFixed(2)}</TableCell>
-                                    <TableCell className="text-right">${item.amount.toFixed(2)}</TableCell>
+                                    <TableCell className="font-medium text-foreground">{item.description}</TableCell>
+                                    <TableCell className="text-center text-muted-foreground">{item.qty}</TableCell>
+                                    <TableCell className="text-right text-muted-foreground">${item.unitPrice.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right font-semibold text-foreground">${item.amount.toFixed(2)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -392,3 +393,5 @@ export default function Tesla2024Page() {
       </footer>
     </div>
   );
+}
+    
