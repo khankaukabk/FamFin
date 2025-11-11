@@ -95,7 +95,7 @@ export default function Tesla2024Page() {
     const intervalId = setInterval(calculateCountdown, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [endDate, startDate]);
   
   React.useEffect(() => {
     const calculateRotation = () => {
@@ -228,7 +228,7 @@ export default function Tesla2024Page() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                     <Hourglass className="w-6 h-6 text-primary" />
-                    Remaining Countdown
+                    Remaining Countdown to Lease End
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -432,4 +432,3 @@ export default function Tesla2024Page() {
   );
 }
 
-    
