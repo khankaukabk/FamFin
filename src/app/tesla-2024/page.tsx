@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star, Car, FileText, Wrench } from 'lucide-react';
-import { differenceInDays, differenceInWeeks } from 'date-fns';
+import { differenceInDays, differenceInWeeks, addDays, format, differenceInMonths } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -54,6 +54,12 @@ export default function Tesla2024Page() {
     days: number;
   } | null>(null);
   const [progress, setProgress] = React.useState(0);
+  
+  const [rotationInfo, setRotationInfo] = React.useState<{
+    currentMileage: number;
+    milesRemaining: number;
+    serviceDate: string;
+  } | null>(null);
 
   const startDate = new Date('2024-05-14T00:00:00');
   const endDate = new Date('2027-05-13T00:00:00');
@@ -89,6 +95,37 @@ export default function Tesla2024Page() {
 
     return () => clearInterval(intervalId);
   }, [startDate, endDate]);
+  
+  React.useEffect(() => {
+    const calculateRotation = () => {
+        const today = new Date();
+        const milesPerMonth = 2000;
+        const mileageAtInstallation = 17367;
+        const serviceInterval = 5000;
+
+        const monthsSinceInstallation = differenceInMonths(today, new Date('2024-11-01')); // Assuming installation on Nov 1st
+        const milesDrivenSince = monthsSinceInstallation * milesPerMonth;
+        const currentMileage = mileageAtInstallation + milesDrivenSince;
+        
+        const nextServiceMileage = 22367;
+        
+        const milesRemaining = Math.max(0, nextServiceMileage - currentMileage);
+
+        const daysToNextService = (milesRemaining / milesPerMonth) * 30;
+        const estimatedServiceDate = addDays(today, daysToNextService);
+
+        setRotationInfo({
+            currentMileage: Math.round(currentMileage),
+            milesRemaining: Math.round(milesRemaining),
+            serviceDate: format(estimatedServiceDate, "EEEE, MMMM d, yyyy")
+        });
+    };
+    
+    calculateRotation();
+     const intervalId = setInterval(calculateRotation, 60000); // Recalculate every minute
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -229,12 +266,12 @@ export default function Tesla2024Page() {
                     </div>
                     <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 text-center">
                         <p className="text-sm font-semibold text-yellow-600">EST. MILES REMAINING</p>
-                        <p className="text-3xl font-bold text-foreground">0 mi</p>
+                        <p className="text-3xl font-bold text-foreground">{rotationInfo ? `${rotationInfo.milesRemaining.toLocaleString()} mi` : '...'}</p>
                     </div>
                 </div>
                  <div className="bg-muted/50 border text-center rounded-lg p-4">
-                    <p className="font-semibold text-foreground">Estimated Service Date: Tuesday, November 11, 2025</p>
-                    <p className="text-xs text-muted-foreground mt-1">Based on an estimated current mileage of 37,167 mi and an average of 1,100 miles/month.</p>
+                    <p className="font-semibold text-foreground">Estimated Service Date: {rotationInfo ? rotationInfo.serviceDate : '...'}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Based on an estimated current mileage of {rotationInfo ? rotationInfo.currentMileage.toLocaleString() : '...'} mi and an average of 2,000 miles/month.</p>
                 </div>
               </CardContent>
             </Card>
@@ -394,4 +431,3 @@ export default function Tesla2024Page() {
     </div>
   );
 }
-    
