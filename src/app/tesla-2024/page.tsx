@@ -270,7 +270,7 @@ export default function Tesla2024Page() {
                                 <TableRow key={index}>
                                     <TableCell className="font-medium">{item.description}</TableCell>
                                     <TableCell className="text-center">{item.qty}</TableCell>
-                                    <TableCell className="text-right">${item.unitPrice.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right">${item.amount.toFixed(2)}</TableCell>
                                     <TableCell className="text-right">${item.amount.toFixed(2)}</TableCell>
                                 </TableRow>
                             ))}
