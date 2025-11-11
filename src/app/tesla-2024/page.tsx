@@ -100,22 +100,18 @@ export default function Tesla2024Page() {
     const calculateRotation = () => {
         const today = new Date();
         const milesPerMonth = 2000;
-        const mileageAtInstallation = 17367;
+        const currentMileage = 17367;
         const serviceInterval = 5000;
-
-        const monthsSinceInstallation = differenceInMonths(today, new Date('2024-11-01')); // Assuming installation on Nov 1st
-        const milesDrivenSince = monthsSinceInstallation * milesPerMonth;
-        const currentMileage = mileageAtInstallation + milesDrivenSince;
-        
         const nextServiceMileage = 22367;
-        
+
         const milesRemaining = Math.max(0, nextServiceMileage - currentMileage);
 
-        const daysToNextService = (milesRemaining / milesPerMonth) * 30;
+        // Estimate days to next service based on miles remaining and average monthly mileage
+        const daysToNextService = (milesRemaining / milesPerMonth) * 30; // Using 30 as avg days in month
         const estimatedServiceDate = addDays(today, daysToNextService);
 
         setRotationInfo({
-            currentMileage: Math.round(currentMileage),
+            currentMileage: currentMileage,
             milesRemaining: Math.round(milesRemaining),
             serviceDate: format(estimatedServiceDate, "EEEE, MMMM d, yyyy")
         });
@@ -271,7 +267,7 @@ export default function Tesla2024Page() {
                 </div>
                  <div className="bg-muted/50 border text-center rounded-lg p-4">
                     <p className="font-semibold text-foreground">Estimated Service Date: {rotationInfo ? rotationInfo.serviceDate : '...'}</p>
-                    <p className="text-xs text-muted-foreground mt-1">Based on an estimated current mileage of {rotationInfo ? rotationInfo.currentMileage.toLocaleString() : '...'} mi and an average of 2,000 miles/month.</p>
+                    <p className="text-xs text-muted-foreground mt-1">Based on a current mileage of {rotationInfo ? rotationInfo.currentMileage.toLocaleString() : '...'} mi and an average of 2,000 miles/month.</p>
                 </div>
               </CardContent>
             </Card>
@@ -431,3 +427,5 @@ export default function Tesla2024Page() {
     </div>
   );
 }
+
+    
