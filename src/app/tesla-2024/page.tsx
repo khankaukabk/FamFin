@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Calendar, Gauge, Hourglass, ThumbsDown, ThumbsUp, Wallet, Star, Car, FileText, Wrench } from 'lucide-react';
-import { differenceInDays, differenceInWeeks, addDays, format, differenceInMonths } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -68,14 +68,15 @@ export default function Tesla2024Page() {
     const calculateCountdown = () => {
       const today = new Date();
       
-      const totalDurationInDays = differenceInDays(endDate, startDate);
-      const elapsedDays = differenceInDays(today, startDate);
+      const totalDurationInDays = Math.abs(endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
+      const elapsedDays = Math.abs(today.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
       const currentProgress = Math.max(0, Math.min(100, (elapsedDays / totalDurationInDays) * 100));
       setProgress(currentProgress);
 
-      const remainingDays = differenceInDays(endDate, today);
-      const remainingWeeks = differenceInWeeks(endDate, today);
-
+      const remainingMs = endDate.getTime() - today.getTime();
+      const remainingDays = Math.ceil(remainingMs / (1000 * 60 * 60 * 24));
+      const remainingWeeks = Math.ceil(remainingDays / 7);
+      
       let remainingMonths = (endDate.getFullYear() - today.getFullYear()) * 12;
       remainingMonths -= today.getMonth();
       remainingMonths += endDate.getMonth();
@@ -94,14 +95,13 @@ export default function Tesla2024Page() {
     const intervalId = setInterval(calculateCountdown, 1000);
 
     return () => clearInterval(intervalId);
-  }, [startDate, endDate]);
+  }, []);
   
   React.useEffect(() => {
     const calculateRotation = () => {
         const today = new Date();
         const milesPerMonth = 2000;
-        const currentMileage = 17367;
-        const serviceInterval = 5000;
+        const currentMileage = 17367; // This is now treated as mileage on today's date
         const nextServiceMileage = 22367;
 
         const milesRemaining = Math.max(0, nextServiceMileage - currentMileage);
@@ -191,11 +191,11 @@ export default function Tesla2024Page() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    <div className="bg-muted/50 p-4 rounded-lg border">
                         <p className="text-sm font-semibold text-muted-foreground">Start Date</p>
-                        <p className="text-lg font-medium text-foreground">{startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                        <p className="text-lg font-medium text-foreground">{format(startDate, 'MMMM d, yyyy')}</p>
                    </div>
                    <div className="bg-muted/50 p-4 rounded-lg border">
                         <p className="text-sm font-semibold text-muted-foreground">End Date</p>
-                        <p className="text-lg font-medium text-foreground">{endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                        <p className="text-lg font-medium text-foreground">{format(endDate, 'MMMM d, yyyy')}</p>
                    </div>
                 </div>
                 <div className="text-center bg-primary/10 border border-primary/20 text-primary p-4 rounded-lg">
@@ -216,9 +216,9 @@ export default function Tesla2024Page() {
                     <div>
                         <Progress value={progress} className="h-4" />
                         <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                            <span>May 14, 2024</span>
+                            <span>{format(startDate, 'MMM d, yyyy')}</span>
                             <span className="font-semibold">{progress.toFixed(0)}% Complete</span>
-                            <span>May 13, 2027</span>
+                            <span>{format(endDate, 'MMM d, yyyy')}</span>
                         </div>
                     </div>
                 </CardContent>
@@ -242,7 +242,7 @@ export default function Tesla2024Page() {
                   <p className="text-center text-muted-foreground">Calculating remaining time...</p>
                 )}
                  <div className="mt-6 text-center text-sm text-muted-foreground bg-muted/50 p-3 rounded-md border">
-                    <p>From <strong className="font-semibold text-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold text-foreground">May 13, 2027</strong></p>
+                    <p>From <strong className="font-semibold text-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold text-foreground">{format(endDate, 'MMMM d, yyyy')}</strong></p>
                  </div>
               </CardContent>
             </Card>
@@ -280,7 +280,7 @@ export default function Tesla2024Page() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                         <div className="bg-muted/50 p-4 rounded-lg border">
                             <p className="text-sm font-semibold text-muted-foreground">Vehicle</p>
                             <p className="text-lg font-medium text-foreground">2024 Tesla Model 3 RWD</p>
@@ -288,6 +288,10 @@ export default function Tesla2024Page() {
                        <div className="bg-muted/50 p-4 rounded-lg border">
                             <p className="text-sm font-semibold text-muted-foreground">Mileage at Installation</p>
                             <p className="text-lg font-medium text-foreground">17,367 miles</p>
+                       </div>
+                       <div className="bg-muted/50 p-4 rounded-lg border">
+                            <p className="text-sm font-semibold text-muted-foreground">Installation Date</p>
+                            <p className="text-lg font-medium text-foreground">{format(new Date(), 'MMMM d, yyyy')}</p>
                        </div>
                     </div>
                     <Table>
