@@ -23,13 +23,13 @@ const StatCard = ({
   value: React.ReactNode;
   className?: string;
 }) => (
-  <div className={`bg-slate-50 border border-slate-200 rounded-lg p-4 flex items-center ${className}`}>
+  <div className={cn("bg-muted/50 border rounded-lg p-4 flex items-center", className)}>
     <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
       <Icon className="w-6 h-6" />
     </div>
     <div className="ml-4">
-      <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide">{label}</p>
-      <p className="text-2xl font-bold text-slate-800">{value}</p>
+      <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{label}</p>
+      <p className="text-2xl font-bold text-foreground">{value}</p>
     </div>
   </div>
 );
@@ -87,10 +87,10 @@ export default function Tesla2024Page() {
     const intervalId = setInterval(calculateCountdown, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [startDate, endDate]);
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-slate-50">
+    <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:flex-row sm:px-6">
         <div className="flex items-center gap-4">
           <Link href="/" passHref>
@@ -106,13 +106,13 @@ export default function Tesla2024Page() {
 
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-5xl space-y-10">
-             <p className="text-slate-500 mt-2 text-lg text-center">
+             <p className="text-muted-foreground mt-2 text-lg text-center">
               A Three-Year Plan from May 2024 to May 2027
             </p>
 
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                     <Car className="w-6 h-6 text-primary" />
                     Vehicle & Lease Details
                 </CardTitle>
@@ -146,42 +146,42 @@ export default function Tesla2024Page() {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                     <Calendar className="w-6 h-6 text-primary" />
                     Timeline Overview
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                   <div className="bg-slate-50 p-4 rounded-lg border">
-                        <p className="text-sm font-semibold text-slate-500">Start Date</p>
-                        <p className="text-lg font-medium text-slate-800">{startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                   <div className="bg-muted/50 p-4 rounded-lg border">
+                        <p className="text-sm font-semibold text-muted-foreground">Start Date</p>
+                        <p className="text-lg font-medium text-foreground">{startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                    </div>
-                   <div className="bg-slate-50 p-4 rounded-lg border">
-                        <p className="text-sm font-semibold text-slate-500">End Date</p>
-                        <p className="text-lg font-medium text-slate-800">{endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                   <div className="bg-muted/50 p-4 rounded-lg border">
+                        <p className="text-sm font-semibold text-muted-foreground">End Date</p>
+                        <p className="text-lg font-medium text-foreground">{endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                    </div>
                 </div>
-                <div className="text-center bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg">
+                <div className="text-center bg-primary/10 border border-primary/20 text-primary p-4 rounded-lg">
                     <p className="font-semibold">Total Duration: 36 Months (3 Years)</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/50">
+            <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                    <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                         <Gauge className="w-6 h-6 text-primary" />
                         Current Progress
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <p className="text-center text-slate-600">You are halfway through your three-year span — 18 months down, 18 to go!</p>
+                    <p className="text-center text-muted-foreground">You are halfway through your three-year span — 18 months down, 18 to go!</p>
                     <div>
                         <Progress value={progress} className="h-4" />
-                        <div className="flex justify-between text-xs text-slate-500 mt-2">
+                        <div className="flex justify-between text-xs text-muted-foreground mt-2">
                             <span>May 14, 2024</span>
                             <span className="font-semibold">{progress.toFixed(0)}% Complete</span>
                             <span>May 13, 2027</span>
@@ -190,9 +190,9 @@ export default function Tesla2024Page() {
                 </CardContent>
             </Card>
 
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                     <Hourglass className="w-6 h-6 text-primary" />
                     Remaining Countdown
                 </CardTitle>
@@ -205,55 +205,55 @@ export default function Tesla2024Page() {
                     <StatCard icon={Hourglass} label="Days Remaining" value={`${countdown.days}`} />
                   </div>
                 ) : (
-                  <p className="text-center text-slate-500">Calculating remaining time...</p>
+                  <p className="text-center text-muted-foreground">Calculating remaining time...</p>
                 )}
-                 <div className="mt-6 text-center text-sm text-slate-500 bg-slate-50 p-3 rounded-md border">
-                    <p>From <strong className="font-semibold">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold">May 13, 2027</strong></p>
+                 <div className="mt-6 text-center text-sm text-muted-foreground bg-muted/50 p-3 rounded-md border">
+                    <p>From <strong className="font-semibold text-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold text-foreground">May 13, 2027</strong></p>
                  </div>
               </CardContent>
             </Card>
             
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                     <Wrench className="w-6 h-6 text-primary" />
                     Next Tire Rotation: 5,000 Mile Service
                   </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                        <p className="text-sm font-semibold text-blue-600">NEXT SERVICE DUE AT</p>
-                        <p className="text-3xl font-bold text-blue-800">22,367 mi</p>
+                    <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
+                        <p className="text-sm font-semibold text-primary">NEXT SERVICE DUE AT</p>
+                        <p className="text-3xl font-bold text-foreground">22,367 mi</p>
                     </div>
-                    <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-center">
+                    <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 text-center">
                         <p className="text-sm font-semibold text-yellow-600">EST. MILES REMAINING</p>
-                        <p className="text-3xl font-bold text-yellow-800">0 mi</p>
+                        <p className="text-3xl font-bold text-foreground">0 mi</p>
                     </div>
                 </div>
-                 <div className="bg-slate-100 border border-slate-200 text-center rounded-lg p-4">
-                    <p className="font-semibold text-slate-800">Estimated Service Date: Tuesday, November 11, 2025</p>
-                    <p className="text-xs text-slate-500 mt-1">Based on an estimated current mileage of 37,167 mi and an average of 1,100 miles/month.</p>
+                 <div className="bg-muted/50 border text-center rounded-lg p-4">
+                    <p className="font-semibold text-foreground">Estimated Service Date: Tuesday, November 11, 2025</p>
+                    <p className="text-xs text-muted-foreground mt-1">Based on an estimated current mileage of 37,167 mi and an average of 1,100 miles/month.</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/50">
+            <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                       <FileText className="w-6 h-6 text-primary" />
                       Final Receipt Details
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div className="bg-slate-50 p-4 rounded-lg border">
-                            <p className="text-sm font-semibold text-slate-500">Vehicle</p>
-                            <p className="text-lg font-medium text-slate-800">2024 Tesla Model 3 RWD</p>
+                        <div className="bg-muted/50 p-4 rounded-lg border">
+                            <p className="text-sm font-semibold text-muted-foreground">Vehicle</p>
+                            <p className="text-lg font-medium text-foreground">2024 Tesla Model 3 RWD</p>
                        </div>
-                       <div className="bg-slate-50 p-4 rounded-lg border">
-                            <p className="text-sm font-semibold text-slate-500">Mileage at Installation</p>
-                            <p className="text-lg font-medium text-slate-800">17,367 miles</p>
+                       <div className="bg-muted/50 p-4 rounded-lg border">
+                            <p className="text-sm font-semibold text-muted-foreground">Mileage at Installation</p>
+                            <p className="text-lg font-medium text-foreground">17,367 miles</p>
                        </div>
                     </div>
                     <Table>
@@ -278,18 +278,18 @@ export default function Tesla2024Page() {
                     </Table>
                     <div className="mt-4 flex justify-end">
                         <div className="w-full md:w-1/3">
-                            <div className="flex justify-between items-center bg-slate-100 p-3 rounded-lg border">
-                                <p className="text-lg font-bold text-slate-800">Total Cost</p>
-                                <p className="text-lg font-bold text-slate-900">${totalCost.toFixed(2)}</p>
+                            <div className="flex justify-between items-center bg-muted/50 p-3 rounded-lg border">
+                                <p className="text-lg font-bold text-foreground">Total Cost</p>
+                                <p className="text-lg font-bold text-primary">${totalCost.toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
                 </CardContent>
             </Card>
 
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                       <Wallet className="w-6 h-6 text-primary" />
                       Tire Buying Decision: Sentry UHP
                   </CardTitle>
@@ -309,24 +309,24 @@ export default function Tesla2024Page() {
                       />
                   </div>
                   <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                      <h3 className="font-semibold text-lg text-emerald-800 flex items-center gap-2 mb-3">
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                      <h3 className="font-semibold text-lg text-green-400 flex items-center gap-2 mb-3">
                         <ThumbsUp className="w-5 h-5" />
                         Pros
                       </h3>
-                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-muted-foreground">
                         <li><span className="font-semibold">Very Affordable:</span> At $75 per tire, the upfront cost is low.</li>
                         <li><span className="font-semibold">Good User Reviews:</span> A 4.3-star rating from over 2,300 reviews indicates solid satisfaction.</li>
                         <li><span className="font-semibold">Versatile:</span> Labeled as "All-Season" and "Performance."</li>
                         <li><span className="font-semibold">Fuel Efficient:</span> May contribute to better mileage.</li>
                       </ul>
                     </div>
-                    <div className="bg-rose-50 border border-rose-200 rounded-lg p-4">
-                      <h3 className="font-semibold text-lg text-rose-800 flex items-center gap-2 mb-3">
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                      <h3 className="font-semibold text-lg text-red-400 flex items-center gap-2 mb-3">
                         <ThumbsDown className="w-5 h-5" />
                         Cons
                       </h3>
-                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-muted-foreground">
                         <li><span className="font-semibold">Short Tread Life:</span> 23K-30K mile estimate means more frequent replacement.</li>
                         <li><span className="font-semibold">Average Comfort:</span> Rated only 2 out of 4 for both "Quiet Ride" and "Comfort."</li>
                         <li><span className="font-semibold">Potential Hidden Costs:</span> Low tread life may negate initial savings over time.</li>
@@ -337,9 +337,9 @@ export default function Tesla2024Page() {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/50">
+            <Card>
               <CardHeader>
-                  <CardTitle className="flex items-center gap-3 font-headline text-2xl text-slate-700">
+                  <CardTitle className="flex items-center gap-3 font-headline text-2xl">
                       <Star className="w-6 h-6 text-primary" />
                       Tire Buying Decision: Premium Option
                   </CardTitle>
@@ -359,24 +359,24 @@ export default function Tesla2024Page() {
                       />
                   </div>
                   <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                      <h3 className="font-semibold text-lg text-emerald-800 flex items-center gap-2 mb-3">
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                      <h3 className="font-semibold text-lg text-green-400 flex items-center gap-2 mb-3">
                         <ThumbsUp className="w-5 h-5" />
                         Pros
                       </h3>
-                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-muted-foreground">
                         <li><span className="font-semibold">Longer Tread Life:</span> Typically offer 50K+ mile treadwear warranties.</li>
                         <li><span className="font-semibold">Superior Comfort:</span> Engineered for a quiet and smooth ride, ideal for luxury EVs.</li>
                         <li><span className="font-semibold">Excellent Performance:</span> Better handling, braking, and stability in all conditions.</li>
                          <li><span className="font-semibold">Brand Reputation:</span> Established brands often mean higher quality control and reliability.</li>
                       </ul>
                     </div>
-                    <div className="bg-rose-50 border border-rose-200 rounded-lg p-4">
-                      <h3 className="font-semibold text-lg text-rose-800 flex items-center gap-2 mb-3">
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                      <h3 className="font-semibold text-lg text-red-400 flex items-center gap-2 mb-3">
                         <ThumbsDown className="w-5 h-5" />
                         Cons
                       </h3>
-                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-slate-700">
+                      <ul className="list-disc list-outside ml-5 space-y-2 text-sm text-muted-foreground">
                         <li><span className="font-semibold">Higher Upfront Cost:</span> Significantly more expensive per tire.</li>
                         <li><span className="font-semibold">Overkill for some drivers:</span> The advanced features may not be necessary for standard daily driving.</li>
                       </ul>
@@ -392,6 +392,3 @@ export default function Tesla2024Page() {
       </footer>
     </div>
   );
-}
-
-    
