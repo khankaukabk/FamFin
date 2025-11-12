@@ -13,11 +13,6 @@ const weeklyTasks = [
     dates: "November 1-7",
     tasks: [
       {
-        icon: ArchiveRestore,
-        title: "Return Shein Package",
-        description: "Process the return for the recent order.",
-      },
-      {
         icon: Phone,
         title: "Call EBT for Mom",
         description: "Follow up on the status of the application.",
@@ -48,6 +43,11 @@ const weeklyTasks = [
     week: "Week 2",
     dates: "November 8-14",
     tasks: [
+      {
+        icon: ArchiveRestore,
+        title: "Return Shein Package",
+        description: "Process the return for the recent order.",
+      },
       {
         icon: ShieldCheck,
         title: "Medicare Meeting",
