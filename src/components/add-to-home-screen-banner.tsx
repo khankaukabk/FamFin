@@ -3,21 +3,18 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { X, Share2 } from "lucide-react";
+import { X, Share } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function AddToHomeScreenBanner() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    // Only run on client
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    // `standalone` is a non-standard property, so we check for its existence.
-    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+    const isInStandaloneMode = ('standalone' in window.navigator) && ((window.navigator as any).standalone);
 
     if (isIOS && isSafari && !isInStandaloneMode) {
-      // Check if the banner has been dismissed this session
       const dismissed = sessionStorage.getItem('dismissed-a2hs-banner');
       if (!dismissed) {
         setIsVisible(true);
@@ -26,7 +23,6 @@ export function AddToHomeScreenBanner() {
   }, []);
 
   const handleDismiss = () => {
-    // Use sessionStorage to make dismissal temporary for the session
     sessionStorage.setItem('dismissed-a2hs-banner', 'true');
     setIsVisible(false);
   };
@@ -50,7 +46,7 @@ export function AddToHomeScreenBanner() {
         <div className="flex-grow">
           <h3 className="font-semibold font-headline text-base">Get the Khan Family Web App</h3>
           <p className="text-sm text-muted-foreground flex items-center flex-wrap">
-            For the full experience, tap the menu (three dots), <Share2 className="inline-block h-4 w-4 mx-1"/> then 'Add to Home Screen'
+            For the full experience, tap the menu (three dots), <Share className="inline-block h-4 w-4 mx-1"/> then 'Add to Home Screen'
           </p>
         </div>
         <Button
