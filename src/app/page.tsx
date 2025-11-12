@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar } from "lucide-react";
+import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar, Users, Car } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
@@ -27,6 +27,16 @@ const weeklyTasks = [
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
       },
+      {
+        icon: Users,
+        title: "Rohingya class session and baby sitting every Friday",
+        description: "Weekly educational and childcare support.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class orientation session every Wednesday",
+        description: "Weekly orientation for new class members.",
+      },
     ],
   },
   {
@@ -38,10 +48,25 @@ const weeklyTasks = [
         title: "Complete Medicare Enrollment",
         description: "Finalize the paperwork for Medicare.",
       },
+      {
+        icon: Car,
+        title: "Tire replacement on 11/11",
+        description: "Appointment to replace all four tires.",
+      },
        {
         icon: Briefcase,
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class session and baby sitting every Friday",
+        description: "Weekly educational and childcare support.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class orientation session every Wednesday",
+        description: "Weekly orientation for new class members.",
       },
     ],
   },
@@ -58,6 +83,16 @@ const weeklyTasks = [
         icon: Briefcase,
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class session and baby sitting every Friday",
+        description: "Weekly educational and childcare support.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class orientation session every Wednesday",
+        description: "Weekly orientation for new class members.",
       },
     ],
   },
@@ -79,6 +114,16 @@ const weeklyTasks = [
         icon: Briefcase,
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class session and baby sitting every Friday",
+        description: "Weekly educational and childcare support.",
+      },
+      {
+        icon: Users,
+        title: "Rohingya class orientation session every Wednesday",
+        description: "Weekly orientation for new class members.",
       },
     ],
   },
