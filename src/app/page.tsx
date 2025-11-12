@@ -29,13 +29,13 @@ const weeklyTasks = [
       },
       {
         icon: Users,
-        title: "Rohingya class session and baby sitting every Friday",
-        description: "Weekly educational and childcare support.",
+        title: "Rohingya Class & Babysitting",
+        description: "Attend the weekly educational session and provide childcare support every Friday.",
       },
       {
         icon: Users,
-        title: "Rohingya class orientation session every Wednesday",
-        description: "Weekly orientation for new class members.",
+        title: "Rohingya Class Orientation",
+        description: "Lead the orientation for new members every Wednesday.",
       },
     ],
   },
@@ -45,12 +45,12 @@ const weeklyTasks = [
     tasks: [
       {
         icon: ShieldCheck,
-        title: "Complete Medicare Enrollment",
-        description: "Finalize the paperwork for Medicare.",
+        title: "Medicare Meeting",
+        description: "Attend the meeting at 12:30 PM this Thursday.",
       },
       {
         icon: Car,
-        title: "Tire replacement on 11/11",
+        title: "Tire Replacement on 11/11",
         description: "Appointment to replace all four tires.",
       },
        {
@@ -60,13 +60,13 @@ const weeklyTasks = [
       },
       {
         icon: Users,
-        title: "Rohingya class session and baby sitting every Friday",
-        description: "Weekly educational and childcare support.",
+        title: "Rohingya Class & Babysitting",
+        description: "Attend the weekly educational session and provide childcare support every Friday.",
       },
       {
         icon: Users,
-        title: "Rohingya class orientation session every Wednesday",
-        description: "Weekly orientation for new class members.",
+        title: "Rohingya Class Orientation",
+        description: "Lead the orientation for new members every Wednesday.",
       },
     ],
   },
@@ -76,8 +76,8 @@ const weeklyTasks = [
     tasks: [
       {
         icon: Calendar,
-        title: "Atlanta visit on 15th for masturaat tallim",
-        description: "Travel for the educational gathering.",
+        title: "Atlanta Visit for Masturaat Ta'lim",
+        description: "Travel for the educational gathering on the 15th.",
       },
       {
         icon: Briefcase,
@@ -86,13 +86,13 @@ const weeklyTasks = [
       },
       {
         icon: Users,
-        title: "Rohingya class session and baby sitting every Friday",
-        description: "Weekly educational and childcare support.",
+        title: "Rohingya Class & Babysitting",
+        description: "Attend the weekly educational session and provide childcare support every Friday.",
       },
       {
         icon: Users,
-        title: "Rohingya class orientation session every Wednesday",
-        description: "Weekly orientation for new class members.",
+        title: "Rohingya Class Orientation",
+        description: "Lead the orientation for new members every Wednesday.",
       },
     ],
   },
@@ -107,7 +107,7 @@ const weeklyTasks = [
       },
        {
         icon: Wallet,
-        title: "Apple Pay monthly",
+        title: "Apple Pay Monthly",
         description: "Ensure the monthly payment is made on time.",
       },
        {
@@ -117,13 +117,13 @@ const weeklyTasks = [
       },
       {
         icon: Users,
-        title: "Rohingya class session and baby sitting every Friday",
-        description: "Weekly educational and childcare support.",
+        title: "Rohingya Class & Babysitting",
+        description: "Attend the weekly educational session and provide childcare support every Friday.",
       },
       {
         icon: Users,
-        title: "Rohingya class orientation session every Wednesday",
-        description: "Weekly orientation for new class members.",
+        title: "Rohingya Class Orientation",
+        description: "Lead the orientation for new members every Wednesday.",
       },
     ],
   },
