@@ -2,7 +2,6 @@
 "use client";
 
 import * as React from "react";
-import { Leaf } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 
 import { SummaryCards } from "@/components/summary-cards";
@@ -56,15 +55,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navigation />
-      <header className="sticky top-0 z-10 flex h-16 items-center justify-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
-        <div className="flex items-center gap-2">
-          <Leaf className="h-6 w-6 text-primary" />
-          <h1 className="font-headline text-2xl font-bold tracking-tight text-primary">
-            Family Financials
-          </h1>
-        </div>
-      </header>
+      <Navigation title="Family Financials" />
       <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
         <SummaryCards
           totalIncome={totalIncome}

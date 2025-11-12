@@ -137,12 +137,7 @@ const weeklyTasks = [
 export default function HomePage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navigation />
-      <header className="sticky top-0 z-10 flex h-auto items-center justify-center gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:px-6">
-          <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
-            November Tasks
-          </h1>
-      </header>
+      <Navigation title="November Tasks" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-8">
             <div className="grid grid-cols-1 gap-8">

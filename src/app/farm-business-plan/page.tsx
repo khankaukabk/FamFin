@@ -8,22 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
+import { Navigation } from "@/components/ui/navigation";
 
 export default function FarmBusinessPlanPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 z-30 flex h-auto items-center justify-between gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:px-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link href="/" passHref>
-            <Button variant="outline" size="icon" className="h-8 w-8 flex-shrink-0 sm:h-10 sm:w-10">
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
-            Poultry Micro-Farm Business Plan
-          </h1>
-        </div>
-      </header>
+      <Navigation title="Poultry Micro-Farm Business Plan" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-5xl space-y-8">
           
