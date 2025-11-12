@@ -21,6 +21,11 @@ const weeklyTasks = [
         title: "Check Mail for EBT Letter",
         description: "Look for the official confirmation letter.",
       },
+      {
+        icon: Briefcase,
+        title: "Complete Unemployment Benefits",
+        description: "Certify for weekly benefits online.",
+      },
     ],
   },
   {
@@ -30,6 +35,11 @@ const weeklyTasks = [
         icon: ShieldCheck,
         title: "Complete Medicare Enrollment",
         description: "Finalize the paperwork for Medicare.",
+      },
+       {
+        icon: Briefcase,
+        title: "Complete Unemployment Benefits",
+        description: "Certify for weekly benefits online.",
       },
     ],
   },
@@ -50,6 +60,11 @@ const weeklyTasks = [
         icon: Wallet,
         title: "Pay Amazon Monthly",
         description: "Ensure the monthly payment is made on time.",
+      },
+       {
+        icon: Briefcase,
+        title: "Complete Unemployment Benefits",
+        description: "Certify for weekly benefits online.",
       },
     ],
   },
