@@ -21,6 +21,10 @@ const fontSerif = DM_Serif_Display({
 export const metadata: Metadata = {
   title: 'Family Financials',
   description: 'Manage your family\'s spending and income at a glance.',
+  icons: {
+    icon: 'https://firebasestorage.googleapis.com/v0/b/growshare-capital.firebasestorage.app/o/Logo%2FKhan%20Family.png?alt=media&token=703dc19f-7e98-4943-bc0d-31b035a65d1c',
+    apple: 'https://firebasestorage.googleapis.com/v0/b/growshare-capital.firebasestorage.app/o/Logo%2FKhan%20Family.png?alt=media&token=703dc19f-7e98-4943-bc0d-31b035a65d1c',
+  }
 };
 
 export default function RootLayout({
@@ -43,3 +47,4 @@ export default function RootLayout({
     </html>
   );
 }
+
