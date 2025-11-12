@@ -5,8 +5,6 @@ import * as React from "react";
 import { X, Share } from "lucide-react";
 import { Button } from "./ui/button";
 
-const LOCAL_STORAGE_KEY = "hasDismissedAddToHomeScreenBanner";
-
 export function AddToHomeScreenBanner() {
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -15,15 +13,13 @@ export function AddToHomeScreenBanner() {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-    const hasDismissed = localStorage.getItem(LOCAL_STORAGE_KEY) === "true";
 
-    if (isIOS && isSafari && !isInStandaloneMode && !hasDismissed) {
+    if (isIOS && isSafari && !isInStandaloneMode) {
       setIsVisible(true);
     }
   }, []);
 
   const handleDismiss = () => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, "true");
     setIsVisible(false);
   };
 
