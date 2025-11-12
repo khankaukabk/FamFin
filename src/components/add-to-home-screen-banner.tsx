@@ -38,14 +38,14 @@ export function AddToHomeScreenBanner() {
         <div className="flex-shrink-0">
           <Image
             src="https://firebasestorage.googleapis.com/v0/b/growshare-capital.firebasestorage.app/o/Logo%2FKhan%20Family.png?alt=media&token=703dc19f-7e98-4943-bc0d-31b035a65d1c"
-            alt="Family Financials Logo"
+            alt="Khan Family Logo"
             width={48}
             height={48}
             className="rounded-lg"
           />
         </div>
         <div className="flex-grow">
-          <h3 className="font-semibold font-headline text-base">Get the Family Financials Web App</h3>
+          <h3 className="font-semibold font-headline text-base">Get the Khan Family Web App</h3>
           <p className="text-sm text-muted-foreground">
             For the full experience, tap the Share icon then 'Add to Home Screen'.
           </p>
