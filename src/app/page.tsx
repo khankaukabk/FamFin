@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar, Users, Car } from "lucide-react";
+import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar, Users, Car, ArchiveRestore } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
@@ -12,6 +12,11 @@ const weeklyTasks = [
     week: "Week 1",
     dates: "November 1-7",
     tasks: [
+      {
+        icon: ArchiveRestore,
+        title: "Return Shein Package",
+        description: "Process the return for the recent order.",
+      },
       {
         icon: Phone,
         title: "Call EBT for Mom",
@@ -30,7 +35,7 @@ const weeklyTasks = [
       {
         icon: Users,
         title: "Rohingya Class Orientation",
-        description: "Lead the orientation for new members every Wednesday.",
+        description: "Lead the orientation session for new members every Wednesday.",
       },
       {
         icon: Users,
@@ -61,7 +66,7 @@ const weeklyTasks = [
       {
         icon: Users,
         title: "Rohingya Class Orientation",
-        description: "Lead the orientation for new members every Wednesday.",
+        description: "Lead the orientation session for new members every Wednesday.",
       },
       {
         icon: Users,
@@ -87,7 +92,7 @@ const weeklyTasks = [
       {
         icon: Users,
         title: "Rohingya Class Orientation",
-        description: "Lead the orientation for new members every Wednesday.",
+        description: "Lead the orientation session for new members every Wednesday.",
       },
       {
         icon: Users,
@@ -118,7 +123,7 @@ const weeklyTasks = [
       {
         icon: Users,
         title: "Rohingya Class Orientation",
-        description: "Lead the orientation for new members every Wednesday.",
+        description: "Lead the orientation session for new members every Wednesday.",
       },
       {
         icon: Users,
