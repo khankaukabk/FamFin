@@ -5,7 +5,7 @@ import * as React from "react";
 import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
 
 const weeklyTasks = [
   {
@@ -65,38 +65,37 @@ export default function HomePage() {
           </h1>
       </header>
       <main className="flex-1 p-4 sm:px-6 md:p-8">
-        <div className="mx-auto max-w-2xl space-y-6">
+        <div className="mx-auto max-w-2xl space-y-8">
             <Card>
                 <CardHeader>
                     <CardTitle className="font-headline text-xl">November Task List</CardTitle>
                     <CardDescription>A weekly breakdown of your monthly priorities.</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Accordion type="single" collapsible defaultValue="Week 1" className="w-full">
-                    {weeklyTasks.map(({ week, tasks }) => (
-                      <AccordionItem key={week} value={week}>
-                        <AccordionTrigger>
-                          <div className="flex items-center gap-3">
+                <CardContent className="space-y-6">
+                    {weeklyTasks.map(({ week, tasks }, weekIndex) => (
+                      <div key={week}>
+                        <div className="flex items-center gap-3 mb-4">
                             <Calendar className="h-5 w-5 text-primary/80"/>
-                            <span className="text-lg font-semibold">{week}</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="space-y-6 pt-4 pl-2">
-                              {tasks.map((task, index) => (
-                                  <div key={index} className="flex items-start gap-4">
-                                      <task.icon className="h-6 w-6 text-muted-foreground mt-1 flex-shrink-0" />
-                                      <div>
-                                          <p className="font-semibold">{task.title}</p>
-                                          <p className="text-sm text-muted-foreground">{task.description}</p>
+                            <h3 className="text-lg font-semibold">{week}</h3>
+                        </div>
+                        <div className="space-y-6 pl-5 border-l-2 border-dashed ml-2.5">
+                            {tasks.map((task, index) => (
+                                <div key={index} className="flex items-start gap-4 pt-2">
+                                    <div className="flex-shrink-0 -ml-[23px] h-10 w-10 rounded-full bg-background flex items-center justify-center">
+                                      <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
+                                          <task.icon className="h-5 w-5 text-muted-foreground" />
                                       </div>
-                                  </div>
-                              ))}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold">{task.title}</p>
+                                        <p className="text-sm text-muted-foreground">{task.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {weekIndex < weeklyTasks.length - 1 && <Separator className="mt-6" />}
+                      </div>
                     ))}
-                  </Accordion>
                 </CardContent>
             </Card>
         </div>
