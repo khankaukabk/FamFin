@@ -20,95 +20,6 @@
         "id",
         "email"
       ]
-    },
-    "Meeting": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Meeting",
-      "type": "object",
-      "description": "Represents a meeting.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the Meeting entity."
-        },
-        "userId": {
-          "type": "string",
-          "description": "The ID of the user who owns this meeting."
-        },
-        "title": {
-          "type": "string",
-          "description": "The title of the meeting."
-        },
-        "date": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The date and time of the meeting."
-        },
-        "attendees": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "A list of attendees' names."
-        },
-        "agenda": {
-          "type": "array",
-          "items": {
-            "$ref": "#/entities/AgendaItem"
-          },
-          "description": "An array of agenda items for the meeting."
-        },
-        "summary": {
-          "type": "string",
-          "description": "An AI-generated summary of the meeting."
-        }
-      },
-      "required": [
-        "id",
-        "userId",
-        "title",
-        "date",
-        "attendees",
-        "agenda"
-      ]
-    },
-    "AgendaItem": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Agenda Item",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "topic": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "presenter": {
-          "type": "string"
-        },
-        "time": {
-          "type": "string"
-        },
-        "vote": {
-          "type": "string",
-          "enum": [
-            "yes",
-            "no",
-            "pending"
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "topic",
-        "description",
-        "presenter",
-        "time",
-        "vote"
-      ]
     }
   },
   "auth": {
@@ -117,17 +28,6 @@
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/meetings/{meetingId}",
-        "definition": {
-          "entityName": "Meeting",
-          "schema": {
-            "$ref": "#/entities/Meeting"
-          },
-          "description": "Collection to store meeting documents."
-        }
-      }
-    ]
+    "structure": []
   }
 }

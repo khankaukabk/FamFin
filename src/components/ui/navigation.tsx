@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, ListChecks, LogOut, LayoutDashboard, Home } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
@@ -64,9 +64,6 @@ export function Navigation() {
       </NavLink>
       <NavLink href="/farm-business-plan" onClick={() => setIsSheetOpen(false)}>
         <Warehouse className="mr-3" /> Farm
-      </NavLink>
-      <NavLink href="/meetings" onClick={() => setIsSheetOpen(false)}>
-        <ListChecks className="mr-3" /> Meetings
       </NavLink>
     </>
   );

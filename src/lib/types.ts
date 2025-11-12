@@ -9,22 +9,3 @@ export type Transaction = {
   date: Date | string;
   member?: string;
 };
-
-export type Meeting = {
-  id: string;
-  userId: string;
-  title: string;
-  date: Timestamp;
-  attendees: string[];
-  agenda: AgendaItem[];
-  summary?: string;
-};
-
-export type AgendaItem = {
-  id: string;
-  topic: string;
-  description: string;
-  presenter: string;
-  time: string;
-  vote: 'yes' | 'no' | 'pending';
-};

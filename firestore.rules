@@ -44,34 +44,6 @@ service cloud.firestore {
     }
     
     /**
-     * @description Allows users to manage their own meeting documents.
-     * @path /meetings/{meetingId}
-     * @allow (get, update, delete) User with UID can only access a document if their UID matches the `userId` field in that document.
-     * @allow (create) An authenticated user can create a meeting document.
-     * @allow (list) An authenticated user can query the collection, but ONLY if their query includes `where('userId', '==', request.auth.uid)`.
-     * @deny (get, update, delete) User cannot access a meeting if they are not the owner.
-     * @deny (list) Users cannot list all documents in the collection without filtering by their own `userId`.
-     * @principle Enforces document ownership for all operations on meeting records.
-     */
-    match /meetings/{meetingId} {
-       function isSignedIn() {
-        return request.auth != null;
-      }
-
-      function isOwner() {
-        return request.auth.uid == resource.data.userId;
-      }
-      
-       function isCreatingOwner() {
-        return request.auth.uid == request.resource.data.userId;
-      }
-
-      allow get, update, delete: if isSignedIn() && isOwner();
-      allow create: if isSignedIn() && isCreatingOwner();
-      allow list: if isSignedIn() && request.query.resource.data.userId == request.auth.uid;
-    }
-
-    /**
      * @description Allows a user to create, read, update, and delete their own income records.
      * @path /users/{userId}/incomes/{incomeId}
      * @allow (create) User with UID 'user_abc' can create an income document under their user path with userId 'user_abc'.
