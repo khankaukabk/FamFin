@@ -15,8 +15,8 @@ export function AddToHomeScreenBanner() {
     const isInStandaloneMode = ('standalone' in window.navigator) && ((window.navigator as any).standalone);
 
     if (isIOS && isSafari && !isInStandaloneMode) {
-      const dismissed = sessionStorage.getItem('dismissed-a2hs-banner');
-      if (!dismissed) {
+      const dismissedInSession = sessionStorage.getItem('dismissed-a2hs-banner');
+      if (!dismissedInSession) {
         setIsVisible(true);
       }
     }
