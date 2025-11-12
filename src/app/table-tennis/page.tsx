@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { Trophy, Users, Server, Gamepad2 } from "lucide-react";
 
-const WINNING_SCORE = 11;
+const WINNING_SCORE = 20;
 
 export default function TableTennisPage() {
   const [player1Score, setPlayer1Score] = React.useState(0);
@@ -16,9 +16,10 @@ export default function TableTennisPage() {
 
   const totalPoints = player1Score + player2Score;
   const isDeuce = player1Score >= WINNING_SCORE - 1 && player2Score >= WINNING_SCORE - 1;
-  const server = isDeuce 
-    ? (totalPoints % 2 === 0 ? 1 : 2)
-    : (Math.floor(totalPoints / 2) % 2 === 0 ? 1 : 2);
+
+  const server = isDeuce
+    ? ((totalPoints - (WINNING_SCORE - 1) * 2) % 2 === 0 ? 1 : 2) // In deuce, serve alternates every point
+    : (Math.floor(totalPoints / 5) % 2 === 0 ? 1 : 2); // Serve alternates every 5 points
 
   React.useEffect(() => {
     if (player1Score >= WINNING_SCORE && player1Score >= player2Score + 2) {
