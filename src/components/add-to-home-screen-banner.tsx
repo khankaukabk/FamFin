@@ -47,7 +47,7 @@ export function AddToHomeScreenBanner() {
         <div className="flex-grow">
           <h3 className="font-semibold font-headline text-base">Get the Khan Family Web App</h3>
           <p className="text-sm text-muted-foreground">
-            For the full experience, tap the Share icon then 'Add to Home Screen'.
+            For the full experience, tap the Share icon or menu (three dots), then 'Add to Home Screen'.
           </p>
         </div>
         <Button
