@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 const weeklyTasks = [
   {
     week: "Week 1",
+    dates: "November 1-7",
     tasks: [
       {
         icon: Phone,
@@ -30,6 +31,7 @@ const weeklyTasks = [
   },
   {
     week: "Week 2",
+    dates: "November 8-14",
     tasks: [
       {
         icon: ShieldCheck,
@@ -45,6 +47,7 @@ const weeklyTasks = [
   },
   {
     week: "Week 3",
+    dates: "November 15-21",
     tasks: [
       {
         icon: Calendar,
@@ -60,6 +63,7 @@ const weeklyTasks = [
   },
   {
     week: "Week 4",
+    dates: "November 22-30",
     tasks: [
        {
         icon: Wallet,
@@ -91,38 +95,34 @@ export default function HomePage() {
       </header>
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-8">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline text-xl">November Task List</CardTitle>
-                    <CardDescription>A weekly breakdown of your monthly priorities.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    {weeklyTasks.map(({ week, tasks }, weekIndex) => (
-                      <div key={week}>
-                        <div className="flex items-center gap-3 mb-4">
-                            <Calendar className="h-5 w-5 text-primary/80"/>
-                            <h3 className="text-lg font-semibold">{week}</h3>
+            <div className="grid grid-cols-1 gap-8">
+              {weeklyTasks.map(({ week, dates, tasks }) => (
+                <Card key={week} className="w-full">
+                  <CardHeader>
+                    <CardTitle>{week}</CardTitle>
+                    <CardDescription>{dates}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {tasks.map((task, index) => (
+                        <div key={index}>
+                          <div className="flex items-start gap-4">
+                            <div className="flex-shrink-0 h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+                                <task.icon className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                            <div>
+                                <p className="font-semibold">{task.title}</p>
+                                <p className="text-sm text-muted-foreground">{task.description}</p>
+                            </div>
+                          </div>
+                           {index < tasks.length - 1 && <Separator className="mt-6" />}
                         </div>
-                        <div className="space-y-6 pl-5 border-l-2 border-dashed ml-2.5">
-                            {tasks.map((task, index) => (
-                                <div key={index} className="flex items-start gap-4 pt-2">
-                                    <div className="flex-shrink-0 -ml-[23px] h-10 w-10 rounded-full bg-background flex items-center justify-center">
-                                      <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-                                          <task.icon className="h-5 w-5 text-muted-foreground" />
-                                      </div>
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold">{task.title}</p>
-                                        <p className="text-sm text-muted-foreground">{task.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        {weekIndex < weeklyTasks.length - 1 && <Separator className="mt-6" />}
-                      </div>
-                    ))}
-                </CardContent>
-            </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
