@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Inter, DM_Serif_Display } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { AddToHomeScreenBanner } from '@/components/add-to-home-screen-banner';
 
 const fontSans = Inter({
   subsets: ['latin'],
@@ -42,9 +43,9 @@ export default function RootLayout({
         <FirebaseClientProvider>
           {children}
           <Toaster />
+          <AddToHomeScreenBanner />
         </FirebaseClientProvider>
       </body>
     </html>
   );
 }
-
