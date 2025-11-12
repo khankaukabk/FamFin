@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { Trophy, Users, Server, Gamepad2 } from "lucide-react";
 
-const WINNING_SCORE = 20;
+const WINNING_SCORE = 21;
 
 export default function TableTennisPage() {
   const [player1Score, setPlayer1Score] = React.useState(0);
@@ -124,4 +124,3 @@ function PlayerCard({ playerNumber, score, onIncrement, isServing, isWinner }: P
     </Card>
   );
 }
-
