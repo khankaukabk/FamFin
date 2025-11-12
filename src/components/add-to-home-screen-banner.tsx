@@ -10,14 +10,17 @@ export function AddToHomeScreenBanner() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isInStandaloneMode = ('standalone' in window.navigator) && ((window.navigator as any).standalone);
+    // This check ensures the code only runs on the client-side
+    if (typeof window !== 'undefined' && 'navigator' in window) {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const isInStandaloneMode = ('standalone' in window.navigator) && ((window.navigator as any).standalone);
 
-    if (isIOS && isSafari && !isInStandaloneMode) {
-      const dismissedInSession = sessionStorage.getItem('dismissed-a2hs-banner');
-      if (!dismissedInSession) {
-        setIsVisible(true);
+      if (isIOS && isSafari && !isInStandaloneMode) {
+        const dismissedInSession = sessionStorage.getItem('dismissed-a2hs-banner');
+        if (!dismissedInSession) {
+          setIsVisible(true);
+        }
       }
     }
   }, []);
@@ -45,8 +48,8 @@ export function AddToHomeScreenBanner() {
         </div>
         <div className="flex-grow">
           <h3 className="font-semibold font-headline text-base">Get the Khan Family Web App</h3>
-          <p className="text-sm text-muted-foreground flex items-center flex-wrap">
-            For the full experience, tap the menu (<Ellipsis className="inline-block h-4 w-4 mx-1"/>), <Share className="inline-block h-4 w-4 mx-1"/> then 'Add to Home Screen'
+          <p className="text-sm text-muted-foreground">
+            For the full experience, tap the menu (<Ellipsis className="inline-block h-4 w-4 align-middle mx-1"/>), <Share className="inline-block h-4 w-4 align-middle mx-1"/> then 'Add to Home Screen'
           </p>
         </div>
         <Button
