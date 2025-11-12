@@ -47,6 +47,11 @@ const weeklyTasks = [
     week: "Week 3",
     tasks: [
       {
+        icon: Calendar,
+        title: "Atlanta visit on 15th for masturaat tallim",
+        description: "Travel for the educational gathering.",
+      },
+      {
         icon: Briefcase,
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
