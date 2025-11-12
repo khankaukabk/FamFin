@@ -5,7 +5,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
-import { Trophy, Users, Server, Gamepad2 } from "lucide-react";
+import { Trophy, Circle } from "lucide-react";
 
 const WINNING_SCORE = 21;
 
@@ -109,8 +109,8 @@ function PlayerCard({ playerNumber, score, onIncrement, isServing, isWinner }: P
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-xl font-headline">Player {playerNumber}</CardTitle>
         {isServing && (
-            <div className="flex items-center gap-2 text-sm font-medium text-primary">
-                <Server className="h-5 w-5" />
+            <div className="flex items-center gap-2 text-sm font-medium text-green-500">
+                <Circle className="h-4 w-4 fill-green-500" />
                 <span>Serving</span>
             </div>
         )}
