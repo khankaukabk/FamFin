@@ -62,6 +62,11 @@ const weeklyTasks = [
         description: "Ensure the monthly payment is made on time.",
       },
        {
+        icon: Wallet,
+        title: "Apple Pay monthly",
+        description: "Ensure the monthly payment is made on time.",
+      },
+       {
         icon: Briefcase,
         title: "Complete Unemployment Benefits",
         description: "Certify for weekly benefits online.",
