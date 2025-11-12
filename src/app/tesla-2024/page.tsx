@@ -47,6 +47,8 @@ const receiptItems = [
 
 const totalCost = receiptItems.reduce((acc, item) => acc + item.amount, 0);
 
+const startDate = new Date('2024-05-14T00:00:00');
+const endDate = new Date('2027-05-13T00:00:00');
 
 export default function Tesla2024Page() {
   const [countdown, setCountdown] = React.useState<{
@@ -62,8 +64,6 @@ export default function Tesla2024Page() {
     serviceDate: string;
   } | null>(null);
 
-  const startDate = new Date('2024-05-14T00:00:00');
-  const endDate = new Date('2027-05-13T00:00:00');
   
   React.useEffect(() => {
     const calculateCountdown = () => {
@@ -96,7 +96,7 @@ export default function Tesla2024Page() {
     const intervalId = setInterval(calculateCountdown, 1000);
 
     return () => clearInterval(intervalId);
-  }, [endDate, startDate]);
+  }, []);
   
   React.useEffect(() => {
     const calculateRotation = () => {
@@ -421,4 +421,3 @@ export default function Tesla2024Page() {
     </div>
   );
 }
-
