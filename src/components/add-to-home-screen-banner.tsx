@@ -2,24 +2,29 @@
 "use client";
 
 import * as React from "react";
-import { X, Share } from "lucide-react";
+import Image from "next/image";
+import { X } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function AddToHomeScreenBanner() {
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    // Determine if the banner should be shown
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
 
     if (isIOS && isSafari && !isInStandaloneMode) {
-      setIsVisible(true);
+      // Check if the banner has been dismissed this session
+      const dismissed = sessionStorage.getItem('dismissed-a2hs-banner');
+      if (!dismissed) {
+        setIsVisible(true);
+      }
     }
   }, []);
 
   const handleDismiss = () => {
+    sessionStorage.setItem('dismissed-a2hs-banner', 'true');
     setIsVisible(false);
   };
 
@@ -31,9 +36,13 @@ export function AddToHomeScreenBanner() {
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-t border-border p-4 animate-in slide-in-from-bottom-full">
       <div className="max-w-md mx-auto flex items-center gap-4">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-primary/10 text-primary flex items-center justify-center rounded-lg">
-            <Share className="w-6 h-6" />
-          </div>
+          <Image
+            src="https://firebasestorage.googleapis.com/v0/b/growshare-capital.firebasestorage.app/o/Logo%2FKhan%20Family.png?alt=media&token=703dc19f-7e98-4943-bc0d-31b035a65d1c"
+            alt="Family Financials Logo"
+            width={48}
+            height={48}
+            className="rounded-lg"
+          />
         </div>
         <div className="flex-grow">
           <h3 className="font-semibold font-headline text-base">Get the Family Financials Web App</h3>
