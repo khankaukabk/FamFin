@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Phone, Mail, ShieldCheck, Briefcase } from "lucide-react";
+import { Phone, Mail, ShieldCheck, Briefcase, Wallet } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 
@@ -27,6 +27,11 @@ const tasks = [
     title: "Check Mail for EBT Letter",
     description: "Look for the official confirmation letter.",
   },
+  {
+    icon: Wallet,
+    title: "Pay Amazon Monthly",
+    description: "Ensure the monthly payment is made on time.",
+  },
 ];
 
 export default function HomePage() {
@@ -35,15 +40,15 @@ export default function HomePage() {
       <Navigation />
       <header className="sticky top-0 z-10 flex h-auto items-center justify-center gap-4 border-b bg-background/80 px-4 py-4 backdrop-blur-sm sm:h-16 sm:px-6">
           <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl">
-            Daily Tasks
+            November Tasks
           </h1>
       </header>
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-6">
             <Card>
                 <CardHeader>
-                    <CardTitle className="font-headline text-xl">Today's To-Do List</CardTitle>
-                    <CardDescription>A simple, non-editable checklist of your daily priorities.</CardDescription>
+                    <CardTitle className="font-headline text-xl">November Task List</CardTitle>
+                    <CardDescription>A simple, non-editable checklist of your monthly priorities.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-6">
