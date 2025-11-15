@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Users, Clock, Smile, MessageSquare, Virus, Wind, Home, FileText } from "lucide-react";
+import { Users, Clock, Smile, MessageSquare, Bug, Wind, Home, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Navigation } from "@/components/ui/navigation";
@@ -31,7 +31,7 @@ const reportSections = [
   },
   {
     id: "2D",
-    icon: Virus,
+    icon: Bug,
     title: "Stress During the Pandemic",
     duration: "15+ minutes",
     content: "We spoke about how COVID made things harder. People said they felt lonely and worried. They shared how they tried to manage—by praying, keeping busy, and talking to family.",
