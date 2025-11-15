@@ -8,6 +8,16 @@ import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const initialWeeklyTasks = [
   {
@@ -234,15 +244,39 @@ const initialWeeklyTasks = [
 
 export default function HomePage() {
   const [weeklyTasks, setWeeklyTasks] = React.useState(initialWeeklyTasks);
+  const [alertState, setAlertState] = React.useState<{
+    isOpen: boolean;
+    weekIndex: number | null;
+    taskId: string | null;
+  }>({ isOpen: false, weekIndex: null, taskId: null });
 
-  const handleTaskToggle = (weekIndex: number, taskId: string) => {
-    const updatedWeeks = [...weeklyTasks];
-    const task = updatedWeeks[weekIndex].tasks.find(t => t.id === taskId);
-    if (task) {
-      task.completed = !task.completed;
-      setWeeklyTasks(updatedWeeks);
-    }
+  const openConfirmationDialog = (weekIndex: number, taskId: string) => {
+    setAlertState({ isOpen: true, weekIndex, taskId });
   };
+  
+  const handleConfirmToggle = () => {
+    if (alertState.weekIndex !== null && alertState.taskId !== null) {
+      const { weekIndex, taskId } = alertState;
+      const updatedWeeks = [...weeklyTasks];
+      const task = updatedWeeks[weekIndex].tasks.find(t => t.id === taskId);
+      if (task) {
+        task.completed = !task.completed;
+        setWeeklyTasks(updatedWeeks);
+      }
+    }
+    setAlertState({ isOpen: false, weekIndex: null, taskId: null });
+  };
+
+  const handleCancelToggle = () => {
+    setAlertState({ isOpen: false, weekIndex: null, taskId: null });
+  };
+
+  const currentTaskForAlert =
+    alertState.weekIndex !== null && alertState.taskId
+      ? weeklyTasks[alertState.weekIndex].tasks.find(
+          (t) => t.id === alertState.taskId
+        )
+      : null;
 
 
   return (
@@ -266,7 +300,7 @@ export default function HomePage() {
                               <Checkbox 
                                 id={`task-${task.id}`}
                                 checked={task.completed}
-                                onCheckedChange={() => handleTaskToggle(weekIndex, task.id)}
+                                onCheckedChange={() => openConfirmationDialog(weekIndex, task.id)}
                                 className="h-5 w-5"
                               />
                             </div>
@@ -288,6 +322,25 @@ export default function HomePage() {
             </div>
         </div>
       </main>
+      
+      <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && handleCancelToggle()}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will change the completion status of the task: <br/>
+              <strong className="text-foreground">{currentTaskForAlert?.title}</strong>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleCancelToggle}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmToggle}>
+              {currentTaskForAlert?.completed ? "Mark as Incomplete" : "Mark as Complete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <footer className="text-center p-4 text-muted-foreground text-xs">
         Stay focused and productive.
       </footer>
