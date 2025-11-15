@@ -3,10 +3,10 @@
 
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 
-const reportSections = [
+const session2ReportSections = [
   {
     id: "2A",
     title: "Check-in and Sharing (10 minutes)",
@@ -39,7 +39,44 @@ const reportSections = [
   },
 ];
 
-const facilitatorNotes = "This session helped the group understand how feelings affect the body. People opened up about their past and current stress. The breathing activity was well liked, and many promised to keep doing it every day.";
+const session2FacilitatorNotes = "This session helped the group understand how feelings affect the body. People opened up about their past and current stress. The breathing activity was well liked, and many promised to keep doing it every day.";
+
+
+const session3ReportSections = [
+  {
+    id: "3A",
+    title: "Check-in and Sharing (5 minutes)",
+    content: "We start by saying hello and asking how everyone is feeling. We also share any helpful information or resources.",
+  },
+  {
+    id: "3B",
+    title: "What Is Mental Health and Wellbeing? (15 minutes)",
+    content: "We ask the group: “What do you think mental health and wellbeing mean?” Everyone can share their ideas. There are no wrong answers.",
+  },
+  {
+    id: "3C",
+    title: "Understanding Mental Health (25 minutes)",
+    content: "We explain what mental health means in simple words. We also show a picture called the Mental Health Spectrum Diagram to help people see that mental health can change—sometimes we feel well, sometimes not so well, and that’s okay.",
+  },
+  {
+    id: "3D",
+    title: "Traditional Beliefs About Mental Health (20 minutes)",
+    content: "We talk about what people in the community or in their culture believe about mental health. Some may think mental health problems are a weakness or something to hide. We gently explore these ideas together.",
+  },
+  {
+    id: "3E",
+    title: "Body Awareness Activity – Finger Tapping (15 minutes)",
+    content: "We do a short activity where we tap our fingers and notice how our body feels. This helps us feel calm and more connected to our body.",
+  },
+  {
+    id: "3F",
+    title: "Home Practice and Goodbye (10 minutes)",
+    content: "We give a small task to try at home—like doing the finger tapping again or talking to someone about how they feel. We end the session with kind words and thanks.",
+  },
+];
+
+const session3FacilitatorNotes = "After the session, the facilitators meet briefly to talk about how the session went and what to improve next time.";
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -50,32 +87,61 @@ export default function RohingyaClassReportPage() {
           
           <Card>
             <CardHeader>
-              <CardTitle className="font-headline text-2xl">Mental Health & Wellness Session</CardTitle>
-              <CardDescription>A summary of the topics discussed and shared experiences from the group session.</CardDescription>
+              <CardTitle className="font-headline text-2xl">Mental Health & Wellness Sessions</CardTitle>
+              <CardDescription>A summary of topics and shared experiences from group sessions.</CardDescription>
             </CardHeader>
           </Card>
-
-          <div className="space-y-6">
-            {reportSections.map((section) => (
-              <Card key={section.id}>
+          
+          <Tabs defaultValue="session-2" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="session-2">Session 2</TabsTrigger>
+              <TabsTrigger value="session-3">Session 3</TabsTrigger>
+            </TabsList>
+            <TabsContent value="session-2" className="mt-6">
+              <div className="space-y-6">
+                {session2ReportSections.map((section) => (
+                  <Card key={section.id}>
+                    <CardHeader>
+                        <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed">{section.content}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <Card className="mt-8 border-primary/20 bg-primary/5">
                 <CardHeader>
-                    <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                    <CardTitle className="font-headline text-xl">Facilitators’ Notes</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{section.content}</p>
+                    <p className="text-muted-foreground">{session2FacilitatorNotes}</p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-
-           <Card className="mt-8 border-primary/20 bg-primary/5">
-            <CardHeader>
-                <CardTitle className="font-headline text-xl">Facilitators’ Notes</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-muted-foreground">{facilitatorNotes}</p>
-            </CardContent>
-          </Card>
+            </TabsContent>
+            <TabsContent value="session-3" className="mt-6">
+               <div className="space-y-6">
+                {session3ReportSections.map((section) => (
+                  <Card key={section.id}>
+                    <CardHeader>
+                        <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed">{section.content}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <Card className="mt-8 border-primary/20 bg-primary/5">
+                <CardHeader>
+                    <CardTitle className="font-headline text-xl">Facilitators Only: Debrief</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground">{session3FacilitatorNotes}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
           
         </div>
       </main>
