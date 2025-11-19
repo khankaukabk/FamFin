@@ -99,6 +99,40 @@
         "amount",
         "date"
       ]
+    },
+    "AttendanceSession": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AttendanceSession",
+      "type": "object",
+      "description": "Represents a single attendance session for the Rohingya Wellness Group.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the session."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the session.",
+          "format": "date-time"
+        },
+        "sessionNumber": {
+          "type": "number",
+          "description": "The sequential number of the session."
+        },
+        "attendance": {
+          "type": "object",
+          "description": "A map of member names to their attendance status (true for present, false for absent).",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "sessionNumber",
+        "attendance"
+      ]
     }
   },
   "auth": {
@@ -164,8 +198,23 @@
             }
           ]
         }
+      },
+      {
+        "path": "attendanceSessions/{sessionId}",
+        "definition": {
+          "entityName": "AttendanceSession",
+          "schema": {
+            "$ref": "#/backend/entities/AttendanceSession"
+          },
+          "description": "Stores attendance records for the Rohingya Wellness Group.",
+          "params": [
+            {
+              "name": "sessionId",
+              "description": "The unique identifier for the attendance session."
+            }
+          ]
+        }
       }
-    ],
-    "reasoning": "The Firestore data structure is designed to manage family financial data, including income and expenses. It prioritizes security, scalability, and ease of querying. Families are stored at the root level in the `families` collection. Each family document contains basic information about the family. Income and expense data are stored in subcollections under each family document (`families/{familyId}/incomes` and `families/{familyId}/expenses`), enabling easy retrieval of financial records for a specific family. This structure utilizes path-based ownership for incomes and expenses, where access control is implicitly tied to the family document. This approach ensures Authorization Independence because the security rules for incomes and expenses can rely solely on `request.auth.uid` and the existence of the parent `familyId`, without needing to `get()` data from parent documents. This structure supports QAPs by segregating data based on family ownership, enabling secure `list` operations within the appropriate family context. The `familyId` field in both the `incomes` and `expenses` collections also enables efficient querying within each family."
+    ]
   }
 }

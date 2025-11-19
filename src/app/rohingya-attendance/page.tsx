@@ -130,12 +130,13 @@ export default function RohingyaAttendancePage() {
   }, [latestSession, selectedSessionId]);
 
   const handleCheckChange = (name: string) => {
-    if (!activeSession) return;
+    if (!activeSession || !firestore) return;
     const currentStatus = activeSession.attendance[name] || false;
     updateAttendance(firestore, activeSession.id, name, !currentStatus);
   };
 
   const handleCreateNewSession = async () => {
+    if (!firestore) return;
     const newSessionId = await createSession(firestore, members);
     setSelectedSessionId(newSessionId);
   };
@@ -249,4 +250,3 @@ export default function RohingyaAttendancePage() {
     </div>
   );
 }
-
