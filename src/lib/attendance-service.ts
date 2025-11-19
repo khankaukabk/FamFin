@@ -12,13 +12,13 @@ import {
   query,
   orderBy,
   limit,
-  FieldPath,
 } from 'firebase/firestore';
-import { setDocumentNonBlocking, updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 
 export function sanitizeMemberName(name: string): string {
-  return name.replace(/[^a-zA-Z0-9]/g, '_');
+  // Replaces spaces and periods with underscores
+  return name.replace(/[\s.]+/g, '_');
 }
 
 
@@ -59,9 +59,11 @@ export function updateAttendance(
 ) {
   const sessionDocRef = doc(db, 'attendanceSessions', sessionId);
   const sanitizedName = sanitizeMemberName(memberName);
-  const fieldToUpdate = new FieldPath('attendance', sanitizedName);
   
+  // Construct the field path as a string for dot notation
+  const fieldPath = `attendance.${sanitizedName}`;
+
   updateDocumentNonBlocking(sessionDocRef, {
-    [fieldToUpdate.toString()]: isPresent,
+    [fieldPath]: isPresent,
   });
 }
