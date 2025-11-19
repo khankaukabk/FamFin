@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck } from "lucide-react";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -81,6 +81,9 @@ export function Navigation({ title }: { title: string }) {
       </NavLink>
       <NavLink href="/rohingya-class-report" onClick={closeSheet}>
         <Users className="mr-3" /> Rohingya Report
+      </NavLink>
+      <NavLink href="/rohingya-attendance" onClick={closeSheet}>
+        <ClipboardCheck className="mr-3" /> Rohingya Attendance
       </NavLink>
     </>
   );
