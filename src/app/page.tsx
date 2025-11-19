@@ -2,7 +2,13 @@
 "use client";
 
 import * as React from "react";
-import { Phone, Mail, ShieldCheck, Briefcase, Wallet, Calendar, Users, Car, ArchiveRestore, CheckCircle2 } from "lucide-react";
+import { useMemo } from "react";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, doc, getDoc } from "firebase/firestore";
+import type { Task, WeeklyTasks, TaskMonth } from "@/lib/task-service";
+import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
+import * as LucideIcons from "lucide-react";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
@@ -18,308 +24,133 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const initialWeeklyTasks = [
-  {
-    week: "Week 1",
-    dates: "November 1-7",
-    tasks: [
-      {
-        id: "1-1",
-        icon: Phone,
-        title: "Call EBT for Mom",
-        description: "Follow up on the status of the application.",
-        completed: true,
-      },
-      {
-        id: "1-2",
-        icon: Mail,
-        title: "Check Mail for EBT Letter",
-        description: "Look for the official confirmation letter.",
-        completed: true,
-      },
-      {
-        id: "1-3",
-        icon: Briefcase,
-        title: "Complete Unemployment Benefits",
-        description: "Certify for weekly benefits online.",
-        completed: true,
-      },
-       {
-        id: "1-4",
-        icon: Briefcase,
-        title: "Schedule Alabama Investors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "1-5",
-        icon: Briefcase,
-        title: "Schedule Directors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "1-6",
-        icon: Users,
-        title: "Rohingya Class Orientation",
-        description: "Lead the orientation session for new members every Wednesday.",
-        completed: true,
-      },
-      {
-        id: "1-7",
-        icon: Users,
-        title: "Rohingya Class & Babysitting",
-        description: "Attend the weekly educational session and provide childcare support every Friday.",
-        completed: true,
-      },
-    ],
-  },
-  {
-    week: "Week 2",
-    dates: "November 8-14",
-    tasks: [
-      {
-        id: "2-1",
-        icon: ArchiveRestore,
-        title: "Return Shein Package",
-        description: "Process the return for the recent order.",
-        completed: false,
-      },
-      {
-        id: "2-2",
-        icon: ShieldCheck,
-        title: "Medicare Meeting",
-        description: "Attend the meeting at 12:30 PM this Thursday.",
-        completed: true,
-      },
-      {
-        id: "2-3",
-        icon: Car,
-        title: "Tire Replacement on 11/11",
-        description: "Appointment to replace all four tires.",
-        completed: true,
-      },
-       {
-        id: "2-4",
-        icon: Briefcase,
-        title: "Complete Unemployment Benefits",
-        description: "Certify for weekly benefits online.",
-        completed: true,
-      },
-       {
-        id: "2-5",
-        icon: Briefcase,
-        title: "Schedule Alabama Investors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "2-6",
-        icon: Briefcase,
-        title: "Schedule Directors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "2-7",
-        icon: Users,
-        title: "Rohingya Class Orientation",
-        description: "Lead the orientation session for new members every Wednesday.",
-        completed: true,
-      },
-      {
-        id: "2-8",
-        icon: Users,
-        title: "Rohingya Class & Babysitting",
-        description: "Attend the weekly educational session and provide childcare support every Friday.",
-        completed: true,
-      },
-    ],
-  },
-  {
-    week: "Week 3",
-    dates: "November 15-21",
-    tasks: [
-      {
-        id: "3-1",
-        icon: Calendar,
-        title: "Atlanta Visit for Masturaat Ta'lim",
-        description: "Travel for the educational gathering on the 15th.",
-        completed: false,
-      },
-      {
-        id: "3-2",
-        icon: Briefcase,
-        title: "Complete Unemployment Benefits",
-        description: "Certify for weekly benefits online.",
-        completed: false,
-      },
-       {
-        id: "3-3",
-        icon: Briefcase,
-        title: "Schedule Alabama Investors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "3-4",
-        icon: Briefcase,
-        title: "Schedule Directors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "3-5",
-        icon: Users,
-        title: "Rohingya Class Orientation",
-        description: "Lead the orientation session for new members every Wednesday.",
-        completed: false,
-      },
-      {
-        id: "3-6",
-        icon: Users,
-        title: "Rohingya Class & Babysitting",
-        description: "Attend the weekly educational session and provide childcare support every Friday.",
-        completed: false,
-      },
-    ],
-  },
-  {
-    week: "Week 4",
-    dates: "November 22-30",
-    tasks: [
-       {
-        id: "4-1",
-        icon: Wallet,
-        title: "Pay Amazon Monthly",
-        description: "Ensure the monthly payment is made on time.",
-        completed: false,
-      },
-       {
-        id: "4-2",
-        icon: Wallet,
-        title: "Apple Pay Monthly",
-        description: "Ensure the monthly payment is made on time.",
-        completed: false,
-      },
-       {
-        id: "4-3",
-        icon: Briefcase,
-        title: "Complete Unemployment Benefits",
-        description: "Certify for weekly benefits online.",
-        completed: false,
-      },
-       {
-        id: "4-4",
-        icon: Briefcase,
-        title: "Schedule Alabama Investors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "4-5",
-        icon: Briefcase,
-        title: "Schedule Directors Meeting",
-        description: "Every Tuesday.",
-        completed: false,
-      },
-      {
-        id: "4-6",
-        icon: Users,
-        title: "Rohingya Class Orientation",
-        description: "Lead the orientation session for new members every Wednesday.",
-        completed: false,
-      },
-      {
-        id: "4-7",
-        icon: Users,
-        title: "Rohingya Class & Babysitting",
-        description: "Attend the weekly educational session and provide childcare support every Friday.",
-        completed: false,
-      },
-    ],
-  },
-];
+
+// Helper to get a specific icon from lucide-react
+const getIcon = (name: string) => {
+  const Icon = (LucideIcons as any)[name];
+  if (Icon) {
+    return Icon;
+  }
+  return LucideIcons.HelpCircle; // Fallback icon
+};
 
 export default function HomePage() {
-  const [weeklyTasks, setWeeklyTasks] = React.useState(initialWeeklyTasks);
+  const firestore = useFirestore();
   const [alertState, setAlertState] = React.useState<{
     isOpen: boolean;
+    monthId: string | null;
     weekIndex: number | null;
     taskId: string | null;
-  }>({ isOpen: false, weekIndex: null, taskId: null });
+  }>({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
+  const [activeTab, setActiveTab] = React.useState("november");
 
-  const openConfirmationDialog = (weekIndex: number, taskId: string) => {
-    setAlertState({ isOpen: true, weekIndex, taskId });
+  // Initialize tasks in Firestore if they don't exist
+  React.useEffect(() => {
+    if (firestore) {
+      initializeTasks(firestore);
+    }
+  }, [firestore]);
+
+  const taskMonthsQuery = useMemoFirebase(
+    () => (firestore ? collection(firestore, "taskMonths") : null),
+    [firestore]
+  );
+  const { data: taskMonths, isLoading: isLoadingMonths } =
+    useCollection<TaskMonth>(taskMonthsQuery);
+
+  const openConfirmationDialog = (monthId: string, weekIndex: number, taskId: string) => {
+    setAlertState({ isOpen: true, monthId, weekIndex, taskId });
   };
   
   const handleConfirmToggle = () => {
-    if (alertState.weekIndex !== null && alertState.taskId !== null) {
-      const { weekIndex, taskId } = alertState;
-      const updatedWeeks = [...weeklyTasks];
-      const task = updatedWeeks[weekIndex].tasks.find(t => t.id === taskId);
-      if (task) {
-        task.completed = !task.completed;
-        setWeeklyTasks(updatedWeeks);
-      }
+    if (firestore && alertState.monthId && alertState.weekIndex !== null && alertState.taskId) {
+      const { monthId, weekIndex, taskId } = alertState;
+      toggleTaskCompletion(firestore, monthId, weekIndex, taskId);
     }
-    setAlertState({ isOpen: false, weekIndex: null, taskId: null });
+    setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
   };
 
   const handleCancelToggle = () => {
-    setAlertState({ isOpen: false, weekIndex: null, taskId: null });
+    setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
   };
 
-  const currentTaskForAlert =
-    alertState.weekIndex !== null && alertState.taskId
-      ? weeklyTasks[alertState.weekIndex].tasks.find(
-          (t) => t.id === alertState.taskId
-        )
-      : null;
+  const currentTaskForAlert = useMemo(() => {
+    if (!taskMonths || alertState.monthId === null || alertState.weekIndex === null || alertState.taskId === null) {
+      return null;
+    }
+    const month = taskMonths.find(m => m.id === alertState.monthId);
+    if (!month) return null;
+    const week = month.weeks[alertState.weekIndex];
+    if (!week) return null;
+    return week.tasks.find(t => t.id === alertState.taskId);
+  }, [taskMonths, alertState]);
 
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navigation title="November Tasks" />
+      <Navigation title="Family Tasks" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-8">
-            <div className="grid grid-cols-1 gap-8">
-              {weeklyTasks.map((weekData, weekIndex) => (
-                <Card key={weekData.week} className="w-full">
-                  <CardHeader>
-                    <CardTitle>{weekData.week}</CardTitle>
-                    <CardDescription>{weekData.dates}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-6">
-                      {weekData.tasks.map((task, taskIndex) => (
-                        <div key={task.id}>
-                          <div className="flex items-start gap-4">
-                            <div className="flex items-center h-10">
-                              <Checkbox 
-                                id={`task-${task.id}`}
-                                checked={task.completed}
-                                onCheckedChange={() => openConfirmationDialog(weekIndex, task.id)}
-                                className="h-5 w-5"
-                              />
+          {isLoadingMonths ? (
+             <div className="grid grid-cols-1 gap-8">
+               <Skeleton className="h-96 w-full" />
+               <Skeleton className="h-96 w-full" />
+             </div>
+          ) : (
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="november">November</TabsTrigger>
+                <TabsTrigger value="december">December</TabsTrigger>
+              </TabsList>
+              
+              {taskMonths?.map(monthData => (
+                <TabsContent key={monthData.id} value={monthData.id.split('-')[0]} className="mt-6">
+                    <div className="grid grid-cols-1 gap-8">
+                      {monthData.weeks.map((weekData, weekIndex) => (
+                        <Card key={weekData.week} className="w-full">
+                          <CardHeader>
+                            <CardTitle className="text-lg sm:text-xl">{weekData.week}</CardTitle>
+                            <CardDescription>{weekData.dates}</CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="space-y-6">
+                              {weekData.tasks.map((task, taskIndex) => {
+                                const TaskIcon = getIcon(task.icon);
+                                return (
+                                  <div key={task.id}>
+                                    <div className="flex items-start gap-4">
+                                      <div className="flex items-center h-10">
+                                        <Checkbox 
+                                          id={`task-${task.id}`}
+                                          checked={task.completed}
+                                          onCheckedChange={() => openConfirmationDialog(monthData.id, weekIndex, task.id)}
+                                          className="h-5 w-5"
+                                        />
+                                      </div>
+                                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+                                          <TaskIcon className={cn("h-5 w-5 text-muted-foreground", task.completed && "text-primary")} />
+                                      </div>
+                                      <div className="flex-grow">
+                                          <p className={cn("font-semibold text-sm sm:text-base", task.completed && "line-through text-muted-foreground")}>{task.title}</p>
+                                          <p className={cn("text-xs sm:text-sm text-muted-foreground", task.completed && "line-through")}>{task.description}</p>
+                                      </div>
+                                    </div>
+                                    {taskIndex < weekData.tasks.length - 1 && <Separator className="mt-6" />}
+                                  </div>
+                                );
+                              })}
                             </div>
-                            <div className="flex-shrink-0 h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-                                <task.icon className={cn("h-5 w-5 text-muted-foreground", task.completed && "text-green-500")} />
-                            </div>
-                            <div className="flex-grow">
-                                <p className={cn("font-semibold", task.completed && "line-through text-muted-foreground")}>{task.title}</p>
-                                <p className={cn("text-sm text-muted-foreground", task.completed && "line-through")}>{task.description}</p>
-                            </div>
-                          </div>
-                           {taskIndex < weekData.tasks.length - 1 && <Separator className="mt-6" />}
-                        </div>
+                          </CardContent>
+                        </Card>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
+                </TabsContent>
               ))}
-            </div>
+            </Tabs>
+          )}
         </div>
       </main>
       
@@ -347,3 +178,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    

@@ -133,6 +133,97 @@
         "sessionNumber",
         "attendance"
       ]
+    },
+    "TaskMonth": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TaskMonth",
+      "type": "object",
+      "description": "Represents all tasks for a specific month.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the month's tasks (e.g., 'november-2024')."
+        },
+        "title": {
+          "type": "string",
+          "description": "The display title for the month (e.g., 'November Tasks')."
+        },
+        "weeks": {
+          "type": "array",
+          "description": "An array of weekly task lists.",
+          "items": {
+            "$ref": "#/backend/entities/WeeklyTasks"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "weeks"
+      ]
+    },
+    "WeeklyTasks": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "WeeklyTasks",
+      "type": "object",
+      "description": "A collection of tasks for a specific week.",
+      "properties": {
+        "week": {
+          "type": "string",
+          "description": "The week identifier (e.g., 'Week 1')."
+        },
+        "dates": {
+          "type": "string",
+          "description": "The date range for the week (e.g., 'November 1-7')."
+        },
+        "tasks": {
+          "type": "array",
+          "description": "The list of tasks for the week.",
+          "items": {
+            "$ref": "#/backend/entities/Task"
+          }
+        }
+      },
+      "required": [
+        "week",
+        "dates",
+        "tasks"
+      ]
+    },
+    "Task": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Task",
+      "type": "object",
+      "description": "Represents a single task item.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the task."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The name of the lucide-react icon for the task."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the task."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the task."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "The completion status of the task."
+        }
+      },
+      "required": [
+        "id",
+        "icon",
+        "title",
+        "description",
+        "completed"
+      ]
     }
   },
   "auth": {
@@ -214,7 +305,24 @@
             }
           ]
         }
+      },
+      {
+        "path": "taskMonths/{monthId}",
+        "definition": {
+          "entityName": "TaskMonth",
+          "schema": {
+            "$ref": "#/backend/entities/TaskMonth"
+          },
+          "description": "Stores all tasks for a given month.",
+          "params": [
+            {
+              "name": "monthId",
+              "description": "The unique identifier for the month's tasks (e.g., 'november-2024')."
+            }
+          ]
+        }
       }
     ]
   }
 }
+    

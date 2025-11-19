@@ -133,5 +133,25 @@ service cloud.firestore {
       allow update: if isExistingOwner(familyId) && request.resource.data.familyId == resource.data.familyId;
       allow delete: if isExistingOwner(familyId);
     }
+    
+    /**
+     * @description Manages access to attendance sessions.
+     * @path /attendanceSessions/{sessionId}
+     * @principle Any authenticated user can read or write to any session.
+     */
+     match /attendanceSessions/{sessionId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    /**
+     * @description Manages access to monthly task lists.
+     * @path /taskMonths/{monthId}
+     * @principle Any authenticated user can read or write to any task list.
+     */
+    match /taskMonths/{monthId} {
+       allow read, write: if request.auth != null;
+    }
   }
 }
+
+    

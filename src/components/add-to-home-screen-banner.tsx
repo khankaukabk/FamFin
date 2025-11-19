@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { X, Share, Ellipsis } from "lucide-react";
+import { X, Share, MoreHorizontal } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function AddToHomeScreenBanner() {
@@ -49,7 +49,7 @@ export function AddToHomeScreenBanner() {
         <div className="flex-grow">
           <h3 className="font-semibold font-headline text-base">Get the Khan Family Web App</h3>
           <p className="text-sm text-muted-foreground">
-            For the full experience, tap the menu (<Ellipsis className="inline-block h-4 w-4 align-middle mx-1"/>), <Share className="inline-block h-4 w-4 align-middle mx-1"/> then 'Add to Home Screen'
+            For the full experience, tap the Share (<Share className="inline-block h-4 w-4 align-middle mx-1"/>) button, then 'Add to Home Screen'.
           </p>
         </div>
         <Button
@@ -65,3 +65,5 @@ export function AddToHomeScreenBanner() {
     </div>
   );
 }
+
+    
