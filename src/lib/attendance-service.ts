@@ -17,14 +17,15 @@ import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 
 export function sanitizeMemberName(name: string): string {
-  // Replaces spaces and periods with underscores
+  // Replaces invalid characters for Firestore field paths.
   return name.replace(/[\s.]+/g, '_');
 }
 
 
 export async function createSession(
   db: Firestore,
-  members: string[]
+  members: string[],
+  sessionDate: Date
 ): Promise<string> {
   const sessionsCollection = collection(db, 'attendanceSessions');
   
@@ -41,7 +42,7 @@ export async function createSession(
   }, {} as Record<string, boolean>);
 
   const newSession = {
-    date: new Date().toISOString(),
+    date: sessionDate.toISOString(),
     sessionNumber: newSessionNumber,
     attendance: initialAttendance,
   };
@@ -60,7 +61,6 @@ export function updateAttendance(
   const sessionDocRef = doc(db, 'attendanceSessions', sessionId);
   const sanitizedName = sanitizeMemberName(memberName);
   
-  // Construct the field path as a string for dot notation
   const fieldPath = `attendance.${sanitizedName}`;
 
   updateDocumentNonBlocking(sessionDocRef, {

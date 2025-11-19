@@ -39,8 +39,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -51,7 +49,13 @@ import {
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, CalendarIcon } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
+import { Label } from '@/components/ui/label';
+
 
 const members = [
   'Shom M.',
@@ -80,6 +84,7 @@ export default function RohingyaAttendancePage() {
   const [selectedSessionId, setSelectedSessionId] = React.useState<
     string | null
   >(null);
+  const [newSessionDate, setNewSessionDate] = React.useState<Date | undefined>(new Date());
 
   const sessionsQuery = useMemoFirebase(
     () =>
@@ -133,14 +138,12 @@ export default function RohingyaAttendancePage() {
 
   const handleCheckChange = (name: string) => {
     if (!activeSession || !firestore) return;
-    const sanitizedName = sanitizeMemberName(name);
-    const currentStatus = activeSession.attendance[sanitizedName] || false;
-    updateAttendance(firestore, activeSession.id, name, !currentStatus);
+    updateAttendance(firestore, activeSession.id, name, !activeSession.attendance[sanitizeMemberName(name)]);
   };
 
   const handleCreateNewSession = async () => {
-    if (!firestore) return;
-    const newSessionId = await createSession(firestore, members);
+    if (!firestore || !newSessionDate) return;
+    const newSessionId = await createSession(firestore, members, newSessionDate);
     setSelectedSessionId(newSessionId);
   };
 
@@ -171,7 +174,7 @@ export default function RohingyaAttendancePage() {
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                 <div className="space-y-2">
-                  <Label htmlFor="session-select">Select Session</Label>
+                  <Label htmlFor="session-select">Select Existing Session</Label>
                   {isLoadingSessions ? (
                      <Skeleton className="h-10 w-full" />
                   ) : (
@@ -192,15 +195,41 @@ export default function RohingyaAttendancePage() {
                     </Select>
                   )}
                 </div>
-                <div className="space-y-2 flex items-end">
-                    <Button onClick={handleCreateNewSession} className="w-full sm:w-auto">
-                        <PlusCircle className="mr-2" />
-                        Create New Session
+                <div className="space-y-2">
+                  <Label htmlFor="new-session-date">Or Create New Session</Label>
+                   <div className="flex flex-col sm:flex-row gap-2">
+                     <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            id="new-session-date"
+                            variant={"outline"}
+                            className={cn(
+                              "w-full sm:w-[240px] justify-start text-left font-normal",
+                              !newSessionDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {newSessionDate ? format(newSessionDate, "PPP") : <span>Pick a date</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={newSessionDate}
+                            onSelect={setNewSessionDate}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    <Button onClick={handleCreateNewSession} className="w-full sm:w-auto flex-grow">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Create
                     </Button>
+                   </div>
                 </div>
               </div>
 
-              {isLoadingActiveSession && (
+              {isLoadingActiveSession && selectedSessionId && (
                 <div className="space-y-4">
                   <Skeleton className="h-12 w-full" />
                   <Skeleton className="h-12 w-full" />
