@@ -3,7 +3,6 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  appDir: 'src',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -45,4 +44,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
 
