@@ -8,10 +8,12 @@ import {
   useCollection,
   useDoc,
   WithId,
+  useMemoFirebase,
 } from '@/firebase';
 import {
   createSession,
   updateAttendance,
+  sanitizeMemberName,
 } from '@/lib/attendance-service';
 import {
   collection,
@@ -79,7 +81,7 @@ export default function RohingyaAttendancePage() {
     string | null
   >(null);
 
-  const sessionsQuery = useMemo(
+  const sessionsQuery = useMemoFirebase(
     () =>
       firestore
         ? query(
@@ -95,7 +97,7 @@ export default function RohingyaAttendancePage() {
     error: sessionsError,
   } = useCollection<AttendanceSession>(sessionsQuery);
 
-  const latestSessionQuery = useMemo(
+  const latestSessionQuery = useMemoFirebase(
     () =>
       firestore
         ? query(
@@ -110,7 +112,7 @@ export default function RohingyaAttendancePage() {
   const { data: latestSession, isLoading: isLoadingLatest } = useCollection<AttendanceSession>(latestSessionQuery);
 
 
-  const sessionDocRef = useMemo(
+  const sessionDocRef = useMemoFirebase(
     () =>
       firestore && selectedSessionId
         ? doc(firestore, 'attendanceSessions', selectedSessionId)
@@ -131,7 +133,8 @@ export default function RohingyaAttendancePage() {
 
   const handleCheckChange = (name: string) => {
     if (!activeSession || !firestore) return;
-    const currentStatus = activeSession.attendance[name] || false;
+    const sanitizedName = sanitizeMemberName(name);
+    const currentStatus = activeSession.attendance[sanitizedName] || false;
     updateAttendance(firestore, activeSession.id, name, !currentStatus);
   };
 
@@ -223,7 +226,7 @@ export default function RohingyaAttendancePage() {
                           <TableCell className="text-center">
                             <Checkbox
                               id={`attendance-${index}`}
-                              checked={!!attendanceData[name]}
+                              checked={!!attendanceData[sanitizeMemberName(name)]}
                               onCheckedChange={() => handleCheckChange(name)}
                               aria-label={`Mark ${name} as present`}
                             />

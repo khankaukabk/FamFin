@@ -12,8 +12,14 @@ import {
   query,
   orderBy,
   limit,
+  FieldPath,
 } from 'firebase/firestore';
 import { setDocumentNonBlocking, updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+
+
+export function sanitizeMemberName(name: string): string {
+  return name.replace(/[^a-zA-Z0-9]/g, '_');
+}
 
 
 export async function createSession(
@@ -22,7 +28,6 @@ export async function createSession(
 ): Promise<string> {
   const sessionsCollection = collection(db, 'attendanceSessions');
   
-  // Find the last session number
   const q = query(sessionsCollection, orderBy('sessionNumber', 'desc'), limit(1));
   const querySnapshot = await getDocs(q);
   let newSessionNumber = 1;
@@ -31,7 +36,7 @@ export async function createSession(
   }
 
   const initialAttendance = members.reduce((acc, member) => {
-    acc[member] = false;
+    acc[sanitizeMemberName(member)] = false;
     return acc;
   }, {} as Record<string, boolean>);
 
@@ -53,9 +58,10 @@ export function updateAttendance(
   isPresent: boolean
 ) {
   const sessionDocRef = doc(db, 'attendanceSessions', sessionId);
-  const fieldToUpdate = `attendance.${memberName}`;
+  const sanitizedName = sanitizeMemberName(memberName);
+  const fieldToUpdate = new FieldPath('attendance', sanitizedName);
   
   updateDocumentNonBlocking(sessionDocRef, {
-    [fieldToUpdate]: isPresent,
+    [fieldToUpdate.toString()]: isPresent,
   });
 }
