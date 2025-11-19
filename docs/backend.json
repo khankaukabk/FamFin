@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "User": {
@@ -20,6 +21,34 @@
         "id",
         "email"
       ]
+    },
+    "AttendanceSession": {
+      "title": "Attendance Session",
+      "description": "Represents a single attendance record for a Rohingya Wellness Group session.",
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time of the session."
+        },
+        "sessionNumber": {
+          "type": "number",
+          "description": "The sequential number of the session."
+        },
+        "attendance": {
+          "type": "object",
+          "description": "A map of member names to their attendance status (true for present).",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      },
+      "required": [
+        "date",
+        "sessionNumber",
+        "attendance"
+      ]
     }
   },
   "auth": {
@@ -28,6 +57,12 @@
     ]
   },
   "firestore": {
-    "structure": []
+    "structure": [],
+    "/attendanceSessions/{sessionId}": {
+      "schema": {
+        "$ref": "#/entities/AttendanceSession"
+      },
+      "description": "Stores attendance records for each wellness group session."
+    }
   }
 }

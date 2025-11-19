@@ -1,14 +1,19 @@
+
 /**
  * @file Firestore Security Rules for Family Financials App
- * @core_philosophy This ruleset enforces a strict user-ownership model, where each user can only access their own data.
- * @data_structure All data is nested under /users/{userId}, with subcollections for incomes and expenses. This structure ensures clear ownership and simplifies security rules.
- * @key_security_decisions User listing is disallowed.  All write operations require the user to be authenticated and to own the data being modified.
+ * @core_philosophy This ruleset enforces a strict user-ownership model, where each user can only access their own data. It also allows any authenticated user to manage attendance records.
+ * @data_structure All data is nested under /users/{userId}, with subcollections for incomes and expenses. Attendance data is stored in a top-level `attendanceSessions` collection.
+ * @key_security_decisions User listing is disallowed. All write operations require the user to be authenticated. User data is private, but attendance data is open to any logged-in user.
  * @denormalization_for_authorization The 'userId' field is present on all Income and Expense documents, allowing for simple ownership checks without additional reads.
- * @structural_segregation N/A - All data is private to the user.
+ * @structural_segregation User data is private, attendance data is collaborative.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
     /**
      * @description Allows a user to create, read, update, and delete their own user document.
@@ -24,23 +29,12 @@ service cloud.firestore {
      * @principle Enforces document ownership for all operations on user profiles.
      */
     match /users/{userId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
       function isOwner(userId) {
         return request.auth.uid == userId;
       }
 
-      function isExistingOwner(userId) {
-        return isOwner(userId) && exists(resource);
-      }
-
-      allow get: if isOwner(userId);
+      allow read, write: if isSignedIn() && isOwner(userId);
       allow list: if false;
-      allow create: if isSignedIn() && isOwner(userId);
-      allow update: if isSignedIn() && isExistingOwner(userId);
-      allow delete: if isSignedIn() && isExistingOwner(userId);
     }
     
     /**
@@ -57,23 +51,11 @@ service cloud.firestore {
      * @principle Enforces document ownership for all operations on income records.
      */
     match /users/{userId}/incomes/{incomeId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
       function isOwner(userId) {
         return request.auth.uid == userId;
       }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && exists(resource);
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isSignedIn() && isOwner(userId);
-      allow update: if isSignedIn() && isExistingOwner(userId);
-      allow delete: if isSignedIn() && isExistingOwner(userId);
+      allow read, write: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
     }
 
     /**
@@ -90,23 +72,21 @@ service cloud.firestore {
      * @principle Enforces document ownership for all operations on expense records.
      */
     match /users/{userId}/expenses/{expenseId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      function isOwner(userId) {
+       function isOwner(userId) {
         return request.auth.uid == userId;
       }
+      allow read, write: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+    }
 
-      function isExistingOwner(userId) {
-        return isOwner(userId) && exists(resource);
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isSignedIn() && isOwner(userId);
-      allow update: if isSignedIn() && isExistingOwner(userId);
-      allow delete: if isSignedIn() && isExistingOwner(userId);
+    /**
+     * @description Allows any authenticated user to manage attendance records.
+     * @path /attendanceSessions/{sessionId}
+     * @allow (read, write) Any authenticated user can read, create, update, and delete attendance sessions.
+     * @principle Enables collaborative attendance tracking for all logged-in users.
+     */
+    match /attendanceSessions/{sessionId} {
+      allow read, write: if isSignedIn();
     }
   }
 }
