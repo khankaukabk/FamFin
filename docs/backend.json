@@ -1,68 +1,171 @@
-
 {
   "entities": {
-    "User": {
+    "Family": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "User",
+      "title": "Family",
       "type": "object",
-      "description": "Represents a user of the Family Financials application.",
+      "description": "Represents a family unit and its overall financial status.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the User entity."
+          "description": "Unique identifier for the Family entity."
         },
-        "email": {
+        "name": {
           "type": "string",
-          "description": "Email address of the user.",
-          "format": "email"
+          "description": "Name of the family."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the family or its financial goals."
         }
       },
       "required": [
         "id",
-        "email"
+        "name"
       ]
     },
-    "AttendanceSession": {
-      "title": "Attendance Session",
-      "description": "Represents a single attendance record for a Rohingya Wellness Group session.",
+    "Income": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Income",
       "type": "object",
+      "description": "Represents a source of income for the family.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Income entity."
+        },
+        "familyId": {
+          "type": "string",
+          "description": "Reference to Family. (Relationship: Family 1:N Income)"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of the income (e.g., salary, investment)."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of income received."
+        },
         "date": {
           "type": "string",
-          "format": "date-time",
-          "description": "The date and time of the session."
-        },
-        "sessionNumber": {
-          "type": "number",
-          "description": "The sequential number of the session."
-        },
-        "attendance": {
-          "type": "object",
-          "description": "A map of member names to their attendance status (true for present).",
-          "additionalProperties": {
-            "type": "boolean"
-          }
+          "description": "Date when the income was received.",
+          "format": "date-time"
         }
       },
       "required": [
-        "date",
-        "sessionNumber",
-        "attendance"
+        "id",
+        "familyId",
+        "source",
+        "amount",
+        "date"
+      ]
+    },
+    "Expense": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Expense",
+      "type": "object",
+      "description": "Represents an expense incurred by the family.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Expense entity."
+        },
+        "familyId": {
+          "type": "string",
+          "description": "Reference to Family. (Relationship: Family 1:N Expense)"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the expense (e.g., rent, groceries)."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the expense."
+        },
+        "date": {
+          "type": "string",
+          "description": "Date when the expense was incurred.",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the expense."
+        }
+      },
+      "required": [
+        "id",
+        "familyId",
+        "category",
+        "amount",
+        "date"
       ]
     }
   },
   "auth": {
     "providers": [
-      "password"
+      "password",
+      "anonymous"
     ]
   },
   "firestore": {
-    "structure": [],
-    "/attendanceSessions/{sessionId}": {
-      "schema": {
-        "$ref": "#/entities/AttendanceSession"
+    "structure": [
+      {
+        "path": "families/{familyId}",
+        "definition": {
+          "entityName": "Family",
+          "schema": {
+            "$ref": "#/backend/entities/Family"
+          },
+          "description": "Stores family profiles.",
+          "params": [
+            {
+              "name": "familyId",
+              "description": "The unique identifier for the family."
+            }
+          ]
+        }
       },
-      "description": "Stores attendance records for each wellness group session."
-    }
+      {
+        "path": "families/{familyId}/incomes/{incomeId}",
+        "definition": {
+          "entityName": "Income",
+          "schema": {
+            "$ref": "#/backend/entities/Income"
+          },
+          "description": "Stores income records for a specific family.",
+          "params": [
+            {
+              "name": "familyId",
+              "description": "The unique identifier for the family."
+            },
+            {
+              "name": "incomeId",
+              "description": "The unique identifier for the income record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "families/{familyId}/expenses/{expenseId}",
+        "definition": {
+          "entityName": "Expense",
+          "schema": {
+            "$ref": "#/backend/entities/Expense"
+          },
+          "description": "Stores expense records for a specific family.",
+          "params": [
+            {
+              "name": "familyId",
+              "description": "The unique identifier for the family."
+            },
+            {
+              "name": "expenseId",
+              "description": "The unique identifier for the expense record."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to manage family financial data, including income and expenses. It prioritizes security, scalability, and ease of querying. Families are stored at the root level in the `families` collection. Each family document contains basic information about the family. Income and expense data are stored in subcollections under each family document (`families/{familyId}/incomes` and `families/{familyId}/expenses`), enabling easy retrieval of financial records for a specific family. This structure utilizes path-based ownership for incomes and expenses, where access control is implicitly tied to the family document. This approach ensures Authorization Independence because the security rules for incomes and expenses can rely solely on `request.auth.uid` and the existence of the parent `familyId`, without needing to `get()` data from parent documents. This structure supports QAPs by segregating data based on family ownership, enabling secure `list` operations within the appropriate family context. The `familyId` field in both the `incomes` and `expenses` collections also enables efficient querying within each family."
   }
 }

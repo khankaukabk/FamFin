@@ -1,92 +1,137 @@
-
 /**
- * @file Firestore Security Rules for Family Financials App
- * @core_philosophy This ruleset enforces a strict user-ownership model, where each user can only access their own data. It also allows any authenticated user to manage attendance records.
- * @data_structure All data is nested under /users/{userId}, with subcollections for incomes and expenses. Attendance data is stored in a top-level `attendanceSessions` collection.
- * @key_security_decisions User listing is disallowed. All write operations require the user to be authenticated. User data is private, but attendance data is open to any logged-in user.
- * @denormalization_for_authorization The 'userId' field is present on all Income and Expense documents, allowing for simple ownership checks without additional reads.
- * @structural_segregation User data is private, attendance data is collaborative.
+ * @fileoverview Firestore Security Rules for the financial management application.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict family-ownership model. Each family has its own
+ * data tree, and only authenticated users can access data within their own family.
+ *
+ * Data Structure:
+ * - /families/{familyId}: Stores family profiles. Only authenticated users can
+ *   create, read, update, or delete their own family profile.
+ * - /families/{familyId}/incomes/{incomeId}: Stores income records for a
+ *   specific family. Only members of the parent family can manage income records.
+ * - /families/{familyId}/expenses/{expenseId}: Stores expense records for a
+ *   specific family. Only members of the parent family can manage expense records.
+ *
+ * Key Security Decisions:
+ * - All write operations require authentication (`request.auth != null`).
+ * - Only the owner of a family can read, update, or delete it.
+ * - Income and expenses are secured by path-based ownership.
+ *
+ * Denormalization for Authorization:
+ * The `familyId` is included within the `Income` and `Expense` documents to
+ * allow for easy enforcement of path-based ownership. This avoids the need to
+ * perform expensive `get()` operations to verify the parent family.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
     /**
-     * @description Allows a user to create, read, update, and delete their own user document.
-     * @path /users/{userId}
-     * @allow (create) User with UID 'user_abc' can create a document where document ID matches their UID.
-     * @allow (get) User with UID 'user_abc' can read their own user document.
-     * @allow (update) User with UID 'user_abc' can update their own user document.
-     * @allow (delete) User with UID 'user_abc' can delete their own user document.
-     * @deny (create) User with UID 'user_def' cannot create a document with ID 'user_abc'.
-     * @deny (get) User with UID 'user_def' cannot read user document of 'user_abc'.
-     * @deny (update) User with UID 'user_def' cannot update user document of 'user_abc'.
-     * @deny (delete) User with UID 'user_def' cannot delete user document of 'user_abc'.
-     * @principle Enforces document ownership for all operations on user profiles.
+     * @description Manages access to family profiles.
+     * @path /families/{familyId}
+     * @allow (create) User with auth UID 'user_abc' can create a family document with ID 'user_abc'.
+     * @deny (create) User with auth UID 'user_xyz' cannot create a family document with ID 'user_abc'.
+     * @allow (get) User with auth UID 'user_abc' can read a family document with ID 'user_abc'.
+     * @deny (get) User with auth UID 'user_xyz' cannot read a family document with ID 'user_abc'.
+     * @allow (update) User with auth UID 'user_abc' can update a family document with ID 'user_abc'.
+     * @deny (update) User with auth UID 'user_xyz' cannot update a family document with ID 'user_abc'.
+     * @allow (delete) User with auth UID 'user_abc' can delete a family document with ID 'user_abc'.
+     * @deny (delete) User with auth UID 'user_xyz' cannot delete a family document with ID 'user_abc'.
+     * @principle Enforces document ownership for all operations on family profiles.
      */
-    match /users/{userId} {
-      function isOwner(userId) {
-        return request.auth.uid == userId;
+    match /families/{familyId} {
+      // Function to check if the user is signed in
+      function isSignedIn() {
+        return request.auth != null;
       }
 
-      allow read, write: if isSignedIn() && isOwner(userId);
-      allow list: if false;
-    }
-    
-    /**
-     * @description Allows a user to create, read, update, and delete their own income records.
-     * @path /users/{userId}/incomes/{incomeId}
-     * @allow (create) User with UID 'user_abc' can create an income document under their user path with userId 'user_abc'.
-     * @allow (get) User with UID 'user_abc' can read an income document under their user path.
-     * @allow (update) User with UID 'user_abc' can update an income document under their user path.
-     * @allow (delete) User with UID 'user_abc' can delete an income document under their user path.
-     * @deny (create) User with UID 'user_def' cannot create an income document under the user path of 'user_abc'.
-     * @deny (get) User with UID 'user_def' cannot read an income document under the user path of 'user_abc'.
-     * @deny (update) User with UID 'user_def' cannot update an income document under the user path of 'user_abc'.
-     * @deny (delete) User with UID 'user_def' cannot delete an income document under the user path of 'user_abc'.
-     * @principle Enforces document ownership for all operations on income records.
-     */
-    match /users/{userId}/incomes/{incomeId} {
-      function isOwner(userId) {
-        return request.auth.uid == userId;
+      // Function to check if the user is the owner of the family
+      function isOwner(familyId) {
+        return isSignedIn() && request.auth.uid == familyId;
       }
-      allow read, write: if isSignedIn() && isOwner(userId);
-      allow list: if isSignedIn() && isOwner(userId);
+
+      // Function to check if the user is the owner of the family and the resource exists
+      function isExistingOwner(familyId) {
+        return isOwner(familyId) && resource != null;
+      }
+
+      allow get: if isOwner(familyId);
+      allow list: if false; // Listing families is not allowed.
+      allow create: if isOwner(familyId);
+      allow update: if isExistingOwner(familyId);
+      allow delete: if isExistingOwner(familyId);
     }
 
     /**
-     * @description Allows a user to create, read, update, and delete their own expense records.
-     * @path /users/{userId}/expenses/{expenseId}
-     * @allow (create) User with UID 'user_abc' can create an expense document under their user path with userId 'user_abc'.
-     * @allow (get) User with UID 'user_abc' can read an expense document under their user path.
-     * @allow (update) User with UID 'user_abc' can update an expense document under their user path.
-     * @allow (delete) User with UID 'user_abc' can delete an expense document under their user path.
-     * @deny (create) User with UID 'user_def' cannot create an expense document under the user path of 'user_abc'.
-     * @deny (get) User with UID 'user_def' cannot read an expense document under the user path of 'user_abc'.
-     * @deny (update) User with UID 'user_def' cannot update an expense document under the user path of 'user_abc'.
-     * @deny (delete) User with UID 'user_def' cannot delete an expense document under the user path of 'user_abc'.
-     * @principle Enforces document ownership for all operations on expense records.
+     * @description Manages access to income records within a specific family.
+     * @path /families/{familyId}/incomes/{incomeId}
+     * @allow (create) User with auth UID 'user_abc' can create an income document in family 'user_abc'.
+     * @deny (create) User with auth UID 'user_xyz' cannot create an income document in family 'user_abc'.
+     * @allow (get) User with auth UID 'user_abc' can read an income document in family 'user_abc'.
+     * @deny (get) User with auth UID 'user_xyz' cannot read an income document in family 'user_abc'.
+     * @allow (update) User with auth UID 'user_abc' can update an income document in family 'user_abc'.
+     * @deny (update) User with auth UID 'user_xyz' cannot update an income document in family 'user_abc'.
+     * @allow (delete) User with auth UID 'user_abc' can delete an income document in family 'user_abc'.
+     * @deny (delete) User with auth UID 'user_xyz' cannot delete an income document in family 'user_abc'.
+     * @principle Enforces path-based ownership for income records.
      */
-    match /users/{userId}/expenses/{expenseId} {
-       function isOwner(userId) {
-        return request.auth.uid == userId;
+    match /families/{familyId}/incomes/{incomeId} {
+      // Function to check if the user is signed in
+      function isSignedIn() {
+        return request.auth != null;
       }
-      allow read, write: if isSignedIn() && isOwner(userId);
-      allow list: if isSignedIn() && isOwner(userId);
+
+      // Function to check if the user is the owner of the family
+      function isOwner(familyId) {
+        return isSignedIn() && request.auth.uid == familyId;
+      }
+
+      // Function to check if the user is the owner of the family and the resource exists
+      function isExistingOwner(familyId) {
+        return isOwner(familyId) && resource != null;
+      }
+      allow get: if isOwner(familyId);
+      allow list: if isOwner(familyId);
+      allow create: if isOwner(familyId) && request.resource.data.familyId == familyId;
+      allow update: if isExistingOwner(familyId) && request.resource.data.familyId == resource.data.familyId;
+      allow delete: if isExistingOwner(familyId);
     }
 
     /**
-     * @description Allows any authenticated user to manage attendance records.
-     * @path /attendanceSessions/{sessionId}
-     * @allow (read, write) Any authenticated user can read, create, update, and delete attendance sessions.
-     * @principle Enables collaborative attendance tracking for all logged-in users.
+     * @description Manages access to expense records within a specific family.
+     * @path /families/{familyId}/expenses/{expenseId}
+     * @allow (create) User with auth UID 'user_abc' can create an expense document in family 'user_abc'.
+     * @deny (create) User with auth UID 'user_xyz' cannot create an expense document in family 'user_abc'.
+     * @allow (get) User with auth UID 'user_abc' can read an expense document in family 'user_abc'.
+     * @deny (get) User with auth UID 'user_xyz' cannot read an expense document in family 'user_abc'.
+     * @allow (update) User with auth UID 'user_abc' can update an expense document in family 'user_abc'.
+     * @deny (update) User with auth UID 'user_xyz' cannot update an expense document in family 'user_abc'.
+     * @allow (delete) User with auth UID 'user_abc' can delete an expense document in family 'user_abc'.
+     * @deny (delete) User with auth UID 'user_xyz' cannot delete an expense document in family 'user_abc'.
+     * @principle Enforces path-based ownership for expense records.
      */
-    match /attendanceSessions/{sessionId} {
-      allow read, write: if isSignedIn();
+    match /families/{familyId}/expenses/{expenseId} {
+      // Function to check if the user is signed in
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      // Function to check if the user is the owner of the family
+      function isOwner(familyId) {
+        return isSignedIn() && request.auth.uid == familyId;
+      }
+
+      // Function to check if the user is the owner of the family and the resource exists
+      function isExistingOwner(familyId) {
+        return isOwner(familyId) && resource != null;
+      }
+
+      allow get: if isOwner(familyId);
+      allow list: if isOwner(familyId);
+      allow create: if isOwner(familyId) && request.resource.data.familyId == familyId;
+      allow update: if isExistingOwner(familyId) && request.resource.data.familyId == resource.data.familyId;
+      allow delete: if isExistingOwner(familyId);
     }
   }
 }
