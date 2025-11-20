@@ -4,7 +4,7 @@
 import * as React from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar } from "lucide-react";
+import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 
@@ -62,6 +62,13 @@ export default function RumaPersonalChoicePage() {
                   <div>
                     <h4 className="font-semibold">Start Date</h4>
                     <p className="text-muted-foreground">July 15, 2025</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <AlertCircle className="h-6 w-6 text-accent" />
+                  <div>
+                    <h4 className="font-semibold">Extended Hours</h4>
+                    <p className="text-muted-foreground">36 hours approved for the week of Nov 16, 2025.</p>
                   </div>
                 </div>
               </div>
