@@ -18,7 +18,7 @@ const dailyTasks = [
 ];
 
 const hourLog = [
-  { date: "Saturday, Nov 16, 2025", hours: "36.0", notes: "Hours extended for the week." },
+  { date: "Saturday, Nov 16, 2025", hours: "36.0", notes: "Weekly hours extended to 36." },
   { date: "Monday, Nov 18, 2025", hours: "4.5", notes: "Assisted with morning routine and prepared lunch." },
   { date: "Tuesday, Nov 19, 2025", hours: "5.0", notes: "Doctor's appointment in the afternoon." },
   { date: "Wednesday, Nov 20, 2025", hours: "4.0", notes: "Light housekeeping and companionship." },
@@ -67,8 +67,8 @@ export default function RumaPersonalChoicePage() {
                 <div className="flex items-start gap-4">
                   <AlertCircle className="h-6 w-6 text-accent" />
                   <div>
-                    <h4 className="font-semibold">Extended Hours</h4>
-                    <p className="text-muted-foreground">36 hours approved for the week of Nov 16, 2025.</p>
+                    <h4 className="font-semibold">Weekly Hours</h4>
+                    <p className="text-muted-foreground">36 hours per week, effective Nov 16, 2025.</p>
                   </div>
                 </div>
               </div>
