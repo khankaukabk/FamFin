@@ -4,7 +4,7 @@
 import * as React from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare } from "lucide-react";
+import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 
@@ -18,10 +18,10 @@ const dailyTasks = [
 ];
 
 const hourLog = [
-  { date: "Saturday, Nov 16", hours: "36.0", notes: "Hours extended for the week." },
-  { date: "Monday, Nov 18", hours: "4.5", notes: "Assisted with morning routine and prepared lunch." },
-  { date: "Tuesday, Nov 19", hours: "5.0", notes: "Doctor's appointment in the afternoon." },
-  { date: "Wednesday, Nov 20", hours: "4.0", notes: "Light housekeeping and companionship." },
+  { date: "Saturday, Nov 16, 2025", hours: "36.0", notes: "Hours extended for the week." },
+  { date: "Monday, Nov 18, 2025", hours: "4.5", notes: "Assisted with morning routine and prepared lunch." },
+  { date: "Tuesday, Nov 19, 2025", hours: "5.0", notes: "Doctor's appointment in the afternoon." },
+  { date: "Wednesday, Nov 20, 2025", hours: "4.0", notes: "Light housekeeping and companionship." },
 ];
 
 export default function RumaPersonalChoicePage() {
@@ -55,6 +55,13 @@ export default function RumaPersonalChoicePage() {
                   <div>
                     <h4 className="font-semibold">Role</h4>
                     <p className="text-muted-foreground">Personal Care Assistant</p>
+                  </div>
+                </div>
+                 <div className="flex items-start gap-4">
+                  <Calendar className="h-6 w-6 text-accent" />
+                  <div>
+                    <h4 className="font-semibold">Start Date</h4>
+                    <p className="text-muted-foreground">July 15, 2025</p>
                   </div>
                 </div>
               </div>
