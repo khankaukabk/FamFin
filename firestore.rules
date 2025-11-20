@@ -151,7 +151,14 @@ service cloud.firestore {
     match /taskMonths/{monthId} {
        allow read, write: if request.auth != null;
     }
+
+    /**
+     * @description Manages access to the hour log for Ruma's job.
+     * @path /hourLogs/{logId}
+     * @principle Any authenticated user can read or write to any hour log entry.
+     */
+    match /hourLogs/{logId} {
+      allow read, write: if request.auth != null;
+    }
   }
 }
-
-    

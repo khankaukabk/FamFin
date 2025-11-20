@@ -2,11 +2,38 @@
 "use client";
 
 import * as React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { format } from "date-fns";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, orderBy } from "firebase/firestore";
+import type { WithId } from "@/firebase";
+import { addHourLog, type HourLog } from "@/lib/hour-log-service";
+
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle } from "lucide-react";
+import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle, PlusCircle, CalendarIcon } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
+
 
 const dailyTasks = [
   "Assist with personal care (dressing, grooming)",
@@ -17,14 +44,62 @@ const dailyTasks = [
   "Accompany to appointments or social outings",
 ];
 
-const hourLog = [
-  { date: "Saturday, Nov 16, 2025", hours: "36.0", notes: "Weekly hours extended to 36." },
-  { date: "Monday, Nov 18, 2025", hours: "4.5", notes: "Assisted with morning routine and prepared lunch." },
-  { date: "Tuesday, Nov 19, 2025", hours: "5.0", notes: "Doctor's appointment in the afternoon." },
-  { date: "Wednesday, Nov 20, 2025", hours: "4.0", notes: "Light housekeeping and companionship." },
-];
+const formSchema = z.object({
+  date: z.date({
+    required_error: "A date is required.",
+  }),
+  hours: z.coerce.number().min(0.1, "Hours must be greater than 0."),
+  notes: z.string().optional(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function RumaPersonalChoicePage() {
+  const firestore = useFirestore();
+  const { toast } = useToast();
+
+  const hourLogsQuery = useMemoFirebase(
+    () => (firestore ? query(collection(firestore, "hourLogs"), orderBy("date", "desc")) : null),
+    [firestore]
+  );
+  const { data: hourLogs, isLoading } = useCollection<HourLog>(hourLogsQuery);
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      date: new Date(),
+      hours: 0,
+      notes: "",
+    },
+  });
+
+  const onSubmit = async (values: FormValues) => {
+    if (!firestore) return;
+    try {
+      await addHourLog(firestore, {
+        date: values.date.toISOString(),
+        hours: values.hours,
+        notes: values.notes || "",
+      });
+      toast({
+        title: "Success!",
+        description: "Your hour log has been added.",
+      });
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem saving your entry.",
+      });
+    }
+  };
+
+  const totalHours = React.useMemo(() => {
+    if (!hourLogs) return 0;
+    return hourLogs.reduce((acc, log) => acc + log.hours, 0);
+  }, [hourLogs]);
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Navigation title="Ruma's Personal Choice Job" />
@@ -97,6 +172,97 @@ export default function RumaPersonalChoicePage() {
             </CardContent>
           </Card>
 
+           <Card>
+            <CardHeader>
+              <div className="flex items-start gap-4">
+                <PlusCircle className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <CardTitle className="font-headline text-xl">Add New Hour Entry</CardTitle>
+                  <CardDescription>Log the hours you've worked.</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Date</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-full text-left font-normal",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                disabled={(date) =>
+                                  date > new Date() || date < new Date("1900-01-01")
+                                }
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="hours"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Hours Worked</FormLabel>
+                          <FormControl>
+                            <Input type="number" step="0.1" placeholder="e.g., 4.5" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                   <FormField
+                      control={form.control}
+                      name="notes"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Notes (Optional)</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Any notes about the shift..." {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  <Button type="submit" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting ? "Saving..." : "Save Entry"}
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+
+
           <Card>
             <CardHeader>
               <div className="flex items-start gap-4">
@@ -108,31 +274,39 @@ export default function RumaPersonalChoicePage() {
               </div>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="text-center">Hours</TableHead>
-                    <TableHead>Notes</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {hourLog.map((log, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{log.date}</TableCell>
-                      <TableCell className="text-center font-semibold">{log.hours}</TableCell>
-                      <TableCell className="text-muted-foreground">{log.notes}</TableCell>
+              {isLoading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Date</TableHead>
+                      <TableHead className="text-center">Hours</TableHead>
+                      <TableHead>Notes</TableHead>
                     </TableRow>
-                  ))}
-                   <TableRow className="border-t-2 border-primary/20">
-                      <TableCell className="font-bold">Total</TableCell>
-                      <TableCell className="text-center font-bold text-lg text-primary">
-                        {hourLog.reduce((acc, log) => acc + parseFloat(log.hours), 0).toFixed(1)}
-                      </TableCell>
-                      <TableCell></TableCell>
-                    </TableRow>
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {hourLogs?.map((log) => (
+                      <TableRow key={log.id}>
+                        <TableCell className="font-medium">{format(new Date(log.date), "EEE, MMM d, yyyy")}</TableCell>
+                        <TableCell className="text-center font-semibold">{log.hours.toFixed(1)}</TableCell>
+                        <TableCell className="text-muted-foreground">{log.notes}</TableCell>
+                      </TableRow>
+                    ))}
+                     <TableRow className="border-t-2 border-primary/20 bg-muted/50">
+                        <TableCell className="font-bold">Total</TableCell>
+                        <TableCell className="text-center font-bold text-lg text-primary">
+                          {totalHours.toFixed(1)}
+                        </TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                  </TableBody>
+                </Table>
+              )}
             </CardContent>
           </Card>
 
