@@ -18,6 +18,7 @@ const dailyTasks = [
 ];
 
 const hourLog = [
+  { date: "Saturday, Nov 16", hours: "36.0", notes: "Hours extended for the week." },
   { date: "Monday, Nov 18", hours: "4.5", notes: "Assisted with morning routine and prepared lunch." },
   { date: "Tuesday, Nov 19", hours: "5.0", notes: "Doctor's appointment in the afternoon." },
   { date: "Wednesday, Nov 20", hours: "4.0", notes: "Light housekeeping and companionship." },
