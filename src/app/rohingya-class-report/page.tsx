@@ -214,7 +214,7 @@ export default function RohingyaClassReportPage() {
             </TabsContent>
             <TabsContent value="session-3" className="mt-6">
                <div className="space-y-6">
-                {session3CheatSheet.map((section) => (
+                {session3CheatSheet.map((section, index) => (
                   <Card key={section.id}>
                     <CardHeader>
                       <div className="flex items-start gap-4">
@@ -230,20 +230,20 @@ export default function RohingyaClassReportPage() {
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {section.steps && section.steps.map((step, index) => (
-                         <div key={index} className="pl-4">
+                      {section.steps && section.steps.map((step, stepIndex) => (
+                         <div key={stepIndex} className="pl-4">
                             {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
                             <p className="text-muted-foreground text-sm leading-relaxed">{step.instruction}</p>
                          </div>
                       ))}
-                      {section.parts && section.parts.map((part, index) => (
-                        <div key={index} className="pl-4">
+                      {section.parts && section.parts.map((part, partIndex) => (
+                        <div key={partIndex} className="pl-4">
                            <p className="font-semibold text-sm mb-1">{part.title}</p>
                            <p className="text-muted-foreground text-sm leading-relaxed">{part.content}</p>
                         </div>
                       ))}
-                      {index < session3CheatSheet.length -1 && <Separator />}
                     </CardContent>
+                    {index < session3CheatSheet.length - 1 && <Separator />}
                   </Card>
                 ))}
               </div>
@@ -269,4 +269,3 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
-
