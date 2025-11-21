@@ -13,7 +13,7 @@ import { addHourLog, type HourLog } from "@/lib/hour-log-service";
 
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle, PlusCircle, CalendarIcon, Timer, TimerOff } from "lucide-react";
+import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle, PlusCircle, CalendarIcon, Timer, TimerOff, Calculator } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,6 +59,10 @@ export default function RumaPersonalChoicePage() {
   const firestore = useFirestore();
   const { toast } = useToast();
 
+  const [calcStartTime, setCalcStartTime] = React.useState('');
+  const [calcEndTime, setCalcEndTime] = React.useState('');
+  const [calculatedDuration, setCalculatedDuration] = React.useState<number | null>(null);
+
   const hourLogsQuery = useMemoFirebase(
     () => (firestore ? query(collection(firestore, "hourLogs"), orderBy("date", "desc")) : null),
     [firestore]
@@ -76,8 +80,26 @@ export default function RumaPersonalChoicePage() {
 
   React.useEffect(() => {
     // Set date only on client side to avoid hydration mismatch
-    form.setValue("date", new Date());
+    if (!form.getValues("date")) {
+        form.setValue("date", new Date());
+    }
   }, [form]);
+
+  React.useEffect(() => {
+    if (calcStartTime && calcEndTime) {
+      if (calcEndTime > calcStartTime) {
+        const start = new Date(`1970-01-01T${calcStartTime}`);
+        const end = new Date(`1970-01-01T${calcEndTime}`);
+        const durationMs = end.getTime() - start.getTime();
+        const durationHours = durationMs / (1000 * 60 * 60);
+        setCalculatedDuration(durationHours);
+      } else {
+        setCalculatedDuration(null);
+      }
+    } else {
+      setCalculatedDuration(null);
+    }
+  }, [calcStartTime, calcEndTime]);
 
 
   const onSubmit = async (values: FormValues) => {
@@ -204,6 +226,42 @@ export default function RumaPersonalChoicePage() {
                   </li>
                 ))}
               </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+                <div className="flex items-start gap-4">
+                    <Calculator className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                        <CardTitle className="font-headline text-xl">Quick Hour Calculator</CardTitle>
+                        <CardDescription>Instantly calculate the duration between a start and end time.</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+                    <div className="space-y-2">
+                        <Label>Start Time</Label>
+                        <div className="relative">
+                            <Timer className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input type="time" className="pl-10" value={calcStartTime} onChange={(e) => setCalcStartTime(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className="space-y-2">
+                        <Label>End Time</Label>
+                        <div className="relative">
+                            <TimerOff className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input type="time" className="pl-10" value={calcEndTime} onChange={(e) => setCalcEndTime(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className="text-center bg-muted/50 p-4 rounded-lg border h-full flex flex-col justify-center">
+                        <p className="text-sm font-semibold text-muted-foreground">Total Duration</p>
+                        <p className="text-2xl font-bold text-primary">
+                            {calculatedDuration !== null ? `${calculatedDuration.toFixed(2)} hrs` : '-.-- hrs'}
+                        </p>
+                    </div>
+                </div>
             </CardContent>
           </Card>
 
@@ -380,3 +438,5 @@ export default function RumaPersonalChoicePage() {
     </div>
   );
 }
+
+    
