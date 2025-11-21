@@ -57,7 +57,7 @@ const session3CheatSheet = [
       },
       {
         title: "Check-in",
-        instruction: 'Do: Ask a simple question. Say: "How are you feeling today? Give me a thumbs up (good), thumbs sideways (okay), or thumbs down (bad)."',
+        instruction: 'Do: Ask a simple question.\nSay: "How are you feeling today? Give me a thumbs up (good), thumbs sideways (okay), or thumbs down (bad)."',
       },
       {
         title: "Resources",
@@ -78,19 +78,19 @@ const session3CheatSheet = [
     parts: [
       {
         title: 'The Brainstorm (The "Warm-up")',
-        content: 'Do: Ask the group for words. Say: "When I say the words \'Mental Health\', what is the first thing you think of?" Action: Write down everything they say.',
+        content: 'Do: Ask the group for words.\nSay: "When I say the words \'Mental Health\', what is the first thing you think of? You can shout it out or type it in the chat."\nAction: Write down everything they say on a whiteboard or flipchart (or read them out loud if online).',
       },
       {
         title: 'The Explanation (The "Teaching")',
-        content: "Concept: Mental Health is a Skill. Explain it simply: \"Mental health is like a muscle. It is a skill we have to practice.\" List the 4 Skills: Positive Mindset, Bouncing Back, Mindfulness, and Caring for Others.",
+        content: 'Concept: Mental Health is a Skill.\nExplain it simply:\n"Mental health is like a muscle. It is a skill we have to practice. Just like we exercise our bodies to stay strong, we have to do things to keep our minds strong."\nList the 4 Skills (Write these down or say them clearly):\n\n- Positive Mindset: Trying to look for the good in things.\n- Bouncing Back: When bad things happen, we feel sad, but we don\'t get stuck there forever. We recover.\n- Mindfulness: Paying attention to the present moment (not worrying about tomorrow).\n- Caring for Others: Being kind to people around us.',
       },
       {
         title: "The Big Discussion (Reflection)",
-        content: 'Do: Ask the group to think about a hard time. Ask questions: "How did your body feel?", "How was your sleep?", "How was your appetite?", "Did you pull away from friends and family?"',
+        content: 'Do: Ask the group to think about a hard time in the past.\nSay: "Think about a time when life was very difficult for you. I want to ask you some questions about that time."\nAsk these questions (give time for answers):\n\n- "How did your body feel? (Headaches? Fast heartbeat?)"\n- "How was your sleep? (Too much or too little?)"\n- "How was your appetite? (Did you stop eating?)"\n- "Did you pull away from friends and family?"',
       },
       {
         title: "The Facilitator's Key Note (Very Important)",
-        content: 'The Mistake: People think "Mental Health" means "Crazy" or "Sick." The Correction: Say: "Mental Health is different from Mental Illness." Mental Health: Everyone has this. Mental Illness: A medical sickness.',
+        content: 'Do: You must correct a common mistake people make.\nThe Mistake: People think "Mental Health" means "Crazy" or "Sick."\nThe Correction (Say this):\n"I want to make sure we understand one important thing. Mental Health is different from Mental Illness."\n\nMental Health: Everyone has this! It is just how we feel and think. Sometimes it is good, sometimes it is bad.\nMental Illness: This is a medical sickness. This is when someone has very serious symptoms, like hearing voices.',
       },
     ],
   },
@@ -103,15 +103,15 @@ const session3CheatSheet = [
     parts: [
         {
             title: 'The Spectrum (The Line)',
-            content: 'Do: Draw a line on the board from "Mild/Normal" to "Severe/Intense." Explain that mental health is a range, from normal sadness to severe feelings that need support.'
+            content: 'Do: Draw a line on the board. Write "Mild / Normal" on the left and "Severe / Intense" on the right.\nExplain:\n"Mental health is a spectrum (a range).\nOn the Left side, we have normal feelings: feeling sad when someone dies, or nervous about a new job.\nOn the Right side, we have severe feelings: hearing voices, or feeling like life is not worth living."',
         },
         {
             title: 'Is This Normal? (Activity)',
-            content: 'Read two stories (New Job, Worried Mom) and ask the class if the behavior is normal or needs support, including the "twist" for each.'
+            content: 'Do: Read these two stories and ask the class if it is "Normal" or "Not Normal."\n\nStory 1 (The New Job): "A man starts a new job. He is very nervous and afraid to talk to people."\nQuestion: "Is this normal?" -> Answer: YES.\nTwist: "What if he is so scared he cannot get out of bed?" -> Answer: NO. (This needs support).\n\nStory 2 (The Worried Mom): "A mom is worried about COVID-19 because her kids are going back to school."\nQuestion: "Is this normal?" -> Answer: YES.\nTwist: "What if she locks the doors and won\'t let anyone leave the house for 4 weeks?" -> Answer: NO. (This needs support).',
         },
         {
             title: 'The 4 Questions Tool',
-            content: 'Say: "If you are worried, ask these 4 questions: What is happening? How long? How does it impact daily life? Is there a safety risk?"'
+            content: 'Say: "If you are worried about yourself or a friend, ask these 4 questions to see if they need help:"\n\n- What is happening? (Nightmares? Not leaving the house?)\n- How long has it been? (A few days? Or years?)\n- How does it impact daily life? (Can they work? Can they shower?)\n- Is there a safety risk? (Are they hurting themselves or others?)"',
         }
     ]
   },
@@ -124,15 +124,15 @@ const session3CheatSheet = [
     parts: [
         {
             title: 'Cultural Beliefs',
-            content: 'Ask: "In your culture, what do people say causes mental problems?" Prompts: spirits, punishment from God, bad blood. Validate all answers.'
+            content: 'Say: "Every culture has different ideas about why we feel sad or scared. I want to hear from you."\nAsk: "In your culture, what do people say causes mental problems?"\nPrompts (If they are quiet, suggest these):\n\n- "Do people think it is because of spirits or ancestors?"\n- "Do people think it is a punishment from God?"\n- "Do people think it is \'bad blood\' or an imbalance in the body?"\n\nFacilitator Note: Validate all answers. Say: "Those are very common beliefs."',
         },
         {
             title: 'Stigma (Shame)',
-            content: 'Explain that in many cultures, people feel shame about mental health problems. Crucial Note: "We must stand against all hate—whether against mental illness or different races."'
+            content: 'Explain:\n"In many cultures (including the US), there is Stigma. This means people feel shame about having mental health problems. They might think it makes them weak or \'crazy\'."\n\nCrucial Note on Discrimination:\n"Just like there is stigma against mental health, there is also wrong information about COVID-19 that causes hate against Asian communities. We must stand against all hate—whether it is against someone with a mental illness or someone from a different race."',
         },
         {
             title: 'Seeking Help',
-            content: 'Ask: "Who do you go to for help?" Explain the US System: "A Counselor is confidential, like a doctor. It just means you need extra support."'
+            content: 'Ask: "In your culture, who do you go to for help? A priest? A family elder? A doctor?"\n\nExplain the US System:\n"In the US, many people go to a Counselor. This is confidential (private), just like a doctor. Going to a counselor does not mean you are crazy. It just means you need extra support."',
         }
     ]
   },
@@ -147,7 +147,7 @@ const session3CheatSheet = [
             instruction: 'Say: "We are going to learn a tool to help our bodies relax. It is called Finger Tapping."'
         },
         {
-            instruction: 'Do: Lead the group through the tapping steps. Explain: "This touches energy points on your body to help lower stress and anxiety."'
+            instruction: 'Do: [Refer to Appendix Page 2 in your manual]. Lead the group through the tapping steps described there.\nExplain: "This touches energy points on your body to help lower stress and anxiety."'
         }
     ]
   },
@@ -160,7 +160,7 @@ const session3CheatSheet = [
     steps: [
         {
             title: "Homework",
-            instruction: 'Say: "This week, try a mindfulness exercise or write a list of things that make you feel calm. Also, think about your family\'s strengths."'
+            instruction: 'Say: "This week, try to practice a \'Mindfulness\' exercise for 5 to 15 minutes. Or, write a list of things that make you feel calm."\nSay: "Think about your family\'s strengths. What makes your family strong?"'
         },
         {
             title: "Closing",
@@ -198,7 +198,7 @@ export default function RohingyaClassReportPage() {
                         <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground leading-relaxed">{section.content}</p>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">{section.content}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -208,43 +208,45 @@ export default function RohingyaClassReportPage() {
                     <CardTitle className="font-headline text-xl">Facilitators’ Notes</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-muted-foreground">{session2FacilitatorNotes}</p>
+                    <p className="text-muted-foreground whitespace-pre-wrap">{session2FacilitatorNotes}</p>
                 </CardContent>
               </Card>
             </TabsContent>
             <TabsContent value="session-3" className="mt-6">
                <div className="space-y-6">
                 {session3CheatSheet.map((section, index) => (
-                  <Card key={section.id}>
-                    <CardHeader>
-                      <div className="flex items-start gap-4">
-                        <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
-                          <CardDescription>{section.duration}</CardDescription>
+                  <React.Fragment key={section.id}>
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                          <div>
+                            <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                            <CardDescription>{section.duration}</CardDescription>
+                          </div>
                         </div>
-                      </div>
-                      <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
-                        <Target className="h-5 w-5 text-accent flex-shrink-0"/>
-                        <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      {section.steps && section.steps.map((step, stepIndex) => (
-                         <div key={stepIndex} className="pl-4">
-                            {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
-                            <p className="text-muted-foreground text-sm leading-relaxed">{step.instruction}</p>
-                         </div>
-                      ))}
-                      {section.parts && section.parts.map((part, partIndex) => (
-                        <div key={partIndex} className="pl-4">
-                           <p className="font-semibold text-sm mb-1">{part.title}</p>
-                           <p className="text-muted-foreground text-sm leading-relaxed">{part.content}</p>
+                        <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                          <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                          <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
                         </div>
-                      ))}
-                    </CardContent>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {section.steps && section.steps.map((step, stepIndex) => (
+                           <div key={stepIndex} className="pl-4">
+                              {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                           </div>
+                        ))}
+                        {section.parts && section.parts.map((part, partIndex) => (
+                          <div key={partIndex} className="pl-4">
+                             <p className="font-semibold text-sm mb-1">{part.title}</p>
+                             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
                     {index < session3CheatSheet.length - 1 && <Separator />}
-                  </Card>
+                  </React.Fragment>
                 ))}
               </div>
                <Card className="mt-8 border-primary/20 bg-primary/5">
