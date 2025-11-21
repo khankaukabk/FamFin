@@ -264,9 +264,17 @@
           "description": "The date the hours were worked.",
           "format": "date-time"
         },
-        "hours": {
+        "startTime": {
+          "type": "string",
+          "description": "The start time of the work shift."
+        },
+        "endTime": {
+          "type": "string",
+          "description": "The end time of the work shift."
+        },
+        "duration": {
           "type": "number",
-          "description": "The number of hours worked."
+          "description": "The total number of hours worked, calculated from start and end times."
         },
         "notes": {
           "type": "string",
@@ -276,7 +284,9 @@
       "required": [
         "id",
         "date",
-        "hours"
+        "startTime",
+        "endTime",
+        "duration"
       ]
     }
   },
@@ -395,3 +405,5 @@
     ]
   }
 }
+
+    

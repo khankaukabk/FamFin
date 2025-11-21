@@ -13,19 +13,16 @@ import { addHourLog, type HourLog } from "@/lib/hour-log-service";
 
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle, PlusCircle, CalendarIcon } from "lucide-react";
+import { User, HeartHandshake, ClipboardList, Clock, Info, CheckSquare, Calendar, AlertCircle, PlusCircle, CalendarIcon, Timer, TimerOff } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,7 +30,6 @@ import {
 } from "@/components/ui/form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-
 
 const dailyTasks = [
   "Assist with personal care (dressing, grooming)",
@@ -48,8 +44,12 @@ const formSchema = z.object({
   date: z.date({
     required_error: "A date is required.",
   }),
-  hours: z.coerce.number().min(0.1, "Hours must be greater than 0."),
+  startTime: z.string().min(1, "Start time is required."),
+  endTime: z.string().min(1, "End time is required."),
   notes: z.string().optional(),
+}).refine(data => data.endTime > data.startTime, {
+  message: "End time must be after start time.",
+  path: ["endTime"],
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -68,24 +68,45 @@ export default function RumaPersonalChoicePage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       date: new Date(),
-      hours: 0,
+      startTime: "",
+      endTime: "",
       notes: "",
     },
   });
 
   const onSubmit = async (values: FormValues) => {
     if (!firestore) return;
+
+    const startDateTime = new Date(`${format(values.date, 'yyyy-MM-dd')}T${values.startTime}`);
+    const endDateTime = new Date(`${format(values.date, 'yyyy-MM-dd')}T${values.endTime}`);
+    const duration = (endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60);
+
+    if (duration <= 0) {
+      form.setError("endTime", {
+        type: "manual",
+        message: "End time must be after start time.",
+      });
+      return;
+    }
+
     try {
       await addHourLog(firestore, {
         date: values.date.toISOString(),
-        hours: values.hours,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        duration: duration,
         notes: values.notes || "",
       });
       toast({
         title: "Success!",
         description: "Your hour log has been added.",
       });
-      form.reset();
+      form.reset({
+        date: new Date(),
+        startTime: "",
+        endTime: "",
+        notes: "",
+      });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -94,10 +115,18 @@ export default function RumaPersonalChoicePage() {
       });
     }
   };
+  
+  const formatTime = (time: string) => {
+    if (!time) return '';
+    const [hours, minutes] = time.split(':');
+    const date = new Date();
+    date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+    return format(date, 'h:mm a');
+  };
 
   const totalHours = React.useMemo(() => {
     if (!hourLogs) return 0;
-    return hourLogs.reduce((acc, log) => acc + log.hours, 0);
+    return hourLogs.reduce((acc, log) => acc + log.duration, 0);
   }, [hourLogs]);
 
   return (
@@ -185,7 +214,7 @@ export default function RumaPersonalChoicePage() {
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="date"
@@ -229,12 +258,31 @@ export default function RumaPersonalChoicePage() {
                     />
                     <FormField
                       control={form.control}
-                      name="hours"
+                      name="startTime"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Hours Worked</FormLabel>
+                          <FormLabel>Start Time</FormLabel>
                           <FormControl>
-                            <Input type="number" step="0.1" placeholder="e.g., 4.5" {...field} />
+                             <div className="relative">
+                              <Timer className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type="time" className="pl-10" {...field} />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                     <FormField
+                      control={form.control}
+                      name="endTime"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>End Time</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <TimerOff className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type="time" className="pl-10" {...field} />
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -285,22 +333,24 @@ export default function RumaPersonalChoicePage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Date</TableHead>
-                      <TableHead className="text-center">Hours</TableHead>
+                      <TableHead>Time</TableHead>
+                      <TableHead className="text-center">Duration</TableHead>
                       <TableHead>Notes</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {hourLogs?.map((log) => (
                       <TableRow key={log.id}>
-                        <TableCell className="font-medium">{format(new Date(log.date), "EEE, MMM d, yyyy")}</TableCell>
-                        <TableCell className="text-center font-semibold">{log.hours.toFixed(1)}</TableCell>
+                        <TableCell className="font-medium">{format(new Date(log.date), "EEE, MMM d")}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{formatTime(log.startTime)} - {formatTime(log.endTime)}</TableCell>
+                        <TableCell className="text-center font-semibold">{log.duration.toFixed(2)} hrs</TableCell>
                         <TableCell className="text-muted-foreground">{log.notes}</TableCell>
                       </TableRow>
                     ))}
                      <TableRow className="border-t-2 border-primary/20 bg-muted/50">
-                        <TableCell className="font-bold">Total</TableCell>
+                        <TableCell colSpan={2} className="font-bold">Total</TableCell>
                         <TableCell className="text-center font-bold text-lg text-primary">
-                          {totalHours.toFixed(1)}
+                          {totalHours.toFixed(2)} hrs
                         </TableCell>
                         <TableCell></TableCell>
                       </TableRow>
@@ -318,3 +368,5 @@ export default function RumaPersonalChoicePage() {
     </div>
   );
 }
+
+    

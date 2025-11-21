@@ -12,16 +12,24 @@ import { nanoid } from 'nanoid';
 
 export type HourLog = {
   date: string; // ISO string
-  hours: number;
+  startTime: string;
+  endTime: string;
+  duration: number;
   notes: string;
 };
 
 export async function addHourLog(
   db: Firestore,
-  logData: { date: string; hours: number; notes: string }
+  logData: {
+    date: string;
+    startTime: string;
+    endTime: string;
+    duration: number;
+    notes: string;
+  }
 ): Promise<void> {
   const hourLogsCollection = collection(db, 'hourLogs');
-  
+
   const newLog = {
     ...logData,
     id: nanoid(),
@@ -31,3 +39,5 @@ export async function addHourLog(
   // Using non-blocking add
   addDocumentNonBlocking(hourLogsCollection, newLog);
 }
+
+    
