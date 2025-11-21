@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy } from "firebase/firestore";
 import type { WithId } from "@/firebase";
-import { addHourLog, updateHourLog, deleteHourLog, type HourLog } from "@/lib/hour-log-service";
+import { addHourLog, type HourLog } from "@/lib/hour-log-service";
 
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -75,6 +75,7 @@ export default function RumaPersonalChoicePage() {
   });
 
   React.useEffect(() => {
+    // Set date only on client side to avoid hydration mismatch
     form.setValue("date", new Date());
   }, [form]);
 
@@ -107,11 +108,11 @@ export default function RumaPersonalChoicePage() {
         description: "Your hour log has been added.",
       });
       form.reset({
-        date: new Date(),
         startTime: "",
         endTime: "",
         notes: "",
       });
+      form.setValue("date", new Date());
     } catch (error) {
       toast({
         variant: "destructive",
@@ -219,12 +220,12 @@ export default function RumaPersonalChoicePage() {
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="date"
                       render={({ field }) => (
-                        <FormItem className="flex flex-col">
+                        <FormItem className="flex flex-col md:col-span-1 sm:col-span-2">
                           <FormLabel>Date</FormLabel>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -334,37 +335,39 @@ export default function RumaPersonalChoicePage() {
                   <Skeleton className="h-12 w-full" />
                 </div>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Time</TableHead>
-                      <TableHead className="text-center">Duration</TableHead>
-                      <TableHead>Notes</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {hourLogs?.map((log) => (
-                      <TableRow key={log.id}>
-                        <TableCell className="font-medium">{format(new Date(log.date), "EEE, MMM d")}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{formatTime(log.startTime)} - {formatTime(log.endTime)}</TableCell>
-                        <TableCell className="text-center font-semibold">{log.duration.toFixed(2)} hrs</TableCell>
-                        <TableCell className="text-muted-foreground">{log.notes}</TableCell>
-                        <TableCell className="text-right">
-                          <HourLogActions log={log} />
-                        </TableCell>
+                <div className="w-full overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Time</TableHead>
+                        <TableHead className="text-center">Duration</TableHead>
+                        <TableHead>Notes</TableHead>
+                        <TableHead className="text-right pr-2">Actions</TableHead>
                       </TableRow>
-                    ))}
-                     <TableRow className="border-t-2 border-primary/20 bg-muted/50">
-                        <TableCell colSpan={2} className="font-bold">Total</TableCell>
-                        <TableCell className="text-center font-bold text-lg text-primary">
-                          {totalHours.toFixed(2)} hrs
-                        </TableCell>
-                        <TableCell colSpan={2}></TableCell>
-                      </TableRow>
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {hourLogs?.map((log) => (
+                        <TableRow key={log.id}>
+                          <TableCell className="font-medium whitespace-nowrap">{format(new Date(log.date), "EEE, MMM d")}</TableCell>
+                          <TableCell className="text-sm text-muted-foreground whitespace-nowrap">{formatTime(log.startTime)} - {formatTime(log.endTime)}</TableCell>
+                          <TableCell className="text-center font-semibold">{log.duration.toFixed(2)} hrs</TableCell>
+                          <TableCell className="text-muted-foreground min-w-[150px]">{log.notes}</TableCell>
+                          <TableCell className="text-right">
+                            <HourLogActions log={log} />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                      <TableRow className="border-t-2 border-primary/20 bg-muted/50">
+                          <TableCell colSpan={2} className="font-bold">Total</TableCell>
+                          <TableCell className="text-center font-bold text-lg text-primary">
+                            {totalHours.toFixed(2)} hrs
+                          </TableCell>
+                          <TableCell colSpan={2}></TableCell>
+                        </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
           </Card>
@@ -377,5 +380,3 @@ export default function RumaPersonalChoicePage() {
     </div>
   );
 }
-
-    
