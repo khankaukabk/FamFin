@@ -31,6 +31,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { HourLogActions } from "@/components/hour-log-actions";
+import { Label } from "@/components/ui/label";
 
 const dailyTasks = [
   "Assist with personal care (dressing, grooming)",
@@ -48,7 +49,10 @@ const formSchema = z.object({
   startTime: z.string().min(1, "Start time is required."),
   endTime: z.string().min(1, "End time is required."),
   notes: z.string().optional(),
-}).refine(data => data.endTime > data.startTime, {
+}).refine(data => {
+    if (!data.startTime || !data.endTime) return true;
+    return data.endTime > data.startTime
+}, {
   message: "End time must be after start time.",
   path: ["endTime"],
 });
@@ -438,5 +442,3 @@ export default function RumaPersonalChoicePage() {
     </div>
   );
 }
-
-    
