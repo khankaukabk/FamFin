@@ -10,7 +10,7 @@ import { useFirestore } from "@/firebase";
 import { updateHourLog, deleteHourLog, type HourLog } from "@/lib/hour-log-service";
 import type { WithId } from "@/firebase";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -259,8 +259,4 @@ export function HourLogActions({ log }: HourLogActionsProps) {
       </AlertDialog>
     </>
   );
-}
-
-function buttonVariants(arg0: { variant: "destructive"; }): string | undefined {
-    throw new Error("Function not implemented.");
 }
