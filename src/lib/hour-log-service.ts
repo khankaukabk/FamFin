@@ -5,12 +5,16 @@ import {
   Firestore,
   collection,
   addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { addDocumentNonBlocking, updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { nanoid } from 'nanoid';
 
 export type HourLog = {
+  id: string; // nanoid
   date: string; // ISO string
   startTime: string;
   endTime: string;
@@ -36,8 +40,26 @@ export async function addHourLog(
     createdAt: serverTimestamp(),
   };
 
-  // Using non-blocking add
   addDocumentNonBlocking(hourLogsCollection, newLog);
 }
 
+export async function updateHourLog(
+  db: Firestore,
+  logId: string,
+  logData: Partial<HourLog>
+): Promise<void> {
+  const logDocRef = doc(db, 'hourLogs', logId);
+  updateDocumentNonBlocking(logDocRef, {
+    ...logData,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+export async function deleteHourLog(
+  db: Firestore,
+  logId: string
+): Promise<void> {
+  const logDocRef = doc(db, 'hourLogs', logId);
+  deleteDocumentNonBlocking(logDocRef);
+}
     

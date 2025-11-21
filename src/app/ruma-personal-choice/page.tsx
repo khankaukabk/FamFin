@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { collection, query, orderBy } from "firebase/firestore";
 import type { WithId } from "@/firebase";
-import { addHourLog, type HourLog } from "@/lib/hour-log-service";
+import { addHourLog, updateHourLog, deleteHourLog, type HourLog } from "@/lib/hour-log-service";
 
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { HourLogActions } from "@/components/hour-log-actions";
 
 const dailyTasks = [
   "Assist with personal care (dressing, grooming)",
@@ -317,7 +318,7 @@ export default function RumaPersonalChoicePage() {
                 <Clock className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <CardTitle className="font-headline text-xl">Weekly Hour Log</CardTitle>
-                  <CardDescription>A record of hours worked for the current week.</CardDescription>
+                  <CardDescription>A record of hours worked. Edit or delete entries as needed.</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -336,6 +337,7 @@ export default function RumaPersonalChoicePage() {
                       <TableHead>Time</TableHead>
                       <TableHead className="text-center">Duration</TableHead>
                       <TableHead>Notes</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -345,6 +347,9 @@ export default function RumaPersonalChoicePage() {
                         <TableCell className="text-sm text-muted-foreground">{formatTime(log.startTime)} - {formatTime(log.endTime)}</TableCell>
                         <TableCell className="text-center font-semibold">{log.duration.toFixed(2)} hrs</TableCell>
                         <TableCell className="text-muted-foreground">{log.notes}</TableCell>
+                        <TableCell className="text-right">
+                          <HourLogActions log={log} />
+                        </TableCell>
                       </TableRow>
                     ))}
                      <TableRow className="border-t-2 border-primary/20 bg-muted/50">
@@ -352,7 +357,7 @@ export default function RumaPersonalChoicePage() {
                         <TableCell className="text-center font-bold text-lg text-primary">
                           {totalHours.toFixed(2)} hrs
                         </TableCell>
-                        <TableCell></TableCell>
+                        <TableCell colSpan={2}></TableCell>
                       </TableRow>
                   </TableBody>
                 </Table>
