@@ -27,17 +27,17 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// Helper to get a specific icon from lucide-react
+const getIcon = (name: string) => {
+  const Icon = (LucideIcons as any)[name];
+  if (Icon) {
+    return Icon;
+  }
+  return LucideIcons.HelpCircle; // Fallback icon
+};
+
 
 export default function HomePage() {
-  // Helper to get a specific icon from lucide-react
-  const getIcon = (name: string) => {
-    const Icon = (LucideIcons as any)[name];
-    if (Icon) {
-      return Icon;
-    }
-    return LucideIcons.HelpCircle; // Fallback icon
-  };
-
   const firestore = useFirestore();
   const [alertState, setAlertState] = React.useState<{
     isOpen: boolean;
