@@ -68,12 +68,16 @@ export default function RumaPersonalChoicePage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: new Date(),
       startTime: "",
       endTime: "",
       notes: "",
     },
   });
+
+  React.useEffect(() => {
+    form.setValue("date", new Date());
+  }, [form]);
+
 
   const onSubmit = async (values: FormValues) => {
     if (!firestore) return;
