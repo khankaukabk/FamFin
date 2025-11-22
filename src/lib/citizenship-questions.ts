@@ -173,11 +173,11 @@ export const questions = [
   },
   {
     "question": "Who is one of your state’s U.S. Senators now?",
-    "correct_answer": "Answers will vary.",
+    "correct_answer": "Katie Britt",
     "incorrect_answers": [
-      "The President",
-      "The Speaker of the House",
-      "The Chief Justice"
+      "Kay Ivey",
+      "Tommy Tuberville",
+      "Answers will vary."
     ]
   },
   {
@@ -202,9 +202,9 @@ export const questions = [
     "question": "Name your U.S. Representative.",
     "correct_answer": "Answers will vary.",
     "incorrect_answers": [
-      "The Governor of my state",
-      "The Mayor of my city",
-      "The state's Attorney General"
+      "Kay Ivey",
+      "Joe Biden",
+      "Kamala Harris"
     ]
   },
   {
@@ -245,7 +245,7 @@ export const questions = [
   },
   {
     "question": "What is the name of the President of the United States now?",
-    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "correct_answer": "Joe Biden",
     "incorrect_answers": [
       "George Washington",
       "Abraham Lincoln",
@@ -254,7 +254,7 @@ export const questions = [
   },
   {
     "question": "What is the name of the Vice President of the United States now?",
-    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "correct_answer": "Kamala Harris",
     "incorrect_answers": [
       "Thomas Jefferson",
       "John Adams",
@@ -353,7 +353,7 @@ export const questions = [
   },
   {
     "question": "Who is the Chief Justice of the United States now?",
-    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "correct_answer": "John Roberts",
     "incorrect_answers": [
       "John Jay",
       "William Rehnquist",
@@ -380,20 +380,20 @@ export const questions = [
   },
   {
     "question": "Who is the Governor of your state now?",
-    "correct_answer": "Answers will vary.",
+    "correct_answer": "Kay Ivey",
     "incorrect_answers": [
-      "The President of the United States",
-      "The state's Attorney General",
-      "The state's Secretary of State"
+      "Joe Biden",
+      "Kamala Harris",
+      "Answers will vary."
     ]
   },
   {
     "question": "What is the capital of your state?",
-    "correct_answer": "Answers will vary.",
+    "correct_answer": "Montgomery",
     "incorrect_answers": [
-      "Washington, D.C.",
-      "The largest city in the state",
-      "The state's most famous city"
+      "Birmingham",
+      "Huntsville",
+      "Mobile"
     ]
   },
   {
@@ -407,16 +407,16 @@ export const questions = [
   },
   {
     "question": "What is the political party of the President now?",
-    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "correct_answer": "Democratic Party",
     "incorrect_answers": [
+      "Republican Party",
       "Independent",
-      "Unaffiliated",
-      "None"
+      "Unaffiliated"
     ]
   },
   {
     "question": "What is the name of the Speaker of the House of Representatives now?",
-    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "correct_answer": "Mike Johnson",
     "incorrect_answers": [
       "Nancy Pelosi",
       "Newt Gingrich",
@@ -901,3 +901,5 @@ export const questions = [
     ]
   }
 ];
+
+    
