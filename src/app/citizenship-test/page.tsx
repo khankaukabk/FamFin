@@ -10,6 +10,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { cn } from "@/lib/utils";
 import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 
 // Helper to shuffle an array
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -136,6 +137,9 @@ export default function CitizenshipTestPage() {
   const isPassing = score / questions.length >= 0.9;
 
   if (showResults) {
+    const correctAnswers = score;
+    const incorrectAnswers = questions.length - score;
+
     return (
       <div className="flex min-h-screen w-full flex-col">
         {isPassing && <Confetti width={windowSize.width} height={windowSize.height} />}
@@ -158,11 +162,23 @@ export default function CitizenshipTestPage() {
                         {score} / {questions.length}
                     </p>
                 </div>
-                 <div className="flex justify-center items-center gap-2 text-muted-foreground">
-                    <Timer className="w-5 h-5" />
-                    <p className="text-lg">Time taken: <span className="font-semibold text-foreground">{formatTime(elapsedTime)}</span></p>
+                <div className="space-y-3 text-left w-full max-w-sm mx-auto">
+                    <div className="flex justify-between items-center text-lg">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><CheckCircle className="text-green-500"/> Correct Answers:</p>
+                        <p className="font-bold text-green-600">{correctAnswers}</p>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between items-center text-lg">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><XCircle className="text-red-500"/> Incorrect Answers:</p>
+                        <p className="font-bold text-red-500">{incorrectAnswers}</p>
+                    </div>
+                    <Separator />
+                     <div className="flex justify-between items-center text-lg pt-2">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><Timer /> Time Taken:</p>
+                        <p className="font-semibold text-foreground">{formatTime(elapsedTime)}</p>
+                    </div>
                 </div>
-                <Button onClick={startNewGame} size="lg">
+                <Button onClick={startNewGame} size="lg" className="mt-4">
                     <RotateCw className="mr-2 h-4 w-4" />
                     Take Another Test
                 </Button>
