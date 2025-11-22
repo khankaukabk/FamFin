@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { cn } from "@/lib/utils";
-import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer } from "lucide-react";
+import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer, PlayCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 
@@ -228,6 +228,8 @@ const encouragingMessages = [
 
 const getRandomMessage = () => encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
 
+type GameState = "welcome" | "playing" | "results";
+
 export default function CitizenshipTestPage() {
   const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
@@ -235,12 +237,12 @@ export default function CitizenshipTestPage() {
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [score, setScore] = React.useState(0);
   const [incorrectCount, setIncorrectCount] = React.useState(0);
-  const [showResults, setShowResults] = React.useState(false);
   const [startTime, setStartTime] = React.useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = React.useState(0);
   const [windowSize, setWindowSize] = React.useState<{ width: number; height: number; }>({ width: 0, height: 0 });
   const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
   const [encouragingMessage, setEncouragingMessage] = React.useState("");
+  const [gameState, setGameState] = React.useState<GameState>("welcome");
 
   const startNewGame = React.useCallback(() => {
     const shuffledQuestions = shuffleArray(allQuestions).slice(0, 100).map((q) => ({
@@ -254,11 +256,11 @@ export default function CitizenshipTestPage() {
     setIsAnswered(false);
     setScore(0);
     setIncorrectCount(0);
-    setShowResults(false);
     setStartTime(Date.now());
     setElapsedTime(0);
     setIsCorrect(null);
     setEncouragingMessage(getRandomMessage());
+    setGameState("playing");
   }, []);
 
   // Get window size for confetti
@@ -270,11 +272,17 @@ export default function CitizenshipTestPage() {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // Start the game on initial render
+  
+  // Live timer effect
   React.useEffect(() => {
-    startNewGame();
-  }, [startNewGame]);
+    let interval: NodeJS.Timeout;
+    if (gameState === 'playing' && startTime) {
+      interval = setInterval(() => {
+        setElapsedTime((Date.now() - startTime) / 1000);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [gameState, startTime]);
 
   const handleAnswerSelect = (answer: string) => {
     if (isAnswered) return;
@@ -299,31 +307,42 @@ export default function CitizenshipTestPage() {
       setIsCorrect(null);
       setEncouragingMessage(getRandomMessage());
     } else {
-      if (startTime) {
-          setElapsedTime((Date.now() - startTime) / 1000);
-      }
-      setShowResults(true);
+      setGameState("results");
     }
   };
+  
+  const handleRestart = () => {
+      setGameState("welcome");
+  };
 
-  if (questions.length === 0) {
+  if (gameState === "welcome") {
     return (
-        <div className="flex min-h-screen w-full flex-col">
-            <Navigation title="U.S. Citizenship Test" />
-            <main className="flex-1 flex items-center justify-center">
-                <p>Loading questions...</p>
-            </main>
-        </div>
+      <div className="flex min-h-screen w-full flex-col">
+        <Navigation title="U.S. Citizenship Test" />
+        <main className="flex-1 flex items-center justify-center p-4">
+          <Card className="w-full max-w-lg text-center shadow-2xl animate-in fade-in-50 zoom-in-95">
+            <CardHeader>
+              <CardTitle className="font-headline text-3xl">Ready to Practice?</CardTitle>
+              <CardDescription className="text-lg text-muted-foreground pt-4">
+                Safura, your hard work has led you to this moment. Believe in yourself and show what you know. You're ready for this!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button onClick={startNewGame} size="lg" className="mt-4">
+                <PlayCircle className="mr-2 h-5 w-5" />
+                Begin Test
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
-  const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
-  const isPassing = score / questions.length >= 0.9;
-
-  if (showResults) {
+  if (gameState === "results") {
     const correctAnswers = score;
     const incorrectAnswers = questions.length - score;
+    const isPassing = score / questions.length >= 0.9;
 
     return (
       <div className="flex min-h-screen w-full flex-col">
@@ -374,11 +393,24 @@ export default function CitizenshipTestPage() {
     );
   }
   
+  if (questions.length === 0) {
+    return (
+        <div className="flex min-h-screen w-full flex-col">
+            <Navigation title="U.S. Citizenship Test" />
+            <main className="flex-1 flex items-center justify-center">
+                <p>Loading questions...</p>
+            </main>
+        </div>
+    );
+  }
 
+  const currentQuestion = questions[currentQuestionIndex];
+  const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+  
   return (
     <div className="flex min-h-screen w-full flex-col">
       {isCorrect === true && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={200} />}
-      <Navigation title="U.S. Citizenship Test" showRestartButton={true} onRestart={startNewGame} />
+      <Navigation title="U.S. Citizenship Test" showRestartButton={true} onRestart={handleRestart} timer={formatTime(elapsedTime)} />
       <main className="flex-1 p-4 sm:px-6 md:p-8 flex flex-col">
         <div className="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center">
           <Card className={cn("w-full", isCorrect === false && "animate-shake")}>
@@ -444,3 +476,5 @@ export default function CitizenshipTestPage() {
     </div>
   );
 }
+
+    

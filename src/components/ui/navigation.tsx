@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer } from "lucide-react";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -20,7 +20,7 @@ const NavLink = ({ href, children, onClick }: { href: string; children: React.Re
   </SheetClose>
 );
 
-export function Navigation({ title, showRestartButton = false, onRestart }: { title: string; showRestartButton?: boolean; onRestart?: () => void; }) {
+export function Navigation({ title, showRestartButton = false, onRestart, timer }: { title: string; showRestartButton?: boolean; onRestart?: () => void; timer?: string; }) {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
@@ -120,9 +120,19 @@ export function Navigation({ title, showRestartButton = false, onRestart }: { ti
             </SheetContent>
         </Sheet>
         
-        <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl text-center flex-grow">
-          {title}
-        </h1>
+        <div className="flex-grow flex items-center justify-center">
+            {timer !== undefined ? (
+              <div className="flex items-center gap-2 font-mono text-lg font-semibold text-primary">
+                <Timer className="h-5 w-5" />
+                <span>{timer}</span>
+              </div>
+            ) : (
+              <h1 className="font-headline text-xl font-bold tracking-tight text-primary sm:text-2xl text-center">
+                {title}
+              </h1>
+            )}
+        </div>
+
 
         <div className="w-10">
           {showRestartButton && (
@@ -135,3 +145,5 @@ export function Navigation({ title, showRestartButton = false, onRestart }: { ti
     </header>
   );
 }
+
+    
