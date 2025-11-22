@@ -1,3 +1,4 @@
+
 export const questions = [
   {
     "question": "What is the supreme law of the land?",
@@ -14,7 +15,7 @@ export const questions = [
     "incorrect_answers": [
       "declares independence from Great Britain",
       "establishes the post office",
-      "sets the national budget"
+      "protects basic rights of Americans"
     ]
   },
   {
@@ -171,6 +172,15 @@ export const questions = [
     ]
   },
   {
+    "question": "Who is one of your state’s U.S. Senators now?",
+    "correct_answer": "Answers will vary.",
+    "incorrect_answers": [
+      "The President",
+      "The Speaker of the House",
+      "The Chief Justice"
+    ]
+  },
+  {
     "question": "The House of Representatives has how many voting members?",
     "correct_answer": "four hundred thirty-five (435)",
     "incorrect_answers": [
@@ -189,6 +199,15 @@ export const questions = [
     ]
   },
   {
+    "question": "Name your U.S. Representative.",
+    "correct_answer": "Answers will vary.",
+    "incorrect_answers": [
+      "The Governor of my state",
+      "The Mayor of my city",
+      "The state's Attorney General"
+    ]
+  },
+  {
     "question": "Who does a U.S. Senator represent?",
     "correct_answer": "all people of the state",
     "incorrect_answers": [
@@ -199,11 +218,11 @@ export const questions = [
   },
   {
     "question": "Why do some states have more Representatives than other states?",
-    "correct_answer": "because of the state's population",
+    "correct_answer": "(because of) the state’s population",
     "incorrect_answers": [
-      "because of the state's land area",
-      "because the state was one of the original 13 colonies",
-      "because of the state's economic output"
+      "(because of) the state's land area",
+      "(because) the state was one of the original 13 colonies",
+      "(because of) the state's economic output"
     ]
   },
   {
@@ -222,6 +241,24 @@ export const questions = [
       "January",
       "July",
       "December"
+    ]
+  },
+  {
+    "question": "What is the name of the President of the United States now?",
+    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "incorrect_answers": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Donald Trump"
+    ]
+  },
+  {
+    "question": "What is the name of the Vice President of the United States now?",
+    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "incorrect_answers": [
+      "Thomas Jefferson",
+      "John Adams",
+      "Mike Pence"
     ]
   },
   {
@@ -315,6 +352,15 @@ export const questions = [
     ]
   },
   {
+    "question": "Who is the Chief Justice of the United States now?",
+    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "incorrect_answers": [
+      "John Jay",
+      "William Rehnquist",
+      "Earl Warren"
+    ]
+  },
+  {
     "question": "Under our Constitution, some powers belong to the federal government. What is one power of the federal government?",
     "correct_answer": "to print money",
     "incorrect_answers": [
@@ -330,6 +376,60 @@ export const questions = [
       "to print money",
       "to declare war",
       "to make treaties"
+    ]
+  },
+  {
+    "question": "Who is the Governor of your state now?",
+    "correct_answer": "Answers will vary.",
+    "incorrect_answers": [
+      "The President of the United States",
+      "The state's Attorney General",
+      "The state's Secretary of State"
+    ]
+  },
+  {
+    "question": "What is the capital of your state?",
+    "correct_answer": "Answers will vary.",
+    "incorrect_answers": [
+      "Washington, D.C.",
+      "The largest city in the state",
+      "The state's most famous city"
+    ]
+  },
+  {
+    "question": "What are the two major political parties in the United States?",
+    "correct_answer": "Democratic and Republican",
+    "incorrect_answers": [
+      "Libertarian and Green",
+      "Socialist and Communist",
+      "Federalist and Anti-Federalist"
+    ]
+  },
+  {
+    "question": "What is the political party of the President now?",
+    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "incorrect_answers": [
+      "Independent",
+      "Unaffiliated",
+      "None"
+    ]
+  },
+  {
+    "question": "What is the name of the Speaker of the House of Representatives now?",
+    "correct_answer": "Visit uscis.gov/citizenship/testupdates",
+    "incorrect_answers": [
+      "Nancy Pelosi",
+      "Newt Gingrich",
+      "Paul Ryan"
+    ]
+  },
+  {
+    "question": "There are four amendments to the Constitution about who can vote. Describe one of them.",
+    "correct_answer": "Citizens eighteen (18) and older (can vote).",
+    "incorrect_answers": [
+      "Only citizens with a job can vote.",
+      "Only citizens who own property can vote.",
+      "Citizens must pay a tax to vote."
     ]
   },
   {
@@ -451,11 +551,11 @@ export const questions = [
   },
   {
     "question": "Who wrote the Declaration of Independence?",
-    "correct_answer": "Thomas Jefferson",
+    "correct_answer": "(Thomas) Jefferson",
     "incorrect_answers": [
-      "George Washington",
-      "Abraham Lincoln",
-      "Benjamin Franklin"
+      "(George) Washington",
+      "(Abraham) Lincoln",
+      "(Benjamin) Franklin"
     ]
   },
   {
@@ -496,11 +596,11 @@ export const questions = [
   },
   {
     "question": "The Federalist Papers supported the passage of the U.S. Constitution. Name one of the writers.",
-    "correct_answer": "James Madison",
+    "correct_answer": "(James) Madison",
     "incorrect_answers": [
-      "Thomas Jefferson",
-      "George Washington",
-      "Patrick Henry"
+      "(Thomas) Jefferson",
+      "(George) Washington",
+      "(Patrick) Henry"
     ]
   },
   {
@@ -514,16 +614,16 @@ export const questions = [
   },
   {
     "question": "Who is the 'Father of Our Country'?",
-    "correct_answer": "George Washington",
+    "correct_answer": "(George) Washington",
     "incorrect_answers": [
-      "Thomas Jefferson",
-      "Abraham Lincoln",
-      "Benjamin Franklin"
+      "(Thomas) Jefferson",
+      "(Abraham) Lincoln",
+      "(Benjamin) Franklin"
     ]
   },
   {
     "question": "Who was the first President?",
-    "correct_answer": "George Washington",
+    "correct_answer": "(George) Washington",
     "incorrect_answers": [
       "John Adams",
       "Thomas Jefferson",
@@ -604,16 +704,16 @@ export const questions = [
   },
   {
     "question": "Who was President during World War I?",
-    "correct_answer": "Woodrow Wilson",
+    "correct_answer": "(Woodrow) Wilson",
     "incorrect_answers": [
-      "Franklin Roosevelt",
-      "Theodore Roosevelt",
-      "Abraham Lincoln"
+      "(Franklin) Roosevelt",
+      "(Theodore) Roosevelt",
+      "(Abraham) Lincoln"
     ]
   },
   {
     "question": "Who was President during the Great Depression and World War II?",
-    "correct_answer": "Franklin Roosevelt",
+    "correct_answer": "(Franklin) Roosevelt",
     "incorrect_answers": [
       "Herbert Hoover",
       "Harry Truman",
