@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -170,6 +170,148 @@ const session3CheatSheet = [
   },
 ];
 
+const session4CheatSheet = [
+  {
+    id: "4A",
+    title: "Check-in and Resource Sharing",
+    duration: "5 Minutes",
+    icon: CheckCircle,
+    goal: "Welcome everyone and check the energy of the group.",
+    steps: [
+      {
+        title: "Welcome",
+        instruction: 'Say: "Welcome back everyone! I am grateful you are here."',
+      },
+      {
+        title: "Check-in",
+        instruction: 'Do: Choose a simple check-in.\nSay: "Let\'s do a one-word check-in. Please say or type one word that describes how your week was."',
+      },
+      {
+        title: "Resources",
+        instruction: "Do: Share any important news if needed. If not, move on.",
+      },
+      {
+        title: "Introduce Topic",
+        instruction: 'Say: "Today we are talking about Family Wellbeing—how we get along with the people we live with and how we support our children."',
+      },
+    ],
+  },
+  {
+    id: "4B",
+    title: "Importance of Family Wellbeing",
+    duration: "20 Minutes",
+    icon: Home,
+    goal: "Acknowledge that living together during stress is hard, and offer strategies.",
+    parts: [
+      {
+        title: 'What is "Family"?',
+        content: "Important Note: Not everyone lives with blood relatives.\n\nSay: \"When I say 'family' today, I mean whoever you are living with or whoever you love. This could be parents, children, roommates, friends, or partners.\"",
+      },
+      {
+        title: 'The Challenge (The Reality Check)',
+        content: 'Say: "Living together 24/7 can be comforting, but it can also be very stressful. It is normal to feel annoyed or overwhelmed when we are in the same house all the time."',
+      },
+      {
+        title: 'Strategies for Peace',
+        content: 'Do: Share these 3 tips with the group:\n\n- Routines: Keep a schedule. Wake up, eat, and sleep at the same time.\n- Rituals: Do something special together. (Example: Pizza on Fridays, Prayer every morning, Games on Thursday).\n- Space: Make a plan for "Alone Time." It is okay to need a break from your family.',
+      },
+      {
+        title: 'Discussion',
+        content: 'Ask: "What is one ritual or activity you used to do before the pandemic that you miss? Can we try to bring it back?"',
+      },
+    ],
+  },
+  {
+    id: "4C",
+    title: "Supporting Children",
+    duration: "10 Minutes",
+    icon: Users,
+    goal: "Help parents/caregivers support the kids.",
+    steps: [
+      {
+        title: "Brainstorm",
+        instruction: 'Ask: "Those of you with children—what have you done lately to help them feel calm?"',
+      },
+      {
+        title: "Facilitator Tips (Add these ideas)",
+        instruction: 'Limit News: "Too much TV news scares children. Turn it off."\n\nAnswer Questions: "Be honest but gentle. Correct false rumors."\n\nBe a Role Model: "Children watch you. If you panic, they panic. If you take deep breaths and stay calm, they will too."',
+      },
+    ],
+  },
+  {
+    id: "4D",
+    title: 'The "Triple-A" Approach',
+    duration: "10 Minutes",
+    icon: Heart,
+    goal: "Teach a specific tool to increase love and happiness hormones.",
+    parts: [
+      {
+        title: "Introduction",
+        content: "Say: \"Dr. Omar Reda created a tool called the 'Triple-A Approach' to help us feel happy and loved. It creates happy chemicals in our brain.\"",
+      },
+      {
+        title: "Explain the 3 A's",
+        content: "Attention: Look at them. Put down your phone. Listen to them.\nChemical: Dopamine (Satisfaction)\n\nAppreciation: Tell them \"Thank you\" or \"I value you.\"\nChemical: Serotonin (Happiness)\n\nAffection: Hugs, smiles, holding hands, or kind words.\nChemical: Oxytocin (Love)",
+      },
+      {
+        title: "Mini-Activity",
+        content: 'Ask: "Think of a time recently when someone gave you genuine Attention, Appreciation, or Affection. How did it feel?"',
+      },
+    ],
+  },
+  {
+    id: "4E",
+    title: "Caregiver Stress",
+    duration: "10 Minutes",
+    icon: Coffee,
+    goal: "Remind them to take care of themselves first.",
+    steps: [
+      {
+        title: "Core Message",
+        instruction: 'Say: "You cannot pour from an empty cup. To take care of your family, you must take care of yourself."',
+      },
+      {
+        title: "Self-Reflection Questions (Ask them to think about these)",
+        instruction: '"What activities give me energy?"\n\n"What activities drain my energy?"\n\n"Who supports ME?"',
+      },
+    ],
+  },
+  {
+    id: "4F",
+    title: "Building Resilience",
+    duration: "20 Minutes",
+    icon: Shield,
+    goal: "Create a plan to stay strong as a community/family.",
+    parts: [
+      {
+        title: "Activity: The Resilience List",
+        content: 'Say: "We are going to make a list of 4 things we can do to stay strong together."\n\nExamples to share:\n- Cooking a meal together.\n- Reading or telling stories.\n- Playing a game.\n- Sharing family traditions.',
+      },
+      {
+        title: "Discussion",
+        content: 'Ask: "Look at these ideas. Which one can you try this week?"\n\nAsk: "What gives you nourishment (strength) right now?"',
+      },
+    ],
+  },
+  {
+    id: "4G",
+    title: "Home Practice & Closing",
+    duration: "10 Minutes",
+    icon: BookHeart,
+    goal: "Give homework and end the session.",
+    steps: [
+      {
+        title: "Homework",
+        instruction: 'Option 1: "Practice the Triple-A Approach (Attention, Appreciation, Affection) with your family for 5 minutes a day."\n\nOption 2: "Review the self-care questions. Ask yourself: \'What brings me joy?\'"',
+      },
+      {
+        title: "Closing",
+        instruction: 'Say: "Thank you for sharing today. Remember, a strong family starts with a strong YOU. See you next week!"',
+      },
+    ],
+  },
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -186,9 +328,10 @@ export default function RohingyaClassReportPage() {
           </Card>
           
           <Tabs defaultValue="session-3" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="session-2">Session 2</TabsTrigger>
               <TabsTrigger value="session-3">Session 3</TabsTrigger>
+              <TabsTrigger value="session-4">Session 4</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -231,13 +374,13 @@ export default function RohingyaClassReportPage() {
                         </div>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        {section.steps && section.steps.map((step, stepIndex) => (
+                        {section.steps?.map((step, stepIndex) => (
                            <div key={stepIndex} className="pl-4">
                               {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
                               <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
                            </div>
                         ))}
-                        {section.parts && section.parts.map((part, partIndex) => (
+                        {section.parts?.map((part, partIndex) => (
                           <div key={partIndex} className="pl-4">
                              <p className="font-semibold text-sm mb-1">{part.title}</p>
                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
@@ -261,6 +404,44 @@ export default function RohingyaClassReportPage() {
                 </CardContent>
               </Card>
             </TabsContent>
+            <TabsContent value="session-4" className="mt-6">
+               <div className="space-y-6">
+                {session4CheatSheet.map((section, index) => (
+                  <React.Fragment key={section.id}>
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                          <div>
+                            <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                            <CardDescription>{section.duration}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                          <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                          <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {section.steps?.map((step, stepIndex) => (
+                           <div key={stepIndex} className="pl-4">
+                              {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                           </div>
+                        ))}
+                        {section.parts?.map((part, partIndex) => (
+                          <div key={partIndex} className="pl-4">
+                             <p className="font-semibold text-sm mb-1">{part.title}</p>
+                             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                    {index < session4CheatSheet.length - 1 && <Separator />}
+                  </React.Fragment>
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -271,3 +452,5 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
+
+    
