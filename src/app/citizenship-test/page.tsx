@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { cn } from "@/lib/utils";
-import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy } from "lucide-react";
+import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 // Helper to shuffle an array
@@ -21,6 +22,13 @@ type QuizQuestion = {
   correctAnswer: string;
 };
 
+// Helper to format time
+const formatTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}m ${remainingSeconds}s`;
+};
+
 export default function CitizenshipTestPage() {
   const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
@@ -28,6 +36,8 @@ export default function CitizenshipTestPage() {
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [score, setScore] = React.useState(0);
   const [showResults, setShowResults] = React.useState(false);
+  const [startTime, setStartTime] = React.useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = React.useState(0);
 
   const startNewGame = React.useCallback(() => {
     const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
@@ -41,6 +51,8 @@ export default function CitizenshipTestPage() {
     setIsAnswered(false);
     setScore(0);
     setShowResults(false);
+    setStartTime(Date.now());
+    setElapsedTime(0);
   }, []);
 
   // Start the game on initial render
@@ -65,6 +77,9 @@ export default function CitizenshipTestPage() {
       setSelectedAnswer(null);
       setIsAnswered(false);
     } else {
+      if (startTime) {
+          setElapsedTime((Date.now() - startTime) / 1000);
+      }
       setShowResults(true);
     }
   };
@@ -100,6 +115,10 @@ export default function CitizenshipTestPage() {
                     <p className="text-6xl font-bold text-primary">
                         {score} / {questions.length}
                     </p>
+                </div>
+                 <div className="flex justify-center items-center gap-2 text-muted-foreground">
+                    <Timer className="w-5 h-5" />
+                    <p className="text-lg">Time taken: <span className="font-semibold text-foreground">{formatTime(elapsedTime)}</span></p>
                 </div>
                 <Button onClick={startNewGame} size="lg">
                     <RotateCw className="mr-2 h-4 w-4" />
