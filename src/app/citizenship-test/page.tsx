@@ -32,14 +32,14 @@ const formatTime = (seconds: number): string => {
 };
 
 const encouragingMessages = [
-  "You can do it!",
+  "You can do it, Safura!",
   "Guess it right!",
   "You've got this!",
-  "Stay focused!",
+  "Stay focused, Safura!",
   "Believe in yourself!",
   "Keep up the great work!",
   "One question at a time!",
-  "Show what you know!",
+  "Show what you know, Safura!",
   "Impressive knowledge!",
   "You're on a roll!"
 ];
@@ -61,7 +61,7 @@ export default function CitizenshipTestPage() {
   const [encouragingMessage, setEncouragingMessage] = React.useState("");
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
+    const shuffledQuestions = shuffleArray(allQuestions).slice(0, 100).map((q) => ({
       question: q.question,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
       correctAnswer: q.correct_answer,
