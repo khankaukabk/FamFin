@@ -11,11 +11,11 @@ export const questions = [
   },
   {
     "question": "What does the Constitution do?",
-    "correct_answer": "sets up the government",
+    "correct_answer": "sets up the government, defines the government, and protects basic rights of Americans",
     "incorrect_answers": [
       "declares independence from Great Britain",
       "establishes the post office",
-      "protects basic rights of Americans"
+      "sets the number of states"
     ]
   },
   {
@@ -29,7 +29,7 @@ export const questions = [
   },
   {
     "question": "What is an amendment?",
-    "correct_answer": "a change (to the Constitution)",
+    "correct_answer": "a change or an addition to the Constitution",
     "incorrect_answers": [
       "a law passed by Congress",
       "a court ruling",
@@ -92,7 +92,7 @@ export const questions = [
   },
   {
     "question": "What is the economic system in the United States?",
-    "correct_answer": "capitalist economy",
+    "correct_answer": "capitalist or market economy",
     "incorrect_answers": [
       "socialist economy",
       "communist economy",
@@ -101,7 +101,7 @@ export const questions = [
   },
   {
     "question": "What is the 'rule of law'?",
-    "correct_answer": "Everyone must follow the law.",
+    "correct_answer": "Everyone, including leaders and the government, must follow the law.",
     "incorrect_answers": [
       "Only citizens must follow the law.",
       "The President is above the law.",
@@ -110,7 +110,7 @@ export const questions = [
   },
   {
     "question": "Name one branch or part of the government.",
-    "correct_answer": "Congress",
+    "correct_answer": "Congress (legislative)",
     "incorrect_answers": [
       "the states",
       "the military",
@@ -119,7 +119,7 @@ export const questions = [
   },
   {
     "question": "What stops one branch of government from becoming too powerful?",
-    "correct_answer": "checks and balances",
+    "correct_answer": "checks and balances or separation of powers",
     "incorrect_answers": [
       "the President",
       "the Supreme Court",
@@ -137,7 +137,7 @@ export const questions = [
   },
   {
     "question": "Who makes federal laws?",
-    "correct_answer": "Congress",
+    "correct_answer": "Congress (Senate and House of Representatives)",
     "incorrect_answers": [
       "the President",
       "the Supreme Court",
@@ -177,7 +177,7 @@ export const questions = [
     "incorrect_answers": [
       "Kay Ivey",
       "Tommy Tuberville",
-      "Answers will vary."
+      "Donald Trump"
     ]
   },
   {
@@ -203,8 +203,8 @@ export const questions = [
     "correct_answer": "Answers will vary.",
     "incorrect_answers": [
       "Kay Ivey",
-      "Joe Biden",
-      "Kamala Harris"
+      "Donald Trump",
+      "JD Vance"
     ]
   },
   {
@@ -218,11 +218,11 @@ export const questions = [
   },
   {
     "question": "Why do some states have more Representatives than other states?",
-    "correct_answer": "(because of) the state’s population",
+    "correct_answer": "because of the state’s population",
     "incorrect_answers": [
-      "(because of) the state's land area",
-      "(because) the state was one of the original 13 colonies",
-      "(because of) the state's economic output"
+      "because of the state's land area",
+      "because the state was one of the original 13 colonies",
+      "because of the state's economic output"
     ]
   },
   {
@@ -245,19 +245,19 @@ export const questions = [
   },
   {
     "question": "What is the name of the President of the United States now?",
-    "correct_answer": "Joe Biden",
+    "correct_answer": "Donald Trump",
     "incorrect_answers": [
+      "Joe Biden",
       "George Washington",
-      "Abraham Lincoln",
-      "Donald Trump"
+      "Abraham Lincoln"
     ]
   },
   {
     "question": "What is the name of the Vice President of the United States now?",
-    "correct_answer": "Kamala Harris",
+    "correct_answer": "JD Vance",
     "incorrect_answers": [
+      "Kamala Harris",
       "Thomas Jefferson",
-      "John Adams",
       "Mike Pence"
     ]
   },
@@ -326,7 +326,7 @@ export const questions = [
   },
   {
     "question": "What does the judicial branch do?",
-    "correct_answer": "reviews laws",
+    "correct_answer": "reviews laws and explains laws",
     "incorrect_answers": [
       "makes laws",
       "enforces laws",
@@ -382,8 +382,8 @@ export const questions = [
     "question": "Who is the Governor of your state now?",
     "correct_answer": "Kay Ivey",
     "incorrect_answers": [
-      "Joe Biden",
-      "Kamala Harris",
+      "Donald Trump",
+      "JD Vance",
       "Answers will vary."
     ]
   },
@@ -407,9 +407,9 @@ export const questions = [
   },
   {
     "question": "What is the political party of the President now?",
-    "correct_answer": "Democratic Party",
+    "correct_answer": "Republican Party",
     "incorrect_answers": [
-      "Republican Party",
+      "Democratic Party",
       "Independent",
       "Unaffiliated"
     ]
@@ -425,7 +425,7 @@ export const questions = [
   },
   {
     "question": "There are four amendments to the Constitution about who can vote. Describe one of them.",
-    "correct_answer": "Citizens eighteen (18) and older (can vote).",
+    "correct_answer": "Citizens eighteen (18) and older can vote.",
     "incorrect_answers": [
       "Only citizens with a job can vote.",
       "Only citizens who own property can vote.",
@@ -434,7 +434,7 @@ export const questions = [
   },
   {
     "question": "What is one responsibility that is only for United States citizens?",
-    "correct_answer": "serve on a jury",
+    "correct_answer": "serve on a jury or vote in a federal election",
     "incorrect_answers": [
       "pay taxes",
       "obey the laws",
@@ -443,7 +443,7 @@ export const questions = [
   },
   {
     "question": "Name one right only for United States citizens.",
-    "correct_answer": "vote in a federal election",
+    "correct_answer": "vote in a federal election or run for federal office",
     "incorrect_answers": [
       "freedom of speech",
       "freedom of religion",
@@ -461,7 +461,7 @@ export const questions = [
   },
   {
     "question": "What do we show loyalty to when we say the Pledge of Allegiance?",
-    "correct_answer": "the United States",
+    "correct_answer": "the United States (or the flag)",
     "incorrect_answers": [
       "the President",
       "Congress",
@@ -524,7 +524,7 @@ export const questions = [
   },
   {
     "question": "Who lived in America before the Europeans arrived?",
-    "correct_answer": "American Indians",
+    "correct_answer": "American Indians (or Native Americans)",
     "incorrect_answers": [
       "Canadians",
       "Mexicans",
@@ -533,7 +533,7 @@ export const questions = [
   },
   {
     "question": "What group of people was taken to America and sold as slaves?",
-    "correct_answer": "Africans",
+    "correct_answer": "Africans (or people from Africa)",
     "incorrect_answers": [
       "Europeans",
       "Asians",
@@ -785,10 +785,10 @@ export const questions = [
   },
   {
     "question": "Name one of the two longest rivers in the United States.",
-    "correct_answer": "Missouri (River)",
+    "correct_answer": "Missouri (or Mississippi) River",
     "incorrect_answers": [
-      "Ohio (River)",
-      "Colorado (River)",
+      "Ohio River",
+      "Colorado River",
       "Rio Grande"
     ]
   },
