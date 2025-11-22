@@ -33,15 +33,15 @@ const formatTime = (seconds: number): string => {
 
 const encouragingMessages = [
   "You can do it, Safura!",
-  "Guess it right!",
-  "You've got this!",
+  "Guess it right, Safura!",
+  "You've got this, Safura!",
   "Stay focused, Safura!",
   "Believe in yourself!",
-  "Keep up the great work!",
+  "Keep up the great work, Safura!",
   "One question at a time!",
   "Show what you know, Safura!",
   "Impressive knowledge!",
-  "You're on a roll!"
+  "You're on a roll, Safura!"
 ];
 
 const getRandomMessage = () => encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
@@ -243,7 +243,7 @@ export default function CitizenshipTestPage() {
           
           <div className="mt-4 text-center">
             {!isAnswered && (
-                <p className="text-muted-foreground font-semibold text-lg animate-pulse">
+                <p className="text-primary font-semibold text-lg animate-pulse">
                 {encouragingMessage}
                 </p>
             )}
@@ -262,3 +262,5 @@ export default function CitizenshipTestPage() {
     </div>
   );
 }
+
+    
