@@ -40,9 +40,10 @@ export default function CitizenshipTestPage() {
   const [startTime, setStartTime] = React.useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = React.useState(0);
   const [windowSize, setWindowSize] = React.useState<{ width: number; height: number; }>({ width: 0, height: 0 });
+  const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
+    const shuffledQuestions = shuffleArray(allQuestions).slice(0, 20).map((q) => ({
       question: q.question,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
       correctAnswer: q.correct_answer,
@@ -55,6 +56,7 @@ export default function CitizenshipTestPage() {
     setShowResults(false);
     setStartTime(Date.now());
     setElapsedTime(0);
+    setIsCorrect(null);
   }, []);
 
   // Get window size for confetti
@@ -80,6 +82,9 @@ export default function CitizenshipTestPage() {
 
     if (answer === questions[currentQuestionIndex].correctAnswer) {
       setScore((prevScore) => prevScore + 1);
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
     }
   };
 
@@ -88,6 +93,7 @@ export default function CitizenshipTestPage() {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setSelectedAnswer(null);
       setIsAnswered(false);
+      setIsCorrect(null);
     } else {
       if (startTime) {
           setElapsedTime((Date.now() - startTime) / 1000);
@@ -109,11 +115,9 @@ export default function CitizenshipTestPage() {
 
   const currentQuestion = questions[currentQuestionIndex];
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+  const isPassing = score / questions.length >= 0.9;
 
   if (showResults) {
-    const passingScore = Math.ceil(questions.length * 0.9);
-    const isPassing = score >= passingScore;
-
     return (
       <div className="flex min-h-screen w-full flex-col">
         {isPassing && <Confetti width={windowSize.width} height={windowSize.height} />}
@@ -154,10 +158,11 @@ export default function CitizenshipTestPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
+      {isCorrect === true && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={200} />}
       <Navigation title="U.S. Citizenship Test" />
       <main className="flex-1 p-4 sm:px-6 md:p-8 flex flex-col">
         <div className="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center">
-          <Card className="w-full">
+          <Card className={cn("w-full", isCorrect === false && "animate-shake")}>
             <CardHeader>
               <div className="flex justify-between items-center mb-2">
                 <CardTitle className="font-headline text-lg">Question {currentQuestionIndex + 1} of {questions.length}</CardTitle>
@@ -170,8 +175,8 @@ export default function CitizenshipTestPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {currentQuestion.answers.map((answer) => {
+                const isCorrectAnswer = answer === currentQuestion.correctAnswer;
                 const isSelected = selectedAnswer === answer;
-                const isCorrect = answer === currentQuestion.correctAnswer;
 
                 return (
                   <Button
@@ -180,14 +185,14 @@ export default function CitizenshipTestPage() {
                     variant="outline"
                     className={cn(
                       "w-full h-auto min-h-[4rem] justify-start text-left p-4 text-base whitespace-normal",
-                      isAnswered && isCorrect && "bg-green-500/15 border-green-500 text-foreground",
-                      isAnswered && isSelected && !isCorrect && "bg-red-500/15 border-red-500 text-foreground",
+                      isAnswered && isCorrectAnswer && "bg-green-500/15 border-green-500 text-foreground",
+                      isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/15 border-red-500 text-foreground",
                       !isAnswered && "hover:bg-accent/50"
                     )}
                     disabled={isAnswered}
                   >
-                    {isAnswered && isSelected && (
-                        isCorrect ? <CheckCircle className="mr-3 h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="mr-3 h-5 w-5 text-red-500 flex-shrink-0" />
+                    {isAnswered && (isCorrectAnswer || isSelected) && (
+                        isCorrectAnswer ? <CheckCircle className="mr-3 h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="mr-3 h-5 w-5 text-red-500 flex-shrink-0" />
                     )}
                     {answer}
                   </Button>
@@ -212,3 +217,5 @@ export default function CitizenshipTestPage() {
     </div>
   );
 }
+
+    
