@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import Confetti from "react-confetti";
 import { questions as allQuestions } from "@/lib/citizenship-questions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -38,6 +39,7 @@ export default function CitizenshipTestPage() {
   const [showResults, setShowResults] = React.useState(false);
   const [startTime, setStartTime] = React.useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = React.useState(0);
+  const [windowSize, setWindowSize] = React.useState<{ width: number; height: number; }>({ width: 0, height: 0 });
 
   const startNewGame = React.useCallback(() => {
     const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
@@ -53,6 +55,16 @@ export default function CitizenshipTestPage() {
     setShowResults(false);
     setStartTime(Date.now());
     setElapsedTime(0);
+  }, []);
+
+  // Get window size for confetti
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Start the game on initial render
@@ -99,14 +111,22 @@ export default function CitizenshipTestPage() {
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   if (showResults) {
+    const passingScore = Math.ceil(questions.length * 0.9);
+    const isPassing = score >= passingScore;
+
     return (
       <div className="flex min-h-screen w-full flex-col">
+        {isPassing && <Confetti width={windowSize.width} height={windowSize.height} />}
         <Navigation title="U.S. Citizenship Test" />
         <main className="flex-1 flex items-center justify-center p-4">
           <Card className="w-full max-w-lg text-center shadow-2xl">
             <CardHeader>
               <CardTitle className="font-headline text-3xl">Test Complete!</CardTitle>
-              <CardDescription>Here are your results.</CardDescription>
+               {isPassing ? (
+                <CardDescription className="text-lg text-green-600 font-semibold">Safura, you are marvellous!</CardDescription>
+              ) : (
+                <CardDescription className="text-lg text-yellow-600 font-semibold">Good effort! Better luck next time.</CardDescription>
+              )}
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="flex flex-col items-center">
