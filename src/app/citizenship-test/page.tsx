@@ -52,6 +52,7 @@ export default function CitizenshipTestPage() {
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null);
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [score, setScore] = React.useState(0);
+  const [incorrectCount, setIncorrectCount] = React.useState(0);
   const [showResults, setShowResults] = React.useState(false);
   const [startTime, setStartTime] = React.useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = React.useState(0);
@@ -60,7 +61,7 @@ export default function CitizenshipTestPage() {
   const [encouragingMessage, setEncouragingMessage] = React.useState("");
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).slice(0, 100).map((q) => ({
+    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
       question: q.question,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
       correctAnswer: q.correct_answer,
@@ -70,6 +71,7 @@ export default function CitizenshipTestPage() {
     setSelectedAnswer(null);
     setIsAnswered(false);
     setScore(0);
+    setIncorrectCount(0);
     setShowResults(false);
     setStartTime(Date.now());
     setElapsedTime(0);
@@ -102,6 +104,7 @@ export default function CitizenshipTestPage() {
       setScore((prevScore) => prevScore + 1);
       setIsCorrect(true);
     } else {
+      setIncorrectCount((prev) => prev + 1);
       setIsCorrect(false);
     }
   };
@@ -198,9 +201,12 @@ export default function CitizenshipTestPage() {
         <div className="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center">
           <Card className={cn("w-full", isCorrect === false && "animate-shake")}>
             <CardHeader>
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-2 text-sm font-semibold">
                 <CardTitle className="font-headline text-lg">Question {currentQuestionIndex + 1} of {questions.length}</CardTitle>
-                <div className="text-sm font-semibold text-primary">Score: {score}</div>
+                <div className="flex items-center gap-4">
+                  <div className="text-green-600 flex items-center gap-1"><CheckCircle className="h-4 w-4" /> Correct: {score}</div>
+                  <div className="text-red-500 flex items-center gap-1"><XCircle className="h-4 w-4" /> Incorrect: {incorrectCount}</div>
+                </div>
               </div>
               <Progress value={progressPercentage} className="h-2" />
                <CardDescription className="pt-6 text-xl text-foreground text-center font-semibold">
