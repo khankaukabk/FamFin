@@ -177,7 +177,7 @@ export default function CitizenshipTestPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       {isCorrect === true && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={200} />}
-      <Navigation title="U.S. Citizenship Test" />
+      <Navigation title="U.S. Citizenship Test" showRestartButton={true} onRestart={startNewGame} />
       <main className="flex-1 p-4 sm:px-6 md:p-8 flex flex-col">
         <div className="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center">
           <Card className={cn("w-full", isCorrect === false && "animate-shake")}>

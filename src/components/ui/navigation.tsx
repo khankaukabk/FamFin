@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw } from "lucide-react";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -20,7 +20,7 @@ const NavLink = ({ href, children, onClick }: { href: string; children: React.Re
   </SheetClose>
 );
 
-export function Navigation({ title }: { title: string }) {
+export function Navigation({ title, showRestartButton = false, onRestart }: { title: string; showRestartButton?: boolean; onRestart?: () => void; }) {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
@@ -124,7 +124,14 @@ export function Navigation({ title }: { title: string }) {
           {title}
         </h1>
 
-        <div className="w-10"></div>
+        <div className="w-10">
+          {showRestartButton && (
+            <Button variant="outline" size="icon" className="h-10 w-10" onClick={onRestart}>
+              <RotateCw className="h-5 w-5" />
+              <span className="sr-only">Restart Test</span>
+            </Button>
+          )}
+        </div>
     </header>
   );
 }
