@@ -43,7 +43,7 @@ export default function CitizenshipTestPage() {
   const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).slice(0, 20).map((q) => ({
+    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
       question: q.question,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
       correctAnswer: q.correct_answer,
@@ -217,5 +217,3 @@ export default function CitizenshipTestPage() {
     </div>
   );
 }
-
-    
