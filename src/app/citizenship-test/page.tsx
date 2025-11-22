@@ -30,6 +30,21 @@ const formatTime = (seconds: number): string => {
     return `${minutes}m ${remainingSeconds}s`;
 };
 
+const encouragingMessages = [
+  "You can do it!",
+  "Guess it right!",
+  "You've got this!",
+  "Stay focused!",
+  "Believe in yourself!",
+  "Keep up the great work!",
+  "One question at a time!",
+  "Show what you know!",
+  "Impressive knowledge!",
+  "You're on a roll!"
+];
+
+const getRandomMessage = () => encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+
 export default function CitizenshipTestPage() {
   const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
@@ -41,9 +56,10 @@ export default function CitizenshipTestPage() {
   const [elapsedTime, setElapsedTime] = React.useState(0);
   const [windowSize, setWindowSize] = React.useState<{ width: number; height: number; }>({ width: 0, height: 0 });
   const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
+  const [encouragingMessage, setEncouragingMessage] = React.useState("");
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
+    const shuffledQuestions = shuffleArray(allQuestions).slice(0, 100).map((q) => ({
       question: q.question,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
       correctAnswer: q.correct_answer,
@@ -57,6 +73,7 @@ export default function CitizenshipTestPage() {
     setStartTime(Date.now());
     setElapsedTime(0);
     setIsCorrect(null);
+    setEncouragingMessage(getRandomMessage());
   }, []);
 
   // Get window size for confetti
@@ -94,6 +111,7 @@ export default function CitizenshipTestPage() {
       setSelectedAnswer(null);
       setIsAnswered(false);
       setIsCorrect(null);
+      setEncouragingMessage(getRandomMessage());
     } else {
       if (startTime) {
           setElapsedTime((Date.now() - startTime) / 1000);
@@ -200,15 +218,20 @@ export default function CitizenshipTestPage() {
               })}
             </CardContent>
           </Card>
-
-          {isAnswered && (
-             <div className="mt-6 text-center">
-              <Button onClick={handleNextQuestion} size="lg">
-                {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          )}
+          
+          <div className="mt-4 text-center">
+            {!isAnswered && (
+                <p className="text-muted-foreground font-semibold text-lg animate-pulse">
+                {encouragingMessage}
+                </p>
+            )}
+            {isAnswered && (
+                <Button onClick={handleNextQuestion} size="lg">
+                    {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}
+                    <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+            )}
+          </div>
         </div>
       </main>
        <footer className="text-center p-4 text-muted-foreground text-xs">
