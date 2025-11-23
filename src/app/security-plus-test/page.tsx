@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
 import { cn } from "@/lib/utils";
-import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer, PlayCircle } from "lucide-react";
+import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer, PlayCircle, Lightbulb } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 
@@ -22,6 +22,7 @@ type QuizQuestion = {
   question: string;
   answers: string[];
   correctAnswer: string;
+  explanation: string;
 };
 
 // Helper to format time
@@ -277,17 +278,28 @@ export default function SecurityPlusTestPage() {
             </CardContent>
           </Card>
           
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center min-h-[7rem]">
             {!isAnswered && (
                 <p className="text-primary font-semibold text-lg animate-pulse">
                 {encouragingMessage}
                 </p>
             )}
             {isAnswered && (
+              <div className="space-y-4">
+                <Card className="text-left border-accent/50">
+                  <CardHeader className="flex-row items-center gap-3 space-y-0">
+                    <Lightbulb className="w-6 h-6 text-accent" />
+                    <CardTitle className="font-headline text-lg">Explanation</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{currentQuestion.explanation}</p>
+                  </CardContent>
+                </Card>
                 <Button onClick={handleNextQuestion} size="lg">
                     {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}
                     <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
+              </div>
             )}
           </div>
         </div>
