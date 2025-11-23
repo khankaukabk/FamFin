@@ -8,7 +8,7 @@ export const questions = [
       "B. Social engineering",
       "D. Trojan horse"
     ],
-    "explanation": "This is spear phishing because the attack is targeted at a specific individual (Ahmed) and tailored to his profession (insurance). While it is a form of phishing and social engineering, spear phishing is the most precise description because of its targeted nature."
+    "explanation": "The correct answer is spear phishing. Spear phishing is targeted to a specific group, in this case insurance professionals. Although this is a form of phishing, the more specific answer is the one you will need to choose on questions like this. Phishing uses social engineering techniques to succeed but is once again a broader answer than spear phishing and thus is not the correct choice. Finally, a Trojan horse pretends to be a legitimate or desirable program or file, which this scenario doesn’t describe."
   },
   {
     "question": "2. You are a security administrator for a medium-sized bank. You have discovered a piece of software on your bank's database server that is not supposed to be there. It appears that the software will begin deleting database files if a specific employee is terminated. What best describes this?",
@@ -18,7 +18,7 @@ export const questions = [
       "C. Trojan horse",
       "D. Rootkit"
     ],
-    "explanation": "A logic bomb is a piece of code intentionally inserted into a software system that will set off a malicious function when specified conditions are met. In this case, the condition is the termination of a specific employee."
+    "explanation": "A logic bomb is malware that performs its malicious activity when some condition is met. A worm is malware that self-propagates. A Trojan horse is malware attached to a legitimate program, and a rootkit is malware that gets root or administrative privileges."
   },
   {
     "question": "3. You are responsible for incident response at Acme Bank. The Acme Bank website has been attacked. The attacker used the login screen, but rather than enter login credentials, they entered some odd text: ' or '1' = '1 . What is the best description for this attack?",
@@ -28,7 +28,7 @@ export const questions = [
       "B. Cross-site request forgery",
       "D. ARP poisoning"
     ],
-    "explanation": "This is a classic example of a SQL injection attack. The input ' or '1' = '1 is designed to be appended to a SQL query, causing the WHERE clause to always evaluate to true, thereby bypassing authentication."
+    "explanation": "This is a very basic form of SQL injection. Cross-site scripting would have JavaScript in the text field and would be designed to impact other sites from a user’s session. Cross-site request forgery would not involve any text being entered in the web page, and ARP poisoning is altering the ARP table in a switch; it is not related to website hacking."
   },
   {
     "question": "4. Users are complaining that they cannot connect to the wireless network. You discover that the WAPs are being subjected to a wireless attack designed to block their Wi-Fi signals. Which of the following is the best label for this attack?",
@@ -38,7 +38,7 @@ export const questions = [
       "C. WPS attack",
       "D. Botnet"
     ],
-    "explanation": "A jamming attack disrupts wireless communications by broadcasting on the same frequencies as the wireless access points (WAPs), preventing legitimate users from connecting to the network. This is a type of wireless denial-of-service attack."
+    "explanation": "This describes a jamming attack, where legitimate traffic is interfered with by another signal. Jamming can be intentional or unintentional and may be intermittent. IV attacks are obscure cryptographic attacks on stream ciphers. Wi-Fi protected setup (WPS) uses a PIN to connect to the wireless access point (WAP). The WPS attack attempts to intercept that PIN in transmission, connect to the WAP, and then steal the WPA2 password. A botnet is a group of machines that are being used, without their consent, as part of an attack."
   },
   {
     "question": "5. Frank is deeply concerned about attacks to his company's ecommerce server. He is particularly worried about cross-site scripting and SQL injection. Which of the following would best defend against these two specific attacks?",
@@ -48,7 +48,7 @@ export const questions = [
       "C. A firewall",
       "D. An IDS"
     ],
-    "explanation": "Input validation is a crucial security measure that involves sanitising and validating all data received from a user or another system. It is the primary defence against both Cross-Site Scripting (XSS) and SQL Injection attacks, as it prevents malicious scripts or queries from being executed."
+    "explanation": "The best option listed to defend against the attacks mentioned is input validation. Encrypting the web traffic will not have any effect on these two attacks. A web application firewall (WAF) might mitigate these attacks, but it would be secondary to input validation, and an intrusion detection system (IDS) will simply detect the attack—it won’t stop it."
   },
   {
     "question": "6. You are responsible for network security at Acme Company. Users have been reporting that personal data is being stolen when using the wireless network. They all insist they only connect to the corporate wireless access point (AP). However, logs for the AP show that these users have not connected to it. Which of the following could best explain this situation?",
@@ -58,7 +58,7 @@ export const questions = [
       "B. Clickjacking",
       "D. Bluejacking"
     ],
-    "explanation": "A rogue access point is an unauthorised wireless access point installed on a secure network. In this scenario, users are likely connecting to a malicious AP disguised as the corporate one (an 'evil twin'), which is then used to intercept their data."
+    "explanation": "If users have been connecting but the AP does not show them connecting, then they have been connecting to a rogue access point. This could be the cause of an architecture and design weakness such as a network without segmentation and control of devices connecting to the network. Session hijacking involves taking over an already authenticated session. Most session hijacking attacks involve impersonation. The attacker attempts to gain access to another user’s session by posing as that user. Clickjacking involves causing visitors to a website to click on the wrong item. Finally, bluejacking is a Bluetooth attack."
   },
   {
     "question": "7. What type of attack depends on the attacker entering JavaScript into a text area that is intended for users to enter text that will be viewed by other users?",
@@ -68,7 +68,7 @@ export const questions = [
       "B. Clickjacking",
       "D. Bluejacking"
     ],
-    "explanation": "Cross-Site Scripting (XSS) attacks involve injecting malicious scripts into trusted websites. When a victim visits the page, the script executes in their browser, allowing the attacker to hijack user sessions, deface websites, or redirect the user to malicious sites."
+    "explanation": "Cross-site scripting involves entering a script into text areas that other users will view. SQL injection is not about entering scripts, but rather SQL commands. Clickjacking is about tricking users into clicking on the wrong thing. Bluejacking is a Bluetooth attack."
   },
   {
     "question": "8. Rick wants to make offline brute-force attacks against his password file very difficult for attackers. Which of the following is not a common technique to make passwords harder to crack?",
@@ -78,7 +78,7 @@ export const questions = [
       "B. Use of a pepper",
       "C. Use of a purpose-built password hashing algorithm"
     ],
-    "explanation": "Encrypting plain text with symmetric encryption is not a standard method for storing passwords because it implies the key could be compromised, revealing all passwords. Hashing algorithms like bcrypt or PBKDF2, often combined with salts and peppers, are the correct approach as they are one-way functions designed to be slow and computationally intensive."
+    "explanation": "Retaining the actual password is not a best practice, and thus encrypting password plain text is not a common technique to make passwords harder to crack. Since the application would need the cryptographic key to read the passwords, anybody who had access to that key could decrypt the passwords. Using a salt, a pepper, and a cryptographic hashing algorithm designed for passwords are all common best practices to prevent offline brute-force attacks."
   },
   {
     "question": "9. What term is used to describe spam over Internet messaging services?",
@@ -88,7 +88,7 @@ export const questions = [
       "C. IMSPAM",
       "D. TwoFaceTiming"
     ],
-    "explanation": "SPIM stands for Spam over Instant Messaging. It is the term for unsolicited messages sent through instant messaging (IM) platforms."
+    "explanation": "Although this is one of the more dated items on the Security+ exam outline, you need to know that the term for Internet messaging spam messages is SPIM. The rest of the answers were made up, and though this shows up in the exam outline, the rest of the world has moved on from using this term."
   },
   {
     "question": "10. Susan is analyzing the source code for an application and discovers a pointer de-reference and returns NULL. This causes the program to attempt to read from the NULL pointer and results in a segmentation fault. What impact could this have for the application?",
@@ -98,7 +98,7 @@ export const questions = [
       "C. Permissions creep",
       "D. Privilege escalation"
     ],
-    "explanation": "A NULL pointer dereference occurs when a program tries to access memory at a NULL address. This almost always results in the program crashing, which leads to a denial-of-service (DoS) condition, as the application becomes unavailable."
+    "explanation": "A segmentation fault will typically stop the program from running. This type of issue is why a NULL pointer or other pointer de-referencing error is considered a potential security issue, as a denial-of-service condition impacts the availability of the service. This type of error is unlikely to cause a data breach or allow privilege escalation, and permissions creep occurs as individuals accrue more permissions over time in a single organization as their permissions are not cleaned up when they switch positions or roles."
   },
   {
     "question": "11. Teresa is the security manager for a mid-sized insurance company. She receives a call from law enforcement, telling her that some computers on her network participated in a massive denial-of-service (DoS) attack. Teresa is certain that none of the employees at her company would be involved in a cybercrime. What would best explain this scenario?",
@@ -108,7 +108,7 @@ export const questions = [
       "B. The machines all have backdoors.",
       "D. The machines are infected with crypto-viruses."
     ],
-    "explanation": "The most likely explanation is that the computers are part of a botnet. A botnet is a network of compromised computers (bots) that are controlled by a central attacker (the bot-herder) to carry out coordinated attacks, such as a Distributed Denial-of-Service (DDoS) attack, without the owners' knowledge."
+    "explanation": "The machines in her network are being used as bots, and the users are not aware that they are part of a distributed denial-of-service (DDoS) attack. Social engineering is when someone tries to manipulate you into giving information. Techniques involved in social engineering attacks include consensus, scarcity, and familiarity. There is a slight chance that all computers could have a backdoor, but that is very unlikely, and attackers normally don’t manually log into each machine to do a DDoS—it would be automated, as through a bot."
   },
   {
     "question": "12. Unusual outbound network traffic, geographical irregularities, and increases in database read volumes are all examples of what key element of threat intelligence?",
@@ -118,7 +118,7 @@ export const questions = [
       "B. OSINT",
       "D. Threat maps"
     ],
-    "explanation": "Indicators of Compromise (IoCs) are pieces of forensic data, such as system log entries or file hashes, that identify potentially malicious activity on a system or network. The examples given are all potential signs that a system has been breached."
+    "explanation": "There are many indicators of compromise (IoCs), including unusual outbound network traffic, geographical irregularities like logins from a country where the person normally does not work, or increases in database read volumes beyond normal traffic patterns. Predictive analysis is analysis work done using datasets to attempt to determine trends and likely attack vectors so that analysts can focus their efforts where they will be most needed and effective. OSINT is open source intelligence, and threat maps are often real-time or near real-time visualizations of where threats are coming from and where they are headed to."
   },
   {
     "question": "13. Chris needs visibility into connection attempts through a firewall because he believes that a TCP handshake is not properly occurring. What security information and event management (SIEM) capability is best suited to troubleshooting this issue?",
@@ -128,7 +128,7 @@ export const questions = [
       "C. Sentiment analysis",
       "D. Log collection and analysis"
     ],
-    "explanation": "Packet capture (or PCAP) allows for the detailed analysis of network traffic. To troubleshoot a TCP handshake issue, Chris would need to examine the individual packets being exchanged between the client and server, which is precisely what packet capture enables."
+    "explanation": "When troubleshooting TCP handshakes, the most valuable tool in many cases is packet capture. If Chris sees a series of SYN packets without the handshake being completed, he can be reasonably sure the firewall is blocking traffic. Reviewing reports or logs may be useful for this as well but won’t show the TCP handshake issue mentioned in the problem, and sentiment analysis is focused on how individuals and groups are responding, not on a technical problem."
   },
   {
     "question": "14. Chris wants to detect a potential insider threat using his security information and event management (SIEM) system. What capability best matches his needs?",
@@ -138,7 +138,7 @@ export const questions = [
       "B. Log aggregation",
       "C. Security monitoring"
     ],
-    "explanation": "User Behaviour Analytics (UBA) or User and Entity Behaviour Analytics (UEBA) systems are designed to detect insider threats, targeted attacks, and financial fraud by baselining normal user behaviour and identifying anomalous activities that deviate from that baseline."
+    "explanation": "User behavior analysis is a key capability when attempting to detect potential insider threats. Chris can use his SIEM’s behavioral analysis capabilities to detect improper or illicit use of rights and privileges as well as abnormal behavior on the part of his users. Sentiment analysis helps analyze feelings, and log aggregation and security monitoring provide ways to gain insight into the overall security posture and status of the organization."
   },
   {
     "question": "15. Chris has hundreds of systems spread across multiple locations and wants to better handle the amount of data that they create. What two technologies can help with this?",
@@ -148,7 +148,7 @@ export const questions = [
       "C. Security monitoring and log collectors",
       "D. Sentiment analysis and user behavior analysis"
     ],
-    "explanation": "Log collectors gather logs from various sources, and log aggregation centralises them in a single location (like a SIEM). This combination is essential for managing and analysing large volumes of log data from distributed systems."
+    "explanation": "Using log aggregation to pull together logs from multiple sources, and performing collection and initial analysis on log collectors can help centralize and handle large log volumes. Capturing packets is useful for network traffic analysis to identify issues or security concerns. Security monitoring is an overall function for security information and event management (SIEM) and doesn’t specifically help with this need. Both sentiment analysis and user behavior analysis are aimed at users and groups rather than at how data is collected and managed."
   },
   {
     "question": "16. What type of security team establishes the rules of engagement for a cybersecurity exercise?",
@@ -158,7 +158,7 @@ export const questions = [
       "C. Purple team",
       "D. Red team"
     ],
-    "explanation": "In a cybersecurity exercise, the white team acts as the neutral referee. They define the rules of engagement, manage the exercise infrastructure, and arbitrate between the red team (attackers) and the blue team (defenders)."
+    "explanation": "White teams act as judges and observers during cybersecurity exercises. Blue teams act as defenders, red teams act as attackers, and purple teams are composed of both blue and red team members to combine attack and defense knowledge to improve organizational security."
   },
   {
     "question": "17. Cynthia is concerned about attacks against an application programming interface (API) that her company provides for its customers. What should she recommend to ensure that the API is only used by customers who have paid for the service?",
@@ -168,7 +168,7 @@ export const questions = [
       "C. Filter by IP address.",
       "D. Install and use an IPS."
     ],
-    "explanation": "Requiring authentication is the most direct and effective way to control access to an API. By issuing API keys or using authentication tokens (like OAuth), Cynthia can ensure that only authorised and paying customers can make requests to the API."
+    "explanation": "The simplest way to ensure that APIs are only used by legitimate users is to require the use of authentication. API keys are one of the most frequently used methods for this. If an API key is lost or stolen, the key can be invalidated and reissued, and since API keys can be matched to usage, Cynthia’s company can also bill customers based on their usage patterns if they want to. A firewall or IP restrictions may be able to help, but they can be fragile; customer IP addresses may change. An intrusion prevention system (IPS) can detect and prevent attacks, but legitimate usage would be hard to tell from those who are not customers using an IPS."
   },
   {
     "question": "18. What type of attack is based on sending more data to a target variable than the data can actually hold?",
@@ -178,7 +178,7 @@ export const questions = [
       "C. Bluejacking",
       "D. Cross-site scripting"
     ],
-    "explanation": "A buffer overflow occurs when a program attempts to write data beyond the boundaries of a fixed-length buffer in memory. This can overwrite adjacent memory, leading to crashes, incorrect data, or, in a worst-case scenario, arbitrary code execution."
+    "explanation": "Buffer overflow attacks cram more data into a field or buffer than they can accept, overflowing into other memory locations and either crashing the system or application, or potentially allowing code to be inserted into executable locations. Bluesnarfing and bluejacking are both Bluetooth attacks. Cross-site scripting attacks allow attackers to inject scripts into pages viewed by other users."
   },
   {
     "question": "19. An email arrives telling Gurvinder that there is a limited time to act to get a software package for free and that the first 50 downloads will not have to be paid for. What social engineering principle is being used against him?",
@@ -188,7 +188,7 @@ export const questions = [
       "C. Authority",
       "D. Consensus"
     ],
-    "explanation": "The principle of scarcity is being used. By creating the impression of a limited-time offer or limited availability ('first 50 downloads'), the attacker pressures the target to act quickly without thinking, bypassing their normal security judgment."
+    "explanation": "Attackers are attempting to influence Gurvinder with a combination of scarcity and urgency. Thus, for this question you should answer scarcity since urgency is not listed. In many social engineering principle questions, more than one of the principles may be in play, and you will need to answer with the principle that is correct or more correct for the question. In this case, there is no intimidation or claim to authority, and consensus would require some form of validation from others."
   },
   {
     "question": "20. You have been asked to test your company network for security issues. The specific test you are conducting involves primarily using automated and semiautomated tools to look for known vulnerabilities with the various systems on your network. Which of the following best describes this type of test?",
@@ -198,7 +198,7 @@ export const questions = [
       "C. Security audit",
       "D. Security test"
     ],
-    "explanation": "A vulnerability scan uses automated tools to identify known vulnerabilities, misconfigurations, and weaknesses in a network or systems. This is different from a penetration test, which involves actively trying to exploit those vulnerabilities."
+    "explanation": "Vulnerability scans use automated tools to look for known vulnerabilities in systems and applications and then provide reports to assist in remediation activities. Penetration tests seek to actually exploit the vulnerabilities and break into systems. Security audits usually focus on checking policies, incident reports, and other documents. Security test is a generic term for any sort of test."
   },
   {
     "question": "21. Susan wants to reduce the likelihood of successful credential harvesting attacks via her organization's commercial websites. Which of the following is not a common prevention method aimed at stopping credential harvesting?",
@@ -208,7 +208,7 @@ export const questions = [
       "B. User awareness training",
       "D. Limiting or preventing use of third-party web scripts and plugins"
     ],
-    "explanation": "Complex usernames do not significantly deter credential harvesting. Attackers typically focus on obtaining the password. Multifactor Authentication (MFA), user training, and limiting attack surfaces (like third-party scripts) are all effective preventative measures."
+    "explanation": "Username complexity has no impact in credential harvesting. Multifactor authentication can help prevent successful credential harvesting by ensuring that even capture of username and password is not enough to compromise the account. Awareness training helps to reduce the likelihood of credential exposure, and limiting or preventing use of third-party web scripts makes websites less likely to have credentials stolen through the use of those scripts, plug-ins, or modules."
   },
   {
     "question": "22. Greg wants to gain admission to a network which is protected by a network access control (NAC) system that recognized the hardware address of systems. How can he bypass this protection?",
@@ -218,7 +218,7 @@ export const questions = [
       "B. Conduct a denial-of-service attack against the NAC system.",
       "D. None of the above"
     ],
-    "explanation": "Network Access Control (NAC) systems that rely on hardware addresses can be bypassed using MAC address spoofing (or cloning). By changing his device's MAC address to match that of a legitimate, authorised device, Greg can trick the NAC system into granting him access."
+    "explanation": "Greg can clone a legitimate Media Access Control (MAC) address if he can identify one on the network. This can be as easy as checking for a MAC label on some devices or by capturing traffic on the network if he can physically access it."
   },
   {
     "question": "23. Coleen is the web security administrator for an online auction website. A small number of users are complaining that when they visit the website it does not appear to be the correct site. Coleen checks and she can visit the site without any problem, even from computers outside the network. She also checks the web server log and there is no record of those users ever connecting. Which of the following might best explain this?",
@@ -228,7 +228,7 @@ export const questions = [
       "C. Cross-site scripting",
       "D. Cross-site request forgery"
     ],
-    "explanation": "Typo squatting (or URL hijacking) involves registering domain names that are slight misspellings of a popular brand (e.g., 'acmebank.co' instead of 'acmebank.com'). The users are likely making a typo and being redirected to a malicious site, which explains why there's no record of their connection on the legitimate server."
+    "explanation": "From the description it appears that they are not connecting to the real web server but rather a fake server. That indicates typo squatting: have a URL that is named very similarly to a real site so that when users mistype the real site’s URL they will go to the fake site. Options B, C, and D are all incorrect. These are all methods of attacking a website, but in this case, the actual website was not attacked. Instead, some users are visiting a fake site."
   },
   {
     "question": "24. The organization that Mike works in finds that one of their domains is directing traffic to a competitor's website. When Mike checks, the domain information has been changed, including the contact and other administrative details for the domain. If the domain had not expired, what has most likely occurred?",
@@ -238,7 +238,7 @@ export const questions = [
       "B. An on-path attack",
       "D. A zero-day attack"
     ],
-    "explanation": "Domain hijacking is the act of changing the registration of a domain name without the permission of the original registrant. Since the administrative details were changed, the attacker has effectively stolen control of the domain itself."
+    "explanation": "Domain hijacking, or domain theft, occurs when the registration or other information for the domain is changed without the original registrant’s permission. This may occur because of a compromised account or due to a breach of the domain registrar’s security. A common issue is a lapsed domain being purchased by a third party, and this can look like a hijacked domain, but it is a legitimate occurrence if the domain is not renewed! DNS hijacking inserts false information into a DNS server, on-path (man-in-the-middle) attacks capture or modify traffic by causing the traffic to pass through a compromised midpoint, and zero-day attacks are attacks that use an unknown until used vulnerability."
   },
   {
     "question": "25. Mahmoud is responsible for managing security at a large university. He has just performed a threat analysis for the network, and based on past incidents and studies of similar networks, he has determined that the most prevalent threat to his network is low-skilled attackers who wish to breach the system, simply to prove they can or for some low-level crime, such as changing a grade. Which term best describes this type of attacker?",
@@ -248,7 +248,7 @@ export const questions = [
       "B. Amateur",
       "C. Insider"
     ],
-    "explanation": "A script kiddie is a low-skilled attacker who uses pre-existing tools and scripts written by others to launch attacks. Their motivation is often curiosity, bragging rights, or minor mischief, which matches the description perfectly."
+    "explanation": "The term for low-skilled hackers is script kiddie. Script kiddies typically use prebuilt tools and do not have the expertise to make or modify their own tools. Nothing indicates this is being done for ideological reasons, and thus that a hacktivist is involved. Although “Amateur” may be an appropriate description, the correct term is script kiddie. Finally, nothing in this scenario indicates an insider threat."
   },
   {
     "question": "26. How is phishing different from general spam?",
@@ -258,7 +258,7 @@ export const questions = [
       "C. It is sent via SMS.",
       "D. It includes malware in the message."
     ],
-    "explanation": "The key differentiator of phishing is its intent. While spam is simply unsolicited commercial email, phishing is a form of social engineering designed to trick the recipient into divulging sensitive information like usernames, passwords, and credit card details."
+    "explanation": "Phishing is intended to acquire data, most often credentials or other information that will be useful to the attacker. Spam is a broader term for unwanted email, although the term is often generally used to describe unwanted communications. Spear phishing targets specific individuals, whereas whaling targets important people in an organization. Smishing is sent via SMS (text message). Malware can be sent in any of these instances, but there is not a specific related term that means “spam with malware in it.”"
   },
   {
     "question": "27. Which of the following best describes a collection of computers that have been compromised and are being controlled from one central point?",
@@ -268,7 +268,7 @@ export const questions = [
       "C. Nullnet",
       "D. Attacknet"
     ],
-    "explanation": "A botnet is a network of private computers infected with malicious software and controlled as a group without the owners' knowledge, e.g., to send spam or launch DDoS attacks. The individual compromised machines are often called 'zombies'."
+    "explanation": "A collection of computers that are compromised, then centrally controlled to perform actions like denial-of-service attacks, data collection, and other malicious activities is called a botnet. Zombienets, Nullnets, and Attacknets are not commonly used terms to describe botnets."
   },
   {
     "question": "28. Selah includes a question in her procurement request-for-proposal process that asks how long the vendor has been in business and how many existing clients the vendor has. What common issue is this practice intended to help prevent?",
@@ -278,7 +278,7 @@ export const questions = [
       "C. Outsourced code development issues",
       "D. System integration and configuration issues"
     ],
-    "explanation": "By verifying a vendor's history and client base, Selah is performing due diligence to ensure the vendor is stable and reputable. This helps mitigate the risk that the vendor will go out of business or be unable to provide long-term support, updates, and patches for their product."
+    "explanation": "Systems and software that no longer have vendor support can be a significant security risk, and ensuring that a vendor will continue to exist and provide support is an important part of many procurement processes. Selah’s questions are intended to assess the longevity and viability of the company and whether buying from them will result in her organization having a usable product for the long term."
   },
   {
     "question": "29. John is conducting a penetration test of a client's network. He is currently gathering information from sources such as archive.org, netcraft.com, social media, and information websites. What best describes this stage?",
@@ -288,7 +288,7 @@ export const questions = [
       "C. Initial exploitation",
       "D. Pivot"
     ],
-    "explanation": "This is passive reconnaissance (or Open-Source Intelligence - OSINT) because John is gathering information from publicly available sources without directly interacting with the target's systems. Active reconnaissance would involve direct interaction, such as port scanning."
+    "explanation": "Passive reconnaissance is any reconnaissance that is done without actually connecting to the target. In this case, John is conducting a form of OSINT, or open source intelligence, by using commonly available third-party information sources to gather information about his target. Active reconnaissance involves communicating with the target network, such as doing a port scan. The initial exploitation is not information gathering; it is actually breaking into the target network. A pivot is when you have breached one system and use that to move to another system."
   },
   {
     "question": "30. Alice wants to prevent SSRF attacks. Which of the following will not be helpful for preventing them?",
@@ -298,7 +298,7 @@ export const questions = [
       "C. Blocking sensitive URLs like /admin",
       "D. Applying whitelist-based input filters"
     ],
-    "explanation": "Server-Side Request Forgery (SSRF) involves an attacker tricking a server into making requests on their behalf. Removing SQL code is a defense against SQL Injection, not SSRF. The other options (blocking local addresses, sensitive paths, and using whitelists) are all valid prevention techniques for SSRF."
+    "explanation": "Server-side request forgery (SSRF) attempts typically attempt to get HTTP data passed through and will not include SQL injection. Blocking sensitive hostnames, IP addresses, and URLs are all valid ways to prevent SSRF, as is the use of whitelist-based input filters."
   },
   {
     "question": "31. What type of attack is based on entering fake entries into a target network's domain name server?",
@@ -308,7 +308,7 @@ export const questions = [
       "C. XSS poisoning",
       "D. CSRF poisoning"
     ],
-    "explanation": "DNS poisoning (or DNS cache poisoning) is an attack where an attacker introduces false information into a DNS server's cache. This causes the server to return an incorrect IP address, diverting traffic to a malicious site."
+    "explanation": "Domain Name System (DNS) poisoning attacks attempt to insert incorrect or malicious entries into a trusted DNS server. Address Resolution Protocol (ARP) poisoning involves altering the MAC-IP tables in a switch. Although cross-site scripting (XSS) and cross-site request forgery (CSRF or XSRF) are both types of attacks, neither is a poisoning attack."
   },
   {
     "question": "32. Frank has been asked to conduct a penetration test of a small bookkeeping firm. For the test, he has only been given the company name, the domain name for their website, and the IP address of their gateway router. What best describes this type of test?",
@@ -318,7 +318,7 @@ export const questions = [
       "B. External test",
       "D. Threat test"
     ],
-    "explanation": "This is an unknown environment test, also known as a 'black-box' test. The tester is given very little information about the target network, simulating an attack from an external actor who has no prior knowledge of the internal infrastructure."
+    "explanation": "An unknown environment test is also called black-box or a zero-knowledge test because it does not provide information beyond the basic information needed to identify the target. A known environment, or white-box test, involves very complete information being given to the tester. This scenario is probably done from outside the network, but external test is not the correct terminology. Threat test is not a term used in penetration testing."
   },
   {
     "question": "33. You work for a security company that performs penetration testing for clients. You are conducting a test of an e-commerce company. You discover that after compromising the web server, you can use the web server to launch a second attack into the company's internal network. What best describes this?",
@@ -328,7 +328,7 @@ export const questions = [
       "B. Known environment testing",
       "C. Unknown environment testing"
     ],
-    "explanation": "A pivot is a penetration testing technique where an attacker uses a compromised system to attack other systems on the same internal network. It allows them to bypass perimeter defences and move deeper into the target environment."
+    "explanation": "A pivot occurs when you exploit one machine and use that as a basis to attack other systems. Pivoting can be done from internal or external tests. White- and black-box testing describes the amount of information the tester is given in advance, not how the tester performs the test."
   },
   {
     "question": "34. While investigating a malware outbreak on your company network, you discover something very odd. There is a file that has the same name as a Windows system DLL, and it even has the same API interface, but it handles input very differently, in a manner to help compromise the system, and it appears that applications have been attaching to this file, rather than the real system DLL. What best describes this?",
@@ -338,7 +338,7 @@ export const questions = [
       "C. Backdoor",
       "D. Refactoring"
     ],
-    "explanation": "Shimming involves creating a malicious library file that mimics a legitimate one. When an application calls a function, it is redirected to the malicious code in the shim instead of the legitimate DLL, allowing the attacker to intercept or modify the function call."
+    "explanation": "Shimming is when the attacker places some malware between an application and some other file and intercepts the communication to that file (usually to a library or system API). In many cases, this is done with a driver for a hardware component. A Trojan horse might be used to get the shim onto the system, but that is not described in this scenario. A backdoor is a means to circumvent system authorization and get direct access to the system. Refactoring is the process of changing names of variables, functions, and so forth in a program."
   },
   {
     "question": "35. Which of the following capabilities is not a key part of a SOAR (security orchestration, automation, and response) tool?",
@@ -348,7 +348,7 @@ export const questions = [
       "B. Security incident response",
       "D. Security operations automation"
     ],
-    "explanation": "While SOAR platforms integrate with various security tools, automated malware analysis (which involves sandboxing and reverse-engineering malware) is a highly specialised function typically performed by dedicated platforms, not a core feature of SOAR itself. SOAR focuses on automating response workflows."
+    "explanation": "SOAR is a relatively new category as defined by Gartner. Security orchestration, automation, and response includes threat and vulnerability management, security incident response, and security operations automation, but not automated malware analysis."
   },
   {
     "question": "36. John discovers that email from his company's email servers is being blocked because of spam that was sent from a compromised account. What type of lookup can he use to determine what vendors like McAfee and Barracuda have classified his domain as?",
@@ -358,7 +358,7 @@ export const questions = [
       "B. A tcpdump",
       "D. A SMTP whois"
     ],
-    "explanation": "Domain reputation services (like those from McAfee, Barracuda, or Talos) track the behaviour of domains and IPs to identify sources of spam and malware. A domain reputation lookup allows an administrator to check their domain's score and see why it might be blacklisted."
+    "explanation": "Domain reputation services like Reputation Authority, Cisco’s Talos, McAfee’s trustedsource.org, and Barracuda’s barracudacentral.org sites all provide domain reputation data that allow you to look up a domain or IP address to determine if it is currently blacklisted or has a poor reputation."
   },
   {
     "question": "37. Frank is a network administrator for a small college. He discovers that several machines on his network are infected with malware. That malware is sending a flood of packets to a target external to the network. What best describes this attack?",
@@ -368,7 +368,7 @@ export const questions = [
       "C. Botnet",
       "D. Backdoor"
     ],
-    "explanation": "This is a Distributed Denial-of-Service (DDoS) attack. Multiple compromised machines (a botnet) are being used to flood a single target with traffic, overwhelming its resources and making it unavailable to legitimate users."
+    "explanation": "His machines are part of a distributed denial-of-service (DDoS) attack. This scenario describes a generic DDoS, not a specific one like SYN flood, which would involve many SYN packets being sent without a full three-way TCP handshake. These machines could be part of a botnet or they may just have a trigger that causes them to launch the attack at a specific time. The real key in this scenario is the DDoS attack. Finally, a backdoor gives an attacker access to the target system."
   },
   {
     "question": "38. Why is SSL stripping a particular danger with open Wi-Fi networks?",
@@ -378,7 +378,7 @@ export const questions = [
       "C. Open hotspots can be accessed by any user.",
       "D. 802.11ac is insecure and traffic can be redirected."
     ],
-    "explanation": "SSL stripping is an on-path attack where an attacker intercepts a user's request and downgrades an HTTPS connection to an unencrypted HTTP connection. This is particularly dangerous on open Wi-Fi because there is no authentication mechanism to verify the identity of the access point, making it easy for an attacker to position themselves between the user and the internet."
+    "explanation": "Since open Wi-Fi hotspots do not have a way to prove they are legitimate, they can be easily spoofed. Attackers can stand up a fake version of the hotspot and then conduct an SSL stripping attack by inserting themselves into sessions that victims attempt to open to secure servers."
   },
   {
     "question": "39. A sales manager at your company is complaining about slow performance on his computer. When you thoroughly investigate the issue, you find spyware on his computer. He insists that the only thing he has downloaded recently was a freeware stock trading application. What would best explain this situation?",
@@ -388,7 +388,7 @@ export const questions = [
       "C. Rootkit",
       "D. Macro virus"
     ],
-    "explanation": "A Trojan horse is malware that is disguised as a legitimate piece of software. The user intentionally installs the software (the stock trading app), but it contains a hidden malicious payload (the spyware)."
+    "explanation": "A Trojan horse attaches a malicious program to a legitimate program. When the user downloads and installs the legitimate program, they get the malware. A logic bomb is malware that does its misdeeds when some condition is met. A rootkit is malware that gets administrative, or root, access. A macro virus is a virus that is embedded in a document as a macro."
   },
   {
     "question": "40. When phishing attacks are so focused that they target a specific high-ranking or important individual, they are called what?",
@@ -398,7 +398,7 @@ export const questions = [
       "B. Targeted phishing",
       "C. Phishing"
     ],
-    "explanation": "Whaling is a highly targeted form of spear phishing aimed at senior executives or other high-profile targets within an organisation. The term 'whaling' signifies the size and importance of the target."
+    "explanation": "Whaling is targeting a specific individual who is important in the organization like the president or chief financial officer (CFO). Spear phishing targets specific individuals or groups, but whaling is more specific in terms of the importance of the individuals involved. Targeted phishing is not a term used in the industry. Phishing is the generic term for a wide range of related attacks, and you should choose the most accurate answer for questions like this."
   },
   {
     "question": "41. What type of threat actors are most likely to have a profit motive for their malicious activities?",
@@ -408,7 +408,7 @@ export const questions = [
       "B. Script kiddies",
       "C. Hacktivists"
     ],
-    "explanation": "Criminal syndicates, or organised crime groups, are almost exclusively motivated by financial gain. They engage in activities like ransomware, data theft for resale, and financial fraud."
+    "explanation": "Criminal syndicates may produce, sell, and support malware tools, or may deploy them themselves. Crypto malware and other packages are examples of tools often created and used by criminal syndicates. State actors are more likely to be associated with advanced persistent threats (APTs) aimed at accomplishing goals of the nation-state that supports them. Hacktivists typically have political motivations, whereas script kiddies may simply be in it for recognition or fun."
   },
   {
     "question": "42. One of your users cannot recall the password for their laptop. You want to recover that password for them. You intend to use a tool/technique that is popular with hackers, and it consists of searching tables of precomputed hashes to recover the password. What best describes this?",
@@ -418,7 +418,7 @@ export const questions = [
       "C. Social engineering",
       "D. Dictionary attack"
     ],
-    "explanation": "A rainbow table is a precomputed table for reversing cryptographic hash functions, usually for cracking password hashes. It allows an attacker to look up a hash and instantly find the corresponding plain text password, which is much faster than brute-forcing."
+    "explanation": "A rainbow table is a table of precomputed hashes, used to retrieve passwords. A backdoor is used to gain access to a system, not to recover passwords. Social engineering and dictionary attacks can both be used to gain access to passwords, but they are not tables of precomputed hashes."
   },
   {
     "question": "43. What risk is commonly associated with a lack of vendor support for a product, such as an outdated version of a device?",
@@ -428,7 +428,7 @@ export const questions = [
       "C. Lack of available documentation",
       "D. System integration and configuration issues"
     ],
-    "explanation": "When a vendor no longer supports a product, they stop releasing security patches and updates. This leaves the product vulnerable to newly discovered exploits, creating a significant security risk for any organisation still using it."
+    "explanation": "The most common concern that will arise when a vendor no longer supports a device is a lack of updates or patches. This is particularly concerning when the devices are operational technology such as utility, lighting, or other infrastructure control devices that have a very long life cycle and control important processes or systems. Although improper data storage, lack of documentation, and configuration issues can all be issues, lack of updates and patching remains the biggest and most frequent issue."
   },
   {
     "question": "44. You have noticed that when in a crowded area, you sometimes get a stream of unwanted text messages. The messages end when you leave the area. What describes this attack?",
@@ -438,7 +438,7 @@ export const questions = [
       "C. Evil twin",
       "D. Rogue access point"
     ],
-    "explanation": "Bluejacking is the sending of unsolicited messages over Bluetooth to Bluetooth-enabled devices. It is a harmless but annoying prank, where an attacker sends a text message to a nearby device. Bluesnarfing, in contrast, is the theft of information from a device via Bluetooth."
+    "explanation": "Bluejacking involves sending unsolicited messages to Bluetooth devices when they are in range. Bluesnarfing involves getting data from the Bluetooth device. An evil twin attack uses a rogue access point whose name is similar or identical to that of a legitimate access point."
   },
   {
     "question": "45. Dennis uses an on-path attack to cause a system to send HTTPS traffic to his system and then forwards it to the actual server the traffic is intended for. What type of password attack can he conduct with the data he gathers if he captures all the traffic from a login form?",
@@ -448,7 +448,7 @@ export const questions = [
       "C. A SQL injection attack",
       "D. A cross-site scripting attack"
     ],
-    "explanation": "Because Dennis is performing an on-path (formerly Man-in-the-Middle) attack and terminating the TLS/SSL session, he can view the traffic in plain text. This means he can directly read the username and password submitted in the login form."
+    "explanation": "Since Dennis is able to view the web traffic before it is sent to the actual server, he should be able to conduct a plain-text password attack by intercepting the password. Pass-the-hash attacks are typically used inside Windows environments, SQL injection would attack the server, and cross-site scripting is possible but not as likely as the plain-text password attack in this scenario."
   },
   {
     "question": "46. Someone has been rummaging through your company's trash bins seeking to find documents, diagrams, or other sensitive information that has been thrown out. What is this called?",
@@ -458,7 +458,7 @@ export const questions = [
       "C. Social engineering",
       "D. Trash engineering"
     ],
-    "explanation": "Dumpster diving is a physical reconnaissance technique where an attacker searches through an organisation's refuse to find sensitive information that has been improperly disposed of, such as printouts, notes, or old hard drives."
+    "explanation": "Dumpster diving is the term for rummaging through the waste/trash to recover useful documents or materials. Penetration testers and attackers may dumpster-dive as part of their efforts. In fact, emptying trash cans in a location can provide useful information even without jumping into a dumpster! Trash diving and trash engineering are not the terms used in the industry. Nothing in this scenario describes social engineering."
   },
   {
     "question": "47. Louis is investigating a malware incident on one of the computers on his network. He has discovered unknown software that seems to be opening a port, allowing someone to remotely connect to the computer. This software seems to have been installed at the same time as a small shareware application. Which of the following best describes this malware?",
@@ -468,7 +468,7 @@ export const questions = [
       "C. Logic bomb",
       "D. Rootkit"
     ],
-    "explanation": "A Remote Access Trojan (RAT) is a type of malware that provides an attacker with full remote administrative control over an infected computer. The description of opening a port for remote connection is a key characteristic of a RAT."
+    "explanation": "This is a remote-access Trojan (RAT), malware that opens access for someone to remotely access the system. A worm would have spread itself via a vulnerability, whereas a logic bomb runs when some logical condition is met. Finally, a rootkit provides root or administrative access to the system."
   },
   {
     "question": "48. Jared is responsible for network security at his company. He has discovered behavior on one computer that certainly appears to be a virus. He has even identified a file he thinks might be the virus. However, using three separate antivirus programs, he finds that none can detect the file. Which of the following is most likely to be occurring?",
@@ -478,7 +478,7 @@ export const questions = [
       "C. The computer has a worm.",
       "D. The computer has a rootkit."
     ],
-    "explanation": "A zero-day exploit is an attack that targets a previously unknown vulnerability. Because the vulnerability is unknown to the software vendor and security community, antivirus programs will not have a signature to detect it, explaining why the scans are coming up clean."
+    "explanation": "Zero-day exploits are new, and they are not in the virus definitions for the antivirus (AV) programs. This makes them difficult to detect, except by their behavior. RATs, worms, and rootkits are more likely to be detected by AV programs."
   },
   {
     "question": "49. Which of the following is not a common means of attacking RFID badges?",
@@ -488,7 +488,7 @@ export const questions = [
       "B. Spoofing",
       "C. Denial-of-service"
     ],
-    "explanation": "Birthday attacks are cryptographic attacks related to finding hash collisions. Data capture (skimming), spoofing (cloning), and denial-of-service (jamming) are all common attacks against RFID systems. A birthday attack is not relevant in this context."
+    "explanation": "Radio frequency identifier (RFID) attacks typically focus on data capture, spoofing RFID data, or conducting a denial-of-service attack. Birthday attacks are used against cryptosystems, which may be part of an RFID tag environment, but they aren’t a common attack against RFID systems."
   },
   {
     "question": "50. Your wireless network has been breached. It appears the attacker modified a portion of data used with the stream cipher and used this to expose wirelessly encrypted data. What is this attack called?",
@@ -498,7 +498,7 @@ export const questions = [
       "B. Rogue WAP",
       "D. WPS attack"
     ],
-    "explanation": "An Initialization Vector (IV) attack targets weaknesses in the way IVs are generated and used in older wireless encryption protocols like WEP. By analysing the IVs in captured packets, an attacker can deduce the WEP key and decrypt the traffic."
+    "explanation": "Initialization vectors are used with stream ciphers. An IV attack attempts to exploit a flaw to use the IV to expose encrypted data. Nothing in this scenario requires or describes a rogue access point/evil twin. Wi-Fi Protected Setup (WPS) uses a PIN to connect to the wireless access point (WAP). The WPS attack attempts to intercept that PIN in transmission, connect to the WAP, and then steal the WPA2 password."
   },
   {
     "question": "51. The company that Scott works for has experienced a data breach, and the personal information of thousands of customers has been exposed. Which of the following impact categories is not a concern as described in this scenario?",
@@ -508,7 +508,7 @@ export const questions = [
       "B. Reputation",
       "D. Data loss"
     ],
-    "explanation": "Availability loss refers to the disruption of services, which is not mentioned in the scenario. A data breach directly involves data loss, and will almost certainly have financial (fines, cleanup costs) and reputational (loss of customer trust) impacts."
+    "explanation": "This description does not include any risk to availability since there is no information about systems or services being down or offline. This scenario would likely result in reputational, financial, and data loss impacts for Scott’s company."
   },
   {
     "question": "52. What type of attack exploits the trust that a website has for an authenticated user to attack that website by spoofing requests from the trusted user?",
@@ -518,7 +518,7 @@ export const questions = [
       "C. Bluejacking",
       "D. Evil twin"
     ],
-    "explanation": "Cross-Site Request Forgery (CSRF or XSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they are currently authenticated. The attacker tricks the user's browser into sending a forged request to the trusted site."
+    "explanation": "Cross-site request forgery (XSRF or CSRF) sends fake requests to a website that purport to be from a trusted, authenticated user. Cross-site scripting (XSS) exploits the trust the user has for the website and embeds scripts into that website. Bluejacking is a Bluetooth attack. Nothing in this scenario requires or describes an evil twin, which is an attack that uses a malicious access point that duplicates a legitimate AP."
   },
   {
     "question": "53. What purpose does a fusion center serve in cyberintelligence activities?",
@@ -528,7 +528,7 @@ export const questions = [
       "C. It generates power for the local community in a secure way.",
       "D. It separates information by classification ratings to avoid accidental distribution."
     ],
-    "explanation": "A fusion centre is a collaborative effort of two or more agencies that provides resources, expertise, and information to the centre with the goal of maximising their ability to detect, prevent, investigate, and respond to criminal and terrorist activity."
+    "explanation": "Cyberintelligence fusion is the process of gathering, analyzing, and then distributing information between disparate agencies and organizations. Fusion centers like those operated by the U.S. Department of Homeland Security (DHS) focus on strengthening shared intelligence activities. They are not specifically tasked with building tools by combining other tools, although they may in some cases. They are not power plants, and they are focused on gathering and sharing information, not building a classification structure."
   },
   {
     "question": "54. CVE is an example of what type of feed?",
@@ -538,7 +538,7 @@ export const questions = [
       "C. A critical infrastructure listing feed",
       "D. A critical virtualization exploits feed"
     ],
-    "explanation": "CVE stands for Common Vulnerabilities and Exposures. It is a list of publicly disclosed computer security flaws. A CVE feed provides standardized identifiers for known vulnerabilities, making it easier to share data across different vulnerability management tools and services."
+    "explanation": "The Common Vulnerabilities and Exposures (CVE) list has entries that describe and provide references to publicly known cybersecurity vulnerabilities. A CVE feed will provide updated information about new vulnerabilities and a useful index number to cross reference with other services."
   },
   {
     "question": "55. What type of attack is a birthday attack?",
@@ -548,7 +548,7 @@ export const questions = [
       "C. A network denial-of-service attack",
       "D. A TCP/IP protocol attack"
     ],
-    "explanation": "A birthday attack is a type of cryptographic attack that belongs to a class of brute-force attacks. It exploits the mathematics behind the birthday problem in probability theory to find collisions in hash functions."
+    "explanation": "A birthday attack exploits the birthday problem in probability theory and relies on finding collisions between random attack attempts and the number of potential permutations of a solution. Birthday attacks are one method of attacking cryptographic hash functions. They are not a social engineering attack, a network denial-of-service attack, or a TCP/IP protocol attack."
   },
   {
     "question": "56. Juanita is a network administrator for Acme Company. Some users complain that they keep getting dropped from the network. When Juanita checks the logs for the wireless access point (WAP), she finds that a deauthentication packet has been sent to the WAP from the users' IP addresses. What seems to be happening here?",
@@ -558,7 +558,7 @@ export const questions = [
       "C. Session hijacking",
       "D. Backdoor attack"
     ],
-    "explanation": "This is a disassociation attack (or deauthentication attack). The attacker is sending spoofed deauthentication frames to the WAP, making it appear as if they are coming from the victim's machine. This forces the user off the network, often as a precursor to an evil twin attack."
+    "explanation": "This an example of a disassociation attack. The deauthentication packet causes Juanita’s system to disassociate, and the attacker can then execute a second attack targeting her authentication credentials or other wireless data using an evil twin attack. Misconfiguration won’t cause authenticated users to deauthenticate. Session hijacking involves taking over an authenticated session. Backdoors are built-in methods to circumvent authentication."
   },
   {
     "question": "57. John has discovered that an attacker is trying to get network passwords by using software that attempts a number of passwords from a list of common passwords. What type of attack is this?",
@@ -568,7 +568,7 @@ export const questions = [
       "C. Brute force",
       "D. Session hijacking"
     ],
-    "explanation": "A dictionary attack is a form of brute-force attack that uses a predefined list of words (a dictionary) to try and guess a password. This is faster than a pure brute-force attack, which tries every possible combination of characters."
+    "explanation": "Dictionary attacks use a list of words that are believed to be likely passwords. A rainbow table is a precomputed table of hashes. Brute force tries every possible random combination. If an attacker has the original plain text and ciphertext for a message, they can determine the key space used through brute-force attempts targeting the key space. Session hijacking is when the attacker takes over an authenticated session."
   },
   {
     "question": "58. You are a network security administrator for a bank. You discover that an attacker has exploited a flaw in OpenSSL and forced some connections to move to a weak cipher suite version of TLS, which the attacker could breach. What type of attack was this?",
@@ -578,7 +578,7 @@ export const questions = [
       "C. Session hijacking",
       "D. Brute force"
     ],
-    "explanation": "A downgrade attack is an on-path attack where an attacker forces a system to abandon a higher-security mode of operation (like a strong TLS cipher suite) in favour of an older, lower-security mode (a weak cipher suite) that is easier to break."
+    "explanation": "Downgrade attacks seek to make a Transport Layer Security (TLS) connection use a weaker cipher version, thus allowing the attacker to more easily break the encryption and read the protected data. In a disassociation attack, the attacker attempts to force the victim into disassociating from a resource. Session hijacking is when the attacker takes over an authenticated session. Brute-force attempts every possible random combination to get the password or encryption key."
   },
   {
     "question": "59. When an attacker tries to find an input value that will produce the same hash as a password, what type of attack is this?",
@@ -588,7 +588,7 @@ export const questions = [
       "B. Brute force",
       "C. Session hijacking"
     ],
-    "explanation": "A collision attack is a cryptographic attack where an attacker attempts to find two different inputs that produce the same hash output. In the context of passwords, this could allow an attacker to create a different password that has the same hash as the victim's, potentially granting them access."
+    "explanation": "A collision is when two different inputs produce the same hash. A rainbow table is a table of precomputed hashes. Brute force attempts every possible random combination to get the password or encryption key. Session hijacking is when the attacker takes over an authenticated session."
   },
   {
     "question": "60. Farès is the network security administrator for a company that creates advanced routers and switches. He has discovered that his company's networks have been subjected to a series of advanced attacks over a period of time. What best describes this attack?",
@@ -598,7 +598,7 @@ export const questions = [
       "B. Brute force",
       "D. Disassociation attack"
     ],
-    "explanation": "An Advanced Persistent Threat (APT) is a sophisticated, long-term, and targeted attack where an intruder gains unauthorised access to a network and remains undetected for an extended period. The goal is typically data exfiltration rather than causing damage."
+    "explanation": "An advanced persistent threat (APT) involves sophisticated (i.e., advanced) attacks over a period of time (i.e., persistent). A distributed denial-of-service (DDoS) could be a part of an APT, but in and of itself is unlikely to be an APT. Brute force attempts every possible random combination to get the password or encryption key. In a disassociation attack, the attacker attempts to force the victim into disassociating from a resource."
   },
   {
     "question": "61. What type of information is phishing not commonly intended to acquire?",
@@ -608,7 +608,7 @@ export const questions = [
       "C. Credit card numbers",
       "D. Personal information"
     ],
-    "explanation": "Phishing attacks are designed to acquire sensitive, actionable data like passwords and financial details. While attackers use email addresses to send the phishing emails, their goal is not usually to acquire more email addresses, but rather the credentials associated with them."
+    "explanation": "Phishing is not commonly used to acquire email addresses. Phishing emails target personal information and sensitive information like passwords and credit card numbers in most cases."
   },
   {
     "question": "62. John is running an IDS on his network. Users sometimes report that the IDS flags legitimate traffic as an attack. What describes this?",
@@ -618,7 +618,7 @@ export const questions = [
       "C. False trigger",
       "D. False flag"
     ],
-    "explanation": "A false positive is an alert that incorrectly indicates that malicious activity is occurring. In this case, the Intrusion Detection System (IDS) is flagging legitimate traffic as an attack, creating a false alarm."
+    "explanation": "When an IDS or antivirus mistakes legitimate traffic for an attack, this is called a false positive. A false negative is when the IDS mistakes an attack for legitimate traffic. It is the opposite of a false positive. Options C and D are both incorrect. Although these may be grammatically correct, these are not the terms used in the industry. In military operations, false flag operations attempt to transfer blame to another company, thus a “false flag.”"
   },
   {
     "question": "63. Scott discovers that malware has been installed on one of the systems he is responsible for. Shortly afterward passwords used by the user that the system is assigned to are discovered to be in use by attackers. What type of malicious program should Scott look for on the compromised system?",
@@ -628,7 +628,7 @@ export const questions = [
       "C. A worm",
       "D. None of the above"
     ],
-    "explanation": "A keylogger is a type of spyware that records the keystrokes made by a user. This is a common method for attackers to capture usernames, passwords, and other sensitive information as it is being typed."
+    "explanation": "A keylogger is a software or hardware tool used to capture keystrokes. Keyloggers are often used by attackers to capture credentials and other sensitive information. A rootkit is used to obtain and maintain administrative rights on a system, and a worm is a self-spreading form of malware that frequently targets vulnerable services on a network to spread."
   },
   {
     "question": "64. You are performing a penetration test of your company's network. As part of the test, you will be given a login with minimal access and will attempt to gain administrative access with this account. What is this called?",
@@ -638,7 +638,7 @@ export const questions = [
       "C. Root grabbing",
       "D. Climbing"
     ],
-    "explanation": "Privilege escalation is the act of exploiting a bug, design flaw, or configuration oversight in an operating system or software application to gain elevated access to resources that are normally protected from an application or user."
+    "explanation": "The term for attempting to gain any privileges beyond what you have is privilege escalation. Session hijacking is taking over an authenticated session. Root grabbing and climbing are not terms used in the industry."
   },
   {
     "question": "65. Matt discovers that a system on his network is sending hundreds of Ethernet frames to the switch it is connected to, with each frame containing a different source MAC address. What type of attack has he discovered?",
@@ -648,7 +648,7 @@ export const questions = [
       "C. Hardware spoofing",
       "D. MAC hashing"
     ],
-    "explanation": "A MAC flooding attack attempts to overwhelm a network switch's Content Addressable Memory (CAM) table, which stores MAC address-to-port mappings. By sending a flood of frames with fake source MAC addresses, the attacker can force the switch into 'fail-open' mode, where it acts like a hub and broadcasts all traffic to all ports, allowing the attacker to sniff the traffic."
+    "explanation": "MAC flooding attacks attempt to overflow a switch’s CAM table, causing the switch to send all traffic to all ports rather than to the port that a given MAC address is associated with. Although this was possible with many older switches, most modern switches are less susceptible to this type of attack, and some have security capabilities built in to prevent this type of attack."
   },
   {
     "question": "66. Spyware is an example of what type of malware?",
@@ -658,7 +658,7 @@ export const questions = [
       "C. RAT",
       "D. Ransomware"
     ],
-    "explanation": "Spyware is often considered a Potentially Unwanted Program (PUP). While not always overtly malicious like a virus, it performs unwanted actions such as tracking user activity, displaying ads, or collecting personal information without the user's explicit consent."
+    "explanation": "Spyware and adware are both common examples PUPs, or potentially unwanted programs. Though not directly malicious, they can pose risks to user privacy as well as create annoyances like popups or other unwanted behaviors. Trojans appear to be legitimate programs or are paired with them, RATs provide remote access and are a subcategory of Trojans, and ransomware demands payment or other actions to avoid damage to files or reputation."
   },
   {
     "question": "67. Mary has discovered that a web application used by her company does not always handle multithreading properly, particularly when multiple threads access the same variable. This could allow an attacker who discovered this vulnerability to exploit it and crash the server. What type of error has Mary discovered?",
@@ -668,7 +668,7 @@ export const questions = [
       "B. Logic bomb",
       "D. Improper error handling"
     ],
-    "explanation": "A race condition occurs when the behaviour of a system depends on the sequence or timing of uncontrollable events. When multiple threads access and manipulate the same data concurrently, it can lead to unexpected outcomes, crashes, or security vulnerabilities."
+    "explanation": "A race condition can occur when multiple threads in an application are using the same variable and the situation is not properly handled. Option A is incorrect. A buffer overflow is attempting to put more data in a buffer than it is designed to hold. Option B is incorrect. A logic bomb is malware that performs its misdeed when some logical condition is met. Option D is incorrect. As the name suggests, improper error handling is the lack of adequate or appropriate error handling mechanisms within software."
   },
   {
     "question": "68. An attacker is trying to get access to your network. He is sending users on your network a link to a new game with a hacked license code program. However, the game files also include software that will give the attacker access to any machine that it is installed on. What type of attack is this?",
@@ -678,17 +678,17 @@ export const questions = [
       "C. Spyware",
       "D. Boot sector virus"
     ],
-    "explanation": "A Trojan horse is malware that misleads users of its true intent. The game appears legitimate, but it carries a malicious payload (the backdoor software). The user voluntarily installs the game, and in doing so, also installs the malware."
+    "explanation": "The malware in this example is a Trojan horse—it pretends to be something desirable, or at least innocuous, and installs malicious software in addition to or instead of the desired software. A rootkit gives root or administrative access, spyware is malware that records user activities, and a boot sector virus is a virus that infects the boot sector of the hard drive."
   },
   {
     "question": "69. The following image shows a report from an OpenVAS system. What type of weak configuration is shown here?",
-    "correct_answer": "D. Unsecure protocols",
+    "correct_answer": "B. Unsecured administrative accounts",
     "incorrect_answers": [
       "A. Weak encryption",
-      "B. Unsecured administrative accounts",
-      "C. Open ports and services"
+      "C. Open ports and services",
+      "D. Unsecure protocols"
     ],
-    "explanation": "Without the image, we must infer from common OpenVAS findings. OpenVAS often flags the use of insecure protocols like Telnet, FTP, and older versions of SSL/TLS. These protocols transmit data in cleartext or have known vulnerabilities, making them a significant security risk."
+    "explanation": "The Postgres server is set up using a weak password for the user postgres, the administrative login for the database. This is a form of unsecured administrative or root account. Interestingly, this is not a default setting, since Postgres uses no password by default for the Postgres account—an even worse setting than using postgres as the password, but not by much!"
   },
   {
     "question": "70. While conducting a penetration test, Annie scans for systems on the network she has gained access to. She discovers another system within the same network that has the same accounts and user types as the one she is on. Since she already has a valid user account on the system she has already accessed, she is able to log in to it. What type of technique is this?",
@@ -698,7 +698,7 @@ export const questions = [
       "C. Privilege retention",
       "D. Vertical movement"
     ],
-    "explanation": "Lateral movement is the process by which an attacker moves from one compromised host to another within the same network. Reusing credentials to access other systems is a classic example of this technique."
+    "explanation": "Annie has moved laterally. Lateral movement moves to systems at the same trust level. This can provide access to new data or different views of the network depending on how the systems and security are configured. Privilege escalation involves gaining additional privileges, often those of an administrative user. Vertical movement is sometimes referenced when gaining access to systems or accounts with a higher security or trust level. Privilege retention was made up for this question."
   },
   {
     "question": "71. Amanda scans a Red Hat Linux server that she believes is fully patched and discovers that the Apache version on the server is reported as vulnerable to an exploit from a few months ago. When she checks to see if she is missing patches, Apache is fully patched. What has occurred?",
@@ -708,7 +708,7 @@ export const questions = [
       "C. A false negative",
       "D. An Apache version mismatch"
     ],
-    "explanation": "This is a common false positive. Linux distributions like Red Hat often backport security fixes to older, stable versions of software rather than upgrading to the newest version. The vulnerability scanner sees the old version number and flags it as vulnerable, even though the security patch has been applied."
+    "explanation": "This is an example of a false positive. A false positive can cause a vulnerability to show that was not actually there. This sometimes happens when a patch or fix is installed but the application does not change in a way that shows the change, and it has been an issue with updates where the version number is the primary check for a vulnerability. When a vulnerability scanner sees a vulnerable version number but a patch has been installed that does not update it, a false positive report can occur. A false negative would report a patch or fix where there was actually a vulnerability. Automatic updates were not mentioned, nor was a specific Apache version."
   },
   {
     "question": "72. When a program has variables, especially arrays, and does not check the boundary values before inputting data, what attack is the program vulnerable to?",
@@ -718,7 +718,7 @@ export const questions = [
       "B. CSRF",
       "D. Logic bomb"
     ],
-    "explanation": "This describes a buffer overflow vulnerability. If a program allows more data to be written to a buffer (like an array) than it is allocated to hold, the excess data will overwrite adjacent memory, which can lead to program crashes or arbitrary code execution."
+    "explanation": "A buffer overflow is possible when boundaries are not checked and the attacker tries to put in more data than the variable can hold. Cross-site scripting (XSS) is a web page attack. Cross-site request forgery (CSRF) is a web page attack. A logic bomb is malware that performs its misdeed when some condition is met."
   },
   {
     "question": "73. Tracy is concerned that the software she wants to download may not be trustworthy, so she searches for it and finds many postings claiming that the software is legitimate. If she installs the software and later discovers it is malicious and that malicious actors have planted those reviews, what principle of social engineering have they used?",
@@ -728,7 +728,7 @@ export const questions = [
       "B. Familiarity",
       "D. Trust"
     ],
-    "explanation": "Consensus, or social proof, is a psychological phenomenon where people assume the actions of others in an attempt to reflect correct behaviour for a given situation. By faking positive reviews, the attackers make Tracy believe that many other people trust the software, influencing her to do the same."
+    "explanation": "Consensus, sometimes called social proof, is a social engineering principle that leverages the fact that people are often willing to trust groups of other people. Here, the attackers have planted false information that the software is trustworthy, thus allowing targets to “prove” to themselves that they can safely install the software. Scarcity uses a perception that something may not be available or is uncommon and thus desirable. Familiarity takes advantage of the trust that individuals put into people and organizations they are already familiar with. Trust-based attacks exploit a perception of trustworthiness."
   },
   {
     "question": "74. Which of the following best describes malware that will execute some malicious activity when a particular condition is met (i.e., if the condition is met, then executed)?",
@@ -738,7 +738,7 @@ export const questions = [
       "C. Buffer overflow",
       "D. Sparse infector virus"
     ],
-    "explanation": "A logic bomb is a piece of code that lies dormant until a specific condition or trigger occurs. The trigger could be a specific date and time, the presence or absence of a file, or a particular user action."
+    "explanation": "A logic bomb performs malicious actions when a specific condition or conditions are met. A boot sector virus infects the boot sector of the hard drive. A buffer overflow occurs when the attacker attempts to put more data in a variable than it can hold. A sparse infector virus performs its malicious activity intermittently to make it harder to detect."
   },
   {
     "question": "75. What term describes using conversational tactics as part of a social engineering exercise to extract information from targets?",
@@ -748,7 +748,7 @@ export const questions = [
       "C. Impersonation",
       "D. Intimidation"
     ],
-    "explanation": "Elicitation is the strategic use of conversation to extract information from people without giving them the feeling that they are being interrogated. It's a key skill in social engineering and intelligence gathering."
+    "explanation": "Elicitation, or the process of eliciting information through conversation to gather useful information, is a key tool in a penetration tester’s social engineering arsenal. Pretexting involves the use of believable reasons for the target to go along with whatever the social engineering is attempting to do. Impersonation involves acting like someone you are not, whereas intimidation attempts to scare or threaten the target into doing what the social engineer wants them to."
   },
   {
     "question": "76. Telnet, RSH, and FTP are all examples of what?",
@@ -758,7 +758,7 @@ export const questions = [
       "C. Core protocols",
       "D. Open ports"
     ],
-    "explanation": "These are all examples of unsecure protocols because they transmit data, including usernames and passwords, in cleartext. They should be replaced with secure alternatives like SSH (for Telnet/RSH) and SFTP/FTPS (for FTP)."
+    "explanation": "All of these protocols are unsecure. FTP has been replaced by secure versions in some uses (SFTP/FTPS), whereas Telnet has been superseded by SSH in modern applications. RSH is outmoded and should be seen only on truly ancient systems. If you find a system or device exposing these protocols, you will need to dig in further to determine why they are exposed and how they can be protected if they must remain open for a legitimate reason."
   },
   {
     "question": "77. Scott wants to determine where an organization's wireless network can be accessed from. What testing techniques are his most likely options?",
@@ -768,7 +768,7 @@ export const questions = [
       "C. Social engineering and active scans",
       "D. OSINT and war driving"
     ],
-    "explanation": "War driving is the act of searching for Wi-Fi networks from a moving vehicle. War flying is the same concept but from an aircraft (often a drone). These techniques are used to map the physical footprint of a wireless network and identify potential rogue access points."
+    "explanation": "The best way for Scott to determine where an organization’s wireless networks can be accessed from is to use war driving, war flying, and/or war walking techniques to map out the wireless signal footprint of the organization. OSINT and active scans would be useful gathering information about the organization and its systems, but not about its wireless networks range and accessibility, and social engineering is more likely to be useful for gathering information or gaining access to facilities or systems."
   },
   {
     "question": "78. Gerald is a network administrator for a small financial services company. Users are reporting odd behavior that appears to be caused by a virus on their machines. After isolating the machines that he believes are infected, Gerald analyzes them. He finds that all the infected machines received an email purporting to be from accounting, with an Excel spreadsheet, and the users opened the spreadsheet. What is the most likely issue on these machines?",
@@ -778,7 +778,7 @@ export const questions = [
       "C. A Trojan horse",
       "D. A RAT"
     ],
-    "explanation": "A macro virus is a virus that is written in a macro language, such as the one used by Microsoft Office applications. The virus is embedded in a document (like an Excel spreadsheet) and executes when the document is opened, infecting the user's computer."
+    "explanation": "A macro virus is a malicious script (macro) embedded into a file, typically a Microsoft Office file. They are typically written in Visual Basic for Applications (VBA) script. A boot sector virus infects the boot sector of the hard drive. A Trojan horse is malware that is tied to a legitimate program. In this scenario, the malware is actually embedded in an Office document. The two are similar, but not the same. A remote access Trojan (RAT) is a Trojan horse that gives the attacker remote access to the machine."
   },
   {
     "question": "79. Your company has hired an outside security firm to perform various tests of your network. During the vulnerability scan, you will provide that company with logins for various systems (i.e., database server, application server, web server, etc.) to aid in their scan. What best describes this?",
@@ -788,7 +788,7 @@ export const questions = [
       "B. A gray-box test",
       "D. An intrusive scan"
     ],
-    "explanation": "A credentialed scan is a vulnerability scan performed with valid user credentials. This allows the scanner to log in to the target system and perform a more thorough check for vulnerabilities, including issues related to software versions, patch levels, and local configurations that are not visible from the outside."
+    "explanation": "By giving the tester logins, you are allowing them to conduct a credentialed scan (i.e., a scan with an account or accounts that allow them access to check settings and configurations). Known environment and partially known environment tests describe the level of knowledge the tester is given of the network. A privilege scan cannot be an unknown environment test, but it could be either known or partially known. An intrusive scan is a term used for scans that attempt to exercise or use the vulnerability they find instead of attempting to avoid harm."
   },
   {
     "question": "80. Steve discovers the following code on a system. What language is it written in, and what does it do?\nimport socket as skt\nfor port in range (1,9999):\ntry:\nsc=skt.socket(askt.AF_INET,skt.SOCK_STREAM)\nsc.settimeout(900)\nsc.connect(('127.0.0.1,port))\nprint '%d:OPEN' % (port)\nsc.close\nexcept: continue",
@@ -798,7 +798,7 @@ export const questions = [
       "C. Bash, vulnerability scanning",
       "D. PowerShell, port scanning"
     ],
-    "explanation": "The code uses Python's `socket` library to attempt to connect to a range of ports (1 to 9999) on the local machine ('127.0.0.1'). This is a simple script for port scanning to identify open ports."
+    "explanation": "The Security+ exam expects practitioners to be able to analyze scripts and code to determine roughly what function they perform and to be able to identify multiple programming languages. Python relies on formatting like indenting to indicate blocks of code and does not use line end indicators as you would find in some languages. This code is a basic Python port scanner that will scan every port from 1 to 9999, checking to see if it allows a connection."
   },
   {
     "question": "81. Which of the following is commonly used in a distributed denial-of-service (DDoS) attack?",
@@ -808,7 +808,7 @@ export const questions = [
       "B. Adware",
       "D. Trojan"
     ],
-    "explanation": "A botnet, a network of compromised 'zombie' computers, is the primary tool for launching a DDoS attack. The attacker commands the entire botnet to send traffic to the target, overwhelming it with the sheer volume of requests from many different sources."
+    "explanation": "Botnets are often used to launch DDoS attacks, with the attack coming from all the computers in the botnet simultaneously. Phishing attacks attempt to get the user to give up information, click on a link, or open an attachment. Adware consists of unwanted popup ads. A Trojan horse attaches malware to a legitimate program."
   },
   {
     "question": "82. Amanda discovers that a member of her organization's staff has installed a remote access Trojan on their accounting software server and has been accessing it remotely. What type of threat has she discovered?",
@@ -818,7 +818,7 @@ export const questions = [
       "C. Misconfiguration",
       "D. Weak encryption"
     ],
-    "explanation": "An insider threat is a security risk that originates from within the organisation. This can be a current or former employee, contractor, or business partner who has inside information concerning the organisation's security practices, data, and computer systems."
+    "explanation": "Amanda has discovered an insider threat. Insider threats can be difficult to discover, as a malicious administrator or other privileged user will often have the ability to conceal their actions or may actually be the person tasked with hunting for threats like this! This is not a zero-day—no vulnerability was mentioned, there was no misconfiguration since this was an intentional action, and encryption is not mentioned or discussed."
   },
   {
     "question": "83. Postings from Russian agents during the 2016 U.S. presidential campaign to Facebook and Twitter are an example of what type of effort?",
@@ -828,7 +828,7 @@ export const questions = [
       "C. Asymmetric warfare",
       "D. A watering hole attack"
     ],
-    "explanation": "This is a prime example of an influence campaign, where social media platforms are used to manipulate public opinion, spread disinformation, and sow discord by creating and promoting divisive content."
+    "explanation": "Social media influence campaigns seek to achieve the goals of the attacker or owner of the campaign. They leverage social media using bots and groups of posters to support the ideas, concepts, or beliefs that align with the goals of the campaign. Impersonation is a type of social engineering attack where the attacker pretends to be someone else. A watering hole attack places malware or malicious code on a site or sites that are frequently visited by a targeted group. Asymmetric warfare is warfare between groups with significantly different power or capabilities."
   },
   {
     "question": "84. Juan is responsible for incident response at a large financial institution. He discovers that the company Wi-Fi has been breached. The attacker used the same login credentials that ship with the wireless access point (WAP). The attacker was able to use those credentials to access the WAP administrative console and make changes. Which of the following best describes what caused this vulnerability to exist?",
@@ -838,7 +838,7 @@ export const questions = [
       "B. Untrained users",
       "D. Failure to patch systems"
     ],
-    "explanation": "The vulnerability was caused by the failure to change the default administrative credentials on the wireless access point. Many devices ship with well-known default usernames and passwords, which must be changed immediately upon installation."
+    "explanation": "Using default settings is a form of weak configuration. Many vulnerability scanners and attack tools have default settings built-in to test with, and default settings are easily obtained for most devices with a quick search of the Internet. Configuring the accounts is not the issue; changing default passwords and settings is. Although training users is important, that’s not the issue in this scenario. Patching systems is important, but that won’t change default settings."
   },
   {
     "question": "85. Elizabeth is investigating a network breach at her company. She discovers a program that was able to execute code within the address space of another process by using the target process to load a specific library. What best describes this attack?",
@@ -848,7 +848,7 @@ export const questions = [
       "B. Session hijacking",
       "C. Buffer overflow"
     ],
-    "explanation": "DLL injection is a technique used for running code within the address space of another process by forcing it to load a dynamic-link library (DLL). The attacker can then use this to perform actions as if they were the target process."
+    "explanation": "In a DLL injection, the malware attempts to inject code into the process of some library. This is a rather advanced attack. Option A is incorrect. A logic bomb executes its misdeed when some condition is met. Option B is incorrect. Session hijacking is taking over an authenticated session. Option C is incorrect. Buffer overflows are done by sending more data to a variable than it can hold."
   },
   {
     "question": "86. Which of the following threat actors is most likely to be associated with an advanced persistent threat (APT)?",
@@ -858,7 +858,7 @@ export const questions = [
       "C. Script kiddies",
       "D. Insider threats"
     ],
-    "explanation": "State-sponsored actors (or nation-states) are the groups most often associated with Advanced Persistent Threats (APTs). They have the resources, skills, and long-term objectives (like espionage or sabotage) to conduct such sophisticated and sustained campaigns."
+    "explanation": "State actors (or nation-state actors) often have greater resources and skills, making them a more significant threat and far more likely to be associated with an advanced persistent threat actor. Script kiddies, hacktivists, and insider threats tend to be less capable and are all far less likely to be associated with an APT."
   },
   {
     "question": "87. What is the primary difference between an intrusive and a nonintrusive vulnerability scan?",
@@ -868,7 +868,7 @@ export const questions = [
       "B. A nonintrusive scan is just a document check.",
       "D. A nonintrusive scan won't find most vulnerabilities."
     ],
-    "explanation": "A non-intrusive scan only identifies vulnerabilities, while an intrusive scan attempts to actively exploit them. This active exploitation carries the risk of causing a denial of service or otherwise disrupting the normal operation of the target system."
+    "explanation": "An intrusive scan attempts to actively exploit vulnerabilities, and thus could possibly cause some disruption of operations. For this reason, it should be conducted outside normal business hours or in a test environment, if it is used at all. A nonintrusive scan attempts to identify vulnerabilities without exploiting them. A penetration test actually attempts to breach the network by exploiting vulnerabilities. An audit is primarily a document check. Both intrusive and nonintrusive vulnerability scans can be effective at finding vulnerabilities."
   },
   {
     "question": "88. Your company outsourced development of an accounting application to a local programming firm. After three months of using the product, one of your administrators discovers that the developers have inserted a way to log in and bypass all security and authentication. What best describes this?",
@@ -878,7 +878,7 @@ export const questions = [
       "B. Trojan horse",
       "D. Rootkit"
     ],
-    "explanation": "A backdoor is a hidden method of bypassing normal authentication or encryption in a computer system, a product, or an embedded device. In this case, the developers intentionally created a secret entry point for their own use."
+    "explanation": "A backdoor is a method for bypassing normal security and directly accessing the system. A logic bomb is malware that performs its misdeeds when some condition is met. A Trojan horse wraps a malicious program to a legitimate program. When the user downloads and installs the legitimate program, they get the malware. A rootkit is malware that gets root or administrative privileges."
   },
   {
     "question": "89. Daryl is investigating a recent breach of his company's web server. The attacker used sophisticated techniques and then defaced the website, leaving messages that were denouncing the company's public policies. He and his team are trying to determine the type of actor who most likely committed the breach. Based on the information provided, who was the most likely threat actor?",
@@ -888,7 +888,7 @@ export const questions = [
       "B. A nation-state",
       "C. Organized crime"
     ],
-    "explanation": "Hacktivists are individuals or groups who use hacking to promote a political agenda or social change. Defacing a website with messages denouncing a company's policies is a classic hacktivist tactic."
+    "explanation": "The fact that the website is defaced in a manner related to the company’s public indicates that the attackers were most likely engaging in hacktivism to make a political or belief-based point. Scripts, nation-state actors, and organized crime don’t account for the statements adverse to the company’s policies, which is why hacktivism is the real cause."
   },
   {
     "question": "90. What two techniques are most commonly associated with a pharming attack?",
@@ -898,7 +898,7 @@ export const questions = [
       "C. Phishing many users and harvesting many passwords from them",
       "D. Spoofing DNS server IP addresses or modifying the hosts file on a PC"
     ],
-    "explanation": "Pharming is a cyberattack intended to redirect a website's traffic to another, fake site. This is typically achieved either by poisoning a DNS server's cache or by modifying the local 'hosts' file on an individual computer."
+    "explanation": "Pharming attempts to redirect traffic intended for a legitimate site to another malicious site. Attackers most often do this by changing the local hosts file or by exploiting a trusted DNS server."
   },
   {
     "question": "91. Angela reviews the authentication logs for her website and sees attempts from many different accounts using the same set of passwords. What is this attack technique called?",
@@ -908,7 +908,7 @@ export const questions = [
       "C. Limited login attacks",
       "D. Account spinning"
     ],
-    "explanation": "Password spraying is a type of brute-force attack where an attacker tries a small number of commonly used passwords against many different user accounts. This avoids locking out individual accounts that have failed login attempt limits."
+    "explanation": "Password spraying is a specific type of brute force attack which uses a smaller list of common passwords for many accounts to attempt to log in. Although brute forcing is technically correct, the best match here is password spraying. When you encounter questions like this on the test, make sure you provide the most accurate answer, rather than one that fits but may not be the best answer. Limited login attacks is a made-up answer, and spinning an account refers to changing the password for an account, often because of a compromise or to prevent a user from logging back into it while preserving the account."
   },
   {
     "question": "92. When investigating breaches and attempting to attribute them to specific threat actors, which of the following is not one of the indicators of an APT?",
@@ -918,7 +918,7 @@ export const questions = [
       "B. Sophisticated attacks",
       "D. The attack is sustained over time."
     ],
-    "explanation": "While many APTs originate from foreign countries, the source IP address is not a reliable indicator, as attackers frequently use proxies and compromised systems around the world to hide their true location. The key indicators are the sophistication, persistence, and long-term nature of the attack."
+    "explanation": "Although you might suppose that a nation-state attacker (the usual attacker behind an advanced persistent threat) would attack from a foreign IP address, they often use a compromised address in the target country as a base for attacks. Options A, B, and D are all incorrect. These are actually signs of an advanced persistent threat."
   },
   {
     "question": "93. Charles discovers that an attacker has used a vulnerability in a web application that his company runs and has then used that exploit to obtain root privileges on the web server. What type of attack has he discovered?",
@@ -928,7 +928,7 @@ export const questions = [
       "C. A SQL injection",
       "D. A race condition"
     ],
-    "explanation": "Privilege escalation is the act of exploiting a flaw to gain elevated access. The attacker started with the permissions of the web application user and 'escalated' them to gain the highest level of access (root)."
+    "explanation": "A privilege escalation attack can occur horizontally, where attackers obtain similar levels of privilege but for other users, or vertically where they obtain more advanced rights. In this case, Charles has discovered a vertical privilege escalation attack that has allowed the attacker to obtain administrative rights. Cross-site scripting and SQL injection are both common types of web application attacks, and a race condition occurs when data can be changed between when it is checked and when it is used."
   },
   {
     "question": "94. What type of attack uses a second wireless access point (WAP) that broadcasts the same SSID as a legitimate access point, in an attempt to get users to connect to the attacker's WAP?",
@@ -938,7 +938,7 @@ export const questions = [
       "C. Trojan horse",
       "D. Privilege escalation"
     ],
-    "explanation": "An evil twin is a fraudulent Wi-Fi access point that appears to be legitimate but is set up to eavesdrop on wireless communications. It broadcasts the same Service Set Identifier (SSID) as the legitimate network to trick users into connecting to it."
+    "explanation": "Evil twin attacks use a malicious access point configured to appear to be identical to a legitimate AP. Attackers wait for their targets to connect via the evil twin, and can then capture or modify traffic however they wish. IP spoofing uses the IP address of a system already on the network, Trojan horses are malware that appear to be legitimate software or files, and privilege escalation is the process of using exploits to gain higher privileges."
   },
   {
     "question": "95. Which of the following best describes a zero-day vulnerability?",
@@ -948,7 +948,7 @@ export const questions = [
       "C. A vulnerability that can be quickly exploited (i.e., in zero days)",
       "D. A vulnerability that will give the attacker brief access (i.e., zero days)"
     ],
-    "explanation": "A zero-day vulnerability is a flaw in software or hardware that is unknown to the party or parties responsible for patching or otherwise fixing the flaw. Attackers can exploit it before a patch is available, giving them 'zero days' to prepare."
+    "explanation": "A zero-day exploit or attack occurs before the vendor has knowledge of it. The remainder of the answers don’t accurately describe a zero-day attack—just because it has not yet been breached does not make it a zero-day, nor is a zero-day necessarily quickly exploitable. Finally, a zero-day attack does not specify how long the attacker may have access."
   },
   {
     "question": "96. What type of attack involves adding an expression or phrase such as adding “SAFE” to mail headers?",
@@ -958,7 +958,7 @@ export const questions = [
       "B. Phishing",
       "C. SQL injection"
     ],
-    "explanation": "Prepending is a social engineering technique used to trick users by adding text to a message to make it appear more legitimate. For example, an attacker might prepend '[EXTERNAL]' or '[SAFE]' to an email subject line to manipulate the user's perception of its origin or safety."
+    "explanation": "Prepending is one of the stranger terms that appear on the CompTIA Security+ exam and is not a commonly used phrase in the industry. Thus, you need to know that when it is used for this exam it can mean one of three things: adding an expression or phrase to an email, subject line, or headers to either protect or fool users. They also note that it can be used when adding data as part of an attack, and that social engineers may “prepend” information by inserting it into conversation to get targets to think about things the attacker wants them to. Pretexing is a social engineering technique where attackers use a reason that is intended to be believable to the target for what they are doing. SQL injection is attempts to add SQL code to a web query to gain additional access or data. Prepending is used to cover a wide variety of techniques in the Security+ exam outline that focus on adding information or data to existing content."
   },
   {
     "question": "97. Charles wants to ensure that his outsourced code development efforts are as secure as possible. Which of the following is not a common practice to ensure secure remote code development?",
@@ -968,7 +968,7 @@ export const questions = [
       "B. Set defined acceptance criteria for code security.",
       "C. Test code using automated and manual security testing systems."
     ],
-    "explanation": "While auditing third-party libraries is a good practice (Software Composition Analysis), it is often prohibitively difficult to audit *all* of them. The other options—training, setting criteria, and testing—are all standard and essential practices for secure software development."
+    "explanation": "Although auditing some libraries or libraries that are custom-developed for the code is common, auditing all libraries used in the code is unlikely except in exceptional situations. The remainder of these practices are all commonly used when working with outsourced code development teams."
   },
   {
     "question": "98. You have discovered that there are entries in your network's domain name server that point legitimate domains to unknown and potentially harmful IP addresses. What best describes this type of attack?",
@@ -978,7 +978,7 @@ export const questions = [
       "B. An APT",
       "D. A Trojan horse"
     ],
-    "explanation": "DNS poisoning, or DNS cache poisoning, is the act of corrupting a Domain Name System (DNS) server's cache with incorrect information. This can cause DNS lookups to return the wrong IP address, redirecting users to malicious websites."
+    "explanation": "DNS poisoning occurs when false DNS information is inserted into legitimate DNS servers, resulting in traffic being redirected to unwanted or malicious sites. A backdoor provides access to the system by circumventing normal authentication. An APT is an advanced persistent threat. A Trojan horse ties a malicious program to a legitimate program."
   },
   {
     "question": "99. Spyware is an example of what type of malicious software?",
@@ -988,7 +988,7 @@ export const questions = [
       "B. A worm",
       "D. A Trojan"
     ],
-    "explanation": "Spyware often falls into the category of a Potentially Unwanted Program (PUP). These are programs that may not be explicitly malicious but perform undesirable actions, such as tracking browsing habits or displaying pop-up ads, and are often installed without the user's full understanding."
+    "explanation": "Spyware and adware are both common examples of a PUP, or potentially unwanted program. A CAT was made up for this question and is not a common categorization for malware, whereas worms are self-spreading malware that often exploit vulnerabilities to spread via a network. Trojans pretend to be legitimate software or paired with legitimate software to gain entry to a system or device."
   },
   {
     "question": "100. What best describes an attack that attaches some malware to a legitimate program so that when the user installs the legitimate program, they inadvertently install the malware?",
@@ -998,6 +998,6 @@ export const questions = [
       "C. RAT",
       "D. Polymorphic virus"
     ],
-    "explanation": "This is the definition of a Trojan horse. The malware is hidden within a seemingly harmless program, tricking the user into installing it. Unlike a virus, a Trojan does not replicate itself."
+    "explanation": "A Trojan horse pretends to be legitimate software, and may even include it, but also includes malicious software as well. Backdoors, RATs, and polymorphic viruses are all attacks, but they do not match what is described in the question scenario."
   }
 ]
