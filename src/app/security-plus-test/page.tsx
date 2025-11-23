@@ -1,0 +1,300 @@
+
+"use client";
+
+import * as React from "react";
+import Confetti from "react-confetti";
+import { questions as allQuestions } from "@/lib/security-plus-questions";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Navigation } from "@/components/ui/navigation";
+import { cn } from "@/lib/utils";
+import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer, PlayCircle } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+
+// Helper to shuffle an array
+const shuffleArray = <T,>(array: T[]): T[] => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
+
+// Type for a single question with shuffled answers
+type QuizQuestion = {
+  question: string;
+  answers: string[];
+  correctAnswer: string;
+};
+
+// Helper to format time
+const formatTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}m ${remainingSeconds}s`;
+};
+
+const encouragingMessages = [
+  "You can do it, Kaukab!",
+  "Ace this question, Kaukab!",
+  "You've got this!",
+  "Stay focused, you're doing great!",
+  "Believe in yourself, Kaukab!",
+  "Keep up the brilliant work!",
+  "One question at a time!",
+  "Show what you know!",
+  "Impressive knowledge!",
+  "You're on a roll, Kaukab!",
+  "That's the spirit!",
+  "Keep pushing forward!",
+  "You're a star, Kaukab!",
+  "Excellent effort!",
+  "Trust your instincts!",
+];
+
+const getRandomMessage = () => encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+
+type GameState = "welcome" | "playing" | "results";
+
+export default function SecurityPlusTestPage() {
+  const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+  const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null);
+  const [isAnswered, setIsAnswered] = React.useState(false);
+  const [score, setScore] = React.useState(0);
+  const [incorrectCount, setIncorrectCount] = React.useState(0);
+  const [startTime, setStartTime] = React.useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = React.useState(0);
+  const [windowSize, setWindowSize] = React.useState<{ width: number; height: number; }>({ width: 0, height: 0 });
+  const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
+  const [encouragingMessage, setEncouragingMessage] = React.useState("");
+  const [gameState, setGameState] = React.useState<GameState>("welcome");
+
+  const startNewGame = React.useCallback(() => {
+    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
+      ...q,
+      answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
+    }));
+    setQuestions(shuffledQuestions);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setIsAnswered(false);
+    setScore(0);
+    setIncorrectCount(0);
+    setStartTime(Date.now());
+    setElapsedTime(0);
+    setIsCorrect(null);
+    setEncouragingMessage(getRandomMessage());
+    setGameState("playing");
+  }, []);
+
+  // Get window size for confetti
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
+  // Live timer effect
+  React.useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (gameState === 'playing' && startTime) {
+      interval = setInterval(() => {
+        setElapsedTime((Date.now() - startTime) / 1000);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [gameState, startTime]);
+
+  const handleAnswerSelect = (answer: string) => {
+    if (isAnswered) return;
+
+    setSelectedAnswer(answer);
+    setIsAnswered(true);
+
+    if (answer === questions[currentQuestionIndex].correctAnswer) {
+      setScore((prevScore) => prevScore + 1);
+      setIsCorrect(true);
+    } else {
+      setIncorrectCount((prev) => prev + 1);
+      setIsCorrect(false);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setSelectedAnswer(null);
+      setIsAnswered(false);
+      setIsCorrect(null);
+      setEncouragingMessage(getRandomMessage());
+    } else {
+      setGameState("results");
+    }
+  };
+  
+  const handleRestart = () => {
+      setGameState("welcome");
+  };
+
+  if (gameState === "welcome") {
+    return (
+      <div className="flex min-h-screen w-full flex-col">
+        <Navigation title="Security+ Practice Test" />
+        <main className="flex-1 flex items-center justify-center p-4">
+          <Card className="w-full max-w-lg text-center shadow-2xl animate-in fade-in-50 zoom-in-95">
+            <CardHeader>
+              <CardTitle className="font-headline text-3xl">Ready for a Challenge?</CardTitle>
+              <CardDescription className="text-lg text-muted-foreground pt-4">
+                Kaukab, your dedication is inspiring. Time to put your knowledge to the test. You are ready for this!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button onClick={startNewGame} size="lg" className="mt-4">
+                <PlayCircle className="mr-2 h-5 w-5" />
+                Begin Test
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+
+  if (gameState === "results") {
+    const correctAnswers = score;
+    const incorrectAnswers = questions.length - score;
+    const isPassing = score / questions.length >= 0.9;
+
+    return (
+      <div className="flex min-h-screen w-full flex-col">
+        {isPassing && <Confetti width={windowSize.width} height={windowSize.height} />}
+        <Navigation title="Security+ Practice Test" />
+        <main className="flex-1 flex items-center justify-center p-4">
+          <Card className="w-full max-w-lg text-center shadow-2xl">
+            <CardHeader>
+              <CardTitle className="font-headline text-3xl">Test Complete!</CardTitle>
+               {isPassing ? (
+                <CardDescription className="text-lg text-green-600 font-semibold">Kaukab, you are brilliant!</CardDescription>
+              ) : (
+                <CardDescription className="text-lg text-yellow-600 font-semibold">Good effort! Keep studying, you'll get it.</CardDescription>
+              )}
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div className="flex flex-col items-center">
+                    <Trophy className="w-16 h-16 text-yellow-500 mb-4" />
+                    <p className="text-xl text-muted-foreground">You scored</p>
+                    <p className="text-6xl font-bold text-primary">
+                        {score} / {questions.length}
+                    </p>
+                </div>
+                <div className="space-y-3 text-left w-full max-w-sm mx-auto">
+                    <div className="flex justify-between items-center text-lg">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><CheckCircle className="text-green-500"/> Correct Answers:</p>
+                        <p className="font-bold text-green-600">{correctAnswers}</p>
+                    </div>
+                    <Separator />
+                    <div className="flex justify-between items-center text-lg">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><XCircle className="text-red-500"/> Incorrect Answers:</p>
+                        <p className="font-bold text-red-500">{incorrectAnswers}</p>
+                    </div>
+                    <Separator />
+                     <div className="flex justify-between items-center text-lg pt-2">
+                        <p className="font-medium text-muted-foreground flex items-center gap-2"><Timer /> Time Taken:</p>
+                        <p className="font-semibold text-foreground">{formatTime(elapsedTime)}</p>
+                    </div>
+                </div>
+                <Button onClick={startNewGame} size="lg" className="mt-4">
+                    <RotateCw className="mr-2 h-4 w-4" />
+                    Take Another Test
+                </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+  
+  if (questions.length === 0) {
+    return (
+        <div className="flex min-h-screen w-full flex-col">
+            <Navigation title="Security+ Practice Test" />
+            <main className="flex-1 flex items-center justify-center">
+                <p>Loading questions...</p>
+            </main>
+        </div>
+    );
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+  
+  return (
+    <div className="flex min-h-screen w-full flex-col">
+      {isCorrect === true && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={200} />}
+      <Navigation title="Security+ Practice Test" showRestartButton={true} onRestart={handleRestart} timer={formatTime(elapsedTime)} />
+      <main className="flex-1 p-4 sm:px-6 md:p-8 flex flex-col">
+        <div className="w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center">
+          <Card className={cn("w-full", isCorrect === false && "animate-shake")}>
+            <CardHeader>
+              <div className="flex justify-between items-center mb-2 text-sm font-semibold">
+                <CardTitle className="font-headline text-lg">Question {currentQuestionIndex + 1} of {questions.length}</CardTitle>
+                <div className="flex items-center gap-4">
+                  <div className="text-green-600 flex items-center gap-1"><CheckCircle className="h-4 w-4" /> Correct: {score}</div>
+                  <div className="text-red-500 flex items-center gap-1"><XCircle className="h-4 w-4" /> Incorrect: {incorrectCount}</div>
+                </div>
+              </div>
+              <Progress value={progressPercentage} className="h-2" />
+               <CardDescription className="pt-6 text-lg text-foreground text-left font-medium whitespace-pre-wrap">
+                {currentQuestion.question}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {currentQuestion.answers.map((answer) => {
+                const isCorrectAnswer = answer === currentQuestion.correctAnswer;
+                const isSelected = selectedAnswer === answer;
+
+                return (
+                  <Button
+                    key={answer}
+                    onClick={() => handleAnswerSelect(answer)}
+                    variant="outline"
+                    className={cn(
+                      "w-full h-auto min-h-[4rem] justify-start text-left p-4 text-base whitespace-normal",
+                      isAnswered && isCorrectAnswer && "bg-green-500/15 border-green-500 text-foreground",
+                      isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/15 border-red-500 text-foreground",
+                      !isAnswered && "hover:bg-accent/50"
+                    )}
+                    disabled={isAnswered}
+                  >
+                    {isAnswered && (isCorrectAnswer || isSelected) && (
+                        isCorrectAnswer ? <CheckCircle className="mr-3 h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="mr-3 h-5 w-5 text-red-500 flex-shrink-0" />
+                    )}
+                    {answer}
+                  </Button>
+                );
+              })}
+            </CardContent>
+          </Card>
+          
+          <div className="mt-4 text-center">
+            {!isAnswered && (
+                <p className="text-primary font-semibold text-lg animate-pulse">
+                {encouragingMessage}
+                </p>
+            )}
+            {isAnswered && (
+                <Button onClick={handleNextQuestion} size="lg">
+                    {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Finish Test'}
+                    <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+            )}
+          </div>
+        </div>
+      </main>
+       <footer className="text-center p-4 text-muted-foreground text-xs">
+        Good luck on your exam!
+      </footer>
+    </div>
+  );
+}

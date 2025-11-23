@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen } from "lucide-react";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -91,6 +91,9 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
        <NavLink href="/citizenship-test" onClick={closeSheet}>
         <GraduationCap className="mr-3" /> Citizenship Test
       </NavLink>
+      <NavLink href="/security-plus-test" onClick={closeSheet}>
+        <BookOpen className="mr-3" /> Security+ Test
+      </NavLink>
     </>
   );
 
@@ -145,5 +148,3 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
     </header>
   );
 }
-
-    
