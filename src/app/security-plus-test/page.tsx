@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Confetti from "react-confetti";
-import { questions as allQuestions } from "@/lib/security-plus-questions";
+import { sets as allSets } from "@/lib/security-plus-questions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Navigation } from "@/components/ui/navigation";
@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { CheckCircle, XCircle, ChevronRight, RotateCw, Trophy, Timer, PlayCircle, Lightbulb } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 // Helper to shuffle an array
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -53,6 +55,7 @@ const encouragingMessages = [
 const getRandomMessage = () => encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
 
 type GameState = "welcome" | "playing" | "results";
+type QuestionSet = 'set1' | 'set2';
 
 export default function SecurityPlusTestPage() {
   const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
@@ -67,9 +70,12 @@ export default function SecurityPlusTestPage() {
   const [isCorrect, setIsCorrect] = React.useState<boolean | null>(null);
   const [encouragingMessage, setEncouragingMessage] = React.useState("");
   const [gameState, setGameState] = React.useState<GameState>("welcome");
+  const [selectedSet, setSelectedSet] = React.useState<QuestionSet>('set1');
+
 
   const startNewGame = React.useCallback(() => {
-    const shuffledQuestions = shuffleArray(allQuestions).map((q) => ({
+    const questionSet = allSets[selectedSet] || [];
+    const shuffledQuestions = shuffleArray(questionSet).map((q) => ({
       ...q,
       answers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
     }));
@@ -84,7 +90,7 @@ export default function SecurityPlusTestPage() {
     setIsCorrect(null);
     setEncouragingMessage(getRandomMessage());
     setGameState("playing");
-  }, []);
+  }, [selectedSet]);
 
   // Get window size for confetti
   React.useEffect(() => {
@@ -150,8 +156,20 @@ export default function SecurityPlusTestPage() {
                 Kaukab, your dedication is inspiring. Time to put your knowledge to the test. You are ready for this!
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Button onClick={startNewGame} size="lg" className="mt-4">
+            <CardContent className="space-y-4">
+              <div className="space-y-2 text-left">
+                <Label htmlFor="question-set">Choose a question set:</Label>
+                 <Select value={selectedSet} onValueChange={(value) => setSelectedSet(value as QuestionSet)}>
+                    <SelectTrigger id="question-set">
+                      <SelectValue placeholder="Select a set" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="set1">Set 1 (1-100)</SelectItem>
+                      <SelectItem value="set2">Set 2 (101-200)</SelectItem>
+                    </SelectContent>
+                  </Select>
+              </div>
+              <Button onClick={startNewGame} size="lg" className="mt-4 w-full">
                 <PlayCircle className="mr-2 h-5 w-5" />
                 Begin Test
               </Button>
