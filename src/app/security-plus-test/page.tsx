@@ -153,6 +153,9 @@ export default function SecurityPlusTestPage() {
             <CardHeader>
               <CardTitle className="font-headline text-3xl">Ready for a Challenge?</CardTitle>
               <CardDescription className="text-lg text-muted-foreground pt-4">
+                Chapter 1: Threats, Attacks, and Vulnerabilities
+              </CardDescription>
+              <CardDescription className="text-base text-muted-foreground pt-2">
                 Kaukab, your dedication is inspiring. Time to put your knowledge to the test. You are ready for this!
               </CardDescription>
             </CardHeader>
