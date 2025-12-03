@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -312,6 +312,127 @@ const session4CheatSheet = [
   },
 ];
 
+const session5CheatSheet = [
+  {
+    id: "5A",
+    title: "Check-in and Resource Sharing",
+    duration: "10 Minutes",
+    icon: CheckCircle,
+    goal: "Welcome everyone and see how they are doing.",
+    steps: [
+      {
+        title: "Welcome",
+        instruction: 'Say: "Welcome back! I am so happy to see you all today."',
+      },
+      {
+        title: "Check-in",
+        instruction: 'Do: Choose a style you like.\nSay: "Let\'s go around. Please tell us your name and one thing you ate this week that you really enjoyed."\nAsk (Follow-up): "Did anyone try the homework from last week (the \'Triple-A\' attention/affection tool)? How did it go?"',
+      },
+      {
+        title: "Resources",
+        instruction: "Do: Share any news about COVID-19 or local support services.\nAsk: \"Does anyone have questions about resources or news?\"",
+      },
+      {
+        title: "Introduce Topic",
+        instruction: 'Say: "Today we are talking about Healthy Living—how we move our bodies and what we eat to stay strong in our minds."',
+      },
+    ],
+  },
+  {
+    id: "5B",
+    title: "Movement and Seated Yoga",
+    duration: "20 Minutes",
+    icon: HeartPulse,
+    goal: "Show that simple movement helps reduce stress.",
+    parts: [
+      {
+        title: 'Why Move?',
+        content: 'Say: "Did you know that moving your body helps your brain? It reduces stress and helps you sleep."\nAsk: "What is your favorite way to move your body? Do you like dancing, walking, or playing with kids?"\nAsk: "What stops you from exercising? Is it time, space, or pain?" (Listen to their barriers).\nTips to Share:\n"You don\'t need a gym. Just walking is great exercise."\n"Stand up every 20 minutes to let your blood flow."\n"Listen to your body. If it hurts, stop."',
+      },
+      {
+        title: 'Activity - Seated Yoga (or Gentle Stretching)',
+        content: 'Note: Refer to "Appendix Page 4" in your manual for the specific Yoga poses.\nIf you don\'t have the manual, lead these simple movements:\n\nJoint Wake-up: "Sit comfortably. Slowly rotate your wrists. Now rotate your ankles."\nShoulder Rolls: "Lift your shoulders to your ears, then roll them back and down. Do this 5 times."\nBreathing: "Take a deep breath in, lift your arms up. Breathe out, lower your arms."\n\nSay: "Notice how your body feels now compared to 10 minutes ago."\nAsk: "Does your mind feel any quieter now that your body is relaxed?"',
+      },
+    ],
+  },
+  {
+    id: "5C",
+    title: "Nutrition & Culture",
+    duration: "10 Minutes",
+    icon: Salad,
+    goal: "Discuss food access and cultural connection.",
+    steps: [
+      {
+        title: "Acknowledge Reality",
+        instruction: 'Say: "I know that finding your traditional foods in the US can be hard. Also, healthy food can sometimes be expensive."\nAsk: "Have you noticed your diet changing since you moved here? Is it better or worse?"\nAsk: "Is it easy or hard to find the specific ingredients you need for your traditional cooking?"\n\nFacilitator Note: If someone says they don\'t have enough food, talk to them privately after class to give them food bank resources.',
+      },
+      {
+        title: "Food is Connection",
+        instruction: 'Say: "Food is not just fuel; it is culture. Eating your traditional foods is good for your soul."\nAsk: "What is one \'comfort food\' from your culture that makes you feel better when you are sad?"',
+      },
+    ],
+  },
+  {
+    id: "5D",
+    title: "Healthy Eating Tips",
+    duration: "20 Minutes",
+    icon: Rainbow,
+    goal: 'Teach simple nutrition using the "Rainbow" concept.',
+    parts: [
+      {
+        title: 'The Rainbow',
+        content: 'Concept: Different colors of vegetables have different vitamins.\nSay: "A simple rule for eating healthy is: Eat the Rainbow."\n"Try to have different colors on your plate (Green, Red, Orange, Yellow)."\nAsk: "Which color is the easiest for you to eat? Which color is the hardest to find?"',
+      },
+      {
+        title: 'Food Groups (Quick Review)',
+        content: 'Vegetables/Fruits: Aim for half your plate.\nProteins: Meat, fish, tofu, beans. (Palm-sized amount).\nGrains: Rice, bread, quinoa.\nWater: Drink lots of water! (Aim for half your body weight in ounces, or just "8 glasses").\nAsk: "Does this \'Healthy Plate\' look different from how you usually eat? What is different?"',
+      },
+      {
+        title: 'Activity - "Food is Medicine"',
+        content: 'Do: Refer to "Appendix Page 5" (Food is Medicine).\nDiscussion: "Think about what you ate yesterday. Did you have any vegetables? Did you drink enough water? What is one small change you can make tomorrow?"\nAsk: "Does anyone have a healthy recipe they want to share with the group?"',
+      },
+    ],
+  },
+  {
+    id: "5E",
+    title: "Wellness Plan Activity",
+    duration: "25 Minutes",
+    icon: ClipboardList,
+    goal: "Create a personal plan for when things get hard.",
+    steps: [
+      {
+        title: "The Concept",
+        instruction: 'Say: "When we are stressed, we often forget how to take care of ourselves. We are going to write down a \'Cheat Sheet\' for ourselves."\nAsk: "Why do you think we forget to take care of ourselves when we are stressed?"',
+      },
+      {
+        title: "The Writing Exercise",
+        instruction: 'Do: Ask participants to write down or think about answers to these 5 sentences:\n\n"When I feel SAD, I will..." (Example: Call a friend, cry, listen to music)\n"When I feel LONELY, I will..."\n"When I feel HOMESICK, I will..."\n"When I feel ANGRY, I will..."\n"When I feel SCARED, I will..."',
+      },
+      {
+        title: "Sharing",
+        instruction: 'Ask: "Would anyone like to share one of their answers?"\nAsk: "How can we support our friends when they feel this way?" (Example: Drop off a meal, check in).',
+      },
+    ],
+  },
+  {
+    id: "5F",
+    title: "Home Practice & Closing",
+    duration: "5 Minutes",
+    icon: Repeat,
+    goal: "Give homework and Goodbye.",
+    steps: [
+      {
+        title: "Homework",
+        instruction: 'Movement: "Try to move your body every day (walk, stretch, dance)."\nRecipe: "Think of a favorite family recipe. Who taught it to you? Why is it special? Write it down or just think about the memory."',
+      },
+      {
+        title: "Closing",
+        instruction: 'Say: "Thank you for moving and learning with us today. Remember to drink water and be kind to your body!"',
+      },
+    ],
+  },
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -327,11 +448,12 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-3" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+          <Tabs defaultValue="session-5" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="session-2">Session 2</TabsTrigger>
               <TabsTrigger value="session-3">Session 3</TabsTrigger>
               <TabsTrigger value="session-4">Session 4</TabsTrigger>
+              <TabsTrigger value="session-5">Session 5</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -442,6 +564,44 @@ export default function RohingyaClassReportPage() {
                 ))}
               </div>
             </TabsContent>
+            <TabsContent value="session-5" className="mt-6">
+               <div className="space-y-6">
+                {session5CheatSheet.map((section, index) => (
+                  <React.Fragment key={section.id}>
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                          <div>
+                            <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                            <CardDescription>{section.duration}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                          <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                          <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {section.steps?.map((step, stepIndex) => (
+                           <div key={stepIndex} className="pl-4">
+                              {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                           </div>
+                        ))}
+                        {section.parts?.map((part, partIndex) => (
+                          <div key={partIndex} className="pl-4">
+                             <p className="font-semibold text-sm mb-1">{part.title}</p>
+                             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                    {index < session5CheatSheet.length - 1 && <Separator />}
+                  </React.Fragment>
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -452,5 +612,3 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
-
-    
