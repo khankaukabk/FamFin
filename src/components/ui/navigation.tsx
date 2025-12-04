@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart } from "lucide-react";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -24,6 +24,8 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+
 
   React.useEffect(() => {
     if (!isUserLoading && !user) {
@@ -38,7 +40,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
   };
 
   const closeSheet = () => {
-    // We don't need to do anything here anymore with SheetClose
+    setIsSheetOpen(false);
   };
 
   if (isUserLoading || !user) {
@@ -60,6 +62,9 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
       </NavLink>
       <NavLink href="/dashboard" onClick={closeSheet}>
         <LayoutDashboard className="mr-3" /> Dashboard
+      </NavLink>
+       <NavLink href="/healthcare/kaukab-safura" onClick={closeSheet}>
+        <Heart className="mr-3" /> Healthcare
       </NavLink>
        <NavLink href="/table-tennis" onClick={closeSheet}>
         <Gamepad2 className="mr-3" /> Table Tennis
@@ -99,7 +104,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="h-10 w-10">
                     <Menu className="h-5 w-5" />
@@ -113,6 +118,11 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                 <div className="p-4 flex flex-col justify-between h-[calc(100%-81px)]">
                     <div className="flex flex-col gap-1">
                         {navLinks}
+                        <Separator className="my-2" />
+                        <p className="px-4 text-sm font-semibold text-muted-foreground">Other Healthcare</p>
+                        <NavLink href="/healthcare/aminuddin" onClick={closeSheet}>
+                            <Users className="mr-3" /> Aminuddin's Plan
+                        </NavLink>
                     </div>
                     <SheetClose asChild>
                       <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-lg py-6 text-muted-foreground">
