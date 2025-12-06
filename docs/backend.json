@@ -288,6 +288,62 @@
         "endTime",
         "duration"
       ]
+    },
+    "Refund": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Refund",
+      "type": "object",
+      "description": "Represents a product return and its refund status.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the refund."
+        },
+        "orderNumber": {
+          "type": "string",
+          "description": "The order number associated with the returned item."
+        },
+        "store": {
+          "type": "string",
+          "description": "The store where the item was purchased (e.g., Amazon, Shein)."
+        },
+        "itemDescription": {
+          "type": "string",
+          "description": "A description of the item being returned."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The expected refund amount."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the refund.",
+          "enum": [
+            "Pending",
+            "Refunded",
+            "Shipped",
+            "Rejected"
+          ]
+        },
+        "returnDate": {
+          "type": "string",
+          "description": "The date the item was returned.",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes about the return."
+        }
+      },
+      "required": [
+        "id",
+        "orderNumber",
+        "store",
+        "itemDescription",
+        "amount",
+        "status",
+        "returnDate"
+      ]
     }
   },
   "auth": {
@@ -401,9 +457,23 @@
             }
           ]
         }
+      },
+      {
+        "path": "refunds/{refundId}",
+        "definition": {
+          "entityName": "Refund",
+          "schema": {
+            "$ref": "#/backend/entities/Refund"
+          },
+          "description": "Stores records of returned items and their refund status.",
+          "params": [
+            {
+              "name": "refundId",
+              "description": "The unique identifier for the refund entry."
+            }
+          ]
+        }
       }
     ]
   }
 }
-
-    
