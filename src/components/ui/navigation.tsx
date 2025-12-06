@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
@@ -112,24 +113,26 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                     <span className="sr-only">Toggle Navigation</span>
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full sm:w-[400px] bg-background/90 backdrop-blur-xl p-0">
+            <SheetContent side="left" className="w-full sm:w-[400px] bg-background/90 backdrop-blur-xl p-0 flex flex-col">
                 <SheetHeader className="p-6 border-b">
                     <SheetTitle className="font-headline text-2xl text-primary">Navigation</SheetTitle>
                 </SheetHeader>
-                <div className="p-4 flex flex-col justify-between h-[calc(100%-81px)]">
-                    <div className="flex flex-col gap-1">
-                        {navLinks}
-                        <Separator className="my-2" />
-                        <p className="px-4 text-sm font-semibold text-muted-foreground">Other Healthcare</p>
-                        <NavLink href="/healthcare/aminuddin" onClick={closeSheet}>
-                            <Users className="mr-3" /> Aminuddin's Plan
-                        </NavLink>
-                    </div>
-                    <SheetClose asChild>
-                      <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-lg py-6 text-muted-foreground">
-                          <LogOut className="mr-3" /> Sign Out
-                      </Button>
-                    </SheetClose>
+                <ScrollArea className="flex-1">
+                  <div className="p-4 flex flex-col gap-1">
+                      {navLinks}
+                      <Separator className="my-2" />
+                      <p className="px-4 text-sm font-semibold text-muted-foreground">Other Healthcare</p>
+                      <NavLink href="/healthcare/aminuddin" onClick={closeSheet}>
+                          <Users className="mr-3" /> Aminuddin's Plan
+                      </NavLink>
+                  </div>
+                </ScrollArea>
+                <div className="p-4 border-t">
+                  <SheetClose asChild>
+                    <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-lg py-6 text-muted-foreground">
+                        <LogOut className="mr-3" /> Sign Out
+                    </Button>
+                  </SheetClose>
                 </div>
             </SheetContent>
         </Sheet>
