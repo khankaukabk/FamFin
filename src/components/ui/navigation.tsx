@@ -22,6 +22,10 @@ const NavLink = ({ href, children, onClick }: { href: string; children: React.Re
   </SheetClose>
 );
 
+const NavGroupLabel = ({ children }: { children: React.ReactNode }) => (
+    <p className="px-4 pt-4 pb-2 text-sm font-semibold text-muted-foreground">{children}</p>
+);
+
 export function Navigation({ title, showRestartButton = false, onRestart, timer }: { title: string; showRestartButton?: boolean; onRestart?: () => void; timer?: string; }) {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
@@ -56,54 +60,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
     );
   }
   
-
-  const navLinks = (
-    <>
-      <NavLink href="/" onClick={closeSheet}>
-        <Home className="mr-3" /> Home
-      </NavLink>
-      <NavLink href="/dashboard" onClick={closeSheet}>
-        <LayoutDashboard className="mr-3" /> Dashboard
-      </NavLink>
-       <NavLink href="/healthcare/kaukab-safura" onClick={closeSheet}>
-        <Heart className="mr-3" /> Healthcare
-      </NavLink>
-       <NavLink href="/table-tennis" onClick={closeSheet}>
-        <Gamepad2 className="mr-3" /> Table Tennis
-      </NavLink>
-      <NavLink href="/six-qualities" onClick={closeSheet}>
-        <Star className="mr-3" /> Six Qualities
-      </NavLink>
-      <NavLink href="/medicare-roadmap" onClick={closeSheet}>
-        <Shield className="mr-3" /> Medicare
-      </NavLink>
-       <NavLink href="/ruma-personal-choice" onClick={closeSheet}>
-        <Briefcase className="mr-3" /> Ruma's Job
-      </NavLink>
-      <NavLink href="/tesla-2024" onClick={closeSheet}>
-        <Car className="mr-3" /> Tesla
-      </NavLink>
-      <NavLink href="/travel-plan" onClick={closeSheet}>
-        <Plane className="mr-3" /> Travel
-      </NavLink>
-      <NavLink href="/farm-business-plan" onClick={closeSheet}>
-        <Warehouse className="mr-3" /> Farm
-      </NavLink>
-      <NavLink href="/rohingya-class-report" onClick={closeSheet}>
-        <Users className="mr-3" /> Rohingya Report
-      </NavLink>
-      <NavLink href="/rohingya-attendance" onClick={closeSheet}>
-        <ClipboardCheck className="mr-3" /> Rohingya Attendance
-      </NavLink>
-       <NavLink href="/citizenship-test" onClick={closeSheet}>
-        <GraduationCap className="mr-3" /> Citizenship Test
-      </NavLink>
-      <NavLink href="/security-plus-test" onClick={closeSheet}>
-        <BookOpen className="mr-3" /> Security+ Test
-      </NavLink>
-    </>
-  );
-
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -119,12 +75,34 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                 </SheetHeader>
                 <ScrollArea className="flex-1">
                   <div className="p-4 flex flex-col gap-1">
-                      {navLinks}
+                      <NavGroupLabel>General</NavGroupLabel>
+                      <NavLink href="/" onClick={closeSheet}><Home className="mr-3" /> Home</NavLink>
+                      <NavLink href="/dashboard" onClick={closeSheet}><LayoutDashboard className="mr-3" /> Dashboard</NavLink>
+                      
                       <Separator className="my-2" />
-                      <p className="px-4 text-sm font-semibold text-muted-foreground">Other Healthcare</p>
-                      <NavLink href="/healthcare/aminuddin" onClick={closeSheet}>
-                          <Users className="mr-3" /> Aminuddin's Plan
-                      </NavLink>
+                      <NavGroupLabel>Family & Health</NavGroupLabel>
+                      <NavLink href="/healthcare/kaukab-safura" onClick={closeSheet}><Heart className="mr-3" /> Kaukab & Safura's Plan</NavLink>
+                      <NavLink href="/healthcare/aminuddin" onClick={closeSheet}><Users className="mr-3" /> Aminuddin's Plan</NavLink>
+                      <NavLink href="/ruma-personal-choice" onClick={closeSheet}><Briefcase className="mr-3" /> Ruma's Job</NavLink>
+                      <NavLink href="/medicare-roadmap" onClick={closeSheet}><Shield className="mr-3" /> Medicare Roadmap</NavLink>
+                      
+                      <Separator className="my-2" />
+                      <NavGroupLabel>Projects & Planning</NavGroupLabel>
+                      <NavLink href="/tesla-2024" onClick={closeSheet}><Car className="mr-3" /> Tesla Plan</NavLink>
+                      <NavLink href="/travel-plan" onClick={closeSheet}><Plane className="mr-3" /> Travel Plan</NavLink>
+                      <NavLink href="/farm-business-plan" onClick={closeSheet}><Warehouse className="mr-3" /> Farm Plan</NavLink>
+
+                      <Separator className="my-2" />
+                      <NavGroupLabel>Education & Community</NavGroupLabel>
+                      <NavLink href="/six-qualities" onClick={closeSheet}><Star className="mr-3" /> Six Qualities</NavLink>
+                      <NavLink href="/rohingya-class-report" onClick={closeSheet}><Users className="mr-3" /> Rohingya Report</NavLink>
+                      <NavLink href="/rohingya-attendance" onClick={closeSheet}><ClipboardCheck className="mr-3" /> Rohingya Attendance</NavLink>
+                      <NavLink href="/citizenship-test" onClick={closeSheet}><GraduationCap className="mr-3" /> Citizenship Test</NavLink>
+                      <NavLink href="/security-plus-test" onClick={closeSheet}><BookOpen className="mr-3" /> Security+ Test</NavLink>
+                      
+                      <Separator className="my-2" />
+                      <NavGroupLabel>Fun & Games</NavGroupLabel>
+                      <NavLink href="/table-tennis" onClick={closeSheet}><Gamepad2 className="mr-3" /> Table Tennis</NavLink>
                   </div>
                 </ScrollArea>
                 <div className="p-4 border-t">
