@@ -11,23 +11,6 @@
  * The data is organized hierarchically. A top-level 'families' collection
  * holds documents for each family unit. Each family document then contains
  * 'incomes' and 'expenses' subcollections.
- *
- * Key Security Decisions:
- * - Assumed Membership Field: These rules ASSUME that each document in the
- *   `/families/{familyId}` collection contains a `members` field which is an
- *   ARRAY of user UIDs. This field is CRITICAL for authorization and must be
- *   managed by the application logic. Without it, these rules will deny access.
- * - No Public Listing: Users cannot list or discover all families in the
- *   database. They can only access families they are explicitly members of.
- * - Subcollection Access via Parent: Security for subcollections (incomes,
- *   expenses) is inherited from the parent family document. Rules use a `get()`
- *   call to the parent to verify the requesting user's membership, ensuring
- *   that all data within a family's data tree is protected by a single source
- *   of truth.
- * - Relational Integrity: On creation, documents in subcollections must have a
- *   `familyId` field that correctly matches the `familyId` in their path.
- *   This field is enforced as immutable to prevent data from being moved
- *   between families.
  */
 rules_version = '2';
 service cloud.firestore {
@@ -147,6 +130,26 @@ service cloud.firestore {
       allow create: if isFamilyMember(familyId) && hasValidExpenseData(familyId);
       allow update: if isFamilyMember(familyId) && resource != null && hasImmutableExpenseFields();
       allow delete: if isFamilyMember(familyId) && resource != null;
+    }
+
+    match /taskMonths/{monthId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    match /refunds/{refundId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn();
+    }
+
+     match /hourLogs/{logId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn();
+    }
+
+    match /attendanceSessions/{sessionId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn();
     }
   }
 }
