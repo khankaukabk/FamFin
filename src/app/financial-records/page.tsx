@@ -48,6 +48,30 @@ const refundHistory = [
         status: "Pending",
         returnDate: "2025-12-10",
         notes: "Waiting on refund"
+    },
+    {
+        orderNumber: "112-5578454-0937824",
+        itemDescription: "Ray-Ban RB3717 Rectangular Sunglasses, Legend Gold/Polarized Blue, 60 mm",
+        amount: 146.88,
+        status: "Refunded",
+        returnDate: "2025-12-12",
+        notes: "Refund has been processed."
+    },
+    {
+        orderNumber: "112-1281513-4967466",
+        itemDescription: "Ray-Ban RB3796 003/R5 62MM Silver/Crystal Lens Blue Rectangular Sunglasses for Men for Women +BUNDLE with ACCESSORY EYEWEAR KIT",
+        amount: 165.02,
+        status: "Refunded",
+        returnDate: "2025-12-12",
+        notes: "Return complete."
+    },
+    {
+        orderNumber: "112-3955469-5837844",
+        itemDescription: "Ray-Ban RB3796 002/B1 59MM Black/Crystal Lens Dark Grey Rectangular Sunglasses for Men for Women +BUNDLE with ACCESSORY EYEWEAR KIT",
+        amount: 165.02,
+        status: "Refunded",
+        returnDate: "2025-12-12",
+        notes: "Return complete."
     }
 ];
 
