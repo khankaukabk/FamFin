@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const snippets = [
   {
-    title: "Firebase Auth & Workspace Errors",
+    title: "firebase-debug.log",
     category: "Firebase Debug Logs",
     code: `
 [error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
@@ -54,7 +54,7 @@ const snippets = [
 `
   },
   {
-    title: "Next.js Dynamic Page with Firebase Admin",
+    title: "src/app/news/[slug]/page.tsx",
     category: "Next.js / Firebase",
     code: `
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -167,7 +167,7 @@ export default async function NewsArticlePage({ params }: Props) {
 `
   },
   {
-    title: "Next.js News Page (Client-side Fetching)",
+    title: "src/app/news/page.tsx",
     category: "Next.js / Firebase",
     code: `
 import type { Metadata } from 'next';
@@ -200,7 +200,7 @@ export default function NewsPage() {
 `
   },
   {
-    title: "Firestore Security Rules Example",
+    title: "firestore.rules",
     category: "Firebase",
     code: `
 rules_version = '2';
