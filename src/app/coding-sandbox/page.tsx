@@ -269,16 +269,6 @@ service cloud.firestore {
   }
 }
 `
-  },
-  {
-    title: "very nice it is working. if it mess up ac 17b540b",
-    category: "Commit History",
-    code: `
-firebase-debug.log
-src/app/news/[slug]/page.tsx
-firestore.rules
-src/app/news/page.tsx
-`
   }
 ];
 
