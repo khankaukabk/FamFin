@@ -33,6 +33,14 @@ const refundHistory = [
         status: "Pending",
         returnDate: "2025-11-20",
         notes: "Empty box received. Waiting on refund."
+    },
+    {
+        orderNumber: "114-1234567-8901234",
+        itemDescription: "Ray-Ban Mens RB3527 Rectangular Sunglasses, Matte Black/Dark Green, 61 mm",
+        amount: 101.66,
+        status: "Pending",
+        returnDate: "2025-12-07",
+        notes: "Waiting on refund."
     }
 ];
 
