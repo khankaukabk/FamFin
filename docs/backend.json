@@ -4,7 +4,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Family",
       "type": "object",
-      "description": "Represents a family unit and its overall financial status.",
+      "description": "Represents a family unit that tracks their combined financial data.",
       "properties": {
         "id": {
           "type": "string",
@@ -12,16 +12,18 @@
         },
         "name": {
           "type": "string",
-          "description": "Name of the family."
+          "description": "The name of the family."
         },
-        "description": {
+        "createdAt": {
           "type": "string",
-          "description": "A brief description of the family or its financial goals."
+          "description": "Date and time when the family record was created.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
-        "name"
+        "name",
+        "createdAt"
       ]
     },
     "Income": {
@@ -40,16 +42,20 @@
         },
         "source": {
           "type": "string",
-          "description": "Source of the income (e.g., salary, investment)."
+          "description": "The source of the income (e.g., salary, investment)."
         },
         "amount": {
           "type": "number",
-          "description": "Amount of income received."
+          "description": "The amount of income received."
         },
         "date": {
           "type": "string",
-          "description": "Date when the income was received.",
+          "description": "The date the income was received.",
           "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the income."
         }
       },
       "required": [
@@ -76,15 +82,15 @@
         },
         "category": {
           "type": "string",
-          "description": "Category of the expense (e.g., rent, groceries)."
+          "description": "The category of the expense (e.g., rent, food, entertainment)."
         },
         "amount": {
           "type": "number",
-          "description": "Amount of the expense."
+          "description": "The amount of the expense."
         },
         "date": {
           "type": "string",
-          "description": "Date when the expense was incurred.",
+          "description": "The date the expense was incurred.",
           "format": "date-time"
         },
         "description": {
@@ -99,251 +105,6 @@
         "amount",
         "date"
       ]
-    },
-    "AttendanceSession": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "AttendanceSession",
-      "type": "object",
-      "description": "Represents a single attendance session for the Rohingya Wellness Group.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the session."
-        },
-        "date": {
-          "type": "string",
-          "description": "The date of the session.",
-          "format": "date-time"
-        },
-        "sessionNumber": {
-          "type": "number",
-          "description": "The sequential number of the session."
-        },
-        "attendance": {
-          "type": "object",
-          "description": "A map of member names to their attendance status (true for present, false for absent).",
-          "additionalProperties": {
-            "type": "boolean"
-          }
-        }
-      },
-      "required": [
-        "id",
-        "date",
-        "sessionNumber",
-        "attendance"
-      ]
-    },
-    "TaskMonth": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "TaskMonth",
-      "type": "object",
-      "description": "Represents all tasks for a specific month.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the month's tasks (e.g., 'november-2024')."
-        },
-        "title": {
-          "type": "string",
-          "description": "The display title for the month (e.g., 'November Tasks')."
-        },
-        "weeks": {
-          "type": "array",
-          "description": "An array of weekly task lists.",
-          "items": {
-            "$ref": "#/backend/entities/WeeklyTasks"
-          }
-        }
-      },
-      "required": [
-        "id",
-        "title",
-        "weeks"
-      ]
-    },
-    "WeeklyTasks": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "WeeklyTasks",
-      "type": "object",
-      "description": "A collection of tasks for a specific week.",
-      "properties": {
-        "week": {
-          "type": "string",
-          "description": "The week identifier (e.g., 'Week 1')."
-        },
-        "dates": {
-          "type": "string",
-          "description": "The date range for the week (e.g., 'November 1-7')."
-        },
-        "tasks": {
-          "type": "array",
-          "description": "The list of tasks for the week.",
-          "items": {
-            "$ref": "#/backend/entities/Task"
-          }
-        }
-      },
-      "required": [
-        "week",
-        "dates",
-        "tasks"
-      ]
-    },
-    "Task": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Task",
-      "type": "object",
-      "description": "Represents a single task item.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the task."
-        },
-        "icon": {
-          "type": "string",
-          "description": "The name of the lucide-react icon for the task."
-        },
-        "title": {
-          "type": "string",
-          "description": "The title of the task."
-        },
-        "description": {
-          "type": "string",
-          "description": "A brief description of the task."
-        },
-        "completed": {
-          "type": "boolean",
-          "description": "The completion status of the task."
-        }
-      },
-      "required": [
-        "id",
-        "icon",
-        "title",
-        "description",
-        "completed"
-      ]
-    },
-    "UserProfile": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserProfile",
-      "type": "object",
-      "description": "Represents a user's profile.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user, typically the auth UID."
-        },
-        "displayName": {
-          "type": "string",
-          "description": "The user's display name."
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "The user's email address."
-        }
-      },
-      "required": [
-        "id"
-      ]
-    },
-    "HourLog": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "HourLog",
-      "type": "object",
-      "description": "Represents a single entry in the hour log for Ruma's job.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the log entry."
-        },
-        "date": {
-          "type": "string",
-          "description": "The date the hours were worked.",
-          "format": "date-time"
-        },
-        "startTime": {
-          "type": "string",
-          "description": "The start time of the work shift."
-        },
-        "endTime": {
-          "type": "string",
-          "description": "The end time of the work shift."
-        },
-        "duration": {
-          "type": "number",
-          "description": "The total number of hours worked, calculated from start and end times."
-        },
-        "notes": {
-          "type": "string",
-          "description": "Any notes related to the work done."
-        }
-      },
-      "required": [
-        "id",
-        "date",
-        "startTime",
-        "endTime",
-        "duration"
-      ]
-    },
-    "Refund": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Refund",
-      "type": "object",
-      "description": "Represents a product return and its refund status.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the refund."
-        },
-        "orderNumber": {
-          "type": "string",
-          "description": "The order number associated with the returned item."
-        },
-        "store": {
-          "type": "string",
-          "description": "The store where the item was purchased (e.g., Amazon, Shein)."
-        },
-        "itemDescription": {
-          "type": "string",
-          "description": "A description of the item being returned."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The expected refund amount."
-        },
-        "status": {
-          "type": "string",
-          "description": "The current status of the refund.",
-          "enum": [
-            "Pending",
-            "Refunded",
-            "Shipped",
-            "Rejected"
-          ]
-        },
-        "returnDate": {
-          "type": "string",
-          "description": "The date the item was returned.",
-          "format": "date-time"
-        },
-        "notes": {
-          "type": "string",
-          "description": "Optional notes about the return."
-        }
-      },
-      "required": [
-        "id",
-        "orderNumber",
-        "store",
-        "itemDescription",
-        "amount",
-        "status",
-        "returnDate"
-      ]
     }
   },
   "auth": {
@@ -355,13 +116,13 @@
   "firestore": {
     "structure": [
       {
-        "path": "families/{familyId}",
+        "path": "/families/{familyId}",
         "definition": {
           "entityName": "Family",
           "schema": {
             "$ref": "#/backend/entities/Family"
           },
-          "description": "Stores family profiles.",
+          "description": "Stores family data. Includes denormalized 'familyId' for authorization independence.",
           "params": [
             {
               "name": "familyId",
@@ -371,13 +132,13 @@
         }
       },
       {
-        "path": "families/{familyId}/incomes/{incomeId}",
+        "path": "/families/{familyId}/incomes/{incomeId}",
         "definition": {
           "entityName": "Income",
           "schema": {
             "$ref": "#/backend/entities/Income"
           },
-          "description": "Stores income records for a specific family.",
+          "description": "Stores income data for a specific family. Includes denormalized 'familyId' for authorization independence.",
           "params": [
             {
               "name": "familyId",
@@ -391,13 +152,13 @@
         }
       },
       {
-        "path": "families/{familyId}/expenses/{expenseId}",
+        "path": "/families/{familyId}/expenses/{expenseId}",
         "definition": {
           "entityName": "Expense",
           "schema": {
             "$ref": "#/backend/entities/Expense"
           },
-          "description": "Stores expense records for a specific family.",
+          "description": "Stores expense data for a specific family. Includes denormalized 'familyId' for authorization independence.",
           "params": [
             {
               "name": "familyId",
@@ -409,71 +170,8 @@
             }
           ]
         }
-      },
-      {
-        "path": "attendanceSessions/{sessionId}",
-        "definition": {
-          "entityName": "AttendanceSession",
-          "schema": {
-            "$ref": "#/backend/entities/AttendanceSession"
-          },
-          "description": "Stores attendance records for the Rohingya Wellness Group.",
-          "params": [
-            {
-              "name": "sessionId",
-              "description": "The unique identifier for the attendance session."
-            }
-          ]
-        }
-      },
-      {
-        "path": "taskMonths/{monthId}",
-        "definition": {
-          "entityName": "TaskMonth",
-          "schema": {
-            "$ref": "#/backend/entities/TaskMonth"
-          },
-          "description": "Stores all tasks for a given month.",
-          "params": [
-            {
-              "name": "monthId",
-              "description": "The unique identifier for the month's tasks (e.g., 'november-2024')."
-            }
-          ]
-        }
-      },
-      {
-        "path": "hourLogs/{logId}",
-        "definition": {
-          "entityName": "HourLog",
-          "schema": {
-            "$ref": "#/backend/entities/HourLog"
-          },
-          "description": "Stores hour log entries for Ruma's job.",
-          "params": [
-            {
-              "name": "logId",
-              "description": "The unique identifier for the hour log entry."
-            }
-          ]
-        }
-      },
-      {
-        "path": "refunds/{refundId}",
-        "definition": {
-          "entityName": "Refund",
-          "schema": {
-            "$ref": "#/backend/entities/Refund"
-          },
-          "description": "Stores records of returned items and their refund status.",
-          "params": [
-            {
-              "name": "refundId",
-              "description": "The unique identifier for the refund entry."
-            }
-          ]
-        }
       }
-    ]
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, following the principles of Authorization Independence, Clarity of Intent, DBAC, and QAPs. Authorization Independence is achieved through denormalization. Specifically, the `familyId` is copied into `incomes` and `expenses`, removing the need for `get()` calls in security rules and enabling atomic operations. Structural Segregation is maintained by dedicating collections to distinct data types (`families`, `incomes`, `expenses`). Access Modeling standardizes authorization, with user-owned data residing under the `/families/{familyId}` path, and collaborative data utilizing the membership map pattern (although a membership map isn't explicitly implemented here, the `familyId` serves a similar purpose). QAPs are supported through structural segregation, allowing secure listing of resources within a family's scope. Finally, invariants such as ownership and timestamps can be readily enforced using this structure.\n\nSpecifically:\n*   The `families` collection stores family-level data.\n*   The `families/{familyId}/incomes` subcollection stores income records associated with a specific family. The `familyId` is denormalized to maintain authorization independence.\n*   The `families/{familyId}/expenses` subcollection stores expense records associated with a specific family. The `familyId` is denormalized to maintain authorization independence."
   }
 }

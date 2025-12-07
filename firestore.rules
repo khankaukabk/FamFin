@@ -1,173 +1,152 @@
 /**
- * @fileoverview Firestore Security Rules for the financial management application.
+ * This ruleset enforces a collaborative, family-centric security model for a
+ * personal finance application.
  *
  * Core Philosophy:
- * This ruleset enforces a strict family-ownership model. Each family has its own
- * data tree, and only authenticated users can access data within their own family.
+ * Access to data is controlled at the "family" level. A user can only access
+ * financial records (incomes, expenses) if they are a member of the family
+ * associated with that data. All operations require user authentication.
  *
  * Data Structure:
- * - /families/{familyId}: Stores family profiles. Only authenticated users can
- *   create, read, update, or delete their own family profile.
- * - /families/{familyId}/incomes/{incomeId}: Stores income records for a
- *   specific family. Only members of the parent family can manage income records.
- * - /families/{familyId}/expenses/{expenseId}: Stores expense records for a
- *   specific family. Only members of the parent family can manage expense records.
+ * The data is organized hierarchically. A top-level 'families' collection
+ * holds documents for each family unit. Each family document then contains
+ * 'incomes' and 'expenses' subcollections.
  *
  * Key Security Decisions:
- * - All write operations require authentication (`request.auth != null`).
- * - Only the owner of a family can read, update, or delete it.
- * - Income and expenses are secured by path-based ownership.
- *
- * Denormalization for Authorization:
- * The `familyId` is included within the `Income` and `Expense` documents to
- * allow for easy enforcement of path-based ownership. This avoids the need to
- * perform expensive `get()` operations to verify the parent family.
+ * - Assumed Membership Field: These rules ASSUME that each document in the
+ *   `/families/{familyId}` collection contains a `members` field which is an
+ *   ARRAY of user UIDs. This field is CRITICAL for authorization and must be
+ *   managed by the application logic. Without it, these rules will deny access.
+ * - No Public Listing: Users cannot list or discover all families in the
+ *   database. They can only access families they are explicitly members of.
+ * - Subcollection Access via Parent: Security for subcollections (incomes,
+ *   expenses) is inherited from the parent family document. Rules use a `get()`
+ *   call to the parent to verify the requesting user's membership, ensuring
+ *   that all data within a family's data tree is protected by a single source
+ *   of truth.
+ * - Relational Integrity: On creation, documents in subcollections must have a
+ *   `familyId` field that correctly matches the `familyId` in their path.
+ *   This field is enforced as immutable to prevent data from being moved
+ *   between families.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // ------------------------------------------------------------------------
+    // Helper Functions
+    // ------------------------------------------------------------------------
+
     /**
-     * @description Manages access to family profiles.
+     * Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Checks if the requesting user is a member of the specified family.
+     * This is the primary authorization check for all read/write operations.
+     * It relies on a `members` array being denormalized on the family document.
+     */
+    function isFamilyMember(familyId) {
+      return isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/families/$(familyId)).data.members;
+    }
+
+    /**
+     * Validates that the user is creating a family and is including themselves
+     * as one of the initial members. Also enforces relational integrity.
+     */
+    function isCreatingOwnFamily() {
+      return isSignedIn()
+        && request.auth.uid in request.resource.data.members;
+    }
+    
+    /**
+     * Validates incoming data for a new income document, ensuring the
+     * denormalized familyId matches the document's path.
+     */
+    function hasValidIncomeData(familyId) {
+      return request.resource.data.familyId == familyId;
+    }
+
+    /**
+     * Validates incoming data for a new expense document, ensuring the
+     * denormalized familyId matches the document's path.
+     */
+    function hasValidExpenseData(familyId) {
+      return request.resource.data.familyId == familyId;
+    }
+
+    /**
+     * Ensures critical relational fields on an existing income document cannot
+     * be changed after creation.
+     */
+    function hasImmutableIncomeFields() {
+      return request.resource.data.familyId == resource.data.familyId;
+    }
+
+    /**
+     * Ensures critical relational fields on an existing expense document cannot
+     * be changed after creation.
+     */
+    function hasImmutableExpenseFields() {
+      return request.resource.data.familyId == resource.data.familyId;
+    }
+
+    // ------------------------------------------------------------------------
+    // Collection Rules
+    // ------------------------------------------------------------------------
+
+    /**
+     * @description Controls access to Family documents.
      * @path /families/{familyId}
-     * @allow (create) User with auth UID 'user_abc' can create a family document with ID 'user_abc'.
-     * @deny (create) User with auth UID 'user_xyz' cannot create a family document with ID 'user_abc'.
-     * @allow (get) User with auth UID 'user_abc' can read a family document with ID 'user_abc'.
-     * @deny (get) User with auth UID 'user_xyz' cannot read a family document with ID 'user_abc'.
-     * @allow (update) User with auth UID 'user_abc' can update a family document with ID 'user_abc'.
-     * @deny (update) User with auth UID 'user_xyz' cannot update a family document with ID 'user_abc'.
-     * @allow (delete) User with auth UID 'user_abc' can delete a family document with ID 'user_abc'.
-     * @deny (delete) User with auth UID 'user_xyz' cannot delete a family document with ID 'user_abc'.
-     * @principle Enforces document ownership for all operations on family profiles.
+     * @allow (get) A user can read a family document if their UID is in the `members` array.
+     * @allow (create) An authenticated user can create a family if they include their own UID in the `members` array.
+     * @deny (list) Users cannot list all families in the database.
+     * @deny (update) A user who is not in the `members` array cannot update the family.
+     * @principle Enforces collaborative ownership based on a denormalized `members` list.
      */
     match /families/{familyId} {
-      // Function to check if the user is signed in
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      // Function to check if the user is the owner of the family
-      function isOwner(familyId) {
-        return isSignedIn() && request.auth.uid == familyId;
-      }
-
-      // Function to check if the user is the owner of the family and the resource exists
-      function isExistingOwner(familyId) {
-        return isOwner(familyId) && resource != null;
-      }
-
-      allow get: if isOwner(familyId);
-      allow list: if false; // Listing families is not allowed.
-      allow create: if isOwner(familyId);
-      allow update: if isExistingOwner(familyId);
-      allow delete: if isExistingOwner(familyId);
+      allow get: if isFamilyMember(familyId);
+      allow list: if false;
+      allow create: if isCreatingOwnFamily();
+      allow update: if isFamilyMember(familyId) && resource != null;
+      allow delete: if isFamilyMember(familyId) && resource != null;
     }
 
     /**
-     * @description Manages access to income records within a specific family.
+     * @description Controls access to a family's income records.
      * @path /families/{familyId}/incomes/{incomeId}
-     * @allow (create) User with auth UID 'user_abc' can create an income document in family 'user_abc'.
-     * @deny (create) User with auth UID 'user_xyz' cannot create an income document in family 'user_abc'.
-     * @allow (get) User with auth UID 'user_abc' can read an income document in family 'user_abc'.
-     * @deny (get) User with auth UID 'user_xyz' cannot read an income document in family 'user_abc'.
-     * @allow (update) User with auth UID 'user_abc' can update an income document in family 'user_abc'.
-     * @deny (update) User with auth UID 'user_xyz' cannot update an income document in family 'user_abc'.
-     * @allow (delete) User with auth UID 'user_abc' can delete an income document in family 'user_abc'.
-     * @deny (delete) User with auth UID 'user_xyz' cannot delete an income document in family 'user_abc'.
-     * @principle Enforces path-based ownership for income records.
+     * @allow (get, list) A member of a family can read and list all income records for that family.
+     * @allow (create) A family member can create a new income record for their family.
+     * @deny (create) A user cannot create an income record for a family they do not belong to.
+     * @deny (update) A user cannot update an income record for a family they do not belong to.
+     * @principle Inherits access control from the parent family document to protect child data.
      */
     match /families/{familyId}/incomes/{incomeId} {
-      // Function to check if the user is signed in
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      // Function to check if the user is the owner of the family
-      function isOwner(familyId) {
-        return isSignedIn() && request.auth.uid == familyId;
-      }
-
-      // Function to check if the user is the owner of the family and the resource exists
-      function isExistingOwner(familyId) {
-        return isOwner(familyId) && resource != null;
-      }
-      allow get: if isOwner(familyId);
-      allow list: if isOwner(familyId);
-      allow create: if isOwner(familyId) && request.resource.data.familyId == familyId;
-      allow update: if isExistingOwner(familyId) && request.resource.data.familyId == resource.data.familyId;
-      allow delete: if isExistingOwner(familyId);
+      allow get: if isFamilyMember(familyId);
+      allow list: if isFamilyMember(familyId);
+      allow create: if isFamilyMember(familyId) && hasValidIncomeData(familyId);
+      allow update: if isFamilyMember(familyId) && resource != null && hasImmutableIncomeFields();
+      allow delete: if isFamilyMember(familyId) && resource != null;
     }
 
     /**
-     * @description Manages access to expense records within a specific family.
+     * @description Controls access to a family's expense records.
      * @path /families/{familyId}/expenses/{expenseId}
-     * @allow (create) User with auth UID 'user_abc' can create an expense document in family 'user_abc'.
-     * @deny (create) User with auth UID 'user_xyz' cannot create an expense document in family 'user_abc'.
-     * @allow (get) User with auth UID 'user_abc' can read an expense document in family 'user_abc'.
-     * @deny (get) User with auth UID 'user_xyz' cannot read an expense document in family 'user_abc'.
-     * @allow (update) User with auth UID 'user_abc' can update an expense document in family 'user_abc'.
-     * @deny (update) User with auth UID 'user_xyz' cannot update an expense document in family 'user_abc'.
-     * @allow (delete) User with auth UID 'user_abc' can delete an expense document in family 'user_abc'.
-     * @deny (delete) User with auth UID 'user_xyz' cannot delete an expense document in family 'user_abc'.
-     * @principle Enforces path-based ownership for expense records.
+     * @allow (get, list) A member of a family can read and list all expense records for that family.
+     * @allow (create) A family member can create a new expense record for their family.
+     * @deny (create) A user cannot create an expense record for a family they do not belong to.
+     * @deny (update) A user cannot update an expense record for a family they do not belong to.
+     * @principle Inherits access control from the parent family document to protect child data.
      */
     match /families/{familyId}/expenses/{expenseId} {
-      // Function to check if the user is signed in
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      // Function to check if the user is the owner of the family
-      function isOwner(familyId) {
-        return isSignedIn() && request.auth.uid == familyId;
-      }
-
-      // Function to check if the user is the owner of the family and the resource exists
-      function isExistingOwner(familyId) {
-        return isOwner(familyId) && resource != null;
-      }
-
-      allow get: if isOwner(familyId);
-      allow list: if isOwner(familyId);
-      allow create: if isOwner(familyId) && request.resource.data.familyId == familyId;
-      allow update: if isExistingOwner(familyId) && request.resource.data.familyId == resource.data.familyId;
-      allow delete: if isExistingOwner(familyId);
-    }
-    
-    /**
-     * @description Manages access to attendance sessions.
-     * @path /attendanceSessions/{sessionId}
-     * @principle Any authenticated user can read or write to any session.
-     */
-     match /attendanceSessions/{sessionId} {
-      allow read, write: if request.auth != null;
-    }
-    
-    /**
-     * @description Manages access to monthly task lists.
-     * @path /taskMonths/{monthId}
-     * @principle Any authenticated user can read or write to any task list.
-     */
-    match /taskMonths/{monthId} {
-       allow read, write: if request.auth != null;
-    }
-
-    /**
-     * @description Manages access to the hour log for Ruma's job.
-     * @path /hourLogs/{logId}
-     * @principle Any authenticated user can read or write to any hour log entry.
-     */
-    match /hourLogs/{logId} {
-      allow read, write: if request.auth != null;
-    }
-
-    /**
-     * @description Manages access to refund tracking records.
-     * @path /refunds/{refundId}
-     * @principle Any authenticated user can read or write to any refund entry.
-     */
-    match /refunds/{refundId} {
-      allow read, write: if request.auth != null;
+      allow get: if isFamilyMember(familyId);
+      allow list: if isFamilyMember(familyId);
+      allow create: if isFamilyMember(familyId) && hasValidExpenseData(familyId);
+      allow update: if isFamilyMember(familyId) && resource != null && hasImmutableExpenseFields();
+      allow delete: if isFamilyMember(familyId) && resource != null;
     }
   }
 }
