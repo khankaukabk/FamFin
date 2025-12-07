@@ -72,6 +72,14 @@ const refundHistory = [
         status: "Refunded",
         returnDate: "2025-12-12",
         notes: "Return complete."
+    },
+    {
+        orderNumber: "112-5035457-3259411",
+        itemDescription: "Ray-Ban RB3751CH Sunglasses, Black/Polarized Dark Grey, 61 mm",
+        amount: 187.49,
+        status: "Refunded",
+        returnDate: "2025-11-25",
+        notes: "Your return is complete. Your refund has been issued."
     }
 ];
 
