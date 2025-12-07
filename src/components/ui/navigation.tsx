@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code, DollarSign } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -79,6 +79,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavLink href="/" onClick={closeSheet}><Home className="mr-3" /> Home</NavLink>
                       <NavLink href="/dashboard" onClick={closeSheet}><LayoutDashboard className="mr-3" /> Dashboard</NavLink>
                       <NavLink href="/refund-tracker" onClick={closeSheet}><ArchiveRestore className="mr-3" /> Refund Tracker</NavLink>
+                      <NavLink href="/financial-records" onClick={closeSheet}><DollarSign className="mr-3" /> Financial Records</NavLink>
 
                       <Separator className="my-2" />
                       <NavGroupLabel>Family & Health</NavGroupLabel>
