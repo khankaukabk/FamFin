@@ -9,7 +9,7 @@ import {
   updateDoc,
   setDoc,
 } from 'firebase/firestore';
-import { setDocumentNonBlocking, updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { nanoid } from 'nanoid';
 
 export type Task = {
@@ -147,19 +147,21 @@ export async function initializeTasks(db: Firestore): Promise<void> {
     const docSnap = await getDoc(monthDocRef);
 
     if (!docSnap.exists()) {
-      // If doc doesn't exist, create it.
       await setDoc(monthDocRef, monthData);
     } else {
-      // If doc exists, merge new tasks.
       const existingData = docSnap.data() as TaskMonth;
       let needsUpdate = false;
 
-      const updatedWeeks = existingData.weeks.map((existingWeek, weekIndex) => {
-        const initialWeek = monthData.weeks.find(w => w.week === existingWeek.week);
-        if (!initialWeek) return existingWeek;
+      const updatedWeeks = monthData.weeks.map(initialWeek => {
+        const existingWeek = existingData.weeks.find(w => w.week === initialWeek.week);
+        
+        if (!existingWeek) {
+          needsUpdate = true;
+          return initialWeek;
+        }
 
-        const existingTaskIds = new Set(existingWeek.tasks.map(t => t.id));
-        const newTasks = initialWeek.tasks.filter(t => !existingTaskIds.has(t.id));
+        const existingTaskTitles = new Set(existingWeek.tasks.map(t => t.title));
+        const newTasks = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
 
         if (newTasks.length > 0) {
           needsUpdate = true;
@@ -168,6 +170,7 @@ export async function initializeTasks(db: Firestore): Promise<void> {
             tasks: [...existingWeek.tasks, ...newTasks]
           };
         }
+        
         return existingWeek;
       });
 
