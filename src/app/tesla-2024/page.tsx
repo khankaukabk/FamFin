@@ -12,6 +12,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 import { Navigation } from '@/components/ui/navigation';
 import { StatCard } from '@/components/stat-card';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 const receiptItems = [
     { description: 'Sentry UHP Tires (235/45 R18)', qty: 4, unitPrice: 75.00, amount: 300.00 },
@@ -28,6 +30,7 @@ const startDate = new Date('2024-05-14T00:00:00');
 const endDate = new Date('2027-05-13T00:00:00');
 
 export default function Tesla2024Page() {
+  const [isClient, setIsClient] = React.useState(false);
   const [countdown, setCountdown] = React.useState<{
     months: number;
     weeks: number;
@@ -41,8 +44,13 @@ export default function Tesla2024Page() {
     serviceDate: string;
   } | null>(null);
 
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   React.useEffect(() => {
+    if (!isClient) return;
+
     const calculateCountdown = () => {
       const today = new Date();
       
@@ -70,12 +78,14 @@ export default function Tesla2024Page() {
     };
 
     calculateCountdown();
-    const intervalId = setInterval(calculateCountdown, 1000);
+    const intervalId = setInterval(calculateCountdown, 1000 * 60); // Update every minute to reduce frequent re-renders
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [isClient]);
   
   React.useEffect(() => {
+    if (!isClient) return;
+
     const calculateRotation = () => {
         const today = new Date();
         const milesPerMonth = 2000;
@@ -96,10 +106,10 @@ export default function Tesla2024Page() {
     };
     
     calculateRotation();
-     const intervalId = setInterval(calculateRotation, 60000); // Recalculate every minute
+    const intervalId = setInterval(calculateRotation, 60000); // Recalculate every minute
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [isClient]);
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -181,10 +191,18 @@ export default function Tesla2024Page() {
                 <CardContent className="space-y-4">
                     <p className="text-center text-muted-foreground">You are halfway through your three-year span — 18 months down, 18 to go!</p>
                     <div>
-                        <Progress value={progress} className="h-4" />
+                        {isClient ? (
+                            <Progress value={progress} className="h-4" />
+                        ) : (
+                            <Skeleton className="h-4 w-full" />
+                        )}
                         <div className="flex justify-between text-xs text-muted-foreground mt-2">
                             <span>{format(startDate, 'MMM d, yyyy')}</span>
-                            <span className="font-semibold">{progress.toFixed(0)}% Complete</span>
+                             {isClient ? (
+                                <span className="font-semibold">{progress.toFixed(0)}% Complete</span>
+                            ) : (
+                                <Skeleton className="h-4 w-20" />
+                            )}
                             <span>{format(endDate, 'MMM d, yyyy')}</span>
                         </div>
                     </div>
@@ -199,17 +217,25 @@ export default function Tesla2024Page() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {countdown ? (
+                {isClient && countdown ? (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <StatCard icon={Hourglass} label="Months Remaining" value={`${countdown.months}`} />
                     <StatCard icon={Calendar} label="Weeks Remaining" value={`${countdown.weeks}`} />
                     <StatCard icon={Hourglass} label="Days Remaining" value={`${countdown.days}`} />
                   </div>
                 ) : (
-                  <p className="text-center text-muted-foreground">Calculating remaining time...</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <Skeleton className="h-24 w-full" />
+                      <Skeleton className="h-24 w-full" />
+                      <Skeleton className="h-24 w-full" />
+                  </div>
                 )}
                  <div className="mt-6 text-center text-sm text-muted-foreground bg-muted/50 p-3 rounded-md border">
-                    <p>From <strong className="font-semibold text-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold text-foreground">{format(endDate, 'MMMM d, yyyy')}</strong></p>
+                     {isClient && countdown ? (
+                        <p>From <strong className="font-semibold text-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong> to <strong className="font-semibold text-foreground">{format(endDate, 'MMMM d, yyyy')}</strong></p>
+                    ) : (
+                        <Skeleton className="h-5 w-3/4 mx-auto" />
+                    )}
                  </div>
               </CardContent>
             </Card>
@@ -222,20 +248,32 @@ export default function Tesla2024Page() {
                   </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
-                        <p className="text-sm font-semibold text-primary">NEXT SERVICE DUE AT</p>
-                        <p className="text-3xl font-bold text-foreground">22,367 mi</p>
-                    </div>
-                    <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 text-center">
-                        <p className="text-sm font-semibold text-yellow-600">EST. MILES REMAINING</p>
-                        <p className="text-3xl font-bold text-foreground">{rotationInfo ? `${rotationInfo.milesRemaining.toLocaleString()} mi` : '...'}</p>
-                    </div>
-                </div>
-                 <div className="bg-muted/50 border text-center rounded-lg p-4">
-                    <p className="font-semibold text-foreground">Estimated Service Date: {rotationInfo ? rotationInfo.serviceDate : '...'}</p>
-                    <p className="text-xs text-muted-foreground mt-1">Based on a current mileage of {rotationInfo ? rotationInfo.currentMileage.toLocaleString() : '...'} mi and an average of 2,000 miles/month.</p>
-                </div>
+                 {isClient && rotationInfo ? (
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
+                                <p className="text-sm font-semibold text-primary">NEXT SERVICE DUE AT</p>
+                                <p className="text-3xl font-bold text-foreground">22,367 mi</p>
+                            </div>
+                            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 text-center">
+                                <p className="text-sm font-semibold text-yellow-600">EST. MILES REMAINING</p>
+                                <p className="text-3xl font-bold text-foreground">{rotationInfo.milesRemaining.toLocaleString()} mi</p>
+                            </div>
+                        </div>
+                        <div className="bg-muted/50 border text-center rounded-lg p-4">
+                            <p className="font-semibold text-foreground">Estimated Service Date: {rotationInfo.serviceDate}</p>
+                            <p className="text-xs text-muted-foreground mt-1">Based on a current mileage of {rotationInfo.currentMileage.toLocaleString()} mi and an average of 2,000 miles/month.</p>
+                        </div>
+                    </>
+                 ) : (
+                     <div className="space-y-4">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Skeleton className="h-24 w-full" />
+                            <Skeleton className="h-24 w-full" />
+                         </div>
+                         <Skeleton className="h-16 w-full" />
+                     </div>
+                 )}
               </CardContent>
             </Card>
 
@@ -258,7 +296,11 @@ export default function Tesla2024Page() {
                        </div>
                        <div className="bg-muted/50 p-4 rounded-lg border">
                             <p className="text-sm font-semibold text-muted-foreground">Installation Date</p>
-                            <p className="text-lg font-medium text-foreground">{format(new Date(), 'MMMM d, yyyy')}</p>
+                            {isClient ? (
+                                <p className="text-lg font-medium text-foreground">{format(new Date(), 'MMMM d, yyyy')}</p>
+                            ) : (
+                                <Skeleton className="h-6 w-3/4 mt-1" />
+                            )}
                        </div>
                     </div>
                     <Table>
