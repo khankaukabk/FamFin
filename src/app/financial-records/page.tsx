@@ -21,7 +21,7 @@ const refundHistory = [
     {
         orderNumber: "113-0671246-9570651",
         itemDescription: "Ray-Ban RB3845 Explorer 5 Sunglasses, Gunmetal/Brown Polarized, 60 mm & Ray-Ban RB3755 Sunglasses, Gunmetal/Green Polarized, 62 mm",
-        amount: 0.00,
+        amount: 332.5,
         status: "Refunded",
         returnDate: "2025-11-18",
         notes: "Refund has been processed."
@@ -29,7 +29,7 @@ const refundHistory = [
     {
         orderNumber: "112-5192070-4834616",
         itemDescription: "Ray-Ban RB3737CH Chromance Rectangular Sunglasses, Black/Grey Gradient Polarized, 60 mm",
-        amount: 199.50,
+        amount: 199.5,
         status: "Pending",
         returnDate: "2025-11-20",
         notes: "Empty box received. Waiting on refund."
