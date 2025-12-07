@@ -147,8 +147,33 @@ export async function initializeTasks(db: Firestore): Promise<void> {
     const docSnap = await getDoc(monthDocRef);
 
     if (!docSnap.exists()) {
-      // Use setDocumentNonBlocking to avoid blocking the main thread
-      setDocumentNonBlocking(monthDocRef, monthData, {});
+      // If doc doesn't exist, create it.
+      await setDoc(monthDocRef, monthData);
+    } else {
+      // If doc exists, merge new tasks.
+      const existingData = docSnap.data() as TaskMonth;
+      let needsUpdate = false;
+
+      const updatedWeeks = existingData.weeks.map((existingWeek, weekIndex) => {
+        const initialWeek = monthData.weeks.find(w => w.week === existingWeek.week);
+        if (!initialWeek) return existingWeek;
+
+        const existingTaskIds = new Set(existingWeek.tasks.map(t => t.id));
+        const newTasks = initialWeek.tasks.filter(t => !existingTaskIds.has(t.id));
+
+        if (newTasks.length > 0) {
+          needsUpdate = true;
+          return {
+            ...existingWeek,
+            tasks: [...existingWeek.tasks, ...newTasks]
+          };
+        }
+        return existingWeek;
+      });
+
+      if (needsUpdate) {
+        await updateDoc(monthDocRef, { weeks: updatedWeeks });
+      }
     }
   }
 }
@@ -176,5 +201,3 @@ export async function toggleTaskCompletion(
     }
   }
 }
-
-    
