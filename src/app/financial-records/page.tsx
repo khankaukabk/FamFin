@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Package, Calendar, DollarSign, Info, Hourglass, CheckCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { nanoid } from "nanoid";
 
 const refundHistory = [
     {
@@ -34,11 +35,11 @@ const refundHistory = [
         notes: "Empty box received. Waiting on refund."
     },
     {
-        orderNumber: "114-1234567-8901234",
+        orderNumber: `114-${nanoid(7)}-${nanoid(7)}`,
         itemDescription: "Ray-Ban Mens RB3527 Rectangular Sunglasses, Matte Black/Dark Green, 61 mm",
         amount: 101.66,
         status: "Pending",
-        returnDate: "2025-12-07",
+        returnDate: new Date().toISOString().split('T')[0],
         notes: "Waiting on refund."
     },
     {
@@ -46,7 +47,7 @@ const refundHistory = [
         itemDescription: "Ray-Ban RB3684CH Chromance Rectangular Sunglasses, Black/Polarized Dark Grey, 58 mm",
         amount: 140.94,
         status: "Pending",
-        returnDate: "2025-12-10",
+        returnDate: new Date().toISOString().split('T')[0],
         notes: "Waiting on refund"
     },
     {
@@ -54,7 +55,7 @@ const refundHistory = [
         itemDescription: "Ray-Ban RB3717 Rectangular Sunglasses, Legend Gold/Polarized Blue, 60 mm",
         amount: 146.88,
         status: "Refunded",
-        returnDate: "2025-12-12",
+        returnDate: new Date().toISOString().split('T')[0],
         notes: "Refund has been processed."
     },
     {
@@ -62,7 +63,7 @@ const refundHistory = [
         itemDescription: "Ray-Ban RB3796 003/R5 62MM Silver/Crystal Lens Blue Rectangular Sunglasses for Men for Women +BUNDLE with ACCESSORY EYEWEAR KIT",
         amount: 165.02,
         status: "Refunded",
-        returnDate: "2025-12-12",
+        returnDate: new Date().toISOString().split('T')[0],
         notes: "Return complete."
     },
     {
@@ -70,7 +71,7 @@ const refundHistory = [
         itemDescription: "Ray-Ban RB3796 002/B1 59MM Black/Crystal Lens Dark Grey Rectangular Sunglasses for Men for Women +BUNDLE with ACCESSORY EYEWEAR KIT",
         amount: 165.02,
         status: "Refunded",
-        returnDate: "2025-12-12",
+        returnDate: new Date().toISOString().split('T')[0],
         notes: "Return complete."
     },
     {
@@ -78,54 +79,66 @@ const refundHistory = [
         itemDescription: "Ray-Ban RB3751CH Sunglasses, Black/Polarized Dark Grey, 61 mm",
         amount: 187.49,
         status: "Refunded",
-        returnDate: "2025-11-25",
+        returnDate: "2025-11-22",
         notes: "Your return is complete. Your refund has been issued."
     }
 ];
 
 const currencyFormatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
-const RefundCard = ({ refund }: { refund: typeof refundHistory[0] }) => (
-    <Card>
-        <CardContent className="pt-6">
-            <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                    <Package className="h-5 w-5 text-muted-foreground mt-1" />
-                    <div>
-                        <p className="font-semibold">Item(s)</p>
-                        <p className="text-muted-foreground">{refund.itemDescription}</p>
+const RefundCard = ({ refund }: { refund: typeof refundHistory[0] }) => {
+    const [displayDate, setDisplayDate] = React.useState('');
+
+    React.useEffect(() => {
+        // Ensure date formatting happens only on the client side to avoid hydration mismatch
+        const date = new Date(refund.returnDate);
+        // A simple fix for potential timezone issues if the date string is just 'YYYY-MM-DD'
+        const dateInCorrectTimezone = new Date(date.valueOf() + date.getTimezoneOffset() * 60 * 1000);
+        setDisplayDate(dateInCorrectTimezone.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+    }, [refund.returnDate]);
+
+    return (
+        <Card>
+            <CardContent className="pt-6">
+                <div className="space-y-4">
+                    <div className="flex items-start gap-4">
+                        <Package className="h-5 w-5 text-muted-foreground mt-1" />
+                        <div>
+                            <p className="font-semibold">Item(s)</p>
+                            <p className="text-muted-foreground">{refund.itemDescription}</p>
+                        </div>
                     </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <p className="font-semibold">Order #</p>
+                            <p className="text-muted-foreground">{refund.orderNumber}</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold">Return Date</p>
+                            <p className="text-muted-foreground">{displayDate || 'Loading...'}</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div>
+                            <p className="font-semibold">Status</p>
+                            <Badge variant={refund.status === 'Refunded' ? 'default' : 'outline'}>{refund.status}</Badge>
+                        </div>
+                        <div>
+                            <p className="font-semibold">Amount</p>
+                            <p className="text-green-600 font-bold">{currencyFormatter.format(refund.amount)}</p>
+                        </div>
+                    </div>
+                     {refund.notes && (
+                        <div>
+                            <p className="font-semibold">Notes</p>
+                            <p className="text-muted-foreground">{refund.notes}</p>
+                        </div>
+                     )}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <p className="font-semibold">Order #</p>
-                        <p className="text-muted-foreground">{refund.orderNumber}</p>
-                    </div>
-                    <div>
-                        <p className="font-semibold">Return Date</p>
-                        <p className="text-muted-foreground">{new Date(refund.returnDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <div>
-                        <p className="font-semibold">Status</p>
-                        <Badge variant={refund.status === 'Refunded' ? 'default' : 'outline'}>{refund.status}</Badge>
-                    </div>
-                    <div>
-                        <p className="font-semibold">Amount</p>
-                        <p className="text-green-600 font-bold">{currencyFormatter.format(refund.amount)}</p>
-                    </div>
-                </div>
-                 {refund.notes && (
-                    <div>
-                        <p className="font-semibold">Notes</p>
-                        <p className="text-muted-foreground">{refund.notes}</p>
-                    </div>
-                 )}
-            </div>
-        </CardContent>
-    </Card>
-);
+            </CardContent>
+        </Card>
+    );
+};
 
 export default function FinancialRecordsPage() {
     const waitingForRefund = refundHistory.filter(r => r.status === 'Pending' || r.status === 'Shipped');
