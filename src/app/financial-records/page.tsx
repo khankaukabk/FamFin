@@ -25,6 +25,14 @@ const refundHistory = [
         status: "Refunded",
         returnDate: "2025-11-18",
         notes: "Refund has been processed."
+    },
+    {
+        orderNumber: "112-5192070-4834616",
+        itemDescription: "Ray-Ban RB3737CH Chromance Rectangular Sunglasses, Black/Grey Gradient Polarized, 60 mm",
+        amount: 0.00,
+        status: "Pending",
+        returnDate: "2025-11-20",
+        notes: "Empty box received. Waiting on refund."
     }
 ];
 
