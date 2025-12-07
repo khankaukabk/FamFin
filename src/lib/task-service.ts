@@ -109,6 +109,8 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 2",
         dates: "December 8-14",
         tasks: [
+          { id: nanoid(), icon: "Send", title: "Proposal send to Pelham.", description: "Finalize and send the business proposal to Pelham.", completed: false },
+          { id: nanoid(), icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "Schedule a meeting to discuss the directorship role.", completed: false },
           { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
           { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
           { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
