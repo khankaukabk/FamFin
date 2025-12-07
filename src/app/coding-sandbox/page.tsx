@@ -53,7 +53,119 @@ const snippets = [
 [error] Failed to fetch Firebase Project from Studio Workspace because WORKSPACE_SLUG environment variable is empty
 `
   },
-  // You can add more snippets here in the future
+  {
+    title: "Next.js Dynamic Page with Firebase Admin",
+    category: "Next.js / Firebase",
+    code: `
+import type { Metadata, ResolvingMetadata } from 'next';
+import NewsArticleClientPage from './client-page';
+import { dbAdmin } from '@/lib/firebase-admin';
+import { Timestamp } from 'firebase-admin/firestore';
+import type { Story } from '@/lib/stories-data';
+
+type StoryWithDate = Omit<Story, 'date'> & {
+    date: Timestamp | string;
+};
+
+type Props = {
+  params: { slug: string }
+}
+
+async function getStoryData(slug: string): Promise<StoryWithDate | null> {
+  if (!dbAdmin) {
+      console.error("Admin SDK not available in getStoryData.");
+      return null;
+  }
+  try {
+    const storyDoc = await dbAdmin.collection("stories").doc(slug).get();
+    
+    if (!storyDoc.exists) {
+      return null;
+    }
+    
+    const data = storyDoc.data();
+    if (!data) return null;
+
+    const storyData: StoryWithDate = {
+      ...data,
+      id: storyDoc.id,
+      date: data.date instanceof Timestamp ? data.date.toDate().toISOString() : data.date.toString(),
+    } as StoryWithDate;
+
+    return storyData;
+
+  } catch (error) {
+    console.error("Error fetching story data with Admin SDK:", error);
+    return null;
+  }
+}
+
+export async function generateStaticParams() {
+    if (!dbAdmin) {
+        console.error("Admin SDK not available for generateStaticParams.");
+        return [];
+    }
+    try {
+        const storiesCollection = dbAdmin.collection("stories");
+        const storySnapshot = await storiesCollection.get();
+        const stories = storySnapshot.docs.map(doc => ({ slug: doc.id }));
+        return stories;
+    } catch (error) {
+        console.error("Error fetching stories for static params:", error);
+        return [];
+    }
+}
+
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+  const story = await getStoryData(slug);
+
+  if (!story) {
+    return {
+      title: 'Article Not Found',
+      description: 'The requested article could not be found.',
+    }
+  }
+
+  const parentMetadata = await parent;
+  
+  return {
+    title: story.title,
+    description: story.description,
+    openGraph: {
+      title: story.title,
+      description: story.description,
+      type: 'article',
+      publishedTime: story.date ? new Date(story.date as string).toISOString() : undefined,
+      authors: story.author ? [story.author] : [],
+      images: [
+        {
+          url: story.image,
+          width: 1200,
+          height: 630,
+          alt: story.title,
+        },
+      ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: story.title,
+        description: story.description,
+        images: [story.image],
+    }
+  }
+}
+
+export default async function NewsArticlePage({ params }: Props) {
+  const story = await getStoryData(params.slug);
+  return <NewsArticleClientPage initialStory={story} />;
+}
+`
+  }
 ];
 
 export default function CodingSandboxPage() {
@@ -125,4 +237,3 @@ export default function CodingSandboxPage() {
         </div>
     );
 }
-
