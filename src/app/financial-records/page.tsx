@@ -4,9 +4,8 @@
 import * as React from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Package, Calendar, DollarSign, Info } from "lucide-react";
+import { Package, Calendar, DollarSign, Info, Hourglass, CheckCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const refundHistory = [
@@ -54,7 +53,52 @@ const refundHistory = [
 
 const currencyFormatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
+const RefundCard = ({ refund }: { refund: typeof refundHistory[0] }) => (
+    <Card>
+        <CardContent className="pt-6">
+            <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                    <Package className="h-5 w-5 text-muted-foreground mt-1" />
+                    <div>
+                        <p className="font-semibold">Item(s)</p>
+                        <p className="text-muted-foreground">{refund.itemDescription}</p>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <p className="font-semibold">Order #</p>
+                        <p className="text-muted-foreground">{refund.orderNumber}</p>
+                    </div>
+                    <div>
+                        <p className="font-semibold">Return Date</p>
+                        <p className="text-muted-foreground">{new Date(refund.returnDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                     <div>
+                        <p className="font-semibold">Status</p>
+                        <Badge variant={refund.status === 'Refunded' ? 'default' : 'outline'}>{refund.status}</Badge>
+                    </div>
+                    <div>
+                        <p className="font-semibold">Amount</p>
+                        <p className="text-green-600 font-bold">{currencyFormatter.format(refund.amount)}</p>
+                    </div>
+                </div>
+                 {refund.notes && (
+                    <div>
+                        <p className="font-semibold">Notes</p>
+                        <p className="text-muted-foreground">{refund.notes}</p>
+                    </div>
+                 )}
+            </div>
+        </CardContent>
+    </Card>
+);
+
 export default function FinancialRecordsPage() {
+    const waitingForRefund = refundHistory.filter(r => r.status === 'Pending' || r.status === 'Shipped');
+    const refunded = refundHistory.filter(r => r.status === 'Refunded');
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Navigation title="Financial Records" />
@@ -63,49 +107,35 @@ export default function FinancialRecordsPage() {
                     <Card>
                         <CardHeader>
                             <CardTitle className="font-headline text-xl">Return History</CardTitle>
-                            <CardDescription>Details for recent returns.</CardDescription>
+                            <CardDescription>A log of all product returns and their status.</CardDescription>
                         </CardHeader>
                     </Card>
-
-                    {refundHistory.map((refund, index) => (
-                        <Card key={refund.orderNumber}>
-                            <CardContent className="pt-6">
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-4">
-                                        <Package className="h-5 w-5 text-muted-foreground" />
-                                        <div>
-                                            <p className="font-semibold">Item(s)</p>
-                                            <p className="text-muted-foreground">{refund.itemDescription}</p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <p className="font-semibold">Order #</p>
-                                            <p className="text-muted-foreground">{refund.orderNumber}</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">Return Date</p>
-                                            <p className="text-muted-foreground">{new Date(refund.returnDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                         <div>
-                                            <p className="font-semibold">Status</p>
-                                            <Badge variant={refund.status === 'Refunded' ? 'default' : 'outline'}>{refund.status}</Badge>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">Amount</p>
-                                            <p className="text-green-600 font-bold">{currencyFormatter.format(refund.amount)}</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold">Notes</p>
-                                        <p className="text-muted-foreground">{refund.notes}</p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
+                    
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3">
+                            <Hourglass className="h-6 w-6 text-primary" />
+                            <h2 className="font-headline text-2xl font-semibold">Waiting on Refund</h2>
+                        </div>
+                        {waitingForRefund.length > 0 ? (
+                           waitingForRefund.map((refund) => <RefundCard key={refund.orderNumber} refund={refund} />)
+                        ) : (
+                            <p className="text-muted-foreground pl-10">No items are currently pending a refund.</p>
+                        )}
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div className="space-y-6">
+                         <div className="flex items-center gap-3">
+                            <CheckCircle className="h-6 w-6 text-green-600" />
+                            <h2 className="font-headline text-2xl font-semibold">Refunded</h2>
+                        </div>
+                        {refunded.length > 0 ? (
+                            refunded.map((refund) => <RefundCard key={refund.orderNumber} refund={refund} />)
+                        ) : (
+                            <p className="text-muted-foreground pl-10">No items have been refunded yet.</p>
+                        )}
+                    </div>
                 </div>
             </main>
         </div>
