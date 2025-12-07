@@ -165,6 +165,39 @@ export default async function NewsArticlePage({ params }: Props) {
   return <NewsArticleClientPage initialStory={story} />;
 }
 `
+  },
+  {
+    title: "Next.js News Page (Client-side Fetching)",
+    category: "Next.js / Firebase",
+    code: `
+import type { Metadata } from 'next';
+import NewsClientPage from './client-page';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import type { Story } from '@/lib/stories-data';
+
+export const metadata: Metadata = {
+  title: 'Newsroom',
+  description: 'Our latest company news, announcements, press releases, and in-depth reports on our investment sectors.',
+  openGraph: {
+    title: 'Newsroom | GrowShare Capital',
+    description: 'Our latest company news, announcements, press releases, and in-depth reports on our investment sectors.',
+    images: [
+      {
+        url: 'https://images.pexels.com/photos/1595391/pexels-photo-1595391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        width: 1200,
+        height: 630,
+        alt: 'A desk with marketing materials.',
+      },
+    ],
+  },
+};
+
+// The server-side fetching is removed. We pass an empty array and let the client fetch.
+export default function NewsPage() {
+    return <NewsClientPage initialStories={[]} />;
+}
+`
   }
 ];
 
