@@ -88,10 +88,15 @@ export default function HomePage() {
     return week.tasks.find(t => t.id === alertState.taskId);
   }, [taskMonths, alertState]);
 
-  const filteredTaskMonths = useMemo(() => {
+  const sortedTaskMonths = useMemo(() => {
     if (!taskMonths) return [];
-    return taskMonths.filter(month => month.id.startsWith(activeTab));
-  }, [taskMonths, activeTab]);
+    return [...taskMonths].sort((a, b) => {
+      // Assuming id is "month-year", e.g., "november-2024"
+      const aDate = new Date(a.id.split('-').reverse().join('-'));
+      const bDate = new Date(b.id.split('-').reverse().join('-'));
+      return aDate.getTime() - bDate.getTime();
+    });
+  }, [taskMonths]);
 
 
   return (
@@ -106,11 +111,12 @@ export default function HomePage() {
              </div>
           ) : (
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-1">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="november">November</TabsTrigger>
                 <TabsTrigger value="december">December</TabsTrigger>
               </TabsList>
               
-              {filteredTaskMonths.map(monthData => (
+              {sortedTaskMonths.map(monthData => (
                 <TabsContent key={monthData.id} value={monthData.id.split('-')[0]} className="mt-6">
                     <div className="grid grid-cols-1 gap-8">
                       {monthData.weeks.map((weekData, weekIndex) => (
