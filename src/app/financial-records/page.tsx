@@ -41,6 +41,14 @@ const refundHistory = [
         status: "Pending",
         returnDate: "2025-12-07",
         notes: "Waiting on refund."
+    },
+    {
+        orderNumber: "112-8996770-1377804",
+        itemDescription: "Ray-Ban RB3684CH Chromance Rectangular Sunglasses, Black/Polarized Dark Grey, 58 mm",
+        amount: 140.94,
+        status: "Pending",
+        returnDate: "2025-12-10",
+        notes: "Waiting on refund"
     }
 ];
 
