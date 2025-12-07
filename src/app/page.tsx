@@ -4,7 +4,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import type { Task, WeeklyTasks, TaskMonth } from "@/lib/task-service";
 import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
 import * as LucideIcons from "lucide-react";
@@ -25,7 +25,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Archive } from "lucide-react";
+
 
 // Helper to get a specific icon from lucide-react
 const getIcon = (name: string) => {
@@ -45,7 +47,6 @@ export default function HomePage() {
     weekIndex: number | null;
     taskId: string | null;
   }>({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
-  const [activeTab, setActiveTab] = React.useState("december");
 
   // Initialize tasks in Firestore if they don't exist
   React.useEffect(() => {
@@ -88,20 +89,59 @@ export default function HomePage() {
     return week.tasks.find(t => t.id === alertState.taskId);
   }, [taskMonths, alertState]);
 
-  const sortedTaskMonths = useMemo(() => {
-    if (!taskMonths) return [];
-    return [...taskMonths].sort((a, b) => {
-      // Assuming id is "month-year", e.g., "november-2024"
-      const aDate = new Date(a.id.split('-').reverse().join('-'));
-      const bDate = new Date(b.id.split('-').reverse().join('-'));
-      return aDate.getTime() - bDate.getTime();
-    });
+  const { decemberData, novemberData } = useMemo(() => {
+    if (!taskMonths) return { decemberData: null, novemberData: null };
+    const december = taskMonths.find(m => m.id === "december-2024");
+    const november = taskMonths.find(m => m.id === "november-2024");
+    return { decemberData: december, novemberData: november };
   }, [taskMonths]);
+
+  const renderMonthTasks = (monthData: TaskMonth) => (
+     <div className="grid grid-cols-1 gap-8">
+      {monthData.weeks.map((weekData, weekIndex) => (
+        <Card key={weekData.week} className="w-full">
+          <CardHeader>
+            <CardTitle className="text-lg sm:text-xl">{weekData.week}</CardTitle>
+            <CardDescription>{weekData.dates}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {weekData.tasks.map((task, taskIndex) => {
+                const TaskIcon = getIcon(task.icon);
+                return (
+                  <div key={task.id}>
+                    <div className="flex items-start gap-4">
+                      <div className="flex items-center h-10">
+                        <Checkbox 
+                          id={`task-${task.id}`}
+                          checked={task.completed}
+                          onCheckedChange={() => openConfirmationDialog(monthData.id, weekIndex, task.id)}
+                          className="h-5 w-5"
+                        />
+                      </div>
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+                          <TaskIcon className={cn("h-5 w-5 text-muted-foreground", task.completed && "text-primary")} />
+                      </div>
+                      <div className="flex-grow">
+                          <p className={cn("font-semibold text-sm sm:text-base", task.completed && "line-through text-muted-foreground")}>{task.title}</p>
+                          <p className={cn("text-xs sm:text-sm text-muted-foreground", task.completed && "line-through")}>{task.description}</p>
+                      </div>
+                    </div>
+                    {taskIndex < weekData.tasks.length - 1 && <Separator className="mt-6" />}
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
 
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navigation title="Family Tasks" />
+      <Navigation title="December Tasks" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-8">
           {isLoadingMonths ? (
@@ -110,56 +150,25 @@ export default function HomePage() {
                <Skeleton className="h-96 w-full" />
              </div>
           ) : (
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="november">November</TabsTrigger>
-                <TabsTrigger value="december">December</TabsTrigger>
-              </TabsList>
-              
-              {sortedTaskMonths.map(monthData => (
-                <TabsContent key={monthData.id} value={monthData.id.split('-')[0]} className="mt-6">
-                    <div className="grid grid-cols-1 gap-8">
-                      {monthData.weeks.map((weekData, weekIndex) => (
-                        <Card key={weekData.week} className="w-full">
-                          <CardHeader>
-                            <CardTitle className="text-lg sm:text-xl">{weekData.week}</CardTitle>
-                            <CardDescription>{weekData.dates}</CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-6">
-                              {weekData.tasks.map((task, taskIndex) => {
-                                const TaskIcon = getIcon(task.icon);
-                                return (
-                                  <div key={task.id}>
-                                    <div className="flex items-start gap-4">
-                                      <div className="flex items-center h-10">
-                                        <Checkbox 
-                                          id={`task-${task.id}`}
-                                          checked={task.completed}
-                                          onCheckedChange={() => openConfirmationDialog(monthData.id, weekIndex, task.id)}
-                                          className="h-5 w-5"
-                                        />
-                                      </div>
-                                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-                                          <TaskIcon className={cn("h-5 w-5 text-muted-foreground", task.completed && "text-primary")} />
-                                      </div>
-                                      <div className="flex-grow">
-                                          <p className={cn("font-semibold text-sm sm:text-base", task.completed && "line-through text-muted-foreground")}>{task.title}</p>
-                                          <p className={cn("text-xs sm:text-sm text-muted-foreground", task.completed && "line-through")}>{task.description}</p>
-                                      </div>
-                                    </div>
-                                    {taskIndex < weekData.tasks.length - 1 && <Separator className="mt-6" />}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                </TabsContent>
-              ))}
-            </Tabs>
+            <>
+                {decemberData ? renderMonthTasks(decemberData) : <p>No tasks for December.</p>}
+
+                {novemberData && (
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="november">
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-3">
+                                    <Archive className="h-5 w-5 text-primary" />
+                                    <span className="font-headline text-lg">View Past Tasks (November)</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4">
+                                {renderMonthTasks(novemberData)}
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                )}
+            </>
           )}
         </div>
       </main>
@@ -188,3 +197,4 @@ export default function HomePage() {
     </div>
   );
 }
+
