@@ -198,6 +198,77 @@ export default function NewsPage() {
     return <NewsClientPage initialStories={[]} />;
 }
 `
+  },
+  {
+    title: "Firestore Security Rules Example",
+    category: "Firebase",
+    code: `
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- PUBLIC COLLECTIONS ---
+
+    // Anyone can read stories and announcements. Only admins can write.
+    match /stories/{storyId} {
+      allow read: if true;
+      allow write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    match /announcements/{announcementId} {
+      allow read: if true;
+      allow write: if false; // Only backend can write
+    }
+
+    // Anyone can sign up for the newsletter
+    match /subscribers/{docId} {
+        allow create: if true;
+        allow read, delete: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // Anyone can send an email via the contact form
+    match /mail/{docId} {
+        allow create: if true;
+        allow read, update, delete: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+
+    // --- USER-SPECIFIC COLLECTIONS ---
+
+    // Users can read/write their own data and notifications.
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.uid == userId;
+    }
+
+    match /users/{userId}/notifications/{notificationId} {
+        allow read, write: if request.auth.uid == userId;
+    }
+
+
+    // --- ADMIN & SPECIALIZED ROLES ---
+
+    // Only admins can manage documents and agendas.
+    match /documents/{docId} {
+      allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    match /agendas/{agendaId} {
+        allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // Only admins can manage email templates, but they are publicly readable.
+    match /templates/{templateId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // Only users with the 'isNotary' custom claim can access notary records.
+    match /notary/{recordId} {
+      allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isNotary == true;
+    }
+  }
+}
+`
   }
 ];
 
