@@ -153,26 +153,39 @@ export async function initializeTasks(db: Firestore): Promise<void> {
       let needsUpdate = false;
 
       const updatedWeeks = monthData.weeks.map(initialWeek => {
-        const existingWeek = existingData.weeks.find(w => w.week === initialWeek.week);
+        const existingWeekIndex = existingData.weeks.findIndex(w => w.week === initialWeek.week);
         
-        if (!existingWeek) {
+        if (existingWeekIndex === -1) {
           needsUpdate = true;
           return initialWeek;
         }
 
+        const existingWeek = existingData.weeks[existingWeekIndex];
         const existingTaskTitles = new Set(existingWeek.tasks.map(t => t.title));
         const newTasks = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
 
         if (newTasks.length > 0) {
           needsUpdate = true;
-          return {
-            ...existingWeek,
-            tasks: [...existingWeek.tasks, ...newTasks]
-          };
+          // Correctly merge new tasks without duplicating existing ones
+          existingWeek.tasks.push(...newTasks);
         }
         
+        // Return the (potentially modified) existing week data
         return existingWeek;
       });
+
+      // Also handle weeks that are in the initial data but not in the existing data
+      initialTaskData.forEach(initialMonth => {
+        if (initialMonth.id === existingData.id) {
+          initialMonth.weeks.forEach(initialWeek => {
+            if (!existingData.weeks.some(ew => ew.week === initialWeek.week)) {
+              needsUpdate = true;
+              updatedWeeks.push(initialWeek);
+            }
+          });
+        }
+      });
+
 
       if (needsUpdate) {
         await updateDoc(monthDocRef, { weeks: updatedWeeks });
@@ -198,7 +211,6 @@ export async function toggleTaskCompletion(
       if (task) {
         task.completed = !task.completed;
         
-        // Use updateDocumentNonBlocking to avoid blocking the main thread
         updateDocumentNonBlocking(monthDocRef, { weeks: monthData.weeks });
       }
     }
