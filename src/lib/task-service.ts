@@ -148,41 +148,48 @@ export async function initializeTasks(db: Firestore): Promise<void> {
       const existingData = docSnap.data() as TaskMonth;
       let needsUpdate = false;
 
+      // Deep copy to avoid direct mutation
       const updatedWeeks = JSON.parse(JSON.stringify(existingData.weeks));
 
-      for (const initialWeek of monthData.weeks) {
-        const existingWeek = updatedWeeks.find((w: WeeklyTasks) => w.week === initialWeek.week);
+      // Sync tasks for each week present in the initial data
+      monthData.weeks.forEach((initialWeek, weekIndex) => {
+        let existingWeek = updatedWeeks.find((w: WeeklyTasks) => w.week === initialWeek.week);
+        
+        // If week doesn't exist, add it.
+        if (!existingWeek) {
+          updatedWeeks.splice(weekIndex, 0, initialWeek);
+          needsUpdate = true;
+          return; // continue to next week
+        }
 
-        if (existingWeek) {
-          const existingTaskTitles = new Set(existingWeek.tasks.map((t: Task) => t.title));
-          
-          const newTasks = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
+        const initialTaskTitles = new Set(initialWeek.tasks.map(t => t.title));
+        const existingTaskTitles = new Set(existingWeek.tasks.map((t: Task) => t.title));
 
-          if (newTasks.length > 0) {
-            existingWeek.tasks.push(...newTasks);
-            needsUpdate = true;
-          }
-        } else {
-          updatedWeeks.push(initialWeek);
+        // Add new tasks
+        const tasksToAdd = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
+        if (tasksToAdd.length > 0) {
+          existingWeek.tasks.push(...tasksToAdd);
           needsUpdate = true;
         }
+
+        // Remove old tasks
+        const oldTaskCount = existingWeek.tasks.length;
+        existingWeek.tasks = existingWeek.tasks.filter((t: Task) => initialTaskTitles.has(t.title));
+        if (existingWeek.tasks.length !== oldTaskCount) {
+          needsUpdate = true;
+        }
+      });
+      
+      // Remove weeks that are no longer in the initial data
+      const initialWeekNames = new Set(monthData.weeks.map(w => w.week));
+      const originalLength = updatedWeeks.length;
+      const finalWeeks = updatedWeeks.filter((w: WeeklyTasks) => initialWeekNames.has(w.week));
+      if (finalWeeks.length !== originalLength) {
+          needsUpdate = true;
       }
       
-      // Also check for tasks to remove
-      for (const updatedWeek of updatedWeeks) {
-          const initialWeek = monthData.weeks.find(w => w.week === updatedWeek.week);
-          if (initialWeek) {
-              const initialTaskTitles = new Set(initialWeek.tasks.map(t => t.title));
-              const oldLength = updatedWeek.tasks.length;
-              updatedWeek.tasks = updatedWeek.tasks.filter((t: Task) => initialTaskTitles.has(t.title));
-              if(oldLength !== updatedWeek.tasks.length) {
-                  needsUpdate = true;
-              }
-          }
-      }
-
       if (needsUpdate) {
-        await updateDoc(monthDocRef, { weeks: updatedWeeks });
+        await updateDoc(monthDocRef, { weeks: finalWeeks });
       }
     }
   }
