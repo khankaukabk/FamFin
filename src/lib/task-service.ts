@@ -94,19 +94,14 @@ const initialTaskData: TaskMonth[] = [
       {
         week: "Week 1",
         dates: "December 1-7",
-        tasks: [
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
-        ],
+        tasks: [],
       },
        {
         week: "Week 2",
         dates: "December 8-14",
         tasks: [
-          { id: nanoid(), icon: "Send", title: "Proposal send to Pelham.", description: "Finalize and send the business proposal to Pelham.", completed: false },
-          { id: nanoid(), icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "Schedule a meeting to discuss the directorship role.", completed: false },
+          { id: 'clw153t5s000008l43r4y20e0', icon: "Send", title: "Proposal send to Pelham.", description: "Finalize and send the business proposal to Pelham.", completed: false },
+          { id: 'clw153t5s000108l42j3y9z0a', icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "Schedule a meeting to discuss the directorship role.", completed: false },
           { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
           { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
           { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
@@ -165,14 +160,14 @@ export async function initializeTasks(db: Firestore): Promise<void> {
         const initialTaskTitles = new Set(initialWeek.tasks.map(t => t.title));
         const existingTaskTitles = new Set(existingWeek.tasks.map((t: Task) => t.title));
 
-        // Add new tasks
+        // Add new tasks that are not already present by title
         const tasksToAdd = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
         if (tasksToAdd.length > 0) {
           existingWeek.tasks.push(...tasksToAdd);
           needsUpdate = true;
         }
 
-        // Remove old tasks
+        // Remove old tasks that are no longer in the initial data
         const oldTaskCount = existingWeek.tasks.length;
         existingWeek.tasks = existingWeek.tasks.filter((t: Task) => initialTaskTitles.has(t.title));
         if (existingWeek.tasks.length !== oldTaskCount) {
