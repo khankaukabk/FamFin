@@ -147,46 +147,41 @@ export async function initializeTasks(db: Firestore): Promise<void> {
     const docSnap = await getDoc(monthDocRef);
 
     if (!docSnap.exists()) {
+      // If the month doesn't exist at all, create it with all initial data.
       await setDoc(monthDocRef, monthData);
     } else {
+      // If the month exists, check for missing tasks and add them without creating duplicates.
       const existingData = docSnap.data() as TaskMonth;
       let needsUpdate = false;
 
-      const updatedWeeks = monthData.weeks.map(initialWeek => {
-        const existingWeekIndex = existingData.weeks.findIndex(w => w.week === initialWeek.week);
-        
-        if (existingWeekIndex === -1) {
+      // Deep copy the existing weeks to avoid direct mutation of state-like objects.
+      const updatedWeeks = JSON.parse(JSON.stringify(existingData.weeks));
+
+      // Iterate through the initial weeks defined in the code
+      for (const initialWeek of monthData.weeks) {
+        // Find the matching week in the data from Firestore
+        const existingWeek = updatedWeeks.find((w: WeeklyTasks) => w.week === initialWeek.week);
+
+        if (existingWeek) {
+          // Create a Set of existing task titles for quick lookups to avoid duplicates.
+          const existingTaskTitles = new Set(existingWeek.tasks.map((t: Task) => t.title));
+          
+          // Find tasks from the initial data that are not already in the existing week's tasks.
+          const newTasks = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
+
+          // If there are new tasks to add, push them to the existing week's tasks.
+          if (newTasks.length > 0) {
+            existingWeek.tasks.push(...newTasks);
+            needsUpdate = true; // Mark that an update is needed.
+          }
+        } else {
+          // If the week doesn't exist in the Firestore data, add the whole week.
+          updatedWeeks.push(initialWeek);
           needsUpdate = true;
-          return initialWeek;
         }
+      }
 
-        const existingWeek = existingData.weeks[existingWeekIndex];
-        const existingTaskTitles = new Set(existingWeek.tasks.map(t => t.title));
-        const newTasks = initialWeek.tasks.filter(t => !existingTaskTitles.has(t.title));
-
-        if (newTasks.length > 0) {
-          needsUpdate = true;
-          // Correctly merge new tasks without duplicating existing ones
-          existingWeek.tasks.push(...newTasks);
-        }
-        
-        // Return the (potentially modified) existing week data
-        return existingWeek;
-      });
-
-      // Also handle weeks that are in the initial data but not in the existing data
-      initialTaskData.forEach(initialMonth => {
-        if (initialMonth.id === existingData.id) {
-          initialMonth.weeks.forEach(initialWeek => {
-            if (!existingData.weeks.some(ew => ew.week === initialWeek.week)) {
-              needsUpdate = true;
-              updatedWeeks.push(initialWeek);
-            }
-          });
-        }
-      });
-
-
+      // If any new tasks or weeks were added, update the document in Firestore.
       if (needsUpdate) {
         await updateDoc(monthDocRef, { weeks: updatedWeeks });
       }
