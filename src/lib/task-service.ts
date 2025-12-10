@@ -53,11 +53,6 @@ const initialTaskData: TaskMonth[] = [
           { id: nanoid(), icon: "ArchiveRestore", title: "Return Shein Package", description: "Process the return for the recent order.", completed: false },
           { id: nanoid(), icon: "ShieldCheck", title: "Medicare Meeting", description: "Attend the meeting at 12:30 PM this Thursday.", completed: true },
           { id: nanoid(), icon: "Car", title: "Tire Replacement on 11/11", description: "Appointment to replace all four tires.", completed: true },
-          { id: nanoid(), icon: "Briefcase", title: "Complete Unemployment Benefits", description: "Certify for weekly benefits online.", completed: true },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: true },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: true },
         ],
       },
       {
@@ -65,11 +60,6 @@ const initialTaskData: TaskMonth[] = [
         dates: "November 15-21",
         tasks: [
           { id: nanoid(), icon: "Calendar", title: "Atlanta Visit for Masturaat Ta'lim", description: "Travel for the educational gathering on the 15th.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Complete Unemployment Benefits", description: "Certify for weekly benefits online.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
       {
@@ -78,11 +68,6 @@ const initialTaskData: TaskMonth[] = [
         tasks: [
           { id: nanoid(), icon: "Wallet", title: "Pay Amazon Monthly", description: "Ensure the monthly payment is made on time.", completed: false },
           { id: nanoid(), icon: "Wallet", title: "Apple Pay Monthly", description: "Ensure the monthly payment is made on time.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Complete Unemployment Benefits", description: "Certify for weekly benefits online.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
     ]
@@ -95,10 +80,6 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 1",
         dates: "December 1-7",
         tasks: [
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
@@ -107,30 +88,18 @@ const initialTaskData: TaskMonth[] = [
         tasks: [
           { id: 'clw153t5s000008l43r4y20e0', icon: "Send", title: "Proposal send to Pelham.", description: "Finalize and send the business proposal to Pelham.", completed: false },
           { id: 'clw153t5s000108l42j3y9z0a', icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "Schedule a meeting to discuss the directorship role.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
         week: "Week 3",
         dates: "December 15-21",
         tasks: [
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
         week: "Week 4",
         dates: "December 22-31",
         tasks: [
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
-          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
     ]
