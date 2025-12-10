@@ -94,7 +94,12 @@ const initialTaskData: TaskMonth[] = [
       {
         week: "Week 1",
         dates: "December 1-7",
-        tasks: [],
+        tasks: [
+          { id: nanoid(), icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
+          { id: nanoid(), icon: "Briefcase", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
+          { id: nanoid(), icon: "Users", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
+          { id: nanoid(), icon: "Users", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
+        ],
       },
        {
         week: "Week 2",
