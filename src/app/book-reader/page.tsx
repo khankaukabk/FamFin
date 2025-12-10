@@ -119,7 +119,6 @@ const bookContent = [
     "The wide stare stared itself out for one while; the Sun went down in a red, green, golden glory; the stars came out in the heavens, and the fire-flies mimicked them in the lower air, as men may feebly imitate the goodness of a better order of beings; the long dusty roads and the interminable plains were in repose—and so deep a hush was on the sea, that it scarcely whispered of the time when it shall give up its dead."
 ];
 
-
 export default function BookReaderPage() {
     const [currentPage, setCurrentPage] = React.useState(0);
     const totalPages = bookContent.length;
@@ -135,17 +134,22 @@ export default function BookReaderPage() {
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/20">
-            <Navigation title="The Story of the Family" />
+            <Navigation title="A Tale of Two Cities" />
             <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6">
-                <Card className="w-full max-w-lg shadow-2xl animate-in fade-in-50 zoom-in-95">
+                <Card className="w-full max-w-2xl shadow-2xl animate-in fade-in-50 zoom-in-95">
                     <CardContent className="p-6 sm:p-8">
-                         <div className="flex items-center gap-3 mb-6">
-                            <BookOpen className="h-6 w-6 text-primary" />
+                         <div className="flex items-center justify-between gap-3 mb-6">
+                            <div className="flex items-center gap-3">
+                                <BookOpen className="h-6 w-6 text-primary" />
+                                <p className="text-sm font-semibold text-muted-foreground">
+                                    Page {currentPage + 1} of {totalPages}
+                                </p>
+                            </div>
                             <p className="text-sm font-semibold text-muted-foreground">
-                                Page {currentPage + 1} of {totalPages}
+                                Chapter One
                             </p>
                         </div>
-                        <p className="text-lg/relaxed sm:text-xl/relaxed text-foreground min-h-[200px] sm:min-h-[250px] flex items-center">
+                        <p className="font-serif text-lg/relaxed sm:text-xl/relaxed text-foreground min-h-[250px] sm:min-h-[300px] flex items-center whitespace-pre-wrap">
                             {bookContent[currentPage]}
                         </p>
                     </CardContent>
@@ -161,8 +165,8 @@ export default function BookReaderPage() {
                                 <ChevronLeft className="h-5 w-5" />
                                 <span className="hidden sm:inline ml-2">Previous</span>
                             </Button>
-                            <div className="flex-grow flex items-center justify-center text-sm font-medium">
-                               {Math.round(progressPercentage)}%
+                            <div className="flex-grow flex items-center justify-center text-sm font-medium text-primary">
+                               {Math.round(progressPercentage)}% through chapter
                             </div>
                             <Button 
                                 size="lg" 
@@ -181,3 +185,5 @@ export default function BookReaderPage() {
         </div>
     );
 }
+
+    
