@@ -80,6 +80,10 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 1",
         dates: "December 1-7",
         tasks: [
+          { id: 'clw153t5s000208l4e0c3a8d1', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
+          { id: 'clw153t5s000308l4a2g3h9n7', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
+          { id: 'clw153t5s000408l4d4c5g6h9', icon: "BookOpen", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
+          { id: 'clw153t5s000508l4e7f8h2j3', icon: "Heart", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
@@ -94,12 +98,20 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 3",
         dates: "December 15-21",
         tasks: [
+           { id: 'clw153t5s000608l4f9b2h7c8', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
+           { id: 'clw153t5s000708l4a5c6d8e1', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
+           { id: 'clw153t5s000808l4g2h3j4k5', icon: "BookOpen", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
+           { id: 'clw153t5s000908l4e9f1g3h5', icon: "Heart", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
         week: "Week 4",
         dates: "December 22-31",
         tasks: [
+           { id: 'clw153t5s000a08l4b3c2d1e9', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
+           { id: 'clw153t5s000b08l4h7g6f5e4', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
+           { id: 'clw153t5s000c08l4d5e6f7g8', icon: "BookOpen", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
+           { id: 'clw153t5s000d08l4c1b2a3d4', icon: "Heart", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
     ]
