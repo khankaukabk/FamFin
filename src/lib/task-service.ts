@@ -92,6 +92,10 @@ const initialTaskData: TaskMonth[] = [
         tasks: [
           { id: 'clw153t5s000008l43r4y20e0', icon: "Send", title: "Proposal send to Pelham.", description: "Finalize and send the business proposal to Pelham.", completed: false },
           { id: 'clw153t5s000108l42j3y9z0a', icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "Schedule a meeting to discuss the directorship role.", completed: false },
+          { id: 'clx0f8t5s000209l4e0c3a8d2', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
+          { id: 'clx0f8t5s000309l4a2g3h9n8', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
+          { id: 'clx0f8t5s000409l4d4c5g6h0', icon: "BookOpen", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
+          { id: 'clx0f8t5s000509l4e7f8h2j4', icon: "Heart", title: "Rohingya Class & Babysitting", description: "Attend the weekly educational session and provide childcare support every Friday.", completed: false },
         ],
       },
        {
