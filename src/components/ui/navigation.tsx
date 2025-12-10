@@ -101,6 +101,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavLink href="/rohingya-attendance" onClick={closeSheet}><ClipboardCheck className="mr-3" /> Rohingya Attendance</NavLink>
                       <NavLink href="/citizenship-test" onClick={closeSheet}><GraduationCap className="mr-3" /> Citizenship Test</NavLink>
                       <NavLink href="/security-plus-test" onClick={closeSheet}><BookOpen className="mr-3" /> Security+ Test</NavLink>
+                      <NavLink href="/book-reader" onClick={closeSheet}><BookOpen className="mr-3" /> Book Reader</NavLink>
                       
                       <Separator className="my-2" />
                       <NavGroupLabel>Fun & Games</NavGroupLabel>
