@@ -12,25 +12,41 @@ const bookContent = [
     "BOOK THE FIRST: POVERTY",
     "CHAPTER 1. Sun and Shadow",
     "Thirty years ago, on a specific day, Marseilles was absolutely baking in the sun.",
-    "A scorching sun on a fierce August day wasn't any rarer in southern France back then than it is now. Everything in and around Marseilles stared up at the boiling sky, and the sky stared right back, until staring became a universal habit there.",
-    "Visitors felt awkward getting stared down by the blinding white houses, the white walls, the white streets, the dry stretches of road, and the hills where all the greenery had been burnt away. The only things that weren't staring intensely were the vines, drooping under the weight of their grapes. Even they winked a little now and then, whenever the hot air barely moved their leaves.",
-    "There wasn't a breath of wind to cause a ripple on the dirty water in the harbour, or on the beautiful sea outside it. You could see a clear line between the two colours, black and blue, showing exactly where the clean sea stopped; it refused to mix with the filthy harbour water.",
-    "Boats without covers were too hot to touch; ships blistered where they were tied up; the stone quays hadn't cooled down, day or night, for months. People from all over—Hindus, Russians, Chinese, Spaniards, Portuguese, Englishmen, Frenchmen, Genoese, Neapolitans, Venetians, Greeks, Turks—everyone who had come to trade in Marseilles sought shade. They hid anywhere they could from a sea that was too blue to look at and a purple sky that looked like it held a massive, flaming jewel of fire.",
+    "A scorching sun on a fierce August day wasn't any rarer in southern France back then than it is now.",
+    "Everything in and around Marseilles stared up at the boiling sky, and the sky stared right back, until staring became a universal habit there.",
+    "Visitors felt awkward getting stared down by the blinding white houses, the white walls, the white streets, the dry stretches of road, and the hills where all the greenery had been burnt away.",
+    "The only things that weren't staring intensely were the vines, drooping under the weight of their grapes. Even they winked a little now and then, whenever the hot air barely moved their leaves.",
+    "There wasn't a breath of wind to cause a ripple on the dirty water in the harbour, or on the beautiful sea outside it.",
+    "You could see a clear line between the two colours, black and blue, showing exactly where the clean sea stopped; it refused to mix with the filthy harbour water.",
+    "Boats without covers were too hot to touch; ships blistered where they were tied up; the stone quays hadn't cooled down, day or night, for months.",
+    "People from all over—Hindus, Russians, Chinese, Spaniards, Portuguese, Englishmen, Frenchmen, Genoese, Neapolitans, Venetians, Greeks, Turks—everyone who had come to trade in Marseilles sought shade.",
+    "They hid anywhere they could from a sea that was too blue to look at and a purple sky that looked like it held a massive, flaming jewel of fire.",
     "The glare everywhere made your eyes ache. Looking towards the distant Italian coast, there was a bit of relief thanks to some light mist rising from the sea, but that was it.",
-    "Far away, the dusty roads stared from the hillsides and hollows. Far away, the dusty vines hanging over cottages and the rows of dry trees offered no shade, drooping under the glare of the earth and sky.",
-    "The horses with their drowsy bells, pulling carts slowly inland, did the same; so did the drivers lying down in the carts, mostly asleep; so did the exhausted farm workers. Everything living or growing was crushed by the glare, except for the lizards darting over stone walls, and the cicadas, chirping their dry, hot sound like a rattle. Even the dust was scorched brown, and the air shimmered as if it were panting.",
+    "Far away, the dusty roads stared from the hillsides and hollows.",
+    "Far away, the dusty vines hanging over cottages and the rows of dry trees offered no shade, drooping under the glare of the earth and sky.",
+    "The horses with their drowsy bells, pulling carts slowly inland, did the same; so did the drivers lying down in the carts, mostly asleep; so did the exhausted farm workers.",
+    "Everything living or growing was crushed by the glare, except for the lizards darting over stone walls, and the cicadas, chirping their dry, hot sound like a rattle.",
+    "Even the dust was scorched brown, and the air shimmered as if it were panting.",
     "Blinds, shutters, curtains, and awnings were all shut tight to keep out the glare. If you left even a tiny crack, the sun shot in like a white-hot arrow.",
-    "The churches were the best escape. Coming out of the dark, cool pillars and arches—dotted with flickering candles and full of ugly old shadows praying, spitting, and begging—felt like diving into a river of fire and swimming for your life to the nearest bit of shade. So, with people lounging wherever there was shade, with hardly any talking or dogs barking, just the occasional clashing of church bells and drumming, Marseilles was broiling in the sun that day.",
-    "In Marseilles at that time, there was a nasty prison. In one of its cells—a place so repulsive that even the sun seemed to blink and look away, leaving it to whatever reflected light could find its way in—were two men.",
-    "Besides them, the room held a battered bench stuck to the wall, a draughts board roughly carved into it with a knife, a set of draughts made from old buttons and soup bones, a set of dominoes, two mats, and two or three wine bottles. That was it, apart from the rats and other hidden vermin, and the visible vermin: the two men.",
-    "The cell got its light through a large iron grate, like a window, which allowed it to be inspected from the gloomy staircase outside. There was a broad stone ledge at the bottom of this grate, three or four feet off the ground.",
-    "One of the men was lolling on this ledge, half-sitting and half-lying, with his knees up and his feet and shoulders pressed against the sides of the opening. The bars were wide enough for him to stick his arm through up to the elbow, so he held on casually to make himself comfortable.",
+    "The churches were the best escape.",
+    "Coming out of the dark, cool pillars and arches—dotted with flickering candles and full of ugly old shadows praying, spitting, and begging—felt like diving into a river of fire and swimming for your life to the nearest bit of shade.",
+    "So, with people lounging wherever there was shade, with hardly any talking or dogs barking, just the occasional clashing of church bells and drumming, Marseilles was broiling in the sun that day.",
+    "In Marseilles at that time, there was a nasty prison.",
+    "In one of its cells—a place so repulsive that even the sun seemed to blink and look away, leaving it to whatever reflected light could find its way in—were two men.",
+    "Besides them, the room held a battered bench stuck to the wall, a draughts board roughly carved into it with a knife, a set of draughts made from old buttons and soup bones, a set of dominoes, two mats, and two or three wine bottles.",
+    "That was it, apart from the rats and other hidden vermin, and the visible vermin: the two men.",
+    "The cell got its light through a large iron grate, like a window, which allowed it to be inspected from the gloomy staircase outside.",
+    "There was a broad stone ledge at the bottom of this grate, three or four feet off the ground.",
+    "One of the men was lolling on this ledge, half-sitting and half-lying, with his knees up and his feet and shoulders pressed against the sides of the opening.",
+    "The bars were wide enough for him to stick his arm through up to the elbow, so he held on casually to make himself comfortable.",
     "The smell of prison was on everything. The trapped air, the trapped light, the trapped damp, the trapped men—everything was ruined by the confinement.",
-    "Just as the men looked faded and haggard, the iron was rusty, the stone was slimy, the wood was rotten, the air felt stale, and the light was dim. Like a well, a vault, or a tomb, the prison knew nothing of the brightness outside. It would have kept its polluted atmosphere even if you moved it to a tropical island.",
+    "Just as the men looked faded and haggard, the iron was rusty, the stone was slimy, the wood was rotten, the air felt stale, and the light was dim.",
+    "Like a well, a vault, or a tomb, the prison knew nothing of the brightness outside. It would have kept its polluted atmosphere even if you moved it to a tropical island.",
     "The man lying on the window ledge actually felt chilly. He pulled his big cloak tighter with an impatient shrug and growled, 'To hell with this Brigand of a Sun that never shines in here!'",
     "He was waiting to be fed, looking sideways through the bars to see down the stairs, looking a lot like a wild beast waiting for food.",
     "But his eyes, set too close together, weren't as noble as a lion's; they were sharp rather than bright—like pointed weapons with no depth. They glittered and snapped open and shut. A clockmaker could have made a better pair.",
-    "He had a hook nose, which was handsome enough, but it was too high up between his eyes, just like his eyes were too close together. He was a big, tall man with thin lips (when you could see them under his thick moustache) and messy, dry hair of no specific colour, though it had streaks of red.",
+    "He had a hook nose, which was handsome enough, but it was too high up between his eyes, just like his eyes were too close together.",
+    "He was a big, tall man with thin lips (when you could see them under his thick moustache) and messy, dry hair of no specific colour, though it had streaks of red.",
     "The hand holding the grate—covered in ugly, freshly healed scratches—was unusually small and plump; it would have been white if not for the prison dirt.",
     "The other man was lying on the stone floor, covered by a rough brown coat.",
     "'Get up, pig!' growled the first man. 'Don't sleep when I'm hungry.'",
@@ -39,18 +55,25 @@ const bookContent = [
     "'Tell me the time,' grumbled the first man.",
     "'The midday bells will ring... in forty minutes.' He paused slightly, looking around the cell as if reading the information from the walls.",
     "'You're like a clock. How do you always know?'",
-    "'How can I say? I always know the time and where I am. I was brought here at night, straight off a boat, but I know where I am. Look here! Marseilles harbour,' he said, drawing a map on the floor with a dark finger. 'Toulon (where the galleys are), Spain over there, Algiers over there. Moving left, Nice. Round the coast to Genoa. Genoa Mole and Harbour. Quarantine Ground. The City; terrace gardens full of bella donna flowers. Here, Porto Fino. Head out for Leghorn. Out again for Civita Vecchia, then away to—hey! There's no room for Naples,' he'd reached the wall by then, 'but it's all the same; it's in there!'",
-    "He stayed on his knees, looking up at his cellmate with a lively expression for someone in prison. He was a sunburnt, quick, agile little man, though a bit stocky. He had earrings in his brown ears, white teeth that lit up his funny brown face, jet-black hair around his brown neck, and a ragged red shirt open at his chest. He wore loose sailor trousers, decent shoes, a long red cap, and a red sash around his waist with a knife tucked in it.",
-    "'Just watch if I don't go back to Naples the same way I came! Look here, master! Civita Vecchia, Leghorn, Porto Fino, Genoa, the Coast, Off Nice (which is in there), Marseilles, you and me. The jailer's room and his keys are where my thumb is; and here at my wrist is where they keep the national razor—the guillotine.'",
+    "'How can I say? I always know the time and where I am. I was brought here at night, straight off a boat, but I know where I am. Look here! Marseilles harbour,' he said, drawing a map on the floor with a dark finger.",
+    "'Toulon (where the galleys are), Spain over there, Algiers over there. Moving left, Nice. Round the coast to Genoa. Genoa Mole and Harbour. Quarantine Ground. The City; terrace gardens full of bella donna flowers. Here, Porto Fino. Head out for Leghorn. Out again for Civita Vecchia, then away to—hey! There's no room for Naples,' he'd reached the wall by then, 'but it's all the same; it's in there!'",
+    "He stayed on his knees, looking up at his cellmate with a lively expression for someone in prison.",
+    "He was a sunburnt, quick, agile little man, though a bit stocky. He had earrings in his brown ears, white teeth that lit up his funny brown face, jet-black hair around his brown neck, and a ragged red shirt open at his chest.",
+    "He wore loose sailor trousers, decent shoes, a long red cap, and a red sash around his waist with a knife tucked in it.",
+    "'Just watch if I don't go back to Naples the same way I came! Look here, master! Civita Vecchia, Leghorn, Porto Fino, Genoa, the Coast, Off Nice (which is in there), Marseilles, you and me.'",
+    "'The jailer's room and his keys are where my thumb is; and here at my wrist is where they keep the national razor—the guillotine.'",
     "The other man suddenly spat on the floor and made a gurgling noise in his throat.",
     "Immediately after, a lock below gurgled too, and a door banged shut. Slow footsteps started coming up the stairs; the sound of a sweet little voice mixed with the noise. The jailer appeared carrying his daughter, who was three or four years old, and a basket.",
     "'How's the world this morning, gentlemen? My little one is doing the rounds with me to peek at her father's birds. Go on then! Look at the birds, my pretty, look at the birds.'",
-    "He looked sharply at the 'birds' himself as he held the child up to the grate, especially eyeing the little man, whose energy he seemed to mistrust. 'I've brought your bread, Signor John Baptist,' he said (they spoke in French, but the little man was Italian). 'And if I might recommend you stop gambling—'",
+    "He looked sharply at the 'birds' himself as he held the child up to the grate, especially eyeing the little man, whose energy he seemed to mistrust.",
+    "'I've brought your bread, Signor John Baptist,' he said (they spoke in French, but the little man was Italian). 'And if I might recommend you stop gambling—'",
     "'You don't recommend the master stop!' said John Baptist, smiling and showing his teeth.",
     "'Oh! But the master wins,' the jailer replied, giving the other man a look that wasn't particularly friendly. 'And you lose. It's totally different. You get stale bread and sour drink out of it; he gets Lyons sausage, veal in jelly, white bread, Stracchino cheese, and good wine. Look at the birds, my pretty!'",
     "'Poor birds!' said the child.",
     "Her pretty little face, full of pure compassion as she peeked shyly through the bars, looked like an angel in that prison. John Baptist stood up and moved towards her, as if drawn to her. The other 'bird' stayed where he was, just glancing impatiently at the basket.",
-    "'Wait!' said the jailer, putting his daughter on the outer ledge. 'She can feed the birds. This big loaf is for Signor John Baptist. We have to break it to fit it through the cage. There, a tame bird to kiss your little hand! This sausage in a vine leaf is for Monsieur Rigaud. Again—this veal in jelly is for Monsieur Rigaud. Again—these three white rolls are for Monsieur Rigaud. Again, this cheese—again, this wine—again, this tobacco—all for Monsieur Rigaud. Lucky bird!'",
+    "'Wait!' said the jailer, putting his daughter on the outer ledge. 'She can feed the birds.'",
+    "'This big loaf is for Signor John Baptist. We have to break it to fit it through the cage. There, a tame bird to kiss your little hand!'",
+    "'This sausage in a vine leaf is for Monsieur Rigaud. Again—this veal in jelly is for Monsieur Rigaud. Again—these three white rolls are for Monsieur Rigaud. Again, this cheese—again, this wine—again, this tobacco—all for Monsieur Rigaud. Lucky bird!'",
     "The child pushed all these things through the bars into the soft, smooth hand with clear fear—pulling her own hand back more than once and looking at the man with a mix of fright and anger.",
     "However, she handed the lump of coarse bread to the dark, rough, knotted hands of John Baptist (who had fewer fingernails on all his fingers combined than Monsieur Rigaud had on one) with total confidence; and when he kissed her hand, she stroked his face affectionately.",
     "Monsieur Rigaud, not caring about this, kept the father happy by laughing and nodding at the girl whenever she gave him something. As soon as he had his food arranged on the ledge, he started eating with gusto.",
@@ -70,7 +93,8 @@ const bookContent = [
     "This duet followed them down the steep stairs so far that the jailer had to stop to let his daughter hear the end of the song and repeat the chorus while they were still visible. Then they disappeared, but the little voice kept singing until the door slammed shut.",
     "Monsieur Rigaud, finding John Baptist standing in his way before the echoes died out (even echoes were weak in prison), nudged him with his foot to remind him to get back to his dark corner.",
     "The little man sat down again on the floor with the ease of someone used to sitting on pavements. He lined up three chunks of coarse bread and, starting on a fourth, began eating them as if clearing them away was a game.",
-    "He might have glanced at the Lyons sausage or the veal in jelly, but they didn't last long enough to make his mouth water; Monsieur Rigaud finished them off quickly, despite the looming trial, and sucked his fingers clean, wiping them on the vine leaves. Then, pausing his drinking to look at his cellmate, his moustache went up and his nose came down.",
+    "He might have glanced at the Lyons sausage or the veal in jelly, but they didn't last long enough to make his mouth water; Monsieur Rigaud finished them off quickly, despite the looming trial, and sucked his fingers clean, wiping them on the vine leaves.",
+    "Then, pausing his drinking to look at his cellmate, his moustache went up and his nose came down.",
     "'How's the bread?'",
     "'A bit dry, but I've got my old sauce here,' replied John Baptist, holding up his knife.",
     "'What sauce?'",
@@ -146,11 +170,27 @@ const bookContent = [
 ];
 
 export default function BookReaderPage() {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ axis: 'y' });
+    const [emblaRef, emblaApi] = useEmblaCarousel({ 
+        axis: 'y',
+        startIndex: 0,
+    });
     const [currentPage, setCurrentPage] = React.useState(0);
     const [progressPercentage, setProgressPercentage] = React.useState(0);
     const totalPages = bookContent.length;
+    const LOCAL_STORAGE_KEY = 'book-reader-progress';
 
+    // Effect to load initial page from local storage
+    React.useEffect(() => {
+        const savedPage = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const pageIndex = savedPage ? parseInt(savedPage, 10) : 0;
+        if (emblaApi) {
+            emblaApi.scrollTo(pageIndex, true); // Instantly scroll without animation
+        }
+        setCurrentPage(pageIndex);
+        setProgressPercentage(((pageIndex + 1) / totalPages) * 100);
+    }, [emblaApi, totalPages]);
+
+    // Effect to handle page selection and saving progress
     React.useEffect(() => {
         if (!emblaApi) return;
 
@@ -158,10 +198,12 @@ export default function BookReaderPage() {
             const newPage = emblaApi.selectedScrollSnap();
             setCurrentPage(newPage);
             setProgressPercentage(((newPage + 1) / totalPages) * 100);
+            localStorage.setItem(LOCAL_STORAGE_KEY, newPage.toString());
         };
 
         emblaApi.on('select', onSelect);
-        onSelect(); // Set initial state
+        // Initial call to set state, in case the loaded page isn't 0
+        onSelect();
 
         return () => {
             emblaApi.off('select', onSelect);
