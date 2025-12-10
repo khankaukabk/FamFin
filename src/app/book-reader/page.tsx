@@ -2,12 +2,10 @@
 "use client";
 
 import * as React from "react";
-import { Navigation } from "@/components/ui/navigation";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import useEmblaCarousel from 'embla-carousel-react';
+import { BookOpen, X } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 // You can replace this with your book's content, with each paragraph as an element in the array.
 const bookContent = [
@@ -120,68 +118,59 @@ const bookContent = [
 ];
 
 export default function BookReaderPage() {
+    const [emblaRef, emblaApi] = useEmblaCarousel({ axis: 'y' });
     const [currentPage, setCurrentPage] = React.useState(0);
+    const [progressPercentage, setProgressPercentage] = React.useState(0);
     const totalPages = bookContent.length;
-    const progressPercentage = ((currentPage + 1) / totalPages) * 100;
 
-    const goToNextPage = () => {
-        setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : prev));
-    };
+    React.useEffect(() => {
+        if (!emblaApi) return;
 
-    const goToPreviousPage = () => {
-        setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev));
-    };
+        const onSelect = () => {
+            const newPage = emblaApi.selectedScrollSnap();
+            setCurrentPage(newPage);
+            setProgressPercentage(((newPage + 1) / totalPages) * 100);
+        };
 
+        emblaApi.on('select', onSelect);
+        onSelect(); // Set initial state
+
+        return () => {
+            emblaApi.off('select', onSelect);
+        };
+    }, [emblaApi, totalPages]);
+    
     return (
-        <div className="flex min-h-screen w-full flex-col bg-muted/20">
-            <Navigation title="A Tale of Two Cities" />
-            <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6">
-                <Card className="w-full max-w-2xl shadow-2xl animate-in fade-in-50 zoom-in-95">
-                    <CardContent className="p-6 sm:p-8">
-                         <div className="flex items-center justify-between gap-3 mb-6">
-                            <div className="flex items-center gap-3">
-                                <BookOpen className="h-6 w-6 text-primary" />
-                                <p className="text-sm font-semibold text-muted-foreground">
-                                    Page {currentPage + 1} of {totalPages}
-                                </p>
-                            </div>
-                            <p className="text-sm font-semibold text-muted-foreground">
-                                Chapter One
+        <div className="fixed inset-0 bg-background flex flex-col font-serif">
+            <header className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-background/80 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                    <BookOpen className="h-6 w-6 text-primary" />
+                    <div className="text-sm">
+                        <p className="font-bold text-foreground">A Tale of Two Cities</p>
+                        <p className="text-muted-foreground">Page {currentPage + 1} of {totalPages}</p>
+                    </div>
+                </div>
+                 <Button variant="ghost" size="icon" onClick={() => window.history.back()}>
+                    <X className="h-5 w-5" />
+                    <span className="sr-only">Close Reader</span>
+                </Button>
+            </header>
+            
+            <div className="flex-1 overflow-hidden" ref={emblaRef}>
+                <div className="h-full">
+                    {bookContent.map((paragraph, index) => (
+                        <div key={index} className="h-full flex-shrink-0 flex items-center justify-center p-6 pt-24 pb-20">
+                            <p className="text-xl/relaxed sm:text-2xl/relaxed max-w-prose whitespace-pre-wrap">
+                                {paragraph}
                             </p>
                         </div>
-                        <p className="font-serif text-lg/relaxed sm:text-xl/relaxed text-foreground min-h-[250px] sm:min-h-[300px] flex items-center whitespace-pre-wrap">
-                            {bookContent[currentPage]}
-                        </p>
-                    </CardContent>
-                    <CardFooter className="flex flex-col gap-4 p-6 bg-muted/50 border-t">
-                        <div className="w-full flex justify-between items-center gap-4">
-                            <Button 
-                                variant="outline" 
-                                size="lg" 
-                                onClick={goToPreviousPage} 
-                                disabled={currentPage === 0}
-                                aria-label="Previous Page"
-                            >
-                                <ChevronLeft className="h-5 w-5" />
-                                <span className="hidden sm:inline ml-2">Previous</span>
-                            </Button>
-                            <div className="flex-grow flex items-center justify-center text-sm font-medium text-primary">
-                               {Math.round(progressPercentage)}% through chapter
-                            </div>
-                            <Button 
-                                size="lg" 
-                                onClick={goToNextPage} 
-                                disabled={currentPage === totalPages - 1}
-                                aria-label="Next Page"
-                            >
-                                <span className="hidden sm:inline mr-2">Next</span>
-                                <ChevronRight className="h-5 w-5" />
-                            </Button>
-                        </div>
-                        <Progress value={progressPercentage} className="w-full h-2" />
-                    </CardFooter>
-                </Card>
-            </main>
+                    ))}
+                </div>
+            </div>
+
+            <footer className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-background/80 backdrop-blur-sm">
+                 <Progress value={progressPercentage} className="w-full h-1" />
+            </footer>
         </div>
     );
 }
