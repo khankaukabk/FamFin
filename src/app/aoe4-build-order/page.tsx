@@ -6,7 +6,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse } from "lucide-react";
+import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse, Building2, UserPlus, Fence } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const StepCard = ({ icon, title, description, children }: { icon: React.ElementType, title: string, description: string, children: React.ReactNode }) => (
@@ -162,6 +162,61 @@ export default function Aoe4BuildOrderPage() {
                         </div>
                     </AccordionContent>
                 </AccordionItem>
+                <AccordionItem value="china-bbq">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">China</h3>
+                            <p className="text-sm text-muted-foreground">Imperial Official Start into Barbican (BBQ) Rush</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={UserPlus} title="I. Initial Setup" description="Focus on wood to get your Imperial Official out quickly.">
+                                <StepList>
+                                    <StepListItem>Send all starting Villagers to <span className="font-semibold">Wood</span>.</StepListItem>
+                                    <StepListItem>Immediately produce an <span className="font-semibold text-primary">Imperial Official</span> from the Town Center.</StepListItem>
+                                    <StepListItem>Build a <span className="font-semibold">Mill</span> on your starting sheep.</StepListItem>
+                                    <StepListItem>The next new Villager builds a <span className="font-semibold">Village</span> (away from your intended landmark spot).</StepListItem>
+                                    <StepListItem>That villager then moves to <span className="font-semibold">Wood</span>, for a total of 3 on Wood.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                            <StepCard icon={Coins} title="II. Economic Balancing" description="Prepare your resources for a fast age-up.">
+                                <StepList>
+                                    <StepListItem>Assign 3 Villagers to mine <span className="font-semibold">Gold</span>.</StepListItem>
+                                    <StepListItem>Use one Villager near your gold mine to build the <span className="font-semibold text-primary">Barbican of the Sun</span> landmark.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                             <StepCard icon={Building2} title="III. Age Up & Feudal Transition" description="Shift your economy to prepare for your chosen Feudal strategy.">
+                                 <StepList>
+                                    <StepListItem>Move all but 6 of your Food Villagers to <span className="font-semibold">Wood</span>.</StepListItem>
+                                    <StepListItem>The villagers who built the landmark should also be moved to <span className="font-semibold">Wood</span>.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                             <StepCard icon={Fence} title="IV. Strategic Options" description="Choose your path: expand, rush, or boom.">
+                                 <StepList>
+                                     <StepListItem>
+                                        <span className="font-semibold text-primary">Option 1: Professional Scouts</span><br/>
+                                        Build a stable, research Pro Scouts, and use them with your Zhuge Nu to control the map and hunt deer.
+                                     </StepListItem>
+                                     <StepListItem>
+                                        <span className="font-semibold text-primary">Option 2: Second Town Center</span><br/>
+                                        Balance your economy with 8 on wood and 6 on food. Send all new villagers to stone. Place Officials on Wood and Stone for a fast boom.
+                                     </StepListItem>
+                                     <StepListItem>
+                                        <span className="font-semibold text-primary">Option 3: Feudal All-in Rush</span><br/>
+                                        Keep villagers on Food and Wood, produce units from Archery Ranges and Barracks to apply early pressure.
+                                     </StepListItem>
+                                 </StepList>
+                                  <Alert className="mt-4 border-amber-500/50 text-amber-700 [&>svg]:text-amber-700">
+                                    <AlertTitle className="font-semibold">Fast Castle Note</AlertTitle>
+                                    <AlertDescription>
+                                        For a Fast Castle, build a stable and get Professional Scouts to gather from deer. Move most wood villagers to food and aim for about 8 villagers on Gold.
+                                    </AlertDescription>
+                                </Alert>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
             </Accordion>
         </div>
       </main>
@@ -171,5 +226,7 @@ export default function Aoe4BuildOrderPage() {
     </div>
   );
 }
+
+    
 
     
