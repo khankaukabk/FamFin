@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code, DollarSign } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code, DollarSign, Swords } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -107,6 +107,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavGroupLabel>Fun & Games</NavGroupLabel>
                       <NavLink href="/table-tennis" onClick={closeSheet}><Gamepad2 className="mr-3" /> Table Tennis</NavLink>
                       <NavLink href="/coding-sandbox" onClick={closeSheet}><Code className="mr-3" /> Coding Sandbox</NavLink>
+                      <NavLink href="/aoe4-build-order" onClick={closeSheet}><Swords className="mr-3" /> AoE4 Build Order</NavLink>
                   </div>
                 </ScrollArea>
                 <div className="p-4 border-t">
