@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const StepCard = ({ icon, title, description, children }: { icon: React.ElementType, title: string, description: string, children: React.ReactNode }) => (
     <Card>
@@ -40,80 +41,94 @@ const StepListItem = ({ children }: { children: React.ReactNode }) => (
 export default function Aoe4BuildOrderPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navigation title="AoE IV: Sengoku Daimyo Build" />
+      <Navigation title="AoE IV Build Orders" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
-        <div className="mx-auto max-w-3xl space-y-8">
+        <div className="mx-auto max-w-4xl space-y-8">
             <Card>
                 <CardHeader>
-                    <CardTitle className="font-headline text-2xl">Age of Empires IV: Sengoku Daimyo Build Order</CardTitle>
-                    <CardDescription className="text-base">Strategy: Fast Matsuri Eco into Koka Township & Yari Cavalry Pressure</CardDescription>
+                    <CardTitle className="font-headline text-2xl">Age of Empires IV Build Orders</CardTitle>
+                    <CardDescription className="text-base">A collection of competitive build orders for various civilizations.</CardDescription>
                 </CardHeader>
             </Card>
 
-            <StepCard icon={Drum} title="I. Game Start & Dark Age Economy" description="Establish a strong economic foundation with a focus on the Matsuri Festival.">
-                <div className="space-y-4">
-                    <div>
-                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Axe className="h-5 w-5"/>Immediate Start</h4>
-                        <StepList>
-                            <StepListItem>Send 5 starting Villagers to <span className="font-semibold">Wood</span>.</StepListItem>
-                            <StepListItem>Send 1 starting Villager to build a <span className="font-semibold">House</span>.</StepListItem>
-                            <StepListItem>CRITICAL: Immediately research the <span className="font-semibold text-primary">Tawara</span> upgrade from the House.</StepListItem>
-                        </StepList>
-                    </div>
-                    <Separator />
-                    <div>
-                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Coins className="h-5 w-5"/>Matsuri Market Setup</h4>
-                         <StepList>
-                            <StepListItem>As soon as Wood Villagers finish their first tree, shift-click them to <span className="font-semibold">Berries</span>.</StepListItem>
-                            <StepListItem>Next 2 Villagers go to <span className="font-semibold">Gold</span> and build the <span className="font-semibold text-primary">Matsuri Market</span>.</StepListItem>
-                             <StepListItem>Market Action: Immediately produce a <span className="font-semibold text-primary">Yatai</span>.</StepListItem>
-                             <StepListItem>Yatai Placement: Position Yatai between <span className="font-semibold">Food</span> and <span className="font-semibold">Sheep</span>.</StepListItem>
-                        </StepList>
-                        <Alert className="mt-4 border-amber-500/50 text-amber-700 [&>svg]:text-amber-700">
-                            <AlertTitle className="font-semibold">Mechanic Note</AlertTitle>
-                            <AlertDescription>
-                                The Yatai must deploy traders ASAP to boost the Matsuri Market. Toggle/untoggle the Yatai target to ensure the correct Matsuri receives the boost (aim for farming/food boost).
-                            </AlertDescription>
-                        </Alert>
-                    </div>
-                    <Separator />
-                     <div>
-                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Rabbit className="h-5 w-5"/>Prepare for Age Up</h4>
-                         <StepList>
-                            <StepListItem>All new Villagers go to TC Sheep until you have 5 Villagers ready for the landmark.</StepListItem>
-                        </StepList>
-                    </div>
-                </div>
-            </StepCard>
+            <Accordion type="single" collapsible className="w-full" defaultValue="sengoku-daimyo">
+                <AccordionItem value="sengoku-daimyo">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">Sengoku Daimyo (Japanese)</h3>
+                            <p className="text-sm text-muted-foreground">Fast Matsuri Eco into Koka Township & Yari Cavalry Pressure</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={Drum} title="I. Game Start & Dark Age Economy" description="Establish a strong economic foundation with a focus on the Matsuri Festival.">
+                                <div className="space-y-4">
+                                    <div>
+                                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Axe className="h-5 w-5"/>Immediate Start</h4>
+                                        <StepList>
+                                            <StepListItem>Send 5 starting Villagers to <span className="font-semibold">Wood</span>.</StepListItem>
+                                            <StepListItem>Send 1 starting Villager to build a <span className="font-semibold">House</span>.</StepListItem>
+                                            <StepListItem>CRITICAL: Immediately research the <span className="font-semibold text-primary">Tawara</span> upgrade from the House.</StepListItem>
+                                        </StepList>
+                                    </div>
+                                    <Separator />
+                                    <div>
+                                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Coins className="h-5 w-5"/>Matsuri Market Setup</h4>
+                                         <StepList>
+                                            <StepListItem>As soon as Wood Villagers finish their first tree, shift-click them to <span className="font-semibold">Berries</span>.</StepListItem>
+                                            <StepListItem>Next 2 Villagers go to <span className="font-semibold">Gold</span> and build the <span className="font-semibold text-primary">Matsuri Market</span>.</StepListItem>
+                                             <StepListItem>Market Action: Immediately produce a <span className="font-semibold text-primary">Yatai</span>.</StepListItem>
+                                             <StepListItem>Yatai Placement: Position Yatai between <span className="font-semibold">Food</span> and <span className="font-semibold">Sheep</span>.</StepListItem>
+                                        </StepList>
+                                        <Alert className="mt-4 border-amber-500/50 text-amber-700 [&>svg]:text-amber-700">
+                                            <AlertTitle className="font-semibold">Mechanic Note</AlertTitle>
+                                            <AlertDescription>
+                                                The Yatai must deploy traders ASAP to boost the Matsuri Market. Toggle/untoggle the Yatai target to ensure the correct Matsuri receives the boost (aim for farming/food boost).
+                                            </AlertDescription>
+                                        </Alert>
+                                    </div>
+                                    <Separator />
+                                     <div>
+                                        <h4 className="font-semibold text-lg flex items-center gap-2 mb-2"><Rabbit className="h-5 w-5"/>Prepare for Age Up</h4>
+                                         <StepList>
+                                            <StepListItem>All new Villagers go to TC Sheep until you have 5 Villagers ready for the landmark.</StepListItem>
+                                        </StepList>
+                                    </div>
+                                </div>
+                            </StepCard>
 
-             <StepCard icon={University} title="II. Age Up (Feudal Transition)" description="Transition to the Feudal Age by building the Koka Township landmark.">
-                <StepList>
-                    <StepListItem>Landmark: Build the <span className="font-semibold text-primary">Koka Township</span> with the 5 Food Villagers.</StepListItem>
-                    <StepListItem>Shift-queue these 5 builders to <span className="font-semibold">Wood</span> after the landmark is complete.</StepListItem>
-                    <StepListItem>Build a Lumber Camp first, then a House near the woodline.</StepListItem>
-                    <StepListItem>Immediately research the <span className="font-semibold text-primary">Food Upgrade</span> from the House upon reaching Feudal Age.</StepListItem>
-                </StepList>
-            </StepCard>
+                             <StepCard icon={University} title="II. Age Up (Feudal Transition)" description="Transition to the Feudal Age by building the Koka Township landmark.">
+                                <StepList>
+                                    <StepListItem>Landmark: Build the <span className="font-semibold text-primary">Koka Township</span> with the 5 Food Villagers.</StepListItem>
+                                    <StepListItem>Shift-queue these 5 builders to <span className="font-semibold">Wood</span> after the landmark is complete.</StepListItem>
+                                    <StepListItem>Build a Lumber Camp first, then a House near the woodline.</StepListItem>
+                                    <StepListItem>Immediately research the <span className="font-semibold text-primary">Food Upgrade</span> from the House upon reaching Feudal Age.</StepListItem>
+                                </StepList>
+                            </StepCard>
 
-            <StepCard icon={Brick} title="III. Feudal Age Production" description="Build up your military infrastructure while balancing your economy.">
-                 <StepList>
-                    <StepListItem>Send all new Villagers to <span className="font-semibold">Wood</span> until you bank 400 Wood.</StepListItem>
-                    <StepListItem>Once at 400 Wood, take 3 Villagers to build <span className="font-semibold">2 Stables</span> and <span className="font-semibold">1 Blacksmith</span> (on Stone).</StepListItem>
-                    <StepListItem>Reallocate Villagers from Wood back to TC Sheep until you have <span className="font-semibold">15 on Food</span>.</StepListItem>
-                    <StepListItem>Send new Villagers to <span className="font-semibold">Wood</span> and get Lumber Camp upgrades.</StepListItem>
-                 </StepList>
-            </StepCard>
+                            <StepCard icon={Brick} title="III. Feudal Age Production" description="Build up your military infrastructure while balancing your economy.">
+                                 <StepList>
+                                    <StepListItem>Send all new Villagers to <span className="font-semibold">Wood</span> until you bank 400 Wood.</StepListItem>
+                                    <StepListItem>Once at 400 Wood, take 3 Villagers to build <span className="font-semibold">2 Stables</span> and <span className="font-semibold">1 Blacksmith</span> (on Stone).</StepListItem>
+                                    <StepListItem>Reallocate Villagers from Wood back to TC Sheep until you have <span className="font-semibold">15 on Food</span>.</StepListItem>
+                                    <StepListItem>Send new Villagers to <span className="font-semibold">Wood</span> and get Lumber Camp upgrades.</StepListItem>
+                                 </StepList>
+                            </StepCard>
 
-            <StepCard icon={Swords} title="IV. Unit Production & Scaling" description="Apply pressure with Yari Cavalry while expanding your economy.">
-                 <StepList>
-                    <StepListItem>Start constant production of <span className="font-semibold text-primary">Yari Cavalry</span> from the Stables.</StepListItem>
-                    <StepListItem>As TC Sheep run low, move your 15 Food Villagers to <span className="font-semibold">Berries</span> or <span className="font-semibold">Boar</span>.</StepListItem>
-                    <StepListItem>Once you have enough wood with 10 Villagers, build a <span className="font-semibold text-primary">Second Town Center (2nd TC)</span>.</StepListItem>
-                     <StepListItem>Send new Villagers to <span className="font-semibold">Gold</span> until you have 5 on Gold.</StepListItem>
-                    <StepListItem>Maintain constant Villager and Yari Cavalry production until ready for Castle Age.</StepListItem>
-                 </StepList>
-            </StepCard>
-
+                            <StepCard icon={Swords} title="IV. Unit Production & Scaling" description="Apply pressure with Yari Cavalry while expanding your economy.">
+                                 <StepList>
+                                    <StepListItem>Start constant production of <span className="font-semibold text-primary">Yari Cavalry</span> from the Stables.</StepListItem>
+                                    <StepListItem>As TC Sheep run low, move your 15 Food Villagers to <span className="font-semibold">Berries</span> or <span className="font-semibold">Boar</span>.</StepListItem>
+                                    <StepListItem>Once you have enough wood with 10 Villagers, build a <span className="font-semibold text-primary">Second Town Center (2nd TC)</span>.</StepListItem>
+                                     <StepListItem>Send new Villagers to <span className="font-semibold">Gold</span> until you have 5 on Gold.</StepListItem>
+                                    <StepListItem>Maintain constant Villager and Yari Cavalry production until ready for Castle Age.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                {/* You can add more <AccordionItem> blocks here for other build orders */}
+            </Accordion>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-xs">
