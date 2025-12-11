@@ -16,12 +16,10 @@ export default function BookReaderPage() {
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ 
         axis: 'y',
-        startIndex: 0,
     });
     const [currentPage, setCurrentPage] = React.useState(0);
     const [progressPercentage, setProgressPercentage] = React.useState(0);
 
-    // If book is not found, render a not-found page
     if (!book) {
         notFound();
     }
@@ -30,20 +28,7 @@ export default function BookReaderPage() {
     const totalPages = bookContent.length;
     const LOCAL_STORAGE_KEY = `book-progress-${slug}`;
 
-    // Effect to load initial page from local storage
-    React.useEffect(() => {
-        const savedPage = localStorage.getItem(LOCAL_STORAGE_KEY);
-        const pageIndex = savedPage ? parseInt(savedPage, 10) : 0;
-        if (emblaApi) {
-            emblaApi.scrollTo(pageIndex, true); // Instantly scroll without animation
-        }
-        setCurrentPage(pageIndex);
-        if (totalPages > 0) {
-            setProgressPercentage(((pageIndex + 1) / totalPages) * 100);
-        }
-    }, [emblaApi, totalPages, LOCAL_STORAGE_KEY]);
-
-    // Effect to handle page selection and saving progress
+    // Effect to handle page selection, progress updates, and saving progress
     React.useEffect(() => {
         if (!emblaApi) return;
 
@@ -51,14 +36,23 @@ export default function BookReaderPage() {
             const newPage = emblaApi.selectedScrollSnap();
             setCurrentPage(newPage);
             if (totalPages > 0) {
-                setProgressPercentage(((newPage + 1) / totalPages) * 100);
+                const newProgress = ((newPage + 1) / totalPages) * 100;
+                setProgressPercentage(newProgress);
+                localStorage.setItem(LOCAL_STORAGE_KEY, newPage.toString());
             }
-            localStorage.setItem(LOCAL_STORAGE_KEY, newPage.toString());
         };
+        
+        // Load initial page from local storage once the carousel is ready
+        const savedPage = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const pageIndex = savedPage ? parseInt(savedPage, 10) : 0;
+        if (pageIndex > 0) {
+            emblaApi.scrollTo(pageIndex, true); // Instantly scroll
+        }
+        
+        // Set initial state after loading
+        onSelect();
 
         emblaApi.on('select', onSelect);
-        // Initial call to set state
-        onSelect();
 
         return () => {
             emblaApi.off('select', onSelect);
