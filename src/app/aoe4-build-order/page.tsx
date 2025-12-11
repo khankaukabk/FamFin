@@ -6,7 +6,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home } from "lucide-react";
+import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const StepCard = ({ icon, title, description, children }: { icon: React.ElementType, title: string, description: string, children: React.ReactNode }) => (
@@ -127,7 +127,41 @@ export default function Aoe4BuildOrderPage() {
                         </div>
                     </AccordionContent>
                 </AccordionItem>
-                {/* You can add more <AccordionItem> blocks here for other build orders */}
+                <AccordionItem value="french-knights">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">French</h3>
+                            <p className="text-sm text-muted-foreground">Fast Feudal Knight Pressure with Professional Scouts</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={Users} title="I. Opening Allocation" description="Set your initial villager distribution for a fast Feudal.">
+                                <StepList>
+                                    <StepListItem>Send 7 starting Villagers to <span className="font-semibold">Food</span> (Sheep).</StepListItem>
+                                    <StepListItem>Send 3 starting Villagers to <span className="font-semibold">Gold</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+
+                            <StepCard icon={TowerControl} title="II. Age-Up Transition" description="Advance to the Feudal age while preparing your economy for military production.">
+                                <StepList>
+                                    <StepListItem>Use 5 Villagers from Food to build the <span className="font-semibold text-primary">School of Cavalry</span> landmark.</StepListItem>
+                                    <StepListItem>Once the landmark is complete, move these 5 builders to <span className="font-semibold">Wood</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+
+                             <StepCard icon={Horse} title="III. Feudal Age Pressure" description="Begin knight production and establish map control.">
+                                 <StepList>
+                                    <StepListItem>Balance your economy to have <span className="font-semibold">12 Villagers on Food</span> and <span className="font-semibold">10 on Gold</span>.</StepListItem>
+                                    <StepListItem>This balance will support constant <span className="font-semibold text-primary">Knight</span> production and essential upgrades.</StepListItem>
+                                    <StepListItem>Build a <span className="font-semibold">Mill</span> to research <span className="font-semibold text-primary">Professional Scouts</span> for harassing the enemy and gathering food from hunts.</StepListItem>
+                                    <StepListItem>Build a <span className="font-semibold">Stable</span> to supplement knight production from your landmark.</StepListItem>
+                                    <StepListItem>Gradually transition your Food economy to <span className="font-semibold">Farms</span> as you deplete sheep and hunts.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
             </Accordion>
         </div>
       </main>
@@ -137,3 +171,5 @@ export default function Aoe4BuildOrderPage() {
     </div>
   );
 }
+
+    
