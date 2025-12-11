@@ -90,7 +90,8 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 2",
         dates: "December 8-14",
         tasks: [
-          { id: 'clw153t5s000008l43r4y20e0', icon: "Send", title: "Send Proposal to Pelham", description: "Finalize and send the business proposal.", completed: false },
+          { id: 'clx0f8t5s000009l43r4y20e1', icon: "GraduationCap", title: "Safura's Citizenship Interview", description: "December 8th.", completed: false },
+          { id: 'clw153t5s000008l43r4y20e0', icon: "Send", title: "Finalize and send the business proposal to Pelham", description: "", completed: false },
           { id: 'clw153t5s000108l42j3y9z0a', icon: "CalendarPlus", title: "Create meeting with Ryan Kelly for directorship", description: "", completed: false },
           { id: 'clx0f8t5s000209l4e0c3a8d2', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
           { id: 'clx0f8t5s000309l4a2g3h9n8', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
@@ -112,6 +113,7 @@ const initialTaskData: TaskMonth[] = [
         week: "Week 4",
         dates: "December 22-31",
         tasks: [
+           { id: 'clx0f8t5s000109l43r4y20e2', icon: "Star", title: "Safura's Oath Ceremony", description: "December 22nd.", completed: false },
            { id: 'clw153t5s000a08l4b3c2d1e9', icon: "Briefcase", title: "Schedule Alabama Investors Meeting", description: "Every Tuesday.", completed: false },
            { id: 'clw153t5s000b08l4h7g6f5e4', icon: "Users", title: "Schedule Directors Meeting", description: "Every Tuesday.", completed: false },
            { id: 'clw153t5s000c08l4d5e6f7g8', icon: "BookOpen", title: "Rohingya Class Orientation", description: "Lead the orientation session for new members every Wednesday.", completed: false },
