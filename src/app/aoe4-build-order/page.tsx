@@ -6,7 +6,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse, Building2, UserPlus, Fence } from "lucide-react";
+import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse, Building2, UserPlus, Fence, Mountain, Tent, UserCog, BookUser, Castle, LandPlot } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const StepCard = ({ icon, title, description, children }: { icon: React.ElementType, title: string, description: string, children: React.ReactNode }) => (
@@ -217,6 +217,106 @@ export default function Aoe4BuildOrderPage() {
                         </div>
                     </AccordionContent>
                 </AccordionItem>
+                 <AccordionItem value="zhu-xi-legacy">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">Zhu Xi's Legacy</h3>
+                            <p className="text-sm text-muted-foreground">Efficient early economy and production.</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={Users} title="I. Initial Setup" description="Optimize your villager distribution for a strong start.">
+                                <StepList>
+                                    <StepListItem>Send 8 Villagers to <span className="font-semibold">Food</span>.</StepListItem>
+                                    <StepListItem>Send 4 Villagers to <span className="font-semibold">Gold</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                            <StepCard icon={Mountain} title="II. Age Up" description="Age up with one villager from food.">
+                                <StepList>
+                                    <StepListItem>Use one villager from food to build the landmark.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                             <StepCard icon={UserCog} title="III. Feudal Economy" description="Rebalance your economy for growth and production.">
+                                 <StepList>
+                                    <StepListItem>Balance economy to <span className="font-semibold">5 on Food</span>, <span className="font-semibold">4 on Gold</span>, and the rest on <span className="font-semibold">Wood</span>.</StepListItem>
+                                    <StepListItem>Assign <span className="font-semibold">6 Villagers</span> and an <span className="font-semibold text-primary">Imperial Official</span> to wood.</StepListItem>
+                                    <StepListItem>Assign <span className="font-semibold">1 Villager</span> and an <span className="font-semibold text-primary">Imperial Official</span> for gold collection.</StepListItem>
+                                    <StepListItem>Assign <span className="font-semibold">1 Villager</span> and another <span className="font-semibold text-primary">Imperial Official</span> for production buildings.</StepListItem>
+                                    <StepListItem>Immediately research <span className="font-semibold">Lumber Camp</span> and <span className="font-semibold">Mill</span> upgrades.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                             <StepCard icon={Swords} title="IV. Production and Pressure" description="Build up your military and keep applying pressure.">
+                                 <StepList>
+                                     <StepListItem>Construct <span className="font-semibold">Blacksmith</span> and production buildings.</StepListItem>
+                                     <StepListItem><span className="font-bold text-primary">KEEP PUSHING!!</span></StepListItem>
+                                 </StepList>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="mongols">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">Mongols</h3>
+                            <p className="text-sm text-muted-foreground">Aggressive early game with Ovoo and stables.</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={BookUser} title="I. Initial Setup" description="Focus on your Ovoo and wood collection.">
+                                <StepList>
+                                    <StepListItem>Place <span className="font-semibold text-primary">Ovoo</span> on a stone outcropping.</StepListItem>
+                                    <StepListItem>Send all villagers to <span className="font-semibold">Wood</span> and build a <span className="font-semibold text-primary">Ger</span>.</StepListItem>
+                                    <StepListItem>Gather enough wood to build a <span className="font-semibold">Stable</span> or <span className="font-semibold">Pasture</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                            <StepCard icon={Coins} title="II. Economic Balancing" description="Prepare for age up while maintaining resource flow.">
+                                <StepList>
+                                    <StepListItem>Balance economy to <span className="font-semibold">8 on Food</span> and <span className="font-semibold">4 on Gold</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                             <StepCard icon={TowerControl} title="III. Age Up" description="Transition to Feudal with a focus on wood.">
+                                 <StepList>
+                                    <StepListItem>Use <span className="font-semibold">5 Villagers</span> to build the landmark.</StepListItem>
+                                    <StepListItem>Move the landmark builders to <span className="font-semibold">Wood</span> after completion.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                 <AccordionItem value="english">
+                    <AccordionTrigger>
+                        <div className="text-left">
+                            <h3 className="font-headline text-xl">English</h3>
+                            <p className="text-sm text-muted-foreground">Solid and defensive start with Longbowmen potential.</p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                        <div className="space-y-6">
+                            <StepCard icon={LandPlot} title="I. Dark Age Start" description="Establish a balanced early economy.">
+                                <StepList>
+                                    <StepListItem>Send 6 Villagers to <span className="font-semibold">Food</span>.</StepListItem>
+                                    <StepListItem>Send 2 Villagers to <span className="font-semibold">Gold</span>.</StepListItem>
+                                    <StepListItem>Send 1 Villager to <span className="font-semibold">Wood</span>.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                            <StepCard icon={Castle} title="II. Age Up" description="Age up with the Council Hall.">
+                                <StepList>
+                                    <StepListItem>Use 4 Villagers from food to build the landmark.</StepListItem>
+                                    <StepListItem>Return them to food after completion.</StepListItem>
+                                </StepList>
+                            </StepCard>
+                             <StepCard icon={Users} title="III. Feudal Economy" description="Balance your economy for military production.">
+                                 <StepList>
+                                    <StepListItem>Aim for <span className="font-semibold">11 Villagers on Wood</span>.</StepListItem>
+                                    <StepListItem>Aim for <span className="font-semibold">11 Villagers on Food</span>.</StepListItem>
+                                    <StepListItem>Aim for <span className="font-semibold">3 Villagers on Gold</span>.</StepListItem>
+                                 </StepList>
+                            </StepCard>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
             </Accordion>
         </div>
       </main>
@@ -226,7 +326,3 @@ export default function Aoe4BuildOrderPage() {
     </div>
   );
 }
-
-    
-
-    
