@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -433,6 +433,107 @@ const session5CheatSheet = [
   },
 ];
 
+const session6CheatSheet = [
+  {
+    id: "6A",
+    title: "Check-in and Resource Sharing",
+    duration: "10 Minutes",
+    icon: CheckCircle,
+    goal: "Welcome everyone and acknowledge their journey.",
+    steps: [
+      { title: "Welcome", instruction: 'Say: "Welcome back. Thank you for being here today."' },
+      { title: "Check-in", instruction: 'Do: Choose a simple check-in.\nSay: "Let\'s do a one-word check-in. What is one word that describes your energy level today?" (Examples: High, Low, Tired, Excited).' },
+      { title: "Resources", instruction: "Do: Share any news about COVID-19 or legal updates if relevant." },
+      { title: "Introduce Topic", instruction: 'Say: "Today we are talking about Culture Shock—the emotional journey of moving to a new country and how we adjust."' },
+    ],
+  },
+  {
+    id: "6B",
+    title: "Culture Shock & The Adjustment Process",
+    duration: "15 Minutes",
+    icon: Globe,
+    goal: "Explain that feeling confused or sad is a normal part of moving.",
+    parts: [
+      {
+        title: "The 4 Stages of Migration",
+        content: 'Do: Explain these 4 stages simply. Use your hands to show ups and downs.\n\nHoneymoon: "When you first arrive, everything is new and exciting. You feel hopeful."\n\nCRITICAL NOTE for Asylum Seekers: "If you came here seeking asylum/safety, you might not have felt this. You might have just felt stress. That is okay, too."\n\nCulture Shock: "The excitement stops. You realize life here is HARD. You might feel angry, sad, or confused. You miss home."\n\nAdjustment: "You start to learn how things work. You learn the bus system, the language, or find a job. It feels a little less scary."\n\nIntegration: "You feel comfortable. You feel like you are from your home country AND part of the US community."',
+      },
+      {
+        title: "Discussion",
+        content: 'Ask: "Have you felt \'Culture Shock\'? What was the hardest thing for you to understand when you first arrived?"\n\nAsk: "Where do you think you are on this timeline right now? Are you in \'Shock\' or \'Adjustment\'?"',
+      },
+      {
+        title: "Scenarios (Activity)",
+        content: 'Do: Refer to "Appendix Page 7" (Newcomer Scenarios). Read the story of Amal or Tsegeye if you have it.\n\nIf you do not have the story, Ask: "Think of a friend who is struggling to adjust. What would you say to support them?"',
+      },
+    ],
+  },
+  {
+    id: "6C",
+    title: "Cultural Integration",
+    duration: "15 Minutes",
+    icon: Salad,
+    goal: "Explain that you don't have to lose your culture to live here.",
+    steps: [
+      {
+        title: 'The "Salad Bowl" Concept',
+        instruction: 'Say: "Integrating does NOT mean you have to forget your culture. You can keep your traditions AND learn new American traditions."\n\nSay: "It is okay to be \'Bicultural\'—to be two things at once."',
+      },
+      {
+        title: "Old vs. New Traditions",
+        instruction: 'Activity: Ask the group to compare traditions.\n\nAsk: "What is one tradition from your home country that you MUST keep?" (Example: specific holidays, food, respect for elders).\n\nAsk: "What is one NEW tradition in the US that you actually like?" (Example: Thanksgiving, parks, casual clothing).\n\nAsk: "What is one US tradition that is very strange to you?"',
+      },
+    ],
+  },
+  {
+    id: "6D-6E",
+    title: "Community Wellbeing & Compassion",
+    duration: "20 Minutes",
+    icon: Heart,
+    goal: "Discuss how to stay connected and be kind.",
+    parts: [
+      {
+        title: "Coping Strategies",
+        content: 'Say: "When we miss our home, we need anchors to hold us steady."\n\nAsk: "What keeps you strong? Is it Faith? Family? Or Community?"\n\nAsk: "How do you stay connected to your community during the pandemic/isolation? Do you call? Use WhatsApp?"',
+      },
+      {
+        title: "Compassion (Helping Others)",
+        content: 'Say: "One of the best ways to heal yourself is to be kind to others."\n\nExplain Compassion:\n\n"Listen without judgment."\n\n"Be patient. Everyone adjusts at different speeds."\n\n"Share your own stories of how you cope."\n\nAsk: "Think of a time someone was kind to you when you were new here. How did that help you?"',
+      },
+    ],
+  },
+  {
+    id: "6F",
+    title: "Reflection Activity: Tree of Life",
+    duration: "20 Minutes",
+    icon: Trees,
+    goal: "Connect past strength with future hope.",
+    steps: [
+      {
+        title: 'The "Tree of Life" Visualization',
+        instruction: 'Note: Refer to "Appendix Page 8 or 9". If you cannot do the full activity, do this simple version:\n\nSay: "I want you to imagine a tree." (Or draw it if they have paper).\n\nThe Roots (History): "Think about where you come from. Your ancestors. Your culture. This keeps you standing."\n\nThe Trunk (Strengths): "What makes you strong? Is it your family? Your faith? Your bravery?"\n\nThe Leaves/Fruit (The Future): "What are your hopes for the future? What do you want to give to your children?"\n\nAsk: "Would anyone like to share one \'Root\' (where they are from) or one \'Fruit\' (a hope for the future)?"',
+      },
+    ],
+  },
+  {
+    id: "6G",
+    title: "Home Practice & Closing",
+    duration: "10 Minutes",
+    icon: Home,
+    goal: "Homework and Goodbye.",
+    steps: [
+      {
+        title: "Homework",
+        instruction: 'Say: "This week, try to reach out to one person in your community just to say hello and see how they are doing."',
+      },
+      {
+        title: "Closing",
+        instruction: 'Say: "You have all been through a big journey. Be proud of how far you have come. See you next week!"',
+      },
+    ],
+  },
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -448,12 +549,13 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-5" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+          <Tabs defaultValue="session-6" className="w-full">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="session-2">Session 2</TabsTrigger>
               <TabsTrigger value="session-3">Session 3</TabsTrigger>
               <TabsTrigger value="session-4">Session 4</TabsTrigger>
               <TabsTrigger value="session-5">Session 5</TabsTrigger>
+              <TabsTrigger value="session-6">Session 6</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -602,6 +704,44 @@ export default function RohingyaClassReportPage() {
                 ))}
               </div>
             </TabsContent>
+             <TabsContent value="session-6" className="mt-6">
+               <div className="space-y-6">
+                {session6CheatSheet.map((section, index) => (
+                  <React.Fragment key={section.id}>
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                          <div>
+                            <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                            <CardDescription>{section.duration}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                          <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                          <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {section.steps?.map((step, stepIndex) => (
+                           <div key={stepIndex} className="pl-4">
+                              {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                           </div>
+                        ))}
+                        {section.parts?.map((part, partIndex) => (
+                          <div key={partIndex} className="pl-4">
+                             <p className="font-semibold text-sm mb-1">{part.title}</p>
+                             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                    {index < session6CheatSheet.length - 1 && <Separator />}
+                  </React.Fragment>
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -612,3 +752,5 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
+
+    
