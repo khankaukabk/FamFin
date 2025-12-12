@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { useFirestore, useCollection, useMemoFirebase, useUser } from "@/firebase";
 import { collection } from "firebase/firestore";
 import type { Task, WeeklyTasks, TaskMonth } from "@/lib/task-service";
 import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
@@ -41,6 +41,7 @@ const getIcon = (name: string) => {
 
 export default function HomePage() {
   const firestore = useFirestore();
+  const { user, isUserLoading } = useUser();
   const [alertState, setAlertState] = React.useState<{
     isOpen: boolean;
     monthId: string | null;
@@ -50,14 +51,14 @@ export default function HomePage() {
 
   // Initialize tasks in Firestore if they don't exist
   React.useEffect(() => {
-    if (firestore) {
+    if (firestore && user) {
       initializeTasks(firestore);
     }
-  }, [firestore]);
+  }, [firestore, user]);
 
   const taskMonthsQuery = useMemoFirebase(
-    () => (firestore ? collection(firestore, "taskMonths") : null),
-    [firestore]
+    () => (firestore && user ? collection(firestore, "taskMonths") : null),
+    [firestore, user]
   );
   const { data: taskMonths, isLoading: isLoadingMonths } =
     useCollection<TaskMonth>(taskMonthsQuery);
@@ -144,7 +145,7 @@ export default function HomePage() {
       <Navigation title="December Tasks" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-2xl space-y-8">
-          {isLoadingMonths ? (
+          {isLoadingMonths || isUserLoading ? (
              <div className="grid grid-cols-1 gap-8">
                <Skeleton className="h-96 w-full" />
                <Skeleton className="h-96 w-full" />
