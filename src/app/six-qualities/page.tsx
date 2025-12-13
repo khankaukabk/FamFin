@@ -9,6 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Navigation } from "@/components/ui/navigation";
 
+type Hadith = {
+  english: string;
+  arabic: string;
+  source: string;
+};
+
 type Quality = {
   icon: React.ElementType;
   title: string;
@@ -58,6 +64,24 @@ const qualities: Quality[] = [
           </div>
         </div>
          <Separator />
+         <div>
+            <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Faith</h4>
+            <div className="space-y-4">
+                <blockquote className="border-l-2 pl-4 italic">"Whoever says 'Laa ilaaha illallah' sincerely from his heart, the doors of the heavens are opened for it until it reaches the Throne, as long as he avoids major sins." (Tirmidhi)
+                <p className="arabic-text text-right mt-1 text-lg">مَنْ قَالَ لَا إِلَهَ إِلَّا اللَّهُ مُخْلِصًا فُتِحَتْ لَهُ أَبْوَابُ السَّمَاءِ حَتَّى تُفْضِيَ إِلَى الْعَرْشِ مَا اجْتُنِبَتِ الْكَبَائِرُ</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"Faith has more than seventy branches. The highest is saying 'Laa ilaaha illallah', and the lowest is removing a harmful object from the road." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">الإِيمَانُ بِضْعٌ وَسَبْعُونَ شُعْبَةً فَأَفْضَلُهَا قَوْلُ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَدْنَاهَا إِمَاطَةُ الأَذَى عَنِ الطَّرِيقِ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"Renew your faith." They asked, "How do we renew our faith?" He said, "Say 'Laa ilaaha illallah' frequently." (Ahmad)
+                <p className="arabic-text text-right mt-1 text-lg">جَدِّدُوا إِيمَانَكُمْ، قِيلَ: يَا رَسُولَ اللهِ، وَكَيْفَ نُجَدِّدُ إِيمَانَنَا؟ قَالَ: أَكْثِرُوا مِنْ قَوْلِ لَا إِلَهَ إِلَّا اللهُ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"Whoever dies knowing that there is no god but Allah will enter Paradise." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">مَنْ مَاتَ وَهُوَ يَعْلَمُ أَنَّهُ لاَ إِلَهَ إِلاَّ اللَّهُ دَخَلَ الْجَنَّةَ</p>
+                </blockquote>
+            </div>
+         </div>
+        <Separator />
         <div>
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
@@ -99,6 +123,24 @@ const qualities: Quality[] = [
              </ul>
         </div>
         <Separator />
+         <div>
+            <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Salah</h4>
+            <div className="space-y-4">
+                 <blockquote className="border-l-2 pl-4 italic">"The first thing a servant will be held accountable for on the Day of Resurrection is his prayer. If it is good, he succeeds and prospers; if it is bad, he fails and loses." (Tirmidhi)
+                <p className="arabic-text text-right mt-1 text-lg">إِنَّ أَوَّلَ مَا يُحَاسَبُ بِهِ الْعَبْدُ يَوْمَ الْقِيَامَةِ مِنْ عَمَلِهِ صَلاَتُهُ فَإِنْ صَلُحَتْ فَقَدْ أَفْلَحَ وَأَنْجَحَ وَإِنْ فَسَدَتْ فَقَدْ خَابَ وَخَسِرَ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"The coolness of my eyes lies in Salah." (Nasa’i)
+                <p className="arabic-text text-right mt-1 text-lg">وَجُعِلَتْ قُرَّةُ عَيْنِي فِي الصَّلاَةِ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"The difference between a man and disbelief is the abandonment of Salah." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">بَيْنَ الرَّجُلِ وَبَيْنَ الشِّرْكِ وَالْكُفْرِ تَرْكُ الصَّلاَةِ</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"Allah does not look at the prayer of one who does not straighten his back between bowing and prostration." (Musnad Ahmad)
+                <p className="arabic-text text-right mt-1 text-lg">لاَ يَنْظُرُ اللَّهُ إِلَى صَلاَةِ رَجُلٍ لاَ يُقِيمُ صُلْبَهُ بَيْنَ الرُّكُوعِ وَالسُّجُودِ</p>
+                </blockquote>
+            </div>
+        </div>
+        <Separator />
         <div>
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
@@ -130,6 +172,22 @@ const qualities: Quality[] = [
             <p className="font-semibold text-foreground">The Explanation:</p>
             <p className="text-muted-foreground">Knowledge is the guide. Only knowledge that brings a man closer to Allah is truly appreciated. We must distinguish between Ilm of Fadhail (Virtues) and Ilm of Masail (Jurisprudence).</p>
           </div>
+           <Separator />
+            <div>
+                <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Knowledge</h4>
+                <div className="space-y-4">
+                    <blockquote className="border-l-2 pl-4 italic">"Whoever follows a path to seek knowledge, Allah makes the path to Paradise easy for him." (Muslim)
+                    <p className="arabic-text text-right mt-1 text-lg">مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ</p>
+                    </blockquote>
+                    <blockquote className="border-l-2 pl-4 italic">"The best of you is he who learns the Quran and teaches it." (Bukhari)
+                    <p className="arabic-text text-right mt-1 text-lg">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</p>
+                    </blockquote>
+                    <blockquote className="border-l-2 pl-4 italic">"Whom Allah wills good for, He gives understanding of religion." (Bukhari)
+                    <p className="arabic-text text-right mt-1 text-lg">مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ</p>
+                    </blockquote>
+                </div>
+            </div>
+          <Separator />
           <div>
             <h5 className="font-semibold text-foreground">How to Acquire It:</h5>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
@@ -154,6 +212,22 @@ const qualities: Quality[] = [
             <p className="font-semibold text-foreground">The Explanation:</p>
             <p className="text-muted-foreground">Dhikr polishes the heart. The highest degree of Dhikr is to never forget Allah. The Prophet (PBUH) said the difference between one who remembers Allah and one who does not is like the difference between the living and the dead. We should keep our tongues busy with the remembrance of Allah, especially the morning and evening supplications (Adhkar).</p>
           </div>
+           <Separator />
+             <div>
+                <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Dhikr</h4>
+                <div className="space-y-4">
+                    <blockquote className="border-l-2 pl-4 italic">"The likeness of the one who remembers his Lord and the one who does not is like that of a living to a dead person." (Bukhari)
+                    <p className="arabic-text text-right mt-1 text-lg">مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لاَ يَذْكُرُ رَبَّهُ مَثَلُ الْحَيِّ وَالْمَيِّتِ</p>
+                    </blockquote>
+                     <blockquote className="border-l-2 pl-4 italic">"Keep your tongue moist with the remembrance of Allah." (Tirmidhi)
+                    <p className="arabic-text text-right mt-1 text-lg">لاَ يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ</p>
+                    </blockquote>
+                     <blockquote className="border-l-2 pl-4 italic">"I am with My servant as long as he remembers Me and his lips move with My mention." (Ibn Majah)
+                    <p className="arabic-text text-right mt-1 text-lg">أَنَا مَعَ عَبْدِي إِذَا ذَكَرَنِي وَتَحَرَّكَتْ بِي شَفَتَاهُ</p>
+                    </blockquote>
+                </div>
+            </div>
+          <Separator />
           <div>
             <h5 className="font-semibold text-foreground">How to Acquire It:</h5>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
@@ -200,6 +274,24 @@ const qualities: Quality[] = [
         </div>
         <Separator />
         <div>
+            <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Honouring Muslims</h4>
+             <div className="space-y-4">
+                 <blockquote className="border-l-2 pl-4 italic">"None of you truly believes until he loves for his brother what he loves for himself." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"A Muslim is the brother of a Muslim. He does not wrong him, nor does he surrender him to the enemy." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">الْمُسْلِمُ أَخُو الْمُسْلِمِ لاَ يَظْلِمُهُ وَلاَ يُسْلِمُهُ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"Whoever covers the faults of a Muslim, Allah will cover his faults on the Day of Resurrection." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ يَوْمَ الْقِيَامَةِ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"Allah will always help a servant as long as he is helping his brother." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ</p>
+                </blockquote>
+            </div>
+        </div>
+        <Separator />
+        <div>
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Encourage others to respect the believers.</li>
@@ -229,6 +321,21 @@ const qualities: Quality[] = [
             <p className="font-semibold text-foreground">The Explanation:</p>
             <p className="text-muted-foreground">This is also called the "Correction of Intention." The Prophet (PBUH) said: "The reward for your deeds depends entirely on your intention." If a deed is done for show (Riya), for worldly gain, or for fame, it holds no weight in the eyes of Allah. In fact, showing off is described as "Minor Shirk" (Polytheism). We must check our intention before the action, during the action, and after the action to ensure we are not seeking the praise of people. A companion asked, "What is Faith?" The Prophet (PBUH) replied, "Faith is Sincerity."</p>
           </div>
+        </div>
+        <Separator />
+         <div>
+            <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Sincerity</h4>
+            <div className="space-y-4">
+                 <blockquote className="border-l-2 pl-4 italic">"Actions are judged by intentions, and every man shall have what he intended." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"Verily, Allah does not look at your physical shapes and wealth, but He looks at your hearts and deeds." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"Allah accepts only those deeds which are done purely for His sake and to seek His pleasure." (Nasa’i)
+                <p className="arabic-text text-right mt-1 text-lg">إِنَّ اللَّهَ لاَ يَقْبَلُ مِنَ الْعَمَلِ إِلاَّ مَا كَانَ لَهُ خَالِصًا وَابْتُغِيَ بِهِ وَجْهُهُ</p>
+                </blockquote>
+            </div>
         </div>
         <Separator />
         <div>
@@ -264,6 +371,24 @@ const qualities: Quality[] = [
         </div>
         <Separator />
         <div>
+            <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Da’wah</h4>
+            <div className="space-y-4">
+                 <blockquote className="border-l-2 pl-4 italic">"Whoever guides someone to goodness will have a reward like one who did it." (Muslim)
+                <p className="arabic-text text-right mt-1 text-lg">مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ</p>
+                </blockquote>
+                <blockquote className="border-l-2 pl-4 italic">"To spend a morning or an evening in the way of Allah is better than the world and all it contains." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">لَغَدْوَةٌ فِي سَبِيلِ اللَّهِ أَوْ رَوْحَةٌ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"By Allah, if Allah guides one man through you, it is better for you than red camels (the most precious wealth)." (Bukhari)
+                <p className="arabic-text text-right mt-1 text-lg">فَوَاللَّهِ لأَنْ يَهْدِيَ اللَّهُ بِكَ رَجُلاً وَاحِدًا خَيْرٌ لَكَ مِنْ حُمْرِ النَّعَمِ</p>
+                </blockquote>
+                 <blockquote className="border-l-2 pl-4 italic">"If the dust of the path of Allah touches a person, Allah forbids the Fire of Hell for him." (Tirmidhi)
+                <p className="arabic-text text-right mt-1 text-lg">مَنِ اغْبَرَّتْ قَدَمَاهُ فِي سَبِيلِ اللَّهِ حَرَّمَهُ اللَّهُ عَلَى النَّارِ</p>
+                </blockquote>
+            </div>
+        </div>
+        <Separator />
+        <div>
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Encourage others to go in the path of Allah.</li>
@@ -275,6 +400,32 @@ const qualities: Quality[] = [
     ),
   },
 ];
+
+const finalNote = {
+    title: "Abandoning Vanity (Laghw)",
+    description: "A necessary condition for all these qualities.",
+    content: (
+        <div className="space-y-6">
+            <p className="text-muted-foreground">A Muslim should spend every moment of their life preparing for the Hereafter. We must avoid vain talk, destructive customs, and wasting time on things that bring no benefit in this world or the next. The Prophet (PBUH) said: <span className="font-semibold italic text-foreground">"The perfection of one’s Islam is to leave that which does not concern him."</span> (Tirmidhi). One should be cautious with their tongue, as the tongue causes more people to slip into the Fire than the feet. By avoiding useless activities, we preserve our energy for good deeds and the remembrance of Allah.</p>
+            <Separator />
+             <div>
+                <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Avoiding Vanity</h4>
+                <div className="space-y-4">
+                     <blockquote className="border-l-2 pl-4 italic">"Part of the perfection of a person’s Islam is his leaving that which is of no concern to him." (Tirmidhi)
+                    <p className="arabic-text text-right mt-1 text-lg">مِنْ حُسْنِ إِسْلاَمِ الْمَرْءِ تَرْكُهُ مَا لاَ يَعْنِيهِ</p>
+                    </blockquote>
+                    <blockquote className="border-l-2 pl-4 italic">"A person may speak a word without thinking about its implications, but because of it, he will slip into Hellfire further than the distance between the east and west." (Bukhari)
+                    <p className="arabic-text text-right mt-1 text-lg">إِنَّ الْعَبْدَ لَيَتَكَلَّمُ بِالْكَلِمَةِ مِنْ سَخَطِ اللَّهِ لاَ يُلْقِي لَهَا بَالاً يَهْوِي بِهَا فِي جَهَنَّمَ</p>
+                    </blockquote>
+                    <blockquote className="border-l-2 pl-4 italic">"He who believes in Allah and the Last Day, let him speak good or remain silent." (Bukhari)
+                    <p className="arabic-text text-right mt-1 text-lg">مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ</p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    )
+};
+
 
 export default function SixQualitiesPage() {
   return (
@@ -329,13 +480,13 @@ export default function SixQualitiesPage() {
                 <div className="flex items-start gap-4">
                     <CheckCircle className="h-8 w-8 text-accent mt-1 flex-shrink-0" />
                     <div>
-                        <CardTitle className="font-headline text-xl">A Final Note: Abandoning Vanity (Laghw)</CardTitle>
-                        <CardDescription>A necessary condition for all these qualities.</CardDescription>
+                        <CardTitle className="font-headline text-xl">{finalNote.title}</CardTitle>
+                        <CardDescription>{finalNote.description}</CardDescription>
                     </div>
                 </div>
               </CardHeader>
               <CardContent>
-                  <p className="text-muted-foreground">A Muslim should spend every moment of their life preparing for the Hereafter. We must avoid vain talk, destructive customs, and wasting time on things that bring no benefit in this world or the next. The Prophet (PBUH) said: <span className="font-semibold italic text-foreground">"The perfection of one’s Islam is to leave that which does not concern him."</span> One should be cautious with their tongue, as the tongue causes more people to slip into the Fire than the feet. By avoiding useless activities, we preserve our energy for good deeds and the remembrance of Allah.</p>
+                  {finalNote.content}
               </CardContent>
           </Card>
 
@@ -347,3 +498,6 @@ export default function SixQualitiesPage() {
     </div>
   );
 }
+
+
+    
