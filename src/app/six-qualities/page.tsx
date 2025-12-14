@@ -25,7 +25,7 @@ type Quality = {
 const qualities: Quality[] = [
   {
     icon: Quote,
-    title: "Kalimah Tayyibah",
+    title: "1. THE FIRST QUALITY: KALIMAH TAYYIBAH",
     subtitle: "Laa ilaaha illallah Muhammadur Rasulullah",
     content: (
       <div className="space-y-6">
@@ -33,34 +33,41 @@ const qualities: Quality[] = [
             <p className="text-2xl font-bold arabic-text">لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَسُولُ اللهِ</p>
         </div>
         <div className="space-y-3">
-          <h4 className="font-headline text-lg text-primary">Part One: Laa ilaaha illallah</h4>
+          <h4 className="font-headline text-lg text-primary">PART ONE: Laa ilaaha illallah</h4>
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
             <p className="text-muted-foreground">There is no one worthy of worship but Allah.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">Faith literally means to accept someone’s words with certainty. In this context, faith is confirming everything reported by the Prophet Muhammad (PBUH) without needing to see it directly, simply because we trust in him. This Kalimah is a sacred pledge between a person and Allah. When a believer recites this solemnly, they admit before Allah that they are His sincere servant, they will obey His commandments, and they will avoid all forbidden things.</p>
+            <p className="text-muted-foreground">Simply put, faith means accepting someone’s words with total certainty. Here, faith means accepting everything the Prophet Muhammad (PBUH) told us without needing to see it with our own eyes, just because we trust him. This Kalimah is a sacred promise between a person and Allah. When a believer says this sincerely, they are admitting to Allah that they are His true servant, that they will obey His commands, and that they will avoid everything He has forbidden.</p>
+            <p className="font-semibold text-foreground mt-4">We must remember four things:</p>
+            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                <li>To memorise the words correctly.</li>
+                <li>To know the correct translation.</li>
+                <li>To understand the meaning deeply.</li>
+                <li>To fulfil the practical requirements of this pledge.</li>
+            </ul>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To remove the certainty of created things from our hearts and to place the certainty of Allah alone into our hearts. We must believe that Allah can do everything without the help of creation, and that creation can do nothing without the help of Allah.</p>
+            <p className="text-muted-foreground">The purpose is to take the trust we have in created things out of our hearts, and to put trust in Allah alone into our hearts. We must believe that Allah can do everything without the help of created things, and that created things can do nothing without the help of Allah.</p>
           </div>
         </div>
         <Separator />
         <div className="space-y-3">
-          <h4 className="font-headline text-lg text-primary">Part Two: Muhammadur Rasulullah</h4>
+          <h4 className="font-headline text-lg text-primary">PART TWO: Muhammadur Rasulullah</h4>
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
             <p className="text-muted-foreground">Muhammad (PBUH) is the true Messenger of Allah.</p>
           </div>
            <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To believe firmly that the only way to achieve success in this world and the Hereafter is by following the lifestyle (Sunnah) of the Prophet Muhammad (PBUH).</p>
+            <p className="text-muted-foreground">The purpose is to believe firmly that the only way to achieve success in this world and the Hereafter is by following the lifestyle (Sunnah) of the Prophet Muhammad (PBUH).</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">After believing in the Oneness of Allah, we must accept that we cannot obey Him unless we follow Muhammad (PBUH) as our guide. Obedience to the Prophet is obedience to Allah. We must believe in the unseen things he told us about—angels, the grave, the Resurrection, Heaven, and Hell—and follow his method of living in all aspects of life, from marriage and business to eating and sleeping.</p>
+            <p className="text-muted-foreground">After believing in the Oneness of Allah, we must accept that we cannot truly obey Him unless we follow Muhammad (PBUH) as our guide. Obeying the Prophet is actually obeying Allah. We must believe in the unseen things he told us about—like angels, the grave, the Resurrection, Heaven, and Hell—and follow his way of living in everything, from marriage and business to eating and sleeping.</p>
           </div>
         </div>
          <Separator />
@@ -86,8 +93,8 @@ const qualities: Quality[] = [
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Invite others to the greatness of Allah and the lifestyle of the Prophet (PBUH).</li>
-              <li><span className="font-semibold text-foreground">Practice:</span> Sit in gatherings where the greatness of Allah constitutes the talk.</li>
-              <li><span className="font-semibold text-foreground">Dua:</span> Pray to Allah to grant us the reality of Iman (Faith).</li>
+              <li><span className="font-semibold text-foreground">Practice:</span> Sit in gatherings where the greatness of Allah is the main topic.</li>
+              <li><span className="font-semibold text-foreground">Dua:</span> Pray to Allah to give us the reality of Iman (Faith).</li>
           </ul>
         </div>
       </div>
@@ -95,31 +102,31 @@ const qualities: Quality[] = [
   },
   {
     icon: Landmark,
-    title: "Salah",
-    subtitle: "With Khushu’ wal Khudu’",
+    title: "2. THE SECOND QUALITY: SALAH (PRAYER)",
+    subtitle: "Shalatul Khushu’ wal Khudu’",
     content: (
        <div className="space-y-6">
         <div className="space-y-3">
             <div>
               <p className="font-semibold text-foreground">The Meaning:</p>
-              <p className="text-muted-foreground">To pray with mental concentration (Khushu) and physical humility (Khudu), following the method shown by the Prophet Muhammad (PBUH).</p>
+              <p className="text-muted-foreground">Praying with mental concentration (Khushu) and physical humility (Khudu), following the method shown by the Prophet Muhammad (PBUH).</p>
             </div>
             <div>
               <p className="font-semibold text-foreground">The Purpose:</p>
-              <p className="text-muted-foreground">To bring the obedience of Allah into our daily lives directly from our Salah. If our Salah is correct, our whole life will become correct.</p>
+              <p className="text-muted-foreground">To take the obedience we show in Salah and use it in our daily lives. If our prayer is right, our whole life will come right.</p>
             </div>
             <div>
               <p className="font-semibold text-foreground">The Explanation:</p>
-              <p className="text-muted-foreground">Salah is the first practical manifestation of our faith. It is the most distinguished of all good deeds. The Prophet (PBUH) said that the first thing we will be held accountable for on the Day of Judgement is Salah. If our Salah is perfect, we shall attain salvation. A great merit of Salah is that all the limbs of the worshipper are solely devoted to Allah. The Quran states that Salah prevents a person from shameful and forbidden acts.</p>
+              <p className="text-muted-foreground">Salah is the first practical proof of our faith. It is the most special of all good deeds. The Prophet (PBUH) said that the first thing we will be asked about on the Day of Judgement is Salah. If our Salah is perfect, we will be successful. One great benefit of Salah is that every part of the body is totally devoted to Allah during the prayer. The Quran says that Salah stops a person from shameful and bad acts.</p>
             </div>
         </div>
         <Separator />
         <div>
             <h4 className="font-headline text-lg text-primary mb-2">Key Points on Salah</h4>
              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li><span className="font-semibold text-foreground">In Congregation:</span> Prayer in congregation is twenty-seven times more rewarding than praying alone.</li>
-                <li><span className="font-semibold text-foreground">Proper Posture:</span> One must perform Ruku (bowing) and Sajdah (prostration) properly, with calmness. The Prophet (PBUH) called rushing through these movements "the theft of prayer."</li>
-                <li><span className="font-semibold text-foreground">On Time:</span> Delaying prayer until the last moment is a sign of hypocrisy.</li>
+                <li><span className="font-semibold text-foreground">Congregation:</span> Praying in a group (Jama'at) is twenty-seven times more rewarding than praying alone.</li>
+                <li><span className="font-semibold text-foreground">Proper Posture:</span> We must perform Ruku (bowing) and Sajdah (prostration) properly, with calmness. The Prophet (PBUH) called rushing through these movements "the theft of prayer".</li>
+                <li><span className="font-semibold text-foreground">On Time:</span> Delaying prayer until the very last moment is a sign of hypocrisy.</li>
              </ul>
         </div>
         <Separator />
@@ -129,7 +136,7 @@ const qualities: Quality[] = [
                  <blockquote className="border-l-2 pl-4 italic">"The first thing a servant will be held accountable for on the Day of Resurrection is his prayer. If it is good, he succeeds and prospers; if it is bad, he fails and loses." (Tirmidhi)
                 <p className="arabic-text text-right mt-1 text-lg">إِنَّ أَوَّلَ مَا يُحَاسَبُ بِهِ الْعَبْدُ يَوْمَ الْقِيَامَةِ مِنْ عَمَلِهِ صَلاَتُهُ فَإِنْ صَلُحَتْ فَقَدْ أَفْلَحَ وَأَنْجَحَ وَإِنْ فَسَدَتْ فَقَدْ خَابَ وَخَسِرَ</p>
                 </blockquote>
-                 <blockquote className="border-l-2 pl-4 italic">"The coolness of my eyes lies in Salah." (Nasa’i)
+                 <blockquote className="border-l-2 pl-4 italic">"The coolness of my eyes (my delight) has been placed in Salah." (Nasa’i)
                 <p className="arabic-text text-right mt-1 text-lg">وَجُعِلَتْ قُرَّةُ عَيْنِي فِي الصَّلاَةِ</p>
                 </blockquote>
                  <blockquote className="border-l-2 pl-4 italic">"The difference between a man and disbelief is the abandonment of Salah." (Muslim)
@@ -145,8 +152,8 @@ const qualities: Quality[] = [
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Invite others to the importance of Salah.</li>
-              <li><span className="font-semibold text-foreground">Practice:</span> Strive to improve both the outer form and the inner concentration of our prayers.</li>
-              <li><span className="font-semibold text-foreground">Dua:</span> Ask Allah to grant us the reality of concentration and humility.</li>
+              <li><span className="font-semibold text-foreground">Practice:</span> Try to improve both the outer form and the inner concentration of our prayers.</li>
+              <li><span className="font-semibold text-foreground">Dua:</span> Ask Allah to give us the reality of concentration and humility.</li>
           </ul>
         </div>
       </div>
@@ -154,23 +161,27 @@ const qualities: Quality[] = [
   },
   {
     icon: BookOpen,
-    title: "Ilm and Dhikr",
-    subtitle: "Knowledge & Remembrance",
+    title: "3. THE THIRD QUALITY: ILM (KNOWLEDGE) AND DHIKR (REMEMBRANCE)",
+    subtitle: "Knowledge & Remembrance of Allah",
     content: (
        <div className="space-y-6">
         <div className="space-y-3">
-          <h4 className="font-headline text-lg text-primary">Part One: Ilm (Knowledge)</h4>
+          <h4 className="font-headline text-lg text-primary">PART ONE: ILM (Knowledge)</h4>
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
-            <p className="text-muted-foreground">To know what Allah wants from us at this specific moment and in this specific condition.</p>
+            <p className="text-muted-foreground">Knowing what Allah wants from us at any given moment and in any situation.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To carry out the commands of Allah within the boundaries of the Sharia (Islamic Law).</p>
+            <p className="text-muted-foreground">To carry out Allah's commands properly according to Islamic Law (Sharia).</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">Knowledge is the guide. Only knowledge that brings a man closer to Allah is truly appreciated. We must distinguish between Ilm of Fadhail (Virtues) and Ilm of Masail (Jurisprudence).</p>
+            <p className="text-muted-foreground">Knowledge guides us. Only knowledge that brings a person closer to Allah is truly valued. We must understand two types:</p>
+            <ul className="list-disc list-inside space-y-1 text-muted-foreground pl-4 mt-2">
+                <li><span className="font-semibold text-foreground">Ilm of Fadhail (Virtues):</span> Knowing the rewards to encourage us to do good deeds.</li>
+                <li><span className="font-semibold text-foreground">Ilm of Masail (Jurisprudence):</span> Knowing the rules of how to perform deeds (like Wudu, Salah, and business dealings).</li>
+            </ul>
           </div>
            <Separator />
             <div>
@@ -199,18 +210,18 @@ const qualities: Quality[] = [
         </div>
         <Separator />
         <div className="space-y-3">
-          <h4 className="font-headline text-lg text-primary">Part Two: Dhikr (Remembrance)</h4>
+          <h4 className="font-headline text-lg text-primary">PART TWO: DHIKR (Remembrance)</h4>
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
-            <p className="text-muted-foreground">To remember Allah in every state and situation.</p>
+            <p className="text-muted-foreground">Remembering Allah in every state and situation.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To perform the commands of Allah while being conscious of His Majesty, believing that "Allah is watching me."</p>
+            <p className="text-muted-foreground">To obey Allah's commands whilst being aware of His Greatness, believing that "Allah is watching me".</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">Dhikr polishes the heart. The highest degree of Dhikr is to never forget Allah. The Prophet (PBUH) said the difference between one who remembers Allah and one who does not is like the difference between the living and the dead. We should keep our tongues busy with the remembrance of Allah, especially the morning and evening supplications (Adhkar).</p>
+            <p className="text-muted-foreground">Remembrance cleans the heart. The highest level of Dhikr is to never forget Allah. The Prophet (PBUH) said the difference between one who remembers Allah and one who does not is like the difference between the living and the dead. We should keep our tongues busy with the remembrance of Allah, especially the morning and evening prayers (Adhkar).</p>
           </div>
            <Separator />
              <div>
@@ -242,31 +253,31 @@ const qualities: Quality[] = [
   },
   {
     icon: Handshake,
-    title: "Ikram-ul-Muslim",
-    subtitle: "Honouring a Muslim",
+    title: "4. THE FOURTH QUALITY: IKRAMUL MUSLIMIN",
+    subtitle: "Honouring the Muslims",
     content: (
        <div className="space-y-6">
         <div className="space-y-3">
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
-            <p className="text-muted-foreground">To treat every Muslim with honour and respect.</p>
+            <p className="text-muted-foreground">Treating every Muslim with dignity and respect.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To fulfill the rights of fellow Muslims without demanding our own rights from them.</p>
+            <p className="text-muted-foreground">To fulfil the rights of fellow Muslims without demanding our own rights from them.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">We must realise that every Muslim possesses the light of Faith in their heart, and for that reason alone, they are worthy of respect. The Prophet (PBUH) said: "He is not one of us who does not respect our elders, does not show mercy to our youngsters, and is not respectful to our Scholars."</p>
+            <p className="text-muted-foreground">We must realise that every Muslim has the light of Faith in their heart, and for that reason alone, they are worthy of respect. The Prophet (PBUH) said: "He is not one of us who does not respect our elders, does not show mercy to our youngsters, and is not respectful to our Scholars."</p>
           </div>
         </div>
         <Separator />
         <div>
-            <h4 className="font-headline text-lg text-primary mb-2">A True Believer...</h4>
+            <h4 className="font-headline text-lg text-primary mb-2">A true believer...</h4>
              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li>Likes for others what he likes for himself.</li>
+                <li>Wants for others what he wants for himself.</li>
                 <li>Is the first to greet others (Salam).</li>
-                <li>Forgives those who offend him.</li>
+                <li>Forgives those who upset him.</li>
                 <li>Avoids backbiting.</li>
                 <li>Helps the poor and needy.</li>
                 <li>Does not harm any Muslim with his tongue or hand.</li>
@@ -296,7 +307,7 @@ const qualities: Quality[] = [
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Encourage others to respect the believers.</li>
               <li><span className="font-semibold text-foreground">Practice:</span> Respect the elders, have mercy on the young, honour the scholars, and be humble with your peers.</li>
-              <li><span className="font-semibold text-foreground">Dua:</span> Pray to Allah to grant us the excellent character of the Prophet (PBUH).</li>
+              <li><span className="font-semibold text-foreground">Dua:</span> Pray to Allah to give us the excellent character of the Prophet (PBUH).</li>
           </ul>
         </div>
       </div>
@@ -304,14 +315,14 @@ const qualities: Quality[] = [
   },
   {
     icon: Heart,
-    title: "Ikhlas-e-Niyyah",
+    title: "5. THE FIFTH QUALITY: TASH-HIH AN-NIYYAH",
     subtitle: "Sincerity of Intention",
     content: (
        <div className="space-y-6">
         <div className="space-y-3">
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
-            <p className="text-muted-foreground">To clean one's intention and do everything solely for the pleasure of Allah.</p>
+            <p className="text-muted-foreground">Cleaning one's intention and doing everything only for the pleasure of Allah.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
@@ -319,7 +330,7 @@ const qualities: Quality[] = [
           </div>
            <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">This is also called the "Correction of Intention." The Prophet (PBUH) said: "The reward for your deeds depends entirely on your intention." If a deed is done for show (Riya), for worldly gain, or for fame, it holds no weight in the eyes of Allah. In fact, showing off is described as "Minor Shirk" (Polytheism). We must check our intention before the action, during the action, and after the action to ensure we are not seeking the praise of people. A companion asked, "What is Faith?" The Prophet (PBUH) replied, "Faith is Sincerity."</p>
+            <p className="text-muted-foreground">This is also called the "Correction of Intention". The Prophet (PBUH) said: "The reward for your deeds depends entirely on your intention." If a deed is done just to show off (Riya), for money, or for fame, it has no value in the eyes of Allah. In fact, showing off is described as "Minor Shirk" (Polytheism). We must check our intention before the action, during the action, and after the action to make sure we are not looking for praise from people.</p>
           </div>
         </div>
         <Separator />
@@ -351,22 +362,22 @@ const qualities: Quality[] = [
   },
   {
     icon: Megaphone,
-    title: "Dawat and Tabligh",
-    subtitle: "Inviting & Conveying",
+    title: "6. THE SIXTH QUALITY: DA’WAH AND TABLIGH",
+    subtitle: "Inviting and Conveying / Making Time",
     content: (
       <div className="space-y-6">
         <div className="space-y-3">
           <div>
             <p className="font-semibold text-foreground">The Meaning:</p>
-            <p className="text-muted-foreground">To spare time from our worldly engagements to travel in the path of Allah, inviting people towards Him.</p>
+            <p className="text-muted-foreground">Taking time out from our daily lives to travel in the path of Allah, inviting people towards Him.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Purpose:</p>
-            <p className="text-muted-foreground">To correct our own faith and deeds, and to help all of mankind get connected to Allah. To revive the effort of the Prophet (PBUH) in the entire world.</p>
+            <p className="text-muted-foreground">To fix our own faith and deeds, and to help all of mankind get connected to Allah. To bring the effort of the Prophet (PBUH) back to life in the whole world.</p>
           </div>
           <div>
             <p className="font-semibold text-foreground">The Explanation:</p>
-            <p className="text-muted-foreground">The literal meaning of Tafrigh-i-Waqt is "to spare time." We must leave our homes, families, and businesses for a period to learn and practice the religion. Prophethood has ended, but the work of the Prophets—inviting people to goodness and forbidding evil—has been entrusted to this Ummah (community). The Prophet (PBUH) said: "Whoever spends his morning or evening in the way of Allah, his reward will be better than the whole world and whatever is in it." The Companions sacrificed everything for this work. They tolerated hunger and hardship so that the message of Islam could reach us. We too must walk in their footsteps to revive the religion in our lives and in society.</p>
+            <p className="text-muted-foreground">Tafrigh-i-Waqt literally means "sparing time". We must leave our homes, families, and businesses for a while to learn and practise the religion. Prophethood has ended, but the work of the Prophets—inviting people to goodness and forbidding evil—has been given to this Ummah (community). The Prophet (PBUH) said: "Whoever spends his morning or evening in the way of Allah, his reward will be better than the whole world and whatever is in it." The Companions sacrificed everything for this work. They faced hunger and hardship so that the message of Islam could reach us. We too must walk in their footsteps to revive the religion in our lives and in society.</p>
           </div>
         </div>
         <Separator />
@@ -392,7 +403,7 @@ const qualities: Quality[] = [
           <h4 className="font-headline text-lg text-primary mb-2">How to Acquire this Quality</h4>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><span className="font-semibold text-foreground">Da’wah:</span> Encourage others to go in the path of Allah.</li>
-              <li><span className="font-semibold text-foreground">Practice:</span> Spare time! The suggested course is 4 months in a lifetime, 40 days every year, 3 days every month, and 2.5 hours daily for local efforts.</li>
+              <li><span className="font-semibold text-foreground">Practice:</span> Make time! The suggested course is 4 months in a lifetime, 40 days every year, 3 days every month, and 2.5 hours daily for local efforts.</li>
               <li><span className="font-semibold text-foreground">Dua:</span> Ask Allah to accept us for His noble work.</li>
           </ul>
         </div>
@@ -402,11 +413,11 @@ const qualities: Quality[] = [
 ];
 
 const finalNote = {
-    title: "Abandoning Vanity (Laghw)",
-    description: "A necessary condition for all these qualities.",
+    title: "A FINAL NOTE: AVOIDING USELESS THINGS (LAGHW)",
+    description: "A key condition for all these qualities is to stop doing useless things—useless talk and useless actions.",
     content: (
         <div className="space-y-6">
-            <p className="text-muted-foreground">A Muslim should spend every moment of their life preparing for the Hereafter. We must avoid vain talk, destructive customs, and wasting time on things that bring no benefit in this world or the next. The Prophet (PBUH) said: <span className="font-semibold italic text-foreground">"The perfection of one’s Islam is to leave that which does not concern him."</span> (Tirmidhi). One should be cautious with their tongue, as the tongue causes more people to slip into the Fire than the feet. By avoiding useless activities, we preserve our energy for good deeds and the remembrance of Allah.</p>
+            <p className="text-muted-foreground">We should spend every moment of our lives preparing for the Hereafter. We must avoid vain talk, bad customs, and wasting time on things that bring no benefit in this world or the next. The Prophet (PBUH) said: "The perfection of one’s Islam is to leave that which does not concern him." (Tirmidhi). One should be careful with their tongue, as the tongue causes more people to slip into the Fire than the feet. By avoiding useless activities, we save our energy for good deeds and the remembrance of Allah.</p>
             <Separator />
              <div>
                 <h4 className="font-headline text-lg text-primary mb-4">Selected Hadiths on Avoiding Vanity</h4>
@@ -425,79 +436,3 @@ const finalNote = {
         </div>
     )
 };
-
-
-export default function SixQualitiesPage() {
-  return (
-    <div className="flex min-h-screen w-full flex-col">
-       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
-        .arabic-text {
-          font-family: 'Noto Naskh Arabic', serif;
-        }
-      `}</style>
-      <Navigation title="The Six Qualities" />
-      <main className="flex-1 p-4 sm:px-6 md:p-8">
-        <div className="mx-auto max-w-4xl space-y-8">
-          <Card>
-            <CardHeader>
-                <div className="flex items-start gap-4">
-                    <Star className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                        <CardTitle className="font-headline text-2xl">The Six Qualities (Points) of Tabligh</CardTitle>
-                        <CardDescription>
-                            Allah (SWT) has placed the success and glory of human beings—both in this world and in the Hereafter—solely in the perfection of our religious deeds, just as they were brought by the Prophet Muhammad (ﷺ).
-                        </CardDescription>
-                    </div>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <p className="text-muted-foreground">The Companions (Sahabah) of the Prophet Muhammad (PBUH) succeeded in implementing the perfection of Islam in their lives. This was because they possessed these Six Qualities. People today may not have the strength to practice religion perfectly. However, if we strive to acquire these qualities, Allah will make it easy for perfect Islam to enter our hearts and lives.</p>
-            </CardContent>
-          </Card>
-
-          <div className="space-y-6">
-            {qualities.map((quality, index) => (
-              <Card key={index} className="flex flex-col transition-all duration-300 hover:shadow-xl hover:border-primary/50">
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <quality.icon className="h-10 w-10 text-accent flex-shrink-0" />
-                    <div>
-                      <CardTitle className="font-headline text-xl">{quality.title}</CardTitle>
-                      <CardDescription className="font-semibold">{quality.subtitle}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <div className="text-muted-foreground text-base leading-relaxed">{quality.content}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <Card className="border-accent/50 bg-accent/10">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                    <CheckCircle className="h-8 w-8 text-accent mt-1 flex-shrink-0" />
-                    <div>
-                        <CardTitle className="font-headline text-xl">{finalNote.title}</CardTitle>
-                        <CardDescription>{finalNote.description}</CardDescription>
-                    </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                  {finalNote.content}
-              </CardContent>
-          </Card>
-
-        </div>
-      </main>
-      <footer className="text-center p-4 text-muted-foreground text-xs">
-        A guide for personal and spiritual development.
-      </footer>
-    </div>
-  );
-}
-
-
-    
