@@ -6,7 +6,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Brick, Home, Users, TowerControl, Horse, Building2, UserPlus, Fence, Mountain, Tent, UserCog, BookUser, Castle, LandPlot } from "lucide-react";
+import { Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, CircleDollarSign, Building, Home, Users, TowerControl, Building2, UserPlus, Fence, Mountain, Tent, UserCog, BookUser, Castle, LandPlot } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const StepCard = ({ icon, title, description, children }: { icon: React.ElementType, title: string, description: string, children: React.ReactNode }) => (
@@ -106,7 +106,7 @@ export default function Aoe4BuildOrderPage() {
                                 </StepList>
                             </StepCard>
 
-                            <StepCard icon={Brick} title="III. Feudal Age Production" description="Build up your military infrastructure while balancing your economy.">
+                            <StepCard icon={Building} title="III. Feudal Age Production" description="Build up your military infrastructure while balancing your economy.">
                                  <StepList>
                                     <StepListItem>Send all new Villagers to <span className="font-semibold">Wood</span> until you bank 400 Wood.</StepListItem>
                                     <StepListItem>Once at 400 Wood, take 3 Villagers to build <span className="font-semibold">2 Stables</span> and <span className="font-semibold">1 Blacksmith</span> (on Stone).</StepListItem>
@@ -150,7 +150,7 @@ export default function Aoe4BuildOrderPage() {
                                 </StepList>
                             </StepCard>
 
-                             <StepCard icon={Horse} title="III. Feudal Age Pressure" description="Begin knight production and establish map control.">
+                             <StepCard icon={Shield} title="III. Feudal Age Pressure" description="Begin knight production and establish map control.">
                                  <StepList>
                                     <StepListItem>Balance your economy to have <span className="font-semibold">12 Villagers on Food</span> and <span className="font-semibold">10 on Gold</span>.</StepListItem>
                                     <StepListItem>This balance will support constant <span className="font-semibold text-primary">Knight</span> production and essential upgrades.</StepListItem>

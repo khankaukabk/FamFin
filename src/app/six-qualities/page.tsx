@@ -2,18 +2,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { ArrowLeft, Landmark, BookOpen, Handshake, Heart, Megaphone, Quote, CheckCircle, Search, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Landmark, BookOpen, Handshake, Heart, Megaphone, Quote } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Navigation } from "@/components/ui/navigation";
-
-type Hadith = {
-  english: string;
-  arabic: string;
-  source: string;
-};
 
 type Quality = {
   icon: React.ElementType;
@@ -436,3 +428,53 @@ const finalNote = {
         </div>
     )
 };
+
+const QualityCard = ({ quality }: { quality: Quality }) => (
+    <Card>
+      <CardHeader>
+        <div className="flex items-start gap-4">
+            <quality.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+            <div>
+                <CardTitle className="font-headline text-xl">{quality.title}</CardTitle>
+                <CardDescription>{quality.subtitle}</CardDescription>
+            </div>
+        </div>
+      </CardHeader>
+      <CardContent>{quality.content}</CardContent>
+    </Card>
+);
+
+export default function SixQualitiesPage() {
+  return (
+    <div className="flex min-h-screen w-full flex-col">
+      <Navigation title="The Six Qualities" />
+      <main className="flex-1 p-4 sm:px-6 md:p-8">
+        <div className="mx-auto max-w-3xl space-y-8">
+          <Card className="bg-primary/5 border-primary/10">
+            <CardHeader>
+              <CardTitle className="font-headline text-2xl">The Six Qualities of Tabligh</CardTitle>
+              <CardDescription>The foundational principles for perfecting our religious deeds and achieving success in this life and the Hereafter.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground">Allah (SWT) has placed our success solely in the perfection of our religious deeds, as brought by the Prophet Muhammad (PBUH). The Companions succeeded because they embodied these Six Qualities. By striving to acquire them, we can make it easy for perfect Islam to enter our lives.</p>
+            </CardContent>
+          </Card>
+          
+          {qualities.map((quality) => <QualityCard key={quality.title} quality={quality} />)}
+
+          <Card className="bg-muted/50 border-dashed">
+            <CardHeader>
+              <CardTitle className="font-headline text-xl">{finalNote.title}</CardTitle>
+              <CardDescription>{finalNote.description}</CardDescription>
+            </CardHeader>
+            <CardContent>{finalNote.content}</CardContent>
+          </Card>
+
+        </div>
+      </main>
+      <footer className="text-center p-4 text-muted-foreground text-xs">
+        A summary for contemplation and practice.
+      </footer>
+    </div>
+  );
+}
