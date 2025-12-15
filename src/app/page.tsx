@@ -49,6 +49,11 @@ export default function HomePage() {
     taskId: string | null;
   }>({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
 
+  const taskMonthsQuery = useMemoFirebase(
+    () => (firestore && user ? collection(firestore, "taskMonths") : null),
+    [firestore, user]
+  );
+  
   // Initialize tasks in Firestore if they don't exist
   React.useEffect(() => {
     if (firestore && user) {
@@ -56,10 +61,6 @@ export default function HomePage() {
     }
   }, [firestore, user]);
 
-  const taskMonthsQuery = useMemoFirebase(
-    () => (firestore && user ? collection(firestore, "taskMonths") : null),
-    [firestore, user]
-  );
   const { data: taskMonths, isLoading: isLoadingMonths } =
     useCollection<TaskMonth>(taskMonthsQuery);
 
@@ -198,4 +199,3 @@ export default function HomePage() {
     </div>
   );
 }
-
