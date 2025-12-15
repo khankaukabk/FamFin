@@ -15,7 +15,6 @@ import { Navigation } from "@/components/ui/navigation";
 const initialTransactions: Transaction[] = [
   // Income Data
   { id: "1", type: "income", amount: 1000.0, category: "Employment", description: "DFAS", member: "Kausain", date: "2024-07-01" },
-  { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice", member: "Ammu", date: "2024-07-01" },
   { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income", member: "Musaab", date: "2024-07-01" },
   { id: "4", type: "income", amount: 292, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
   { id: "23", type: "income", amount: 300.0, category: "Government", description: "SSA Treas", member: "Aminuddin", date: "2024-07-01" },
