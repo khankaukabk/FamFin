@@ -35,7 +35,7 @@ const initialTransactions: Transaction[] = [
   { id: "15", type: "expense", amount: 120.0, category: "Loan", description: "Student Loan", date: "2024-07-01" },
   { id: "16", type: "expense", amount: 100, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
   { id: "22", type: "expense", amount: 18, category: "Loan", description: "iPhone Payment", date: "2024-07-01" },
-  { id: "28", type: "expense", amount: 250.0, category: "Food", description: "Bulk chicken (5 boxes whole, 1 box boneless) from Restaurant Depot", date: "2024-07-01" },
+  { id: "28", type: "expense", amount: 250.0, category: "Food", description: "Bulk chicken (5 boxes whole, 1 box boneless) for 570 and some shopping from Restaurant Depot", date: "2024-07-01" },
 ];
 
 
