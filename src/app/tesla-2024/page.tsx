@@ -29,6 +29,7 @@ const totalCost = receiptItems.reduce((acc, item) => acc + item.amount, 0);
 
 const startDate = new Date('2024-05-14T00:00:00');
 const endDate = new Date('2027-05-13T00:00:00');
+const installationDate = new Date(); // This will be calculated on client
 
 export default function Tesla2024Page() {
   const [isClient, setIsClient] = React.useState(false);
@@ -262,7 +263,7 @@ export default function Tesla2024Page() {
                        <div className="bg-muted/50 p-4 rounded-lg border">
                             <p className="text-sm font-semibold text-muted-foreground">Installation Date</p>
                             {isClient ? (
-                                <p className="text-lg font-medium text-foreground">{format(new Date(), 'MMMM d, yyyy')}</p>
+                                <p className="text-lg font-medium text-foreground">{format(installationDate, 'MMMM d, yyyy')}</p>
                             ) : (
                                 <Skeleton className="h-6 w-3/4 mt-1" />
                             )}
@@ -404,4 +405,3 @@ export default function Tesla2024Page() {
   );
 }
 
-    
