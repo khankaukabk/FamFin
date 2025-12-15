@@ -18,8 +18,9 @@ const initialTransactions: Transaction[] = [
   { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income", member: "Musaab", date: "2024-07-01" },
   { id: "23", type: "income", amount: 300.0, category: "Government", description: "SSA Treas", member: "Aminuddin", date: "2024-07-01" },
   { id: "25", type: "income", amount: 200.0, category: "Government", description: "EBT", member: "Aminuddin", date: "2024-07-01" },
-  { id: "24", type: "income", amount: 2000.0, category: "Employment", description: "Monthly", member: "Ruma", date: "2024-07-01" },
+  { id: "24", type: "income", amount: 1000.0, category: "Employment", description: "Monthly", member: "Ruma", date: "2024-07-01" },
   { id: "26", type: "income", amount: 300.0, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
+  { id: "27", type: "income", amount: 1000.0, category: "Employment", description: "Monthly", member: "Safura", date: "2024-07-01" },
 
   // Expense Data
   { id: "7", type: "expense", amount: 830, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
@@ -34,6 +35,7 @@ const initialTransactions: Transaction[] = [
   { id: "15", type: "expense", amount: 120.0, category: "Loan", description: "Student Loan", date: "2024-07-01" },
   { id: "16", type: "expense", amount: 100, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
   { id: "22", type: "expense", amount: 18, category: "Loan", description: "iPhone Payment", date: "2024-07-01" },
+  { id: "28", type: "expense", amount: 250.0, category: "Food", description: "Chicken 570/Restaurant Depot", date: "2024-07-01" },
 ];
 
 
