@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +12,12 @@ body {
 
 h1, h2, h3, h4, h5, h6, .font-headline {
     font-family: 'DM Serif Display', serif;
+}
+
+.arabic-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 1.25rem; /* 20px */
+    line-height: 2rem; /* 32px */
 }
 
 
@@ -106,5 +114,3 @@ h1, h2, h3, h4, h5, h6, .font-headline {
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   }
 }
-
-    
