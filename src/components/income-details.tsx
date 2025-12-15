@@ -16,8 +16,8 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 export function IncomeDetails({ transactions }: IncomeDetailsProps) {
-  const incomeByMember = React.useMemo(() => {
-    return transactions.reduce((acc, transaction) => {
+  const { incomeByMember, totalIncome } = React.useMemo(() => {
+    const incomeByMember = transactions.reduce((acc, transaction) => {
       const member = transaction.member || "Other";
       if (!acc[member]) {
         acc[member] = {
@@ -29,6 +29,10 @@ export function IncomeDetails({ transactions }: IncomeDetailsProps) {
       acc[member].sources.push(transaction);
       return acc;
     }, {} as Record<string, { total: number; sources: Transaction[] }>);
+
+    const totalIncome = transactions.reduce((acc, t) => acc + t.amount, 0);
+
+    return { incomeByMember, totalIncome };
   }, [transactions]);
 
   const sortedMembers = Object.keys(incomeByMember).sort();
@@ -67,6 +71,12 @@ export function IncomeDetails({ transactions }: IncomeDetailsProps) {
             <Separator className="mt-4" />
           </div>
         ))}
+        <div className="flex justify-between items-center mt-4 pt-4 border-t-2 border-primary/20">
+          <h4 className="font-bold text-lg text-primary">Total Income</h4>
+          <p className="font-bold text-xl text-primary">
+            {currencyFormatter.format(totalIncome)}
+          </p>
+        </div>
       </div>
     </>
   );
