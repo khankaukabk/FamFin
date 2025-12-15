@@ -18,8 +18,8 @@ const initialTransactions: Transaction[] = [
   { id: "2", type: "income", amount: 1200.0, category: "Personal", description: "Personal Choice", member: "Ammu", date: "2024-07-01" },
   { id: "3", type: "income", amount: 300.0, category: "Employment", description: "Income", member: "Musaab", date: "2024-07-01" },
   { id: "4", type: "income", amount: 292, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
-  { id: "6", type: "income", amount: 536, category: "Government", description: "EBT", member: "Abbu", date: "2024-07-01" },
   { id: "23", type: "income", amount: 300.0, category: "Government", description: "SSA Treas", member: "Aminuddin", date: "2024-07-01" },
+  { id: "25", type: "income", amount: 200.0, category: "Government", description: "EBT", member: "Aminuddin", date: "2024-07-01" },
   { id: "24", type: "income", amount: 1000.0, category: "Employment", description: "Bi-Weekly", member: "Ruma", date: "2024-07-01" },
 
   // Expense Data
@@ -35,7 +35,6 @@ const initialTransactions: Transaction[] = [
   { id: "15", type: "expense", amount: 120.0, category: "Loan", description: "Student Loan", date: "2024-07-01" },
   { id: "16", type: "expense", amount: 50.0, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
   { id: "19", type: "expense", amount: 500.0, category: "Credit Card", description: "Kaukab Credit Card", date: "2024-07-01" },
-  { id: "20", type: "expense", amount: 500.0, category: "Credit Card", description: "Abbu Credit Card", date: "2024-07-01" },
   { id: "22", type: "expense", amount: 18, category: "Loan", description: "iPhone Payment", date: "2024-07-01" },
 ];
 
