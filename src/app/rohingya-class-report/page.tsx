@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -534,6 +534,98 @@ const session6CheatSheet = [
   },
 ];
 
+const session7Guide = [
+    {
+        id: "7A",
+        title: "Check-in and Resource Sharing",
+        duration: "10 Minutes",
+        icon: CheckCircle,
+        goal: "Welcome everyone and prepare them for the end of the program.",
+        steps: [
+            { title: "Welcome & Reminder", instruction: 'Say: "Welcome back. I am happy you are here."\nCrucial Reminder: "I want to remind everyone that our group is ending soon. We only have a few sessions left. How does that make you feel?"' },
+            { title: "Check-in", instruction: 'Do: Simple check-in.\nSay: "If your mood was weather today, what weather would it be? (Sunny, Stormy, Cloudy?)"' },
+            { title: "Introduce Topic", instruction: 'Say: "Today we are talking about Trauma—how big, scary events affect our bodies and how we can calm down."' }
+        ],
+        report: {
+            title: "Sample Responses for Report (7A)",
+            sections: [
+                { title: "Weather Metaphor:", content: '"Cloudy" (Unsure, feeling "blah")\n"Stormy" (Angry or agitated)\n"Sunny with clouds" (Hopeful but worried)\n"Foggy" (Cannot think clearly)' },
+                { title: "Feelings about Group Ending:", content: '"Sad. This is the only place I can talk."\n"Anxious. I will miss my friends."\n"Okay. I feel ready."' }
+            ]
+        }
+    },
+    {
+        id: "7B",
+        title: "What is Trauma?",
+        duration: "15 Minutes",
+        icon: BrainCircuit,
+        goal: "Define Trauma simply.",
+        steps: [
+            { title: "Stress vs. Trauma", instruction: 'Say: "There is a difference between Stress and Trauma."\nStress: "Everyday problems. Traffic, bills, arguments."\nTrauma: "Big, dangerous events. War, accidents, violence. Things that make you fear for your life."' },
+            { title: "Cultural Words", instruction: 'Ask: "In your language, is there a specific word for \'Trauma\'? Or do you just say \'Big Sadness\' or \'Heart Pain\'?"' },
+            { title: "The \"Why\"", instruction: 'Say: "Trauma is not just in your head. It lives in your body. It can affect you months or years after the event happened."' }
+        ],
+        report: {
+            title: "Sample Responses for Report (7B)",
+            sections: [
+                { title: "Cultural Definitions of Trauma:", content: 'Descriptive: "We don\'t have a word for \'Trauma\'. We say \'The Great Shock\' or \'Soul Wound\'."\nPhysical: "We describe it as \'Heavy Heart\' or \'Head that does not stop spinning\'."\nSpiritual: "Some people say it is a curse or bad luck."' },
+                { title: "Common Causes Mentioned:", content: '"War/Bombing"\n"Leaving my home country forever"\n"Domestic violence"' }
+            ]
+        }
+    },
+    {
+        id: "7C",
+        title: "Fight, Flight, or Freeze",
+        duration: "20 Minutes",
+        icon: Shield,
+        goal: "Explain the body's automatic safety system.",
+        steps: [
+            { title: "The Animal Example", instruction: 'Say: "Imagine a rabbit sees a lion. The rabbit does not think. Its body takes over."\nFlight: "It runs away fast."\nFight: "If it cannot run, it bites and kicks."\nFreeze: "If it is too scared, it freezes like a statue, hoping the lion won\'t see it."' },
+            { title: "The Human Connection", instruction: 'Say: "Humans are the same. When we are scared (by war, or even by a virus like COVID-19), our bodies react."\nThe Problem: "Animals shake it off and go back to eating grass. Humans remember. We hold the fear inside, so we might feel \'Frozen\' or \'Angry\' long after the danger is gone."' },
+            { title: "Discussion", instruction: 'Ask: "Have you ever felt \'Frozen\' during this pandemic? Like you just couldn\'t do anything?"' }
+        ],
+        report: {
+            title: "Sample Responses for Report (7C)",
+            sections: [
+                { title: 'The "Freeze" Response:', content: '"Yes. Some days I sit on the couch for 3 hours and cannot get up. I am not tired, just stuck."' },
+                { title: 'The "Fight" Response:', content: '"I find myself yelling at my children for small things. I am always angry."' },
+                { title: 'The "Flight" Response:', content: '"I just want to sleep all day to escape reality."' },
+                { title: "Understanding the Metaphor:", content: '"I feel like the rabbit. Always looking for danger."' }
+            ]
+        }
+    },
+    {
+        id: "7D",
+        title: "Body Awareness Activities",
+        duration: "30 Minutes",
+        icon: HeartPulse,
+        goal: "Connect the mind to the body.",
+        parts: [
+            { title: "Part 1: Body Map (The Drawing)", content: 'Do: Give them paper and markers (or just ask them to imagine).\nSay: "Draw a simple outline of a body."\nAsk: "Where do you feel stress? Color that part Red."\nAsk: "Where do you feel strength or love? Color that part Green."' },
+            { title: "Part 2: Body Scan (The Meditation)", content: 'Do: Speak slowly and calmly.\nScript:\n"Sit comfortably. Close your eyes if you want."\n"Notice your feet on the floor."\n"Notice your legs. Are they heavy?"\n"Notice your stomach. Is it tight or soft?"\n"Notice your shoulders. Drop them down away from your ears."\n"Take a deep breath. Let it all go."' }
+        ],
+        report: {
+            title: "Sample Responses for Report (7D)",
+            sections: [
+                { title: "Where is Stress (Red)?", content: 'Shoulders/Neck: "Very heavy. Like carrying a rock."\nStomach: "Knots. I cannot eat when I am scared."\nHead: "Headaches every day."' },
+                { title: "Where is Strength (Green)?", content: 'Hands: "Because I work hard for my family."\nHeart: "Because I love my children."\nLegs: "Because they brought me to this country."' },
+                { title: "Reaction to Meditation:", content: '"I almost fell asleep." (Positive)\n"It was hard to close my eyes. I felt unsafe." (Negative/Trauma response - validate this).\n"I didn\'t realize my shoulders were so high until you said to drop them."' }
+            ]
+        }
+    },
+    {
+        id: "7E",
+        title: "Home Practice & Closing",
+        duration: "10 Minutes",
+        icon: Home,
+        goal: "Homework and De-escalation.",
+        steps: [
+            { title: "Homework", instruction: 'Say: "Practice the Body Scan 2 times this week. Or, if you prefer, put on music and dance/sing. Dancing releases the \'Frozen\' feeling."' },
+            { title: "Closing", instruction: 'Say: "We talked about heavy things today. Take a deep breath. Shake out your hands. Leave the heavy feelings here. See you next week."' }
+        ]
+    }
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -549,13 +641,14 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-6" className="w-full">
+          <Tabs defaultValue="session-7" className="w-full">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="session-2">Session 2</TabsTrigger>
               <TabsTrigger value="session-3">Session 3</TabsTrigger>
               <TabsTrigger value="session-4">Session 4</TabsTrigger>
               <TabsTrigger value="session-5">Session 5</TabsTrigger>
               <TabsTrigger value="session-6">Session 6</TabsTrigger>
+              <TabsTrigger value="session-7">Session 7</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -742,6 +835,72 @@ export default function RohingyaClassReportPage() {
                 ))}
               </div>
             </TabsContent>
+             <TabsContent value="session-7" className="mt-6">
+                <Card className="mb-6 border-red-500/50 bg-red-500/10 text-red-900">
+                    <CardHeader>
+                        <div className="flex items-start gap-4">
+                            <AlertTriangle className="h-6 w-6 flex-shrink-0 mt-1" />
+                            <div>
+                                <CardTitle className="font-headline text-lg">SAFETY NOTE</CardTitle>
+                                <CardDescription className="text-red-800">
+                                Today's topic is heavy. Watch your participants. If someone looks very upset or "checked out" (staring at nothing), stop the discussion and do a simple "Grounding Exercise" (like feeling their feet on the floor).
+                                </CardDescription>
+                            </div>
+                        </div>
+                    </CardHeader>
+                </Card>
+               <div className="space-y-6">
+                {session7Guide.map((section, index) => (
+                  <React.Fragment key={section.id}>
+                    <Card>
+                      <CardHeader>
+                        <div className="flex items-start gap-4">
+                          <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                          <div>
+                            <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                            <CardDescription>{section.duration}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                          <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                          <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {section.steps?.map((step, stepIndex) => (
+                           <div key={stepIndex} className="pl-4">
+                              {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                           </div>
+                        ))}
+                        {section.parts?.map((part, partIndex) => (
+                          <div key={partIndex} className="pl-4">
+                             <p className="font-semibold text-sm mb-1">{part.title}</p>
+                             <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                          </div>
+                        ))}
+                        {section.report && (
+                            <Card className="mt-6 bg-blue-500/5 border-blue-500/20">
+                                <CardHeader>
+                                    <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-3">
+                                    {section.report.sections.map((reportSection, reportIndex) => (
+                                        <div key={reportIndex}>
+                                            <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
+                                            <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
+                                        </div>
+                                    ))}
+                                </CardContent>
+                            </Card>
+                        )}
+                      </CardContent>
+                    </Card>
+                    {index < session7Guide.length - 1 && <Separator />}
+                  </React.Fragment>
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -752,5 +911,3 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
-
-    
