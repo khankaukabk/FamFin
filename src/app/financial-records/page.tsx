@@ -9,7 +9,7 @@ import { Package, Calendar, DollarSign, Info, Hourglass, CheckCircle } from "luc
 import { Separator } from "@/components/ui/separator";
 import { nanoid } from "nanoid";
 
-const refundHistory = [
+const getInitialRefundHistory = () => [
     {
         orderNumber: "112-1855153-9091414",
         itemDescription: "Ray-Ban RB4458D Sunglasses, Black/Dark Green Polarized, 65 mm",
@@ -86,7 +86,7 @@ const refundHistory = [
 
 const currencyFormatter = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
-const RefundCard = ({ refund }: { refund: typeof refundHistory[0] }) => {
+const RefundCard = ({ refund }: { refund: ReturnType<typeof getInitialRefundHistory>[0] }) => {
     const [displayDate, setDisplayDate] = React.useState('');
 
     React.useEffect(() => {
@@ -141,6 +141,12 @@ const RefundCard = ({ refund }: { refund: typeof refundHistory[0] }) => {
 };
 
 export default function FinancialRecordsPage() {
+    const [refundHistory, setRefundHistory] = React.useState<ReturnType<typeof getInitialRefundHistory>>([]);
+
+    React.useEffect(() => {
+        setRefundHistory(getInitialRefundHistory());
+    }, []);
+
     const waitingForRefund = refundHistory.filter(r => r.status === 'Pending' || r.status === 'Shipped');
     const refunded = refundHistory.filter(r => r.status === 'Refunded');
 
