@@ -71,5 +71,5 @@ export function updateAttendance(
 
 export async function deleteSession(db: Firestore, sessionId: string): Promise<void> {
   const sessionDocRef = doc(db, 'attendanceSessions', sessionId);
-  await deleteDoc(sessionDocRef);
+  deleteDocumentNonBlocking(sessionDocRef);
 }

@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -173,7 +174,6 @@ export default function RohingyaAttendancePage() {
     await deleteSession(firestore, sessionToDelete.id);
     toast({ title: "Success", description: `Session for ${new Date(sessionToDelete.date).toLocaleDateString()} has been deleted.` });
 
-    // If the deleted session was the active one, select the latest one
     if(selectedSessionId === sessionToDelete.id) {
        const nextSession = sessions?.find(s => s.id !== sessionToDelete.id);
        setSelectedSessionId(nextSession?.id || null);
@@ -221,22 +221,39 @@ export default function RohingyaAttendancePage() {
                 {isLoadingSessions ? (
                    <Skeleton className="h-10 w-full" />
                 ) : (
-                  <Select
-                    value={selectedSessionId || ''}
-                    onValueChange={setSelectedSessionId}
-                    disabled={!sessions || sessions.length === 0}
-                  >
-                    <SelectTrigger id="session-select">
-                      <SelectValue placeholder="No sessions found. Create one to begin." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {sessions?.map((session) => (
-                        <SelectItem key={session.id} value={session.id}>
-                          Session #{session.sessionNumber} - {new Date(session.date).toLocaleDateString()}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Select
+                      value={selectedSessionId || ''}
+                      onValueChange={setSelectedSessionId}
+                      disabled={!sessions || sessions.length === 0}
+                    >
+                      <SelectTrigger id="session-select" className="flex-grow">
+                        <SelectValue placeholder="No sessions found. Create one to begin." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {sessions?.map((session) => (
+                          <SelectItem key={session.id} value={session.id}>
+                            Session #{session.sessionNumber} - {new Date(session.date).toLocaleDateString()}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {activeSession && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => openDeleteDialog(activeSession)} className="text-red-500">
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete Session
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
+                  </div>
                 )}
               </div>
             </CardContent>
