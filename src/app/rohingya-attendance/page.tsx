@@ -190,28 +190,15 @@ export default function RohingyaAttendancePage() {
       <Navigation title="Rohingya Wellness Group" />
       <main className="flex-1 p-4 sm:px-6 md:p-8">
         <div className="mx-auto max-w-4xl space-y-8">
-            <Card>
-                <CardHeader>
-                    <div className="flex items-start gap-4">
-                        <Users className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
-                        <div>
-                            <CardTitle className="font-headline text-2xl">Rohingya Wellness Group</CardTitle>
-                            <CardDescription>
-                                Manage and track attendance for wellness group sessions.
-                            </CardDescription>
-                        </div>
-                    </div>
-                </CardHeader>
-            </Card>
           <Card>
             <CardHeader>
               <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="font-headline text-xl">
-                      Attendance Sheet
+                    <CardTitle className="font-headline text-2xl">
+                      Rohingya Wellness Group
                     </CardTitle>
-                    <CardDescription>
-                      Select a session or create a new one.
+                    <CardDescription className="mt-1">
+                      Manage and track attendance for wellness group sessions.
                     </CardDescription>
                   </div>
                   <Button onClick={() => setIsCreateDialogOpen(true)}>
