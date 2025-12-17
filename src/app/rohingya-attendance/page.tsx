@@ -262,10 +262,10 @@ export default function RohingyaAttendancePage() {
           <Card>
               <CardHeader>
                 <CardTitle className="font-headline text-xl">
-                    {activeSession ? `Attendance for Session #${activeSession.sessionNumber}` : "Attendance"}
+                    {activeSession ? `Attendance for Session #${activeSession.sessionNumber}` : "Attendance Sheet"}
                 </CardTitle>
                 <CardDescription>
-                    {activeSession ? `Date: ${new Date(activeSession.date).toLocaleDateString()}` : "No session selected."}
+                    {activeSession ? `Date: ${new Date(activeSession.date).toLocaleDateString()}` : "Select a session to view attendance."}
                 </CardDescription>
               </CardHeader>
               <CardContent>
