@@ -12,8 +12,9 @@ import {
   query,
   orderBy,
   limit,
+  deleteDoc,
 } from 'firebase/firestore';
-import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 
 export function sanitizeMemberName(name: string): string {
@@ -66,4 +67,9 @@ export function updateAttendance(
   updateDocumentNonBlocking(sessionDocRef, {
     [fieldPath]: isPresent,
   });
+}
+
+export async function deleteSession(db: Firestore, sessionId: string): Promise<void> {
+  const sessionDocRef = doc(db, 'attendanceSessions', sessionId);
+  await deleteDoc(sessionDocRef);
 }
