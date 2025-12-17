@@ -133,7 +133,8 @@ export default function RohingyaAttendancePage() {
         : null,
     [firestore]
   );
-  const { data: latestSession } = useCollection<AttendanceSession>(latestSessionQuery);
+  const { data: latestSessionData } = useCollection<AttendanceSession>(latestSessionQuery);
+  const latestSession = useMemo(() => latestSessionData, [latestSessionData]);
 
 
   const sessionDocRef = useMemoFirebase(
@@ -262,10 +263,10 @@ export default function RohingyaAttendancePage() {
           <Card>
               <CardHeader>
                 <CardTitle className="font-headline text-xl">
-                    {activeSession ? `Attendance for Session #${activeSession.sessionNumber}` : "Attendance Sheet"}
+                  Rohingya Wellness Group
                 </CardTitle>
                 <CardDescription>
-                    {activeSession ? `Date: ${new Date(activeSession.date).toLocaleDateString()}` : "Select a session to view attendance."}
+                    {activeSession ? `Attendance for Session #${activeSession.sessionNumber} - Date: ${new Date(activeSession.date).toLocaleDateString()}` : "Select a session to view attendance."}
                 </CardDescription>
               </CardHeader>
               <CardContent>
