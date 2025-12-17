@@ -542,7 +542,7 @@ const session7Guide = [
         icon: CheckCircle,
         goal: "Welcome everyone and prepare them for the end of the program.",
         steps: [
-            { title: "Welcome & Reminder", instruction: 'Say: "Welcome back. I am happy you are here."\nCrucial Reminder: "I want to remind everyone that our group is ending soon. We only have a few sessions left. How does that make you feel?"' },
+            { title: "Welcome & Reminder", instruction: 'Say: "Welcome back. I am happy you are here."\n\nCrucial Reminder: "I want to remind everyone that our group is ending soon. We only have a few sessions left. How does that make you feel?"' },
             { title: "Check-in", instruction: 'Do: Simple check-in.\nSay: "If your mood was weather today, what weather would it be? (Sunny, Stormy, Cloudy?)"' },
             { title: "Introduce Topic", instruction: 'Say: "Today we are talking about Trauma—how big, scary events affect our bodies and how we can calm down."' }
         ],
@@ -561,9 +561,10 @@ const session7Guide = [
         icon: BrainCircuit,
         goal: "Define Trauma simply.",
         steps: [
-            { title: "Stress vs. Trauma", instruction: 'Say: "There is a difference between Stress and Trauma."\nStress: "Everyday problems. Traffic, bills, arguments."\nTrauma: "Big, dangerous events. War, accidents, violence. Things that make you fear for your life."' },
-            { title: "Cultural Words", instruction: 'Ask: "In your language, is there a specific word for \'Trauma\'? Or do you just say \'Big Sadness\' or \'Heart Pain\'?"' },
-            { title: "The \"Why\"", instruction: 'Say: "Trauma is not just in your head. It lives in your body. It can affect you months or years after the event happened."' }
+            { title: "Definitions (Trauma vs. Stress vs. Adversity)", content: 'Say: "We use these words a lot, but let\'s define them:"\n\nStress: "Everyday pressure. Traffic, bills, arguments."\n\nAdversity: "Hard times or bad luck. Being poor, losing a job, or facing discrimination."\n\nTrauma: "An event that is unexpected and overwhelming. It makes you fear for your life or safety. Examples: War, accidents, violence."' },
+            { title: 'How to Explain "Triggers"', content: 'Definition to Share: "A \'Trigger\' is when something small (a sound, a smell, a news story) reminds your brain of the bad event. Your body reacts as if the danger is happening right now."' },
+            { title: "Cultural Words & Discussion", content: 'Ask: "In your language, is there a specific word for \'Trauma\'? Or do you just say \'Big Sadness\' or \'Heart Pain\'?"\n\nAsk: "How do people in your community show they are suffering? Do they get quiet? Do they get angry? Do they work harder?"' },
+            { title: 'The "Why"', content: 'Say: "Trauma is not just in your head. It lives in your body. It can affect you months or years after the event happened."' }
         ],
         report: {
             title: "Sample Responses for Report (7B)",
@@ -580,9 +581,9 @@ const session7Guide = [
         icon: Shield,
         goal: "Explain the body's automatic safety system.",
         steps: [
-            { title: "The Animal Example", instruction: 'Say: "Imagine a rabbit sees a lion. The rabbit does not think. Its body takes over."\nFlight: "It runs away fast."\nFight: "If it cannot run, it bites and kicks."\nFreeze: "If it is too scared, it freezes like a statue, hoping the lion won\'t see it."' },
-            { title: "The Human Connection", instruction: 'Say: "Humans are the same. When we are scared (by war, or even by a virus like COVID-19), our bodies react."\nThe Problem: "Animals shake it off and go back to eating grass. Humans remember. We hold the fear inside, so we might feel \'Frozen\' or \'Angry\' long after the danger is gone."' },
-            { title: "Discussion", instruction: 'Ask: "Have you ever felt \'Frozen\' during this pandemic? Like you just couldn\'t do anything?"' }
+            { title: "The Animal Example", content: 'Say: "Imagine a rabbit sees a lion. The rabbit does not think. Its body takes over."\n\nFlight: "It runs away fast."\n\nFight: "If it cannot run, it bites and kicks."\n\nFreeze: "If it is too scared, it freezes like a statue, hoping the lion won\'t see it."' },
+            { title: "The Human Connection", content: 'Say: "Humans are the same. When we are scared (by war, or even by a virus like COVID-19), our bodies react."\n\nThe Problem: "Animals shake it off and go back to eating grass. Humans remember. We hold the fear inside, so we might feel \'Frozen\' or \'Angry\' long after the danger is gone."' },
+            { title: "Discussion Questions (Make it real)", content: 'Ask (The Freeze): "Have you ever felt \'Frozen\' during this pandemic? Like you sit on the couch and cannot move, even though you are not tired?"\n\nAsk (The Fight): "What does \'Fight\' look like in a family? Is it always hitting? Or can it be yelling or snapping at people?"\n\nAsk (The Flight): "In a small apartment, we can\'t run away. How do we \'Flee\'? Do we hide in the bathroom? Do we sleep all day? Do we stay on our phones?"' }
         ],
         report: {
             title: "Sample Responses for Report (7C)",
@@ -601,8 +602,8 @@ const session7Guide = [
         icon: HeartPulse,
         goal: "Connect the mind to the body.",
         parts: [
-            { title: "Part 1: Body Map (The Drawing)", content: 'Do: Give them paper and markers (or just ask them to imagine).\nSay: "Draw a simple outline of a body."\nAsk: "Where do you feel stress? Color that part Red."\nAsk: "Where do you feel strength or love? Color that part Green."' },
-            { title: "Part 2: Body Scan (The Meditation)", content: 'Do: Speak slowly and calmly.\nScript:\n"Sit comfortably. Close your eyes if you want."\n"Notice your feet on the floor."\n"Notice your legs. Are they heavy?"\n"Notice your stomach. Is it tight or soft?"\n"Notice your shoulders. Drop them down away from your ears."\n"Take a deep breath. Let it all go."' }
+            { title: "Body Map (The Drawing)", content: 'Do: Give them paper and markers (or just ask them to imagine).\nSay: "Draw a simple outline of a body."\nAsk: "Where do you feel stress? Color that part Red."\nFollow-up: "Does your stomach hurt when you are worried? Do you get headaches?"\nAsk: "Where do you feel strength or love? Color that part Green."\nFollow-up: "Think of a time you felt powerful. Did you feel it in your chest? Your hands?"' },
+            { title: "Body Scan (The Meditation)", content: 'Do: Speak slowly and calmly.\nScript:\n"Sit comfortably. Close your eyes if you want."\n"Notice your feet on the floor."\n"Notice your legs. Are they heavy?"\n"Notice your stomach. Is it tight or soft?"\n"Notice your shoulders. Drop them down away from your ears."\n"Take a deep breath. Let it all go."' }
         ],
         report: {
             title: "Sample Responses for Report (7D)",
@@ -870,7 +871,7 @@ export default function RohingyaClassReportPage() {
                         {section.steps?.map((step, stepIndex) => (
                            <div key={stepIndex} className="pl-4">
                               {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
-                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction}</p>
+                              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction || step.content}</p>
                            </div>
                         ))}
                         {section.parts?.map((part, partIndex) => (
