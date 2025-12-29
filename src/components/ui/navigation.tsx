@@ -8,7 +8,7 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code, DollarSign, Swords } from "lucide-react";
+import { Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, ArchiveRestore, Code, DollarSign, Swords, Zap } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -102,6 +102,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavLink href="/citizenship-test" onClick={closeSheet}><GraduationCap className="mr-3" /> Citizenship Test</NavLink>
                       <NavLink href="/security-plus-test" onClick={closeSheet}><BookOpen className="mr-3" /> Security+ Test</NavLink>
                       <NavLink href="/book-reader" onClick={closeSheet}><BookOpen className="mr-3" /> Book Reader</NavLink>
+                      <NavLink href="/speed-reader" onClick={closeSheet}><Zap className="mr-3" /> Speed Reader</NavLink>
                       
                       <Separator className="my-2" />
                       <NavGroupLabel>Fun & Games</NavGroupLabel>

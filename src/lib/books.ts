@@ -167,7 +167,7 @@ export const books: Record<string, { title: string; content: string[] }> = {
         title: "Dune",
         content: [
             "THE GOM JABBAR",
-            "Right, this is the chapter's title. The Gom Jabbar is a key plot device you'll learn about shortly. It’s a test of one's humanity, a bit of a make-or-break moment.",
+            "Right then, this is the chapter's title. The Gom Jabbar is a key plot device you'll learn about shortly. It’s a test of one's humanity, a bit of a make-or-break moment.",
             "A beginning is the time when you have to be absolutely finicky about getting the balances right. Every sister of the Bene Gesserit knows this.",
             "This sets a philosophical tone, proper deep. It introduces the Bene Gesserit, a powerful sisterhood, and suggests that beginnings are delicate and require a great deal of care. It's hinting that what's about to happen is a bit complex.",
             "So, to start your study of the life of Muad’Dib, make sure you first place him in his proper time: born in the 57th year of the Padishah Emperor, Shaddam IV.",
@@ -197,7 +197,7 @@ export const books: Record<string, { title: string; content: string[] }> = {
             "\"Yes, Your Reverence.\"",
             "Jessica's simple, submissive reply really highlights the power dynamic. She can't argue with the Reverend Mother, can she?",
             "\"He’s awake and listening to us,\" said the old woman. \"Sly little rascal.\" She chuckled. \"But royalty needs to be sly. And if he really is the Kwisatz Haderach... well...\"",
-            "The old woman knows Paul is pretending to be asleep, showing her sharp as a tack. She introduces the term 'Kwisatz Haderach,' a mysterious title that hints at Paul's potential importance and connects to her reason for being there.",
+            "The old woman knows Paul is pretending to be asleep, showing she's sharp as a tack. She introduces the term 'Kwisatz Haderach,' a mysterious title that hints at Paul's potential importance and connects to her reason for being there.",
             "In the shadows of his bed, Paul narrowed his eyes to slits. Two bird-bright ovals—the eyes of the old woman—seemed to expand and glow as they stared right into his.",
             "Paul isn't just listening anymore; he's now in a direct, silent face-off with the old woman. Her eyes are described as powerful and penetrating, proper intense.",
             "\"Sleep well, you sly little rascal,\" said the old woman. \"Tomorrow you’ll need all your wits about you to meet my gom jabbar.\"",
