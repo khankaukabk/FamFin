@@ -6,7 +6,7 @@ import {
   Drum, Axe, Wheat, Coins, University, Swords, Shield, Rabbit, 
   Building, Users, TowerControl, Building2, UserPlus, Fence, 
   Mountain, UserCog, BookUser, Castle, LandPlot, AlertTriangle, 
-  Info, ChevronDown 
+  Info, ChevronDown, Home
 } from "lucide-react";
 
 // --- 1. TYPE DEFINITIONS ---
