@@ -80,7 +80,7 @@ export default function BookReaderPage() {
                     {bookContent.map((paragraph, index) => (
                         <div key={index} className="h-full flex-shrink-0 flex items-center justify-center p-6 pt-24 pb-20">
                             <p className="text-xl/relaxed sm:text-2xl/relaxed max-w-prose whitespace-pre-wrap">
-                                {paragraph}
+                                {typeof paragraph === 'string' ? paragraph : paragraph.text}
                             </p>
                         </div>
                     ))}
