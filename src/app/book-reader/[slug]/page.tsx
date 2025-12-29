@@ -77,13 +77,16 @@ export default function BookReaderPage() {
             
             <div className="flex-1 overflow-hidden" ref={emblaRef}>
                 <div className="h-full">
-                    {bookContent.map((paragraph, index) => (
-                        <div key={index} className="h-full flex-shrink-0 flex items-center justify-center p-6 pt-24 pb-20">
-                            <p className="text-xl/relaxed sm:text-2xl/relaxed max-w-prose whitespace-pre-wrap">
-                                {paragraph}
-                            </p>
-                        </div>
-                    ))}
+                    {bookContent.map((paragraph, index) => {
+                        const text = typeof paragraph === 'string' ? paragraph : paragraph.text;
+                        return (
+                            <div key={index} className="h-full flex-shrink-0 flex items-center justify-center p-6 pt-24 pb-20">
+                                <p className="text-xl/relaxed sm:text-2xl/relaxed max-w-prose whitespace-pre-wrap">
+                                    {text}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
 
