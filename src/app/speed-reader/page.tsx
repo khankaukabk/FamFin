@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import SpeedReader from "@/components/speed-reader";
+import ScrollReader from "@/components/speed-reader"; 
 import { books } from "@/lib/books"; 
 
 export default function SpeedReaderPage() {
@@ -10,48 +10,34 @@ export default function SpeedReaderPage() {
   const activeBook = books[selectedBookKey];
 
   return (
-    // min-h-screen ensures it fills phone screen, overflow-hidden stops scrolling while reading
-    <div className="min-h-screen bg-neutral-900 text-neutral-100 font-sans touch-manipulation">
+    // Fixed layout for phone
+    <div className="fixed inset-0 bg-neutral-900 text-neutral-100 font-sans overflow-hidden">
       
-      <div className="max-w-md mx-auto h-screen p-4 flex flex-col">
+      {/* Top Navigation Bar */}
+      <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-neutral-900 to-transparent flex justify-between items-center">
+        <h1 className="font-bold text-teal-500 tracking-tight">Zen Reader</h1>
         
-        {/* Minimal Header */}
-        <header className="flex-none mb-4 flex justify-between items-center">
-            <div>
-                <h1 className="text-lg font-bold text-teal-400 leading-none">Speed Reader</h1>
-                <p className="text-xs text-neutral-500">v1.0 Mobile</p>
-            </div>
-            
-            {/* Native Select is actually great on mobile, we just style it to look like a pill button */}
-            <div className="relative">
-                <select 
-                    value={selectedBookKey}
-                    onChange={(e) => setSelectedBookKey(e.target.value)}
-                    className="appearance-none bg-neutral-800 border border-neutral-700 text-white py-2 pl-4 pr-8 rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-                    {Object.keys(books).map((key) => (
-                        <option key={key} value={key}>
-                            {books[key].title}
-                        </option>
-                    ))}
-                </select>
-                {/* Little arrow icon for the select */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-neutral-400">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                </div>
-            </div>
-        </header>
-
-        {/* Main Content Area */}
-        <main className="flex-grow">
-          {/* We pass the array content directly now */}
-          <SpeedReader 
-            key={selectedBookKey} 
-            bookContent={activeBook.content} 
-          />
-        </main>
-
+        <select 
+          value={selectedBookKey}
+          onChange={(e) => setSelectedBookKey(e.target.value)}
+          className="bg-neutral-800/80 backdrop-blur text-xs text-white py-2 pl-3 pr-2 rounded-full border border-neutral-700 focus:outline-none"
+        >
+          {Object.keys(books).map((key) => (
+            <option key={key} value={key}>
+              {books[key].title}
+            </option>
+          ))}
+        </select>
       </div>
+
+      {/* The Reader Feed */}
+      <main className="h-full w-full">
+        <ScrollReader 
+          key={selectedBookKey} // Resets scroll position when book changes
+          bookContent={activeBook.content} 
+        />
+      </main>
+
     </div>
   );
 }
