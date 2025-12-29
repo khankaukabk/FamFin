@@ -186,7 +186,7 @@ export default function Aoe4ScrollReader() {
   const activeBuild = BUILD_ORDERS.find(b => b.id === selectedCivId) || BUILD_ORDERS[0];
 
   return (
-    <div className="fixed inset-0 bg-neutral-950 text-neutral-100 font-sans overflow-hidden">
+    <div className="fixed inset-0 bg-neutral-950 text-neutral-100 font-sans">
       
       {/* HEADER */}
       <div className="absolute top-0 left-0 right-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent flex justify-between items-center backdrop-blur-sm border-b border-white/5">
@@ -318,5 +318,3 @@ export default function Aoe4ScrollReader() {
     </div>
   );
 }
-
-    
