@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import ScrollReader from "@/components/speed-reader"; 
 import { books } from "@/lib/books"; 
 
