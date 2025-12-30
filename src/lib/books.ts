@@ -187,7 +187,7 @@ export const books: Record<string, { title: string; content: BookSegment[] }> = 
           { text: "Do not be deceived by the fact that he was born on Caladan and lived his first fifteen years there. Arrakis, the planet known as Dune, is forever his place.", type: "story"},
           { text: "The narrator is making it dead clear that Paul's destiny is tied to the desert planet Arrakis, not his lush, water-rich homeworld of Caladan. This is a massive hint that a major life change is on the cards for him.", type: "commentary"},
           { text: "—from ‘Manual of Muad’Dib’ by the Princess Irulan", type: "story"},
-          { text: "This tells us the opening bit is an excerpt from a book written by Princess Irulan. She's a historian within the story, chronicling the life of our hero, Paul/Muad’Dib.", type: "commentary"},
+          { text: "This tells us the opening bit is an excerpt from a book written by Princess Irulan. She's a historian within the story, chronicling the life of our hero, Paul/Muad'Dib.", type: "commentary"},
           { text: "In the week before their departure to Arrakis, when all the final scurrying about had reached a near unbearable frenzy, an old crone came to visit the mother of the boy, Paul.", type: "story"},
           { text: "Right, the story kicks off. Paul's family is in the middle of a chaotic move to the planet Arrakis. A mysterious and clearly important old woman rocks up to see Paul's mum, Jessica.", type: "commentary"},
           { text: "It was a warm night at Castle Caladan, and the ancient pile of stone that had served the Atreides family as home for twenty-six generations had the familiar humid feel of such places before a change in the weather.", type: "story"},
@@ -573,9 +573,9 @@ export const books: Record<string, { title: string; content: BookSegment[] }> = 
           { text: "Her voice took on a note of sadness. 'Yet, there’s a place where no Truthsayer can see. We are repelled by it, terrorised. It is said a man will come one day and find in the gift of the drug his inward eye. He will look where we cannot—into both feminine and masculine pasts.'", type: "story"},
           { text: "She reveals the 'wall' they can't pass. For a female Bene Gesserit, the male side of her ancestral memories is a black, terrifying void they can't enter. The prophecy says that a male Bene Gesserit will one day be able to survive the process and access both male and female ancestral memories. He'll see the whole picture.", type: "commentary"},
           { text: "'Your Kwisatz Haderach?'", type: "story"},
-          { text: "Paul understands. The Kwisatz Haderach is the prophesied male Bene Gesserit who can bridge this gap and see the totality of human history. He's the chosen one.", type: "commentary"},
+          { text: "Paul understands. The Kwisatz Haderach is the prophesied male Bene Gesserit who can bridge this gap and see the totality of human history. He's the chosen one.", type: "commentary"}
         ]
     }
 };
 
-```
+    
