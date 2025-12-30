@@ -10,10 +10,8 @@ export default function SpeedReaderPage() {
   const activeBook = books[selectedBookKey];
 
   return (
-    // Fixed layout for phone
     <div className="fixed inset-0 bg-neutral-900 text-neutral-100 font-sans overflow-hidden">
       
-      {/* Top Navigation Bar */}
       <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-neutral-900 to-transparent flex justify-between items-center">
         <h1 className="font-bold text-teal-500 tracking-tight">Zen Reader</h1>
         
@@ -30,11 +28,11 @@ export default function SpeedReaderPage() {
         </select>
       </div>
 
-      {/* The Reader Feed */}
       <main className="h-full w-full">
         <ScrollReader 
-          key={selectedBookKey} // Resets scroll position when book changes
+          key={selectedBookKey}
           bookContent={activeBook.content} 
+          bookKey={selectedBookKey}
         />
       </main>
 

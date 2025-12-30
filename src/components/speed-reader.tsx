@@ -1,8 +1,12 @@
-import { useMemo } from "react";
-import { BookSegment } from "@/lib/books";
+
+"use client";
+
+import { useMemo, useRef, useEffect } from "react";
+import type { BookSegment } from "@/lib/books";
 
 interface ScrollReaderProps {
   bookContent: BookSegment[];
+  bookKey: string;
 }
 
 interface SlideItem {
@@ -10,10 +14,8 @@ interface SlideItem {
   type: "story" | "commentary" | "chapter-title";
 }
 
-export default function ScrollReader({ bookContent }: ScrollReaderProps) {
+export default function ScrollReader({ bookContent, bookKey }: ScrollReaderProps) {
   
-  // 1. DATA PROCESSING
-  // This turns paragraphs into a list of single sentences
   const slides: SlideItem[] = useMemo(() => {
     const result: SlideItem[] = [];
 
@@ -21,14 +23,11 @@ export default function ScrollReader({ bookContent }: ScrollReaderProps) {
       const rawText = typeof segment === "string" ? segment : segment.text;
       const type = typeof segment === "string" ? "story" : segment.type;
 
-      // Detect Chapter Titles (simple heuristic: all caps or starts with "CHAPTER")
       if (rawText.toUpperCase() === rawText || rawText.startsWith("CHAPTER")) {
         result.push({ text: rawText, type: "chapter-title" });
         return;
       }
 
-      // Split paragraph into sentences using regex
-      // This looks for periods, question marks, or exclamations followed by space
       const sentences = rawText.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [rawText];
 
       sentences.forEach((sentence) => {
@@ -44,19 +43,63 @@ export default function ScrollReader({ bookContent }: ScrollReaderProps) {
     return result;
   }, [bookContent]);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const LOCAL_STORAGE_KEY = `scroll-reader-progress-${bookKey}`;
+
+  // Load initial scroll position
+  useEffect(() => {
+    const savedIndex = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedIndex && scrollContainerRef.current) {
+      const index = parseInt(savedIndex, 10);
+      const { clientHeight } = scrollContainerRef.current;
+      scrollContainerRef.current.scrollTop = index * clientHeight;
+    }
+  }, [bookKey, LOCAL_STORAGE_KEY]);
+
+  // Handle saving scroll position
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (scrollContainerRef.current) {
+        const { scrollTop, clientHeight } = scrollContainerRef.current;
+        const currentIndex = Math.round(scrollTop / clientHeight);
+        localStorage.setItem(LOCAL_STORAGE_KEY, currentIndex.toString());
+      }
+    }, 250); // Debounce to avoid excessive writes
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    container?.addEventListener('scroll', handleScroll);
+    return () => {
+      container?.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookKey]); // Rerun if the book changes
+
+
   return (
-    // The Container: Full screen height, handles the snapping
-    <div className="h-[calc(100vh-80px)] w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
+    <div 
+      ref={scrollContainerRef}
+      className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
+    >
       
       {slides.map((slide, index) => (
-        // The Slide: Each sentence is a full screen section
         <div 
           key={index} 
           className="snap-center h-full w-full flex flex-col items-center justify-center p-8 transition-all duration-500"
         >
           <div className="max-w-md w-full">
             
-            {/* Visual Indicator for Commentary */}
             {slide.type === "commentary" && (
               <div className="mb-6 flex justify-center">
                  <span className="bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest border border-yellow-500/30">
@@ -65,7 +108,6 @@ export default function ScrollReader({ bookContent }: ScrollReaderProps) {
               </div>
             )}
 
-            {/* Visual Indicator for Chapter Titles */}
             {slide.type === "chapter-title" && (
               <div className="mb-6 flex justify-center">
                  <span className="text-teal-500 text-xs font-mono uppercase tracking-widest">
@@ -74,7 +116,6 @@ export default function ScrollReader({ bookContent }: ScrollReaderProps) {
               </div>
             )}
 
-            {/* THE TEXT */}
             <p className={`
               text-center leading-relaxed transition-all
               ${slide.type === "chapter-title" 
@@ -90,21 +131,18 @@ export default function ScrollReader({ bookContent }: ScrollReaderProps) {
               {slide.text}
             </p>
 
-            {/* Decoration for Commentary */}
             {slide.type === "commentary" && (
               <div className="mt-8 w-16 h-1 bg-yellow-500/30 mx-auto rounded-full" />
             )}
 
           </div>
           
-          {/* Subtle scroll hint at the very bottom */}
           <div className="absolute bottom-8 opacity-20 text-white animate-bounce">
             ↓
           </div>
         </div>
       ))}
       
-      {/* End of Book Spacer */}
       <div className="snap-center h-1/2 w-full flex items-center justify-center text-neutral-500">
         End of Preview
       </div>
