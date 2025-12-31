@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -10,6 +9,7 @@ import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
 import * as LucideIcons from "lucide-react";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import { Navigation } from "@/components/ui/navigation"; // <--- Restored this import
 import { cn } from "@/lib/utils";
 import {
   AlertDialog,
@@ -37,11 +37,6 @@ const styles = `
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-  
-  /* Gold Border Gradient */
-  .border-gold {
-    border-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c) 1;
   }
 `;
 
@@ -155,8 +150,8 @@ export default function HomePage() {
       {monthData.weeks.map((weekData, weekIndex) => (
         <div key={weekData.week} className="relative">
           
-          {/* Week Header - Sticky & Elegant */}
-          <div className="sticky top-0 z-10 bg-black/95 backdrop-blur-xl border-b border-[#bf953f]/30 py-4 mb-4 flex justify-between items-end">
+          {/* Week Header */}
+          <div className="sticky top-16 z-10 bg-black/95 backdrop-blur-xl border-b border-[#bf953f]/30 py-4 mb-4 flex justify-between items-end">
             <div>
               <h3 className="font-serif text-2xl text-[#fcf6ba] tracking-wider">{weekData.week}</h3>
               <p className="text-xs text-[#bf953f] uppercase tracking-[0.2em] font-medium mt-1">{weekData.dates}</p>
@@ -164,7 +159,7 @@ export default function HomePage() {
             <Crown className="w-5 h-5 text-[#bf953f] opacity-50" />
           </div>
 
-          {/* Task List - Clean & Spacious */}
+          {/* Task List */}
           <div className="bg-neutral-900/20 rounded-none border-l border-white/5 pl-4">
             {weekData.tasks.map((task) => (
               <TaskRow key={task.id} task={task} monthId={monthData.id} weekIndex={weekIndex} />
@@ -178,35 +173,19 @@ export default function HomePage() {
   return (
     <>
       <style>{styles}</style>
-      <div className="min-h-screen bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black">
+      <div className="flex min-h-screen w-full flex-col bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black">
         
-        {/* TOP BAR */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-          <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#bf953f] to-[#aa771c] flex items-center justify-center text-black font-serif font-bold">
-                K
-              </div>
-              <span className="font-serif text-lg text-white tracking-widest">CONCIERGE</span>
-            </div>
-            <div className="text-xs text-[#bf953f] border border-[#bf953f]/30 px-3 py-1 rounded-full uppercase tracking-widest">
-              Platinum
-            </div>
-          </div>
-        </header>
+        <Navigation title="Concierge" /> 
 
-        {/* MAIN CONTENT */}
-        <main className="pt-24 pb-20 px-6 max-w-3xl mx-auto">
+        <main className="flex-1 p-4 sm:px-6 md:p-8 max-w-3xl mx-auto w-full">
           
-          {/* PAGE TITLE */}
-          <div className="text-center mb-16 space-y-4">
+          <div className="text-center my-8 space-y-4">
             <Star className="w-6 h-6 text-[#bf953f] mx-auto mb-4 animate-pulse" />
-            <h1 className="font-serif text-5xl md:text-6xl text-white">December</h1>
+            <h1 className="font-serif text-5xl md:text-6xl text-white">December Itinerary</h1>
             <div className="h-0.5 w-24 mx-auto bg-gradient-to-r from-transparent via-[#bf953f] to-transparent" />
-            <p className="text-neutral-500 uppercase tracking-[0.3em] text-sm">Exclusive Itinerary</p>
+            <p className="text-neutral-500 uppercase tracking-[0.3em] text-sm">Platinum Member Services</p>
           </div>
 
-          {/* SKELETON LOADING */}
           {isLoadingMonths || isUserLoading ? (
              <div className="space-y-8 opacity-20 animate-pulse">
                <div className="h-40 bg-white/10 rounded-lg"></div>
@@ -214,14 +193,12 @@ export default function HomePage() {
              </div>
           ) : (
             <>
-                {/* CURRENT MONTH */}
                 {decemberData ? renderMonthTasks(decemberData) : (
                   <div className="text-center py-20 border border-dashed border-white/10 rounded-xl">
                     <p className="font-serif text-2xl text-neutral-600">No scheduled tasks.</p>
                   </div>
                 )}
 
-                {/* ARCHIVE ACCORDION */}
                 {novemberData && (
                     <Accordion type="single" collapsible className="w-full mt-16 border-t border-white/10">
                         <AccordionItem value="november" className="border-none">
@@ -246,13 +223,11 @@ export default function HomePage() {
           )}
         </main>
 
-        {/* FOOTER */}
         <footer className="text-center py-12 border-t border-white/5">
           <p className="font-serif text-[#bf953f] text-sm italic">"Excellence is not an act, but a habit."</p>
         </footer>
       </div>
       
-      {/* LUXURY ALERT DIALOG */}
       <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && handleConfirmToggle()}>
         <AlertDialogContent className="bg-[#0a0a0a] border border-[#bf953f]/30 rounded-none shadow-[0_0_50px_rgba(191,149,63,0.1)]">
           <AlertDialogHeader>
@@ -282,5 +257,3 @@ export default function HomePage() {
     </>
   );
 }
-
-    
