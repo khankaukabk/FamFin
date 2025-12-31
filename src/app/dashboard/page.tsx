@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -337,7 +338,7 @@ export default function DashboardPage() {
 
         {/* BOTTOM NAVIGATION BAR */}
         <div className="absolute bottom-6 left-4 right-4 z-40">
-          <div className="bg-black/90 backdrop-blur-xl border border-[#bf953f]/20 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-1.5 flex justify-between">
+          <div className="bg-black/90 backdrop-blur-xl border border-[#bf953f]/20 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] p-1.5 flex justify-between">
             {[
               { id: 'members', icon: Users, label: 'Members' },
               { id: 'income', icon: ArrowUpRight, label: 'Income' },
@@ -364,3 +365,4 @@ export default function DashboardPage() {
     </>
   );
 }
+
