@@ -46,7 +46,6 @@ const initialTransactions: Transaction[] = [
   { id: "9", type: "expense", amount: 209.56, category: "Utilities", description: "Phone Bill", date: "2024-07-01" },
   { id: "10", type: "expense", amount: 411.72, category: "Transportation", description: "Tesla Finance", date: "2024-07-01" },
   { id: "12", type: "expense", amount: 201.52, category: "Loan", description: "HomeDepot Loan", date: "2024-07-01" },
-  { id: "13", type: "expense", amount: 200.0, category: "Insurance", description: "State Farm", date: "2024-07-01" },
   { id: "28", type: "expense", amount: 250.0, category: "Food", description: "Bulk Chicken & Supplies", date: "2024-07-01" },
   { id: "16", type: "expense", amount: 100, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
   { id: "22", type: "expense", amount: 18, category: "Loan", description: "iPhone Payment", date: "2024-07-01" },
@@ -373,3 +372,4 @@ export default function DashboardPage() {
     </>
   );
 }
+
