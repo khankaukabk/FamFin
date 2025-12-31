@@ -7,7 +7,7 @@ import {
   Wallet, TrendingUp, TrendingDown, Home, Car, Smartphone, 
   CreditCard, ShoppingBag, Shield, Utensils, Landmark, 
   ArrowUpRight, ArrowDownRight, User, PieChart, Crown, Diamond,
-  Users, BarChart3, Layers
+  Users, BarChart3, Calculator
 } from "lucide-react";
 
 // --- CSS UTILITIES ---
@@ -66,7 +66,8 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-// --- COMPONENT: MEMBER CARD ---
+// --- COMPONENTS ---
+
 const MemberCard = ({ name, income, expense }: { name: string, income: number, expense: number }) => {
   const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2);
   const net = income - expense;
@@ -100,7 +101,6 @@ const MemberCard = ({ name, income, expense }: { name: string, income: number, e
   );
 };
 
-// --- COMPONENT: CATEGORY ROW ---
 const CategoryRow = ({ category, amount, total }: { category: string, amount: number, total: number }) => {
   const Icon = getCategoryIcon(category);
   const percent = (amount / total) * 100;
@@ -123,35 +123,20 @@ const CategoryRow = ({ category, amount, total }: { category: string, amount: nu
   );
 };
 
-// --- COMPONENT: TRANSACTION ROW (No Date, Member Focus) ---
 const TransactionRow = ({ t }: { t: Transaction }) => {
-  const Icon = getCategoryIcon(t.category);
   const isIncome = t.type === 'income';
 
   return (
-    <div className="flex items-center gap-4 p-4 rounded-xl border-b border-white/5 hover:bg-white/5 transition-colors group">
-      <div className={`
-        flex-none w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300
-        ${isIncome 
-          ? 'bg-[#bf953f]/10 border-[#bf953f]/20 text-[#bf953f]' 
-          : 'bg-white/5 border-white/10 text-neutral-400'}
-      `}>
-        <Icon className="w-4 h-4" />
-      </div>
-      
+    <div className="flex items-center gap-4 px-4 py-3 bg-white/[0.02] border-x border-white/5 first:rounded-t-xl first:border-t hover:bg-white/5 transition-colors">
       <div className="flex-grow min-w-0">
         <div className="flex justify-between items-center mb-0.5">
-          <h4 className="font-medium text-white truncate pr-2 text-sm">{t.description}</h4>
-          <span className={`font-serif text-base tracking-wide whitespace-nowrap ${isIncome ? 'text-[#bf953f]' : 'text-white'}`}>
-            {isIncome ? '+' : '-'}${t.amount.toLocaleString(undefined, { minimumFractionDigits: 0 })}
+          <h4 className="font-medium text-neutral-300 truncate pr-2 text-sm">{t.description}</h4>
+          <span className={`font-mono text-sm tracking-wide whitespace-nowrap ${isIncome ? 'text-emerald-400' : 'text-neutral-200'}`}>
+            ${t.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
           </span>
         </div>
         <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/10 border border-white/5">
-                <User className="w-3 h-3 text-[#bf953f]" />
-                <span className="text-[10px] text-neutral-300 font-medium uppercase tracking-wider">{t.member}</span>
-            </div>
-            <span className="text-[10px] text-neutral-600 uppercase tracking-wider">{t.category}</span>
+            <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">{t.member}</span>
         </div>
       </div>
     </div>
@@ -163,17 +148,18 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = React.useState<'members' | 'income' | 'expenses'>('members');
   const [transactions] = React.useState<Transaction[]>(initialTransactions);
 
-  // 1. Calculate General Stats
+  // 1. General Stats
   const stats = React.useMemo(() => {
     const income = transactions.filter(t => t.type === "income").reduce((acc, t) => acc + t.amount, 0);
     const expenses = transactions.filter(t => t.type === "expense").reduce((acc, t) => acc + t.amount, 0);
     return { income, expenses, balance: income - expenses };
   }, [transactions]);
 
-  // 2. Aggregate Data by Member
+  // 2. Member Aggregation
   const memberStats = React.useMemo(() => {
     const map: Record<string, { income: number, expense: number }> = {};
     transactions.forEach(t => {
+      if (!t.member) return;
       if (!map[t.member]) map[t.member] = { income: 0, expense: 0 };
       if (t.type === 'income') map[t.member].income += t.amount;
       else map[t.member].expense += t.amount;
@@ -181,29 +167,27 @@ export default function DashboardPage() {
     return Object.entries(map).map(([name, data]) => ({ name, ...data }));
   }, [transactions]);
 
-  // 3. Aggregate Data by Category
-  const categoryStats = React.useMemo(() => {
-    const incomeCats: Record<string, number> = {};
-    const expenseCats: Record<string, number> = {};
+  // 3. Category Aggregation & Grouping
+  const groupedList = React.useMemo(() => {
+    const targetType = activeTab === 'income' ? 'income' : 'expense';
+    const filtered = transactions.filter(t => t.type === targetType);
     
-    transactions.forEach(t => {
-      if (t.type === 'income') {
-        incomeCats[t.category] = (incomeCats[t.category] || 0) + t.amount;
-      } else {
-        expenseCats[t.category] = (expenseCats[t.category] || 0) + t.amount;
+    // Group by category
+    const groups: Record<string, { total: number, items: Transaction[] }> = {};
+    
+    filtered.forEach(t => {
+      if (!groups[t.category]) {
+        groups[t.category] = { total: 0, items: [] };
       }
+      groups[t.category].items.push(t);
+      groups[t.category].total += t.amount;
     });
-    
-    return {
-      income: Object.entries(incomeCats).sort((a, b) => b[1] - a[1]),
-      expense: Object.entries(expenseCats).sort((a, b) => b[1] - a[1])
-    };
-  }, [transactions]);
 
-  // 4. Filter Transactions List
-  const displayTransactions = React.useMemo(() => {
-    if (activeTab === 'members') return []; 
-    return transactions.filter(t => t.type === (activeTab === 'income' ? 'income' : 'expense'));
+    // Convert to array and sort by Total Amount
+    return Object.entries(groups)
+      .map(([cat, data]) => ({ category: cat, ...data }))
+      .sort((a, b) => b.total - a.total);
+      
   }, [transactions, activeTab]);
 
   return (
@@ -243,7 +227,6 @@ export default function DashboardPage() {
                 <h3 className="px-2 text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
                    <Users className="w-4 h-4 text-[#bf953f]" /> Member Breakdown
                 </h3>
-                {/* Horizontal Scroll Container */}
                 <div className="flex overflow-x-auto no-scrollbar gap-4 px-2 pb-4 snap-x">
                     {memberStats.map((m) => (
                         <MemberCard key={m.name} name={m.name} income={m.income} expense={m.expense} />
@@ -251,15 +234,24 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* TOP CATEGORIES PREVIEW */}
+              {/* HIGHEST EXPENSES */}
               <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
                 <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
                    <BarChart3 className="w-4 h-4 text-[#bf953f]" /> Highest Expenses
                 </h3>
                 <div className="space-y-2">
-                    {categoryStats.expense.slice(0, 5).map(([cat, amt]) => (
-                        <CategoryRow key={cat} category={cat} amount={amt} total={stats.expenses} />
-                    ))}
+                    {groupedList.length > 0 ? (
+                       Object.entries(transactions.filter(t=>t.type==='expense').reduce((acc, t) => {
+                          acc[t.category] = (acc[t.category] || 0) + t.amount; return acc;
+                       }, {} as Record<string, number>))
+                       .sort((a,b)=>b[1]-a[1])
+                       .slice(0,5)
+                       .map(([cat, amt]) => (
+                          <CategoryRow key={cat} category={cat} amount={amt} total={stats.expenses} />
+                       ))
+                    ) : (
+                       <p className="text-neutral-500 text-sm">Select Income/Expense tabs for details.</p>
+                    )}
                 </div>
               </div>
 
@@ -267,28 +259,76 @@ export default function DashboardPage() {
           ) : (
             <div className="animate-enter space-y-6">
                 
-                {/* BREAKDOWN CARD */}
+                {/* CHART SUMMARY */}
                 <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
                     <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <PieChart className="w-4 h-4 text-[#bf953f]" /> {activeTab === 'income' ? 'Income' : 'Expense'} Categories
+                        <PieChart className="w-4 h-4 text-[#bf953f]" /> {activeTab === 'income' ? 'Income' : 'Expense'} Distribution
                     </h3>
                     <div className="space-y-2">
-                        {(activeTab === 'income' ? categoryStats.income : categoryStats.expense).map(([cat, amt]) => (
-                            <CategoryRow key={cat} category={cat} amount={amt} total={activeTab === 'income' ? stats.income : stats.expenses} />
+                        {groupedList.map((group) => (
+                            <CategoryRow key={group.category} category={group.category} amount={group.total} total={activeTab === 'income' ? stats.income : stats.expenses} />
                         ))}
                     </div>
                 </div>
 
-                {/* DETAILED LIST */}
-                <div>
-                    <h3 className="px-2 text-xs font-bold text-neutral-500 uppercase tracking-widest mb-3">
-                        Detailed Ledger
-                    </h3>
-                    <div className="space-y-1">
-                        {displayTransactions.map((t) => (
-                            <TransactionRow key={t.id} t={t} />
-                        ))}
+                {/* DETAILED LEDGER WITH SUBTOTALS */}
+                <div className="space-y-8">
+                    <div className="px-2 flex justify-between items-end">
+                      <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                          Detailed Ledger
+                      </h3>
+                      <p className="text-[10px] text-neutral-600">Grouped by Category</p>
                     </div>
+                    
+                    {groupedList.map((group) => {
+                         const Icon = getCategoryIcon(group.category);
+                         return (
+                            <div key={group.category} className="space-y-0">
+                                {/* Group Header */}
+                                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-white/10 to-transparent rounded-t-xl border-t border-x border-white/10">
+                                    <Icon className="w-4 h-4 text-[#bf953f]" />
+                                    <span className="text-sm font-bold text-white">{group.category}</span>
+                                </div>
+                                
+                                {/* Items */}
+                                <div>
+                                    {group.items.map(t => (
+                                        <TransactionRow key={t.id} t={t} />
+                                    ))}
+                                </div>
+
+                                {/* SUBTOTAL FOOTER */}
+                                <div className="flex justify-between items-center px-4 py-3 bg-[#111] rounded-b-xl border border-white/10 mt-[-1px]">
+                                    <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest">
+                                      Sum ({group.items.length} items)
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-[10px] text-neutral-600">=</span>
+                                      <span className="font-mono text-sm text-[#bf953f] font-bold">
+                                        ${group.total.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                         );
+                    })}
+
+                    {/* GRAND TOTAL VERIFICATION */}
+                    <div className="mt-8 p-6 rounded-2xl bg-[#bf953f]/10 border border-[#bf953f]/30 flex justify-between items-center shadow-[0_0_30px_rgba(191,149,63,0.1)]">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-[#bf953f] rounded-lg text-black">
+                                <Calculator className="w-5 h-5" />
+                            </div>
+                            <div>
+                                <p className="text-[10px] font-bold text-[#bf953f] uppercase tracking-widest">Total Verified</p>
+                                <p className="text-xs text-[#bf953f]/70">Sum of all categories</p>
+                            </div>
+                        </div>
+                        <span className="font-serif text-2xl text-white tracking-tight">
+                            ${(activeTab === 'income' ? stats.income : stats.expenses).toLocaleString()}
+                        </span>
+                    </div>
+
                 </div>
             </div>
           )}
