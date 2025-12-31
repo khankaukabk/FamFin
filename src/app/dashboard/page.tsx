@@ -39,7 +39,7 @@ const initialTransactions: Transaction[] = [
   { id: "27", type: "income", amount: 1000.0, category: "Employment", description: "Monthly", member: "Safura", date: "2024-07-01" },
   { id: "24", type: "income", amount: 1000.0, category: "Employment", description: "Monthly", member: "Ruma", date: "2024-07-01" },
   { id: "25", type: "income", amount: 200.0, category: "Government", description: "EBT", member: "Aminuddin", date: "2024-07-01" },
-  { id: "23", type: "income", amount: 300.0, category: "Government", description: "SSA Treas", member: "Aminuddin", date: "2024-07-01" },
+  { id: "23", type: "income", amount: 312.0, category: "Government", description: "SSA Treas", member: "Aminuddin", date: "2024-07-01" },
   { id: "26", type: "income", amount: 300.0, category: "Government", description: "EBT", member: "Kaukab", date: "2024-07-01" },
   // Expense
   { id: "7", type: "expense", amount: 838.92, category: "Housing", description: "Bank of Whittier", date: "2024-07-01" },
@@ -373,3 +373,5 @@ export default function DashboardPage() {
     </>
   );
 }
+
+    
