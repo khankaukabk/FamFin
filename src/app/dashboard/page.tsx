@@ -55,6 +55,11 @@ const initialTransactions: Transaction[] = [
   { id: "30", type: "expense", amount: 130, category: "Utilities", description: "Birmingham water works", date: "2024-07-01" },
   { id: "31", type: "expense", amount: 96.02, category: "Utilities", description: "Att Internet", date: "2024-07-01" },
   { id: "32", type: "expense", amount: 120, category: "Loan", description: "FirstMark Student Loan", date: "2024-07-01" },
+  { id: "33", type: "expense", amount: 9.99, category: "Utilities", description: "Apple iCloud", member: "Kaukab", date: "2024-07-01" },
+  { id: "34", type: "expense", amount: 16.99, category: "Discretionary", description: "Apple Music", member: "Kaukab", date: "2024-07-01" },
+  { id: "35", type: "expense", amount: 7.99, category: "Insurance", description: "Apple Insurance Kaukab", member: "Kaukab", date: "2024-07-01" },
+  { id: "36", type: "expense", amount: 7.99, category: "Insurance", description: "Apple Insurance Kaukab 2", member: "Kaukab", date: "2024-07-01" },
+  { id: "37", type: "expense", amount: 1.96, category: "Utilities", description: "HP instant Ink", member: "Kaukab", date: "2024-07-01" },
 ];
 
 const getCategoryIcon = (category: string) => {
@@ -214,7 +219,7 @@ export default function DashboardPage() {
                 <Crown className="w-3 h-3" /> Total Family Liquidity
             </p>
             <h1 className="text-5xl font-serif text-white tracking-tight mb-2">
-                ${stats.balance.toLocaleString()}
+                ${stats.balance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </h1>
             <div className="flex justify-center gap-4 text-xs font-medium">
                 <span className="text-emerald-500/80">In: ${stats.income.toLocaleString()}</span>
@@ -330,7 +335,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
                         <span className="font-serif text-2xl text-white tracking-tight">
-                            ${(activeTab === 'income' ? stats.income : stats.expenses).toLocaleString()}
+                            ${(activeTab === 'income' ? stats.income : stats.expenses).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                         </span>
                     </div>
 
@@ -368,4 +373,3 @@ export default function DashboardPage() {
     </>
   );
 }
-
