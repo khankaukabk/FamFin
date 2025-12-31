@@ -74,7 +74,7 @@ export default function HomePage() {
   };
   
   const handleConfirmToggle = () => {
-    if (firestore && alertState.monthId !== null && alertState.weekIndex !== null && alertState.taskId) {
+    if (firestore && alertState.monthId && alertState.weekIndex !== null && alertState.taskId) {
       toggleTaskCompletion(firestore, alertState.monthId, alertState.weekIndex, alertState.taskId);
     }
     setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
@@ -147,7 +147,7 @@ export default function HomePage() {
         <div key={weekData.week} className="relative">
           
           {/* Week Header - Sticky for long lists */}
-          <div className="sticky top-[60px] z-30 bg-black/90 backdrop-blur-xl border-b border-[#bf953f]/30 py-3 px-1 mb-2 flex justify-between items-center shadow-lg">
+          <div className="sticky top-[80px] z-30 bg-black/90 backdrop-blur-xl border-b border-[#bf953f]/30 py-3 px-1 mb-2 flex justify-between items-center shadow-lg">
             <div>
               <h3 className="font-serif text-xl text-[#fcf6ba] tracking-wide">{weekData.week}</h3>
             </div>
@@ -169,11 +169,13 @@ export default function HomePage() {
 
   return (
     <>
-      <style>{styles}</style>
+      {/* FIXED: dangerouslySetInnerHTML prevents the Hydration Error */}
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
+      
       <div className="flex min-h-screen w-full flex-col bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black pb-safe">
         
         {/* --- NAVIGATION --- */}
-        <div className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="sticky top-0 z-40">
              <Navigation title="Concierge" /> 
         </div>
 
@@ -237,7 +239,7 @@ export default function HomePage() {
       </div>
       
       {/* MOBILE ALERT DIALOG (BOTTOM SHEET STYLE) */}
-      <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && handleConfirmToggle()}>
+      <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && React.startTransition(() => handleConfirmToggle())}>
         <AlertDialogContent className="bg-[#111] border-t border-[#bf953f]/30 rounded-t-[20px] rounded-b-none bottom-0 top-auto translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] fixed max-w-full w-full mx-0 p-6">
           <AlertDialogHeader>
             <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" /> {/* Handle bar */}
