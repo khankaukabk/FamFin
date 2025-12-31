@@ -1,13 +1,13 @@
-
 "use client";
 
 import * as React from "react";
 import type { Transaction } from "@/lib/types";
-import { Navigation } from "@/components/ui/navigation"; // Bringing back your menu
+import { Navigation } from "@/components/ui/navigation";
 import { 
   Wallet, TrendingUp, TrendingDown, Home, Car, Smartphone, 
   CreditCard, ShoppingBag, Shield, Utensils, Landmark, 
-  ArrowUpRight, ArrowDownRight, User, PieChart, Crown, Diamond
+  ArrowUpRight, ArrowDownRight, User, PieChart, Crown, Diamond,
+  Users, BarChart3, Layers
 } from "lucide-react";
 
 // --- CSS UTILITIES ---
@@ -16,7 +16,6 @@ const styles = `
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   
-  /* Luxury Gold Gradient Text */
   .text-gradient-gold {
     background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
     -webkit-background-clip: text;
@@ -25,10 +24,10 @@ const styles = `
   }
   
   @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .animate-enter { animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-enter { animation: fade-in-up 0.5s ease-out forwards; }
 `;
 
 // --- DATA ---
@@ -49,6 +48,8 @@ const initialTransactions: Transaction[] = [
   { id: "12", type: "expense", amount: 201.52, category: "Loan", description: "HomeDepot Loan", date: "2024-07-01" },
   { id: "13", type: "expense", amount: 200.0, category: "Insurance", description: "State Farm", date: "2024-07-01" },
   { id: "28", type: "expense", amount: 250.0, category: "Food", description: "Bulk Chicken & Supplies", date: "2024-07-01" },
+  { id: "16", type: "expense", amount: 100, category: "Discretionary", description: "Amazon", date: "2024-07-01" },
+  { id: "22", type: "expense", amount: 18, category: "Loan", description: "iPhone Payment", date: "2024-07-01" },
 ];
 
 const getCategoryIcon = (category: string) => {
@@ -65,71 +66,92 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-// --- LUXURY COMPONENT: STAT CARD ---
-const StatCard = ({ title, amount, type, icon: Icon }: { title: string, amount: number, type: 'neutral' | 'positive' | 'negative', icon: any }) => (
-  <div className="relative overflow-hidden p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-black shadow-2xl group">
-    {/* Ambient Glow */}
-    <div className={`absolute top-0 right-0 p-20 rounded-full blur-[60px] opacity-10 pointer-events-none
-      ${type === 'positive' ? 'bg-[#bf953f]' : type === 'negative' ? 'bg-rose-900' : 'bg-white'}`} 
-    />
-    
-    <div className="relative z-10 flex flex-col justify-between h-full">
-      <div className="flex justify-between items-start mb-6">
-        <div className={`p-3 rounded-xl border backdrop-blur-md
-          ${type === 'positive' 
-            ? 'bg-[#bf953f]/10 border-[#bf953f]/20 text-[#bf953f]' 
-            : type === 'negative' 
-            ? 'bg-rose-500/10 border-rose-500/20 text-rose-400' 
-            : 'bg-white/5 border-white/10 text-white'}`}
-        >
-          <Icon className="w-5 h-5" />
-        </div>
-        {type === 'neutral' && <Diamond className="w-4 h-4 text-[#bf953f] opacity-50" />}
+// --- COMPONENT: MEMBER CARD ---
+const MemberCard = ({ name, income, expense }: { name: string, income: number, expense: number }) => {
+  const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2);
+  const net = income - expense;
+  
+  return (
+    <div className="flex-none w-40 p-4 rounded-2xl bg-[#111] border border-white/10 flex flex-col items-center text-center shadow-lg snap-center">
+      <div className="w-12 h-12 rounded-full bg-[#bf953f]/10 border border-[#bf953f]/30 flex items-center justify-center text-[#bf953f] font-serif font-bold mb-3">
+        {initials}
+      </div>
+      <h3 className="text-white font-medium text-sm mb-2">{name}</h3>
+      
+      <div className="w-full space-y-1">
+        {income > 0 && (
+          <div className="flex justify-between text-[10px] text-neutral-400">
+            <span>In</span>
+            <span className="text-emerald-400">+${income.toLocaleString()}</span>
+          </div>
+        )}
+        {expense > 0 && (
+          <div className="flex justify-between text-[10px] text-neutral-400">
+            <span>Out</span>
+            <span className="text-rose-400">-${expense.toLocaleString()}</span>
+          </div>
+        )}
       </div>
       
-      <div>
-        <p className="text-neutral-500 text-xs font-bold tracking-[0.2em] uppercase mb-2">{title}</p>
-        <h3 className={`font-serif text-3xl font-medium tracking-tight
-          ${type === 'positive' ? 'text-gradient-gold' : 'text-white'}
-        `}>
-          ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-        </h3>
+      <div className={`mt-3 pt-2 border-t border-white/5 w-full text-xs font-bold ${net >= 0 ? 'text-[#bf953f]' : 'text-neutral-500'}`}>
+        {net >= 0 ? '+' : ''}${net.toLocaleString()}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-// --- LUXURY COMPONENT: TRANSACTION ROW ---
-const TransactionRow = ({ t, delay }: { t: Transaction, delay: number }) => {
+// --- COMPONENT: CATEGORY ROW ---
+const CategoryRow = ({ category, amount, total }: { category: string, amount: number, total: number }) => {
+  const Icon = getCategoryIcon(category);
+  const percent = (amount / total) * 100;
+  
+  return (
+    <div className="flex items-center gap-4 py-3">
+      <div className="flex-none p-2 rounded-lg bg-white/5 text-neutral-400">
+        <Icon className="w-4 h-4" />
+      </div>
+      <div className="flex-grow">
+        <div className="flex justify-between items-end mb-1">
+          <span className="text-sm text-white font-medium">{category}</span>
+          <span className="text-sm text-neutral-200">${amount.toLocaleString()}</span>
+        </div>
+        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+          <div className="h-full bg-[#bf953f]" style={{ width: `${percent}%` }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENT: TRANSACTION ROW (No Date, Member Focus) ---
+const TransactionRow = ({ t }: { t: Transaction }) => {
   const Icon = getCategoryIcon(t.category);
   const isIncome = t.type === 'income';
 
   return (
-    <div 
-      style={{ animationDelay: `${delay}ms` }}
-      className="animate-enter flex items-center gap-4 p-4 rounded-xl border-b border-white/5 hover:bg-white/5 transition-colors group"
-    >
-      {/* Icon Circle */}
+    <div className="flex items-center gap-4 p-4 rounded-xl border-b border-white/5 hover:bg-white/5 transition-colors group">
       <div className={`
         flex-none w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300
         ${isIncome 
           ? 'bg-[#bf953f]/10 border-[#bf953f]/20 text-[#bf953f]' 
-          : 'bg-white/5 border-white/10 text-neutral-400 group-hover:text-white'}
+          : 'bg-white/5 border-white/10 text-neutral-400'}
       `}>
         <Icon className="w-4 h-4" />
       </div>
       
-      {/* Details */}
       <div className="flex-grow min-w-0">
-        <div className="flex justify-between items-center mb-1">
-          <h4 className="font-medium text-neutral-200 truncate pr-4 text-sm">{t.description}</h4>
+        <div className="flex justify-between items-center mb-0.5">
+          <h4 className="font-medium text-white truncate pr-2 text-sm">{t.description}</h4>
           <span className={`font-serif text-base tracking-wide whitespace-nowrap ${isIncome ? 'text-[#bf953f]' : 'text-white'}`}>
             {isIncome ? '+' : '-'}${t.amount.toLocaleString(undefined, { minimumFractionDigits: 0 })}
           </span>
         </div>
-        <div className="flex justify-between items-center text-[10px] text-neutral-600 uppercase tracking-wider font-medium">
-          <span className="flex items-center gap-1"><User className="w-3 h-3"/> {t.member}</span>
-          <span>{new Date(t.date).toLocaleDateString()}</span>
+        <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/10 border border-white/5">
+                <User className="w-3 h-3 text-[#bf953f]" />
+                <span className="text-[10px] text-neutral-300 font-medium uppercase tracking-wider">{t.member}</span>
+            </div>
+            <span className="text-[10px] text-neutral-600 uppercase tracking-wider">{t.category}</span>
         </div>
       </div>
     </div>
@@ -138,17 +160,49 @@ const TransactionRow = ({ t, delay }: { t: Transaction, delay: number }) => {
 
 // --- MAIN PAGE ---
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'income' | 'expenses'>('overview');
+  const [activeTab, setActiveTab] = React.useState<'members' | 'income' | 'expenses'>('members');
   const [transactions] = React.useState<Transaction[]>(initialTransactions);
 
+  // 1. Calculate General Stats
   const stats = React.useMemo(() => {
     const income = transactions.filter(t => t.type === "income").reduce((acc, t) => acc + t.amount, 0);
     const expenses = transactions.filter(t => t.type === "expense").reduce((acc, t) => acc + t.amount, 0);
     return { income, expenses, balance: income - expenses };
   }, [transactions]);
 
-  const filteredTransactions = React.useMemo(() => {
-    if (activeTab === 'overview') return transactions.slice(0, 6); // Just recent
+  // 2. Aggregate Data by Member
+  const memberStats = React.useMemo(() => {
+    const map: Record<string, { income: number, expense: number }> = {};
+    transactions.forEach(t => {
+      if (!map[t.member]) map[t.member] = { income: 0, expense: 0 };
+      if (t.type === 'income') map[t.member].income += t.amount;
+      else map[t.member].expense += t.amount;
+    });
+    return Object.entries(map).map(([name, data]) => ({ name, ...data }));
+  }, [transactions]);
+
+  // 3. Aggregate Data by Category
+  const categoryStats = React.useMemo(() => {
+    const incomeCats: Record<string, number> = {};
+    const expenseCats: Record<string, number> = {};
+    
+    transactions.forEach(t => {
+      if (t.type === 'income') {
+        incomeCats[t.category] = (incomeCats[t.category] || 0) + t.amount;
+      } else {
+        expenseCats[t.category] = (expenseCats[t.category] || 0) + t.amount;
+      }
+    });
+    
+    return {
+      income: Object.entries(incomeCats).sort((a, b) => b[1] - a[1]),
+      expense: Object.entries(expenseCats).sort((a, b) => b[1] - a[1])
+    };
+  }, [transactions]);
+
+  // 4. Filter Transactions List
+  const displayTransactions = React.useMemo(() => {
+    if (activeTab === 'members') return []; 
     return transactions.filter(t => t.type === (activeTab === 'income' ? 'income' : 'expense'));
   }, [transactions, activeTab]);
 
@@ -157,73 +211,97 @@ export default function DashboardPage() {
       <style>{styles}</style>
       <div className="fixed inset-0 bg-[#050505] text-neutral-100 font-sans overflow-hidden flex flex-col">
         
-        {/* TOP NAVIGATION (From previous step) */}
-        {/* We wrap it to keep it sticky but allow content below to scroll */}
+        {/* NAVIGATION */}
         <div className="z-50 relative">
-             <Navigation title="Portfolio" />
+             <Navigation title="Wealth Overview" />
         </div>
 
-        {/* SCROLLABLE CONTENT AREA */}
-        <main className="flex-grow overflow-y-auto no-scrollbar pb-32 px-4 pt-6 space-y-8 z-10">
+        {/* SCROLLABLE AREA */}
+        <main className="flex-grow overflow-y-auto no-scrollbar pb-32 px-4 pt-4 space-y-8 z-10">
           
-          {/* HEADER SECTION */}
-          <div className="flex justify-between items-end px-2">
-            <div>
-                <p className="text-[#bf953f] text-[10px] font-bold uppercase tracking-[0.3em] mb-2 flex items-center gap-2">
-                    <Crown className="w-3 h-3" /> Family Wealth
-                </p>
-                <h1 className="text-3xl font-serif text-white">
-                    Khan Estate
-                </h1>
+          {/* NET WORTH HEADER */}
+          <div className="text-center py-6">
+            <p className="text-[#bf953f] text-[10px] font-bold uppercase tracking-[0.3em] mb-2 flex items-center justify-center gap-2">
+                <Crown className="w-3 h-3" /> Total Family Liquidity
+            </p>
+            <h1 className="text-5xl font-serif text-white tracking-tight mb-2">
+                ${stats.balance.toLocaleString()}
+            </h1>
+            <div className="flex justify-center gap-4 text-xs font-medium">
+                <span className="text-emerald-500/80">In: ${stats.income.toLocaleString()}</span>
+                <span className="text-neutral-600">|</span>
+                <span className="text-rose-500/80">Out: ${stats.expenses.toLocaleString()}</span>
             </div>
           </div>
 
-          {/* OVERVIEW CARDS */}
-          {activeTab === 'overview' && (
-            <div className="space-y-4 animate-enter">
-              {/* Main Balance Card - Full Width */}
-              <StatCard title="Net Liquid Assets" amount={stats.balance} type="positive" icon={Wallet} />
+          {/* TAB CONTENT */}
+          {activeTab === 'members' ? (
+            <div className="space-y-8 animate-enter">
               
-              {/* Split Cards */}
-              <div className="grid grid-cols-2 gap-3">
-                <StatCard title="Inflow" amount={stats.income} type="neutral" icon={ArrowUpRight} />
-                <StatCard title="Outflow" amount={stats.expenses} type="negative" icon={ArrowDownRight} />
+              {/* MEMBER SCROLL */}
+              <div>
+                <h3 className="px-2 text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                   <Users className="w-4 h-4 text-[#bf953f]" /> Member Breakdown
+                </h3>
+                {/* Horizontal Scroll Container */}
+                <div className="flex overflow-x-auto no-scrollbar gap-4 px-2 pb-4 snap-x">
+                    {memberStats.map((m) => (
+                        <MemberCard key={m.name} name={m.name} income={m.income} expense={m.expense} />
+                    ))}
+                </div>
               </div>
+
+              {/* TOP CATEGORIES PREVIEW */}
+              <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
+                <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
+                   <BarChart3 className="w-4 h-4 text-[#bf953f]" /> Highest Expenses
+                </h3>
+                <div className="space-y-2">
+                    {categoryStats.expense.slice(0, 5).map(([cat, amt]) => (
+                        <CategoryRow key={cat} category={cat} amount={amt} total={stats.expenses} />
+                    ))}
+                </div>
+              </div>
+
+            </div>
+          ) : (
+            <div className="animate-enter space-y-6">
+                
+                {/* BREAKDOWN CARD */}
+                <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
+                    <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <PieChart className="w-4 h-4 text-[#bf953f]" /> {activeTab === 'income' ? 'Income' : 'Expense'} Categories
+                    </h3>
+                    <div className="space-y-2">
+                        {(activeTab === 'income' ? categoryStats.income : categoryStats.expense).map(([cat, amt]) => (
+                            <CategoryRow key={cat} category={cat} amount={amt} total={activeTab === 'income' ? stats.income : stats.expenses} />
+                        ))}
+                    </div>
+                </div>
+
+                {/* DETAILED LIST */}
+                <div>
+                    <h3 className="px-2 text-xs font-bold text-neutral-500 uppercase tracking-widest mb-3">
+                        Detailed Ledger
+                    </h3>
+                    <div className="space-y-1">
+                        {displayTransactions.map((t) => (
+                            <TransactionRow key={t.id} t={t} />
+                        ))}
+                    </div>
+                </div>
             </div>
           )}
 
-          {/* LIST HEADER */}
-          <div className="flex items-center justify-between pt-4 px-2 border-b border-white/5 pb-2">
-            <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-widest">
-              {activeTab === 'overview' ? 'Latest Transactions' : activeTab === 'income' ? 'Sources of Funds' : 'Expenditures'}
-            </h2>
-            {activeTab === 'overview' && (
-              <button onClick={() => setActiveTab('expenses')} className="text-xs text-[#bf953f] hover:text-white transition-colors uppercase tracking-widest font-bold">See All</button>
-            )}
-          </div>
-
-          {/* TRANSACTION LIST */}
-          <div className="space-y-1 pb-10">
-            {filteredTransactions.map((t, i) => (
-              <TransactionRow key={t.id} t={t} delay={i * 50} />
-            ))}
-            
-            {filteredTransactions.length === 0 && (
-               <div className="py-12 text-center text-neutral-600 bg-white/5 rounded-xl border border-dashed border-white/10">
-                 <p className="font-serif italic">No records found for this period.</p>
-               </div>
-            )}
-          </div>
-
         </main>
 
-        {/* BOTTOM NAVIGATION BAR (Floating Glass) */}
+        {/* BOTTOM NAVIGATION BAR */}
         <div className="absolute bottom-6 left-4 right-4 z-40">
-          <div className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] p-1.5 flex justify-between">
+          <div className="bg-black/90 backdrop-blur-xl border border-[#bf953f]/20 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-1.5 flex justify-between">
             {[
-              { id: 'overview', icon: PieChart, label: 'Overview' },
-              { id: 'income', icon: TrendingUp, label: 'Income' },
-              { id: 'expenses', icon: TrendingDown, label: 'Expenses' }
+              { id: 'members', icon: Users, label: 'Members' },
+              { id: 'income', icon: ArrowUpRight, label: 'Income' },
+              { id: 'expenses', icon: ArrowDownRight, label: 'Expenses' }
             ].map((tab) => (
               <button
                 key={tab.id}
