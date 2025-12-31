@@ -90,9 +90,9 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                         <Crown className="w-6 h-6 text-[#bf953f]" />
                         <SheetTitle className="font-serif text-3xl text-white tracking-wide font-normal">Directory</SheetTitle>
                     </div>
-                    {/* THIS FIXES THE WARNING: */}
+                    {/* --- FIX: Added Description to satisfy warning --- */}
                     <SheetDescription className="sr-only">
-                        Navigation menu for accessing dashboard, plans, and tools.
+                        Main navigation menu
                     </SheetDescription>
                 </SheetHeader>
                 

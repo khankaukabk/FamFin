@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -254,7 +253,8 @@ export default function Aoe4NiceReader() {
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       
-      <div className="h-[100dvh] w-full bg-[#050505] text-neutral-100 font-sans flex flex-col overflow-hidden">
+      {/* FIXED: Removed fixed inset-0, used h-screen (dvh) and flex col to manage scroll properly */}
+      <div className="h-[100dvh] w-full bg-neutral-950 text-neutral-100 font-sans flex flex-col overflow-hidden">
         
         {/* --- DYNAMIC BACKGROUND GLOW --- */}
         <div className={`absolute top-[-20%] left-[-10%] w-[120%] h-[70%] bg-${tc}-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse-glow z-0`} />
