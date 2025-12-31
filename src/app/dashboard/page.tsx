@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -60,6 +59,7 @@ const initialTransactions: Transaction[] = [
   { id: "35", type: "expense", amount: 7.99, category: "Insurance", description: "Apple Insurance Kaukab", member: "Kaukab", date: "2024-07-01" },
   { id: "36", type: "expense", amount: 7.99, category: "Insurance", description: "Apple Insurance Kaukab 2", member: "Kaukab", date: "2024-07-01" },
   { id: "37", type: "expense", amount: 1.96, category: "Utilities", description: "HP instant Ink", member: "Kaukab", date: "2024-07-01" },
+  { id: "38", type: "expense", amount: 214.00, category: "Insurance", description: "Allstate insurance", date: "2024-07-01" },
 ];
 
 const getCategoryIcon = (category: string) => {
@@ -373,5 +373,3 @@ export default function DashboardPage() {
     </>
   );
 }
-
-    
