@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -9,7 +10,7 @@ import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
 import * as LucideIcons from "lucide-react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { Navigation } from "@/components/ui/navigation"; // <--- Restored this import
+import { Navigation } from "@/components/ui/navigation"; 
 import { cn } from "@/lib/utils";
 import {
   AlertDialog,
@@ -22,11 +23,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Archive, Crown, Star } from "lucide-react";
+import { Archive, Crown, Star, ChevronDown } from "lucide-react";
 
 // --- CSS UTILITIES ---
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
   .font-serif { font-family: 'Playfair Display', serif; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -74,7 +74,7 @@ export default function HomePage() {
   };
   
   const handleConfirmToggle = () => {
-    if (firestore && alertState.monthId && alertState.weekIndex !== null && alertState.taskId) {
+    if (firestore && alertState.monthId !== null && alertState.weekIndex !== null && alertState.taskId) {
       toggleTaskCompletion(firestore, alertState.monthId, alertState.weekIndex, alertState.taskId);
     }
     setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null });
@@ -93,49 +93,45 @@ export default function HomePage() {
     };
   }, [taskMonths]);
 
-  // --- LUXURY COMPONENT: TASK ROW ---
+  // --- MOBILE COMPONENT: TASK ROW ---
   const TaskRow = ({ task, monthId, weekIndex }: { task: any, monthId: string, weekIndex: number }) => {
     const TaskIcon = getIcon(task.icon);
     return (
-      <div className="group relative">
+      <div 
+        onClick={() => openConfirmationDialog(monthId, weekIndex, task.id)}
+        className="group relative active:scale-[0.98] transition-transform duration-200"
+      >
+        {/* Active Tap Highlight */}
         <div className={`
-          absolute inset-0 bg-gradient-to-r from-[#bf953f]/10 to-transparent opacity-0 transition-opacity duration-500
-          ${task.completed ? 'opacity-0' : 'group-hover:opacity-100'}
+          absolute inset-0 bg-gradient-to-r from-[#bf953f]/20 to-transparent opacity-0 transition-opacity duration-300 active:opacity-100 rounded-xl
+          ${task.completed ? 'opacity-0' : ''}
         `} />
         
-        <div className="relative flex items-center gap-6 py-6 px-4 border-b border-white/5 transition-all duration-300 hover:pl-6">
-          {/* Checkbox Area */}
-          <div className="flex-none">
-            <Checkbox 
-              id={`task-${task.id}`}
-              checked={task.completed}
-              onCheckedChange={() => openConfirmationDialog(monthId, weekIndex, task.id)}
-              className={`
-                h-6 w-6 border-2 transition-all duration-500 rounded-full
-                ${task.completed ? 'border-[#bf953f] bg-[#bf953f] text-black' : 'border-white/30 hover:border-[#bf953f]'}
-              `}
-            />
-          </div>
-
-          {/* Icon Area - Like a Coin */}
-          <div className={`
-            flex-none w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-500
-            ${task.completed 
-              ? 'border-[#bf953f]/20 bg-[#bf953f]/10 text-[#bf953f]' 
-              : 'border-white/10 bg-white/5 text-neutral-400 group-hover:border-[#bf953f]/50 group-hover:text-[#fcf6ba]'}
-          `}>
-             <TaskIcon className="w-5 h-5" />
+        <div className="relative flex items-center gap-4 py-5 px-3 border-b border-white/5">
+          {/* Checkbox Area - Large Touch Target */}
+          <div className="flex-none pt-1">
+            <div className={`
+                h-6 w-6 border-2 transition-all duration-500 rounded-full flex items-center justify-center
+                ${task.completed ? 'border-[#bf953f] bg-[#bf953f]' : 'border-white/30'}
+              `}>
+               {task.completed && <LucideIcons.Check className="w-4 h-4 text-black" />} 
+            </div>
           </div>
 
           {/* Text Area */}
           <div className="flex-grow min-w-0">
-            <h4 className={`
-              font-serif text-lg tracking-wide transition-all duration-300
-              ${task.completed ? 'text-[#bf953f] line-through decoration-[#bf953f]/50' : 'text-neutral-100'}
-            `}>
-              {task.title}
-            </h4>
-            <p className="text-sm text-neutral-500 font-light mt-1 truncate">
+            <div className="flex justify-between items-start mb-1">
+               <h4 className={`
+                 font-serif text-lg leading-tight transition-all duration-300
+                 ${task.completed ? 'text-[#bf953f] line-through decoration-[#bf953f]/50' : 'text-neutral-100'}
+               `}>
+                 {task.title}
+               </h4>
+               {/* Icon moved to right for cleaner reading flow */}
+               <TaskIcon className={`w-4 h-4 flex-none mt-1 ${task.completed ? 'text-[#bf953f]' : 'text-neutral-600'}`} />
+            </div>
+            
+            <p className="text-sm text-neutral-500 font-light leading-snug line-clamp-2">
               {task.description}
             </p>
           </div>
@@ -144,23 +140,24 @@ export default function HomePage() {
     );
   };
 
-  // --- LUXURY COMPONENT: MONTH RENDERER ---
+  // --- MOBILE COMPONENT: MONTH RENDERER ---
   const renderMonthTasks = (monthData: TaskMonth) => (
-    <div className="space-y-12">
+    <div className="space-y-8 pb-12">
       {monthData.weeks.map((weekData, weekIndex) => (
         <div key={weekData.week} className="relative">
           
-          {/* Week Header */}
-          <div className="sticky top-16 z-10 bg-black/95 backdrop-blur-xl border-b border-[#bf953f]/30 py-4 mb-4 flex justify-between items-end">
+          {/* Week Header - Sticky for long lists */}
+          <div className="sticky top-[60px] z-30 bg-black/90 backdrop-blur-xl border-b border-[#bf953f]/30 py-3 px-1 mb-2 flex justify-between items-center shadow-lg">
             <div>
-              <h3 className="font-serif text-2xl text-[#fcf6ba] tracking-wider">{weekData.week}</h3>
-              <p className="text-xs text-[#bf953f] uppercase tracking-[0.2em] font-medium mt-1">{weekData.dates}</p>
+              <h3 className="font-serif text-xl text-[#fcf6ba] tracking-wide">{weekData.week}</h3>
             </div>
-            <Crown className="w-5 h-5 text-[#bf953f] opacity-50" />
+            <span className="text-[10px] text-[#bf953f] bg-[#bf953f]/10 border border-[#bf953f]/20 px-2 py-1 rounded-full uppercase tracking-widest font-bold">
+                {weekData.dates}
+            </span>
           </div>
 
           {/* Task List */}
-          <div className="bg-neutral-900/20 rounded-none border-l border-white/5 pl-4">
+          <div className="px-1">
             {weekData.tasks.map((task) => (
               <TaskRow key={task.id} task={task} monthId={monthData.id} weekIndex={weekIndex} />
             ))}
@@ -173,47 +170,57 @@ export default function HomePage() {
   return (
     <>
       <style>{styles}</style>
-      <div className="flex min-h-screen w-full flex-col bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black">
+      <div className="flex min-h-screen w-full flex-col bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black pb-safe">
         
-        <Navigation title="Concierge" /> 
+        {/* --- NAVIGATION --- */}
+        <div className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-white/10">
+             <Navigation title="Concierge" /> 
+        </div>
 
-        <main className="flex-1 p-4 sm:px-6 md:p-8 max-w-3xl mx-auto w-full">
+        {/* MAIN CONTENT */}
+        <main className="flex-1 p-4 w-full max-w-md mx-auto">
           
-          <div className="text-center my-8 space-y-4">
-            <Star className="w-6 h-6 text-[#bf953f] mx-auto mb-4 animate-pulse" />
-            <h1 className="font-serif text-5xl md:text-6xl text-white">December Itinerary</h1>
-            <div className="h-0.5 w-24 mx-auto bg-gradient-to-r from-transparent via-[#bf953f] to-transparent" />
-            <p className="text-neutral-500 uppercase tracking-[0.3em] text-sm">Platinum Member Services</p>
+          {/* PAGE TITLE CARD */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900 to-black border border-white/10 rounded-2xl p-6 text-center mb-8 shadow-2xl">
+            <div className="absolute top-0 right-0 p-16 bg-[#bf953f]/10 blur-[50px] rounded-full pointer-events-none" />
+            
+            <Crown className="w-8 h-8 text-[#bf953f] mx-auto mb-3" />
+            <h1 className="font-serif text-4xl text-white mb-2">December</h1>
+            <p className="text-neutral-500 uppercase tracking-[0.2em] text-xs font-medium">Platinum Itinerary</p>
           </div>
 
+          {/* LOADING STATE */}
           {isLoadingMonths || isUserLoading ? (
-             <div className="space-y-8 opacity-20 animate-pulse">
-               <div className="h-40 bg-white/10 rounded-lg"></div>
-               <div className="h-40 bg-white/10 rounded-lg"></div>
+             <div className="space-y-6 opacity-20 animate-pulse">
+               <div className="h-24 bg-white/10 rounded-xl"></div>
+               <div className="h-24 bg-white/10 rounded-xl"></div>
+               <div className="h-24 bg-white/10 rounded-xl"></div>
              </div>
           ) : (
             <>
+                {/* CURRENT MONTH */}
                 {decemberData ? renderMonthTasks(decemberData) : (
-                  <div className="text-center py-20 border border-dashed border-white/10 rounded-xl">
-                    <p className="font-serif text-2xl text-neutral-600">No scheduled tasks.</p>
+                  <div className="text-center py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
+                    <p className="font-serif text-lg text-neutral-400">Your schedule is clear.</p>
                   </div>
                 )}
 
+                {/* ARCHIVE ACCORDION - TOUCH FRIENDLY */}
                 {novemberData && (
-                    <Accordion type="single" collapsible className="w-full mt-16 border-t border-white/10">
+                    <Accordion type="single" collapsible className="w-full mt-8 border-t border-white/10">
                         <AccordionItem value="november" className="border-none">
-                            <AccordionTrigger className="hover:no-underline py-8 group">
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 bg-white/5 rounded-full group-hover:bg-[#bf953f]/10 transition-colors">
-                                      <Archive className="h-5 w-5 text-neutral-500 group-hover:text-[#bf953f]" />
+                            <AccordionTrigger className="hover:no-underline py-6 group active:bg-white/5 px-2 rounded-xl transition-colors">
+                                <div className="flex items-center gap-4 w-full">
+                                    <div className="p-2.5 bg-[#bf953f]/10 rounded-full">
+                                      <Archive className="h-4 w-4 text-[#bf953f]" />
                                     </div>
-                                    <div className="text-left">
-                                      <span className="block font-serif text-xl text-neutral-400 group-hover:text-white transition-colors">November Archives</span>
-                                      <span className="text-xs text-neutral-600 uppercase tracking-widest">Past Itinerary</span>
+                                    <div className="text-left flex-grow">
+                                      <span className="block font-serif text-lg text-neutral-300">November History</span>
                                     </div>
+                                    <div className="text-xs text-neutral-600 uppercase tracking-widest mr-2">View</div>
                                 </div>
                             </AccordionTrigger>
-                            <AccordionContent className="pt-4 pb-12">
+                            <AccordionContent className="pt-2 pb-8">
                                 {renderMonthTasks(novemberData)}
                             </AccordionContent>
                         </AccordionItem>
@@ -223,34 +230,35 @@ export default function HomePage() {
           )}
         </main>
 
-        <footer className="text-center py-12 border-t border-white/5">
-          <p className="font-serif text-[#bf953f] text-sm italic">"Excellence is not an act, but a habit."</p>
+        {/* FOOTER */}
+        <footer className="text-center py-8 border-t border-white/5 bg-black">
+          <p className="font-serif text-[#bf953f]/60 text-xs italic">"At your service, always."</p>
         </footer>
       </div>
       
+      {/* MOBILE ALERT DIALOG (BOTTOM SHEET STYLE) */}
       <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && handleConfirmToggle()}>
-        <AlertDialogContent className="bg-[#0a0a0a] border border-[#bf953f]/30 rounded-none shadow-[0_0_50px_rgba(191,149,63,0.1)]">
+        <AlertDialogContent className="bg-[#111] border-t border-[#bf953f]/30 rounded-t-[20px] rounded-b-none bottom-0 top-auto translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] fixed max-w-full w-full mx-0 p-6">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-serif text-2xl text-[#fcf6ba] text-center">Update Status</AlertDialogTitle>
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-[#bf953f]/50 to-transparent my-4" />
-            <AlertDialogDescription className="text-center text-neutral-400">
-              Confirm change for: <br/>
-              <span className="block mt-2 font-serif text-lg text-white">"{currentTaskForAlert?.title}"</span>
+            <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" /> {/* Handle bar */}
+            <AlertDialogTitle className="font-serif text-xl text-[#fcf6ba] text-center">Update Task Status</AlertDialogTitle>
+            <AlertDialogDescription className="text-center text-neutral-400 pt-2 pb-4">
+              <span className="block font-serif text-lg text-white leading-relaxed">"{currentTaskForAlert?.title}"</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="sm:justify-center gap-4 mt-6">
+          <AlertDialogFooter className="flex-col gap-3 sm:flex-col space-y-2">
+            <AlertDialogAction 
+              onClick={handleConfirmToggle}
+              className="w-full bg-[#bf953f] text-black hover:bg-[#aa771c] rounded-xl font-bold py-6 text-lg"
+            >
+              {currentTaskForAlert?.completed ? "Mark Incomplete" : "Complete Task"}
+            </AlertDialogAction>
             <AlertDialogCancel 
               onClick={() => setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null })}
-              className="rounded-none border-white/10 hover:bg-white/5 hover:text-white"
+              className="w-full rounded-xl border-white/10 hover:bg-white/10 hover:text-white py-6 text-base"
             >
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={handleConfirmToggle}
-              className="bg-[#bf953f] text-black hover:bg-[#aa771c] rounded-none font-medium px-8"
-            >
-              Confirm
-            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
