@@ -2,15 +2,17 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Navigation } from "@/components/ui/navigation";
 import { 
   Drum, Axe, Coins, University, Swords, Shield, Rabbit, 
   Building, Users, TowerControl, Building2, UserPlus, 
   Castle, LandPlot, AlertTriangle, ChevronDown, Check, Sparkles,
-  ArrowRight, BookUser
+  ArrowRight, BookUser, Crown
 } from "lucide-react";
 
 // --- CSS UTILITIES ---
 const styles = `
+  .font-serif { font-family: 'Playfair Display', serif; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   
@@ -191,7 +193,7 @@ const BUILD_ORDERS: CivBuildOrder[] = [
   }
 ];
 
-// --- NEW COMPONENT: TACTICAL STEP ROW ---
+// --- COMPONENT: TACTICAL STEP ROW ---
 const StepRow = ({ text, index, themeColor }: { text: string, index: number, themeColor: string }) => {
   const [checked, setChecked] = useState(false);
   
@@ -226,9 +228,6 @@ const StepRow = ({ text, index, themeColor }: { text: string, index: number, the
             {text}
           </p>
         </div>
-        <div className={`transition-all duration-300 ${checked ? 'opacity-0 translate-x-2' : 'opacity-20'}`}>
-          <ArrowRight className="w-4 h-4" />
-        </div>
       </div>
     </div>
   );
@@ -253,59 +252,60 @@ export default function Aoe4NiceReader() {
 
   return (
     <>
-      <style>{styles}</style>
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
       
-      <div className="fixed inset-0 bg-neutral-950 text-neutral-100 font-sans overflow-hidden">
+      <div className="h-[100dvh] w-full bg-[#050505] text-neutral-100 font-sans flex flex-col overflow-hidden">
         
-        {/* --- DYNAMIC BACKGROUND --- */}
-        <div className={`absolute top-[-20%] left-[-10%] w-[120%] h-[70%] bg-${tc}-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse-glow`} />
-        <div className={`absolute bottom-[-10%] right-[-10%] w-[100%] h-[60%] bg-${tc}-600/10 blur-[120px] rounded-full pointer-events-none`} />
+        {/* --- DYNAMIC BACKGROUND GLOW --- */}
+        <div className={`absolute top-[-20%] left-[-10%] w-[120%] h-[70%] bg-${tc}-500/10 blur-[120px] rounded-full pointer-events-none animate-pulse-glow z-0`} />
+        <div className={`absolute bottom-[-10%] right-[-10%] w-[100%] h-[60%] bg-${tc}-600/10 blur-[120px] rounded-full pointer-events-none z-0`} />
         
-        {/* --- HEADER --- */}
-        <div className="absolute top-0 left-0 right-0 z-50 pt-safe flex flex-col pointer-events-none">
-            <div className="w-full h-1.5 bg-white/5">
-                <div 
-                    className={`h-full bg-${tc}-500 transition-all duration-500 ease-out shadow-[0_0_15px_rgba(255,255,255,0.4)]`}
-                    style={{ width: `${((currentSlideIndex + 1) / activeBuild.slides.length) * 100}%` }}
-                />
-            </div>
+        {/* --- NAVIGATION (Sticky) --- */}
+        <div className="flex-none z-50">
+             <Navigation title="War Room" />
+        </div>
 
-            <div className="px-6 py-5 flex justify-between items-center">
-                <div className="flex items-center gap-2 pointer-events-auto">
-                    <div className={`p-2 rounded-xl bg-black/40 border border-${tc}-500/30 backdrop-blur-md`}>
-                        <BookUser className={`w-4 h-4 text-${tc}-400`} />
-                    </div>
-                </div>
-                
-                <div className="relative pointer-events-auto group">
-                    <select 
-                        value={selectedCivId}
-                        onChange={(e) => {
-                            setSelectedCivId(e.target.value);
-                            if (scrollContainerRef.current) scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className="relative appearance-none bg-black/50 backdrop-blur-xl text-sm text-white py-3 pl-5 pr-10 rounded-2xl border border-white/10 focus:outline-none focus:border-white/30 font-medium w-40 truncate shadow-2xl"
-                    >
-                        {BUILD_ORDERS.map((civ) => (
-                            <option key={civ.id} value={civ.id}>{civ.name}</option>
-                        ))}
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50 pointer-events-none" />
-                </div>
+        {/* --- STRATEGY SELECTOR BAR --- */}
+        <div className="flex-none z-40 bg-black/40 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center relative">
+            <div className="flex items-center gap-2">
+                <Crown className={`w-4 h-4 text-${tc}-500`} />
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em]">Active Strategy</span>
+            </div>
+            
+            <div className="relative group">
+                <select 
+                    value={selectedCivId}
+                    onChange={(e) => {
+                        setSelectedCivId(e.target.value);
+                        if (scrollContainerRef.current) scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className={`
+                        appearance-none bg-white/5 text-sm text-white py-2 pl-4 pr-10 rounded-full 
+                        border border-white/10 focus:outline-none focus:border-${tc}-500 
+                        font-serif tracking-wide w-40 truncate shadow-xl cursor-pointer
+                    `}
+                >
+                    {BUILD_ORDERS.map((civ) => (
+                        <option key={civ.id} value={civ.id} className="bg-black text-white">
+                            {civ.name}
+                        </option>
+                    ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50 pointer-events-none" />
             </div>
         </div>
 
         {/* --- SCROLL FEED --- */}
-        <div 
+        <main 
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
+            className="flex-1 overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar z-10"
         >
           
           {activeBuild.slides.map((slide, index) => (
             <div 
               key={`${selectedCivId}-${index}`} 
-              className="snap-center h-[100dvh] w-full flex flex-col items-center justify-center p-4 relative"
+              className="snap-center h-full w-full flex flex-col items-center justify-center p-4 relative"
             >
               <div className="w-full max-w-sm relative z-10 space-y-6">
                 
@@ -319,14 +319,14 @@ export default function Aoe4NiceReader() {
                         </div>
                     </div>
                     
-                    <h2 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 tracking-tighter mb-4 leading-[0.9]">
+                    <h2 className="text-5xl font-serif text-white tracking-tight mb-4 leading-none">
                         {slide.title}
                     </h2>
                     <div className={`inline-block px-4 py-1.5 rounded-full bg-${tc}-900/30 border border-${tc}-500/30 text-${tc}-300 text-xs font-bold tracking-[0.2em] uppercase`}>
                         {slide.subtitle}
                     </div>
 
-                    <div className="absolute bottom-16 left-0 right-0 animate-bounce text-white/20 flex flex-col items-center gap-2">
+                    <div className="absolute bottom-[-100px] left-0 right-0 animate-bounce text-white/20 flex flex-col items-center gap-2">
                       <p className="text-[10px] uppercase tracking-[0.3em] font-bold">Swipe Up</p>
                       <ChevronDown className="w-6 h-6" />
                     </div>
@@ -343,7 +343,7 @@ export default function Aoe4NiceReader() {
                         <h3 className={`text-${tc}-500 font-mono text-xs uppercase tracking-[0.3em] mb-4 opacity-80`}>
                         Current Phase
                         </h3>
-                        <h2 className="text-4xl font-black text-white leading-none tracking-tight">
+                        <h2 className="text-4xl font-serif text-white leading-none tracking-tight">
                         {slide.title}
                         </h2>
                     </div>
@@ -362,7 +362,7 @@ export default function Aoe4NiceReader() {
                             {slide.icon && <slide.icon className={`w-6 h-6 text-${tc}-400`} />}
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-white tracking-tight">{slide.title}</h3>
+                            <h3 className="text-2xl font-serif text-white tracking-wide">{slide.title}</h3>
                             <div className="flex gap-2 items-center mt-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-white/30"></span>
                                 <p className="text-xs text-white/40 uppercase tracking-widest font-semibold">Orders</p>
@@ -385,7 +385,7 @@ export default function Aoe4NiceReader() {
                       </div>
                       <div>
                         <h3 className="text-red-500 font-black uppercase tracking-[0.2em] text-xs mb-4">Tactical Warning</h3>
-                        <p className="text-red-100 text-2xl font-bold leading-relaxed">
+                        <p className="text-red-100 text-2xl font-serif font-medium leading-relaxed">
                             "{slide.content?.[0]}"
                         </p>
                       </div>
@@ -397,7 +397,7 @@ export default function Aoe4NiceReader() {
           ))}
 
           {/* END SPACER */}
-          <div className="snap-center h-[50dvh] flex flex-col items-center justify-center gap-6 pb-20">
+          <div className="snap-center h-full flex flex-col items-center justify-center gap-6 pb-20">
                <Sparkles className={`w-12 h-12 text-${tc}-400 animate-spin-slow opacity-50`} />
                <p className="text-white/30 font-medium uppercase tracking-widest text-sm">Sequence Complete</p>
                <button 
@@ -408,10 +408,8 @@ export default function Aoe4NiceReader() {
                </button>
           </div>
 
-        </div>
+        </main>
       </div>
     </>
   );
 }
-
-    
