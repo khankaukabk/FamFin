@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -8,24 +7,19 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetDescription } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
-  Menu, X, Star, Shield, Car, Plane, Warehouse, LogOut, 
-  LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, 
-  Briefcase, GraduationCap, RotateCw, Timer, BookOpen, Heart, 
-  ArchiveRestore, Code, DollarSign, Swords, Zap, Crown 
+  Menu, Crown, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, 
+  Briefcase, GraduationCap, Timer, BookOpen, Heart, 
+  ArchiveRestore, Code, DollarSign, Swords, Zap, Car, Plane, Warehouse, Shield, Star, LogOut, RotateCw
 } from "lucide-react";
 
-// --- CSS FOR GOLD ACCENTS ---
 const styles = `
   .font-serif { font-family: 'Playfair Display', serif; }
   .text-gold { color: #bf953f; }
-  .border-gold { border-color: rgba(191, 149, 63, 0.3); }
 `;
 
-// Helper for luxury links
 const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void; }) => (
   <SheetClose asChild>
     <Link href={href} passHref>
@@ -39,7 +33,6 @@ const NavLink = ({ href, children, onClick }: { href: string; children: React.Re
   </SheetClose>
 );
 
-// Helper for luxury section labels
 const NavGroupLabel = ({ children }: { children: React.ReactNode }) => (
     <div className="px-4 pt-6 pb-2">
       <p className="text-xs font-bold text-[#bf953f] uppercase tracking-[0.2em]">{children}</p>
@@ -80,10 +73,9 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
 
   return (
     <>
-    <style>{styles}</style>
+    <style dangerouslySetInnerHTML={{ __html: styles }} />
     <header className="sticky top-0 z-50 flex h-20 items-center justify-between border-b border-[#bf953f]/20 bg-black/80 px-4 sm:px-6 backdrop-blur-xl shadow-2xl">
         
-        {/* LEFT: Luxury Menu Trigger */}
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full border border-[#bf953f]/30 hover:bg-[#bf953f]/20 hover:text-white hover:border-[#bf953f]">
@@ -91,7 +83,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                 </Button>
             </SheetTrigger>
             
-            {/* THE MENU DRAWER - Black & Gold */}
             <SheetContent side="left" className="w-full sm:w-[400px] bg-black border-r border-[#bf953f]/30 p-0 flex flex-col shadow-[10px_0_50px_rgba(0,0,0,0.8)]">
                 
                 <SheetHeader className="p-8 border-b border-[#bf953f]/20 bg-gradient-to-b from-[#bf953f]/10 to-transparent">
@@ -99,11 +90,14 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                         <Crown className="w-6 h-6 text-[#bf953f]" />
                         <SheetTitle className="font-serif text-3xl text-white tracking-wide font-normal">Directory</SheetTitle>
                     </div>
+                    {/* THIS FIXES THE WARNING: */}
+                    <SheetDescription className="sr-only">
+                        Navigation menu for accessing dashboard, plans, and tools.
+                    </SheetDescription>
                 </SheetHeader>
                 
                 <ScrollArea className="flex-1 bg-black">
                   <div className="py-2 flex flex-col">
-                      
                       <NavGroupLabel>General</NavGroupLabel>
                       <NavLink href="/" onClick={closeSheet}><Home className="w-5 h-5 text-[#bf953f]/70" /> Home</NavLink>
                       <NavLink href="/dashboard" onClick={closeSheet}><LayoutDashboard className="w-5 h-5 text-[#bf953f]/70" /> Dashboard</NavLink>
@@ -154,7 +148,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
             </SheetContent>
         </Sheet>
         
-        {/* CENTER: Title */}
         <div className="flex-grow flex items-center justify-center">
             {timer !== undefined ? (
               <div className="flex items-center gap-3 font-mono text-xl font-medium text-[#bf953f] bg-[#bf953f]/10 px-4 py-1 rounded-full border border-[#bf953f]/20">
@@ -168,7 +161,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
             )}
         </div>
 
-        {/* RIGHT: Restart or Spacer */}
         <div className="w-12 flex justify-end">
           {showRestartButton && (
             <Button variant="outline" size="icon" className="h-10 w-10 border-[#bf953f]/50 text-[#bf953f] hover:bg-[#bf953f] hover:text-black rounded-full" onClick={onRestart}>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -66,8 +65,6 @@ const getCategoryIcon = (category: string) => {
     default: return ShoppingBag;
   }
 };
-
-// --- COMPONENTS ---
 
 const MemberCard = ({ name, income, expense }: { name: string, income: number, expense: number }) => {
   const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2);
@@ -144,23 +141,19 @@ const TransactionRow = ({ t }: { t: Transaction }) => {
   );
 };
 
-// --- MAIN PAGE ---
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = React.useState<'members' | 'income' | 'expenses'>('members');
   const [transactions] = React.useState<Transaction[]>(initialTransactions);
 
-  // 1. General Stats
   const stats = React.useMemo(() => {
     const income = transactions.filter(t => t.type === "income").reduce((acc, t) => acc + t.amount, 0);
     const expenses = transactions.filter(t => t.type === "expense").reduce((acc, t) => acc + t.amount, 0);
     return { income, expenses, balance: income - expenses };
   }, [transactions]);
 
-  // 2. Member Aggregation
   const memberStats = React.useMemo(() => {
     const map: Record<string, { income: number, expense: number }> = {};
     transactions.forEach(t => {
-      if (!t.member) return;
       if (!map[t.member]) map[t.member] = { income: 0, expense: 0 };
       if (t.type === 'income') map[t.member].income += t.amount;
       else map[t.member].expense += t.amount;
@@ -168,14 +161,11 @@ export default function DashboardPage() {
     return Object.entries(map).map(([name, data]) => ({ name, ...data }));
   }, [transactions]);
 
-  // 3. Category Aggregation & Grouping
   const groupedList = React.useMemo(() => {
     const targetType = activeTab === 'income' ? 'income' : 'expense';
     const filtered = transactions.filter(t => t.type === targetType);
     
-    // Group by category
     const groups: Record<string, { total: number, items: Transaction[] }> = {};
-    
     filtered.forEach(t => {
       if (!groups[t.category]) {
         groups[t.category] = { total: 0, items: [] };
@@ -184,25 +174,26 @@ export default function DashboardPage() {
       groups[t.category].total += t.amount;
     });
 
-    // Convert to array and sort by Total Amount
     return Object.entries(groups)
       .map(([cat, data]) => ({ category: cat, ...data }))
       .sort((a, b) => b.total - a.total);
-      
   }, [transactions, activeTab]);
 
   return (
     <>
-      <style>{styles}</style>
-      <div className="fixed inset-0 bg-[#050505] text-neutral-100 font-sans overflow-hidden flex flex-col">
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
+      {/* FIX: Replaced 'fixed inset-0' with standard flow layout
+         h-[100dvh] ensures it takes full mobile screen height but respects scroll behavior
+      */}
+      <div className="h-[100dvh] w-full bg-[#050505] text-neutral-100 font-sans flex flex-col overflow-hidden">
         
         {/* NAVIGATION */}
-        <div className="z-50 relative">
+        <div className="flex-none z-50">
              <Navigation title="Wealth Overview" />
         </div>
 
         {/* SCROLLABLE AREA */}
-        <main className="flex-grow overflow-y-auto no-scrollbar pb-32 px-4 pt-4 space-y-8 z-10">
+        <main className="flex-1 overflow-y-auto no-scrollbar pb-32 px-4 pt-4 space-y-8 z-10">
           
           {/* NET WORTH HEADER */}
           <div className="text-center py-6">
@@ -223,7 +214,6 @@ export default function DashboardPage() {
           {activeTab === 'members' ? (
             <div className="space-y-8 animate-enter">
               
-              {/* MEMBER SCROLL */}
               <div>
                 <h3 className="px-2 text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
                    <Users className="w-4 h-4 text-[#bf953f]" /> Member Breakdown
@@ -235,7 +225,6 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* HIGHEST EXPENSES */}
               <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
                 <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
                    <BarChart3 className="w-4 h-4 text-[#bf953f]" /> Highest Expenses
@@ -260,7 +249,6 @@ export default function DashboardPage() {
           ) : (
             <div className="animate-enter space-y-6">
                 
-                {/* CHART SUMMARY */}
                 <div className="bg-[#111] rounded-3xl border border-white/5 p-6">
                     <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-2">
                         <PieChart className="w-4 h-4 text-[#bf953f]" /> {activeTab === 'income' ? 'Income' : 'Expense'} Distribution
@@ -272,7 +260,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* DETAILED LEDGER WITH SUBTOTALS */}
                 <div className="space-y-8">
                     <div className="px-2 flex justify-between items-end">
                       <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-widest">
@@ -285,20 +272,17 @@ export default function DashboardPage() {
                          const Icon = getCategoryIcon(group.category);
                          return (
                             <div key={group.category} className="space-y-0">
-                                {/* Group Header */}
                                 <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-white/10 to-transparent rounded-t-xl border-t border-x border-white/10">
                                     <Icon className="w-4 h-4 text-[#bf953f]" />
                                     <span className="text-sm font-bold text-white">{group.category}</span>
                                 </div>
                                 
-                                {/* Items */}
                                 <div>
                                     {group.items.map(t => (
                                         <TransactionRow key={t.id} t={t} />
                                     ))}
                                 </div>
 
-                                {/* SUBTOTAL FOOTER */}
                                 <div className="flex justify-between items-center px-4 py-3 bg-[#111] rounded-b-xl border border-white/10 mt-[-1px]">
                                     <span className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest">
                                       Sum ({group.items.length} items)
@@ -314,7 +298,6 @@ export default function DashboardPage() {
                          );
                     })}
 
-                    {/* GRAND TOTAL VERIFICATION */}
                     <div className="mt-8 p-6 rounded-2xl bg-[#bf953f]/10 border border-[#bf953f]/30 flex justify-between items-center shadow-[0_0_30px_rgba(191,149,63,0.1)]">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-[#bf953f] rounded-lg text-black">
@@ -336,9 +319,8 @@ export default function DashboardPage() {
 
         </main>
 
-        {/* BOTTOM NAVIGATION BAR */}
         <div className="absolute bottom-6 left-4 right-4 z-40">
-          <div className="bg-black/90 backdrop-blur-xl border border-[#bf953f]/20 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] p-1.5 flex justify-between">
+          <div className="bg-black/90 backdrop-blur-xl border border-[#bf953f]/20 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-1.5 flex justify-between">
             {[
               { id: 'members', icon: Users, label: 'Members' },
               { id: 'income', icon: ArrowUpRight, label: 'Income' },
@@ -365,4 +347,3 @@ export default function DashboardPage() {
     </>
   );
 }
-
