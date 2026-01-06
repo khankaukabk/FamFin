@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -6,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -627,6 +626,150 @@ const session7Guide = [
     }
 ];
 
+const session8Guide = [
+  {
+    id: "8A",
+    title: "Check-in",
+    duration: "5 minutes",
+    icon: CheckCircle,
+    goal: "Say hello and see how everyone is feeling.",
+    steps: [
+      { title: "You Ask", instruction: '"Welcome back! I am happy to see you. Before we start, let’s check in. How are you feeling today? You can say one word or a short sentence."' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8A)",
+        sections: [
+            { title: "Check-in Feelings:", content: '"I am tired today."\n"I am happy because my child started school."\n"I feel a little stressed."' },
+        ]
+    }
+  },
+  {
+    id: "8B",
+    title: "Guest Speaker",
+    duration: "15 minutes",
+    icon: Speaker,
+    goal: "Listen to a guest talk about healing or culture.",
+    steps: [
+      { title: "You Say (if applicable)", instruction: '"Today we have a special guest, [Name]. They will talk about how to stay strong and healthy in our culture. Please listen."' },
+      { title: "After the talk, You Ask", instruction: '"Does anyone have a question for our guest?"' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8B)",
+        sections: [
+            { title: "Guest Speaker Interaction:", content: '"Thank you for the story."\n"How do you stay calm when things are hard?"' },
+        ]
+    }
+  },
+  {
+    id: "8C",
+    title: "Virtual Hope Wall",
+    duration: "10 minutes",
+    icon: Paintbrush,
+    goal: "Share things that make us feel hopeful and happy.",
+    steps: [
+      { title: "You Say", instruction: '"When life is hard, \'hope\' helps us keep going. We are going to build a \'Hope Wall\' together."' },
+      { title: "You Ask", instruction: '"What is one thing that gives you hope? It can be a person, a place, or an activity. You can draw it or just tell me."' },
+      { title: "You Do", instruction: 'Write their answers on a whiteboard (or a shared screen if online) so everyone can see the "Wall."' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8C)",
+        sections: [
+            { title: "Sources of Hope:", content: '"My children give me hope."\n"Praying makes me feel better."\n"Cooking food from my country."\n"Listening to music."' },
+        ]
+    }
+  },
+  {
+    id: "8D",
+    title: "Five Senses Game",
+    duration: "15 minutes",
+    icon: Gamepad2,
+    goal: "A calming exercise to stop stress.",
+    steps: [
+      { title: "You Say", instruction: '"Sometimes we worry about the future. This game helps us focus on *right now*. Please sit comfortably and take a deep breath."' },
+      { title: "You Ask (Step 1)", instruction: '"Look around. Tell me 5 things you see."' },
+      { title: "You Ask (Step 2)", instruction: '"Now, touch things near you. Tell me 4 things you can touch."' },
+      { title: "You Ask (Step 3)", instruction: '"Be quiet and listen. Tell me 3 things you can hear."' },
+      { title: "You Ask (Step 4)", instruction: '"Take a sniff. Tell me 2 things you can smell."' },
+      { title: "You Ask (Step 5)", instruction: '"Tell me 1 thing you can taste in your mouth."' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8D)",
+        sections: [
+            { title: "5 Things Seen:", content: '"I see a chair, a light, a shoe, a window, a book."' },
+            { title: "4 Things Touched:", content: '"My shirt, the table, my hair, the paper."' },
+            { title: "3 Things Heard:", content: '"A car outside, the wind, someone talking."' },
+            { title: "2 Things Smelled:", content: '"Coffee, soap."' },
+            { title: "1 Thing Tasted:", content: '"Toothpaste, tea."' },
+        ]
+    }
+  },
+  {
+    id: "8E",
+    title: "Support and Connection",
+    duration: "5 minutes",
+    icon: Heart,
+    goal: "Talk about who helps us.",
+    steps: [
+      { title: "You Ask", instruction: '"When you feel sad or have a problem, who do you talk to? Who helps you?"' },
+      { title: "Follow-up Question", instruction: '"If you see a friend who is sad, what can you do?"' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8E)",
+        sections: [
+            { title: "Who They Talk To:", content: '"I call my sister."\n"I talk to my case manager."\n"I go to my religious leader (Imam/Priest/Rabbi)."' },
+            { title: "How They Help a Friend:", content: '"I can cook for them."\n"I can listen to them."\n"I can give them a phone number for a doctor."' },
+        ]
+    }
+  },
+  {
+    id: "8F",
+    title: "Role Play Activity",
+    duration: "20 minutes",
+    icon: Users,
+    goal: "Practice helping a friend.",
+    steps: [
+      { title: "You Say", instruction: '"Let\'s pretend (act). I need two volunteers. Person A has a problem. Person B is the friend helping them."' },
+      { title: "The Scenario", instruction: '*Use a simple story. Example: "Person A lost their job and is very sad. Person B wants to help."*' },
+      { title: "You Ask the Group", instruction: '"How did Person B help? Did they do a good job?"' },
+    ],
+     report: {
+        title: "Sample Responses for Report (8F)",
+        sections: [
+            { title: "Feedback on Role Play:", content: '"Yes, they listened well."\n"They told them about a job fair."\n"They were kind."' },
+        ]
+    }
+  },
+  {
+    id: "8G",
+    title: "Planning the Future",
+    duration: "10 minutes",
+    icon: Phone,
+    goal: "Decide if the group wants to keep meeting.",
+    steps: [
+      { title: "You Say", instruction: '"Next week is our last session! But you can keep being friends."' },
+      { title: "You Ask", instruction: '"Do you want to keep meeting after this class is finished? How can we stay in touch?"' },
+    ],
+    report: {
+        title: "Sample Responses for Report (8G)",
+        sections: [
+            { title: "Staying in Touch:", content: '"Yes, let\'s make a WhatsApp group."\n"We can meet at the park once a month."\n"I want to share my phone number."' },
+        ]
+    }
+  },
+  {
+    id: "8H",
+    title: "Homework and Closing",
+    duration: "5 minutes",
+    icon: PartyPopper,
+    goal: "Prepare for the final party/session.",
+    steps: [
+      { title: "You Say", instruction: '"Next week is our last time together. We will celebrate!"' },
+      { title: "Homework", instruction: '"Please think about a time you were strong. Think of a story where you had a hard problem but you fixed it. Please bring this story next week. You can also bring a photo or a song."' },
+      { title: "Closing", instruction: '"Thank you everyone. See you next week!"' },
+    ]
+  },
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -642,7 +785,7 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-7" className="w-full">
+          <Tabs defaultValue="session-8" className="w-full">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="session-2">Session 2</TabsTrigger>
               <TabsTrigger value="session-3">Session 3</TabsTrigger>
@@ -650,6 +793,7 @@ export default function RohingyaClassReportPage() {
               <TabsTrigger value="session-5">Session 5</TabsTrigger>
               <TabsTrigger value="session-6">Session 6</TabsTrigger>
               <TabsTrigger value="session-7">Session 7</TabsTrigger>
+              <TabsTrigger value="session-8">Session 8</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -902,6 +1046,59 @@ export default function RohingyaClassReportPage() {
                 ))}
               </div>
             </TabsContent>
+            <TabsContent value="session-8" className="mt-6">
+                <div className="space-y-6">
+                    {session8Guide.map((section, index) => (
+                    <React.Fragment key={section.id}>
+                        <Card>
+                        <CardHeader>
+                            <div className="flex items-start gap-4">
+                            <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                            <div>
+                                <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                                <CardDescription>{section.duration}</CardDescription>
+                            </div>
+                            </div>
+                            <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                            <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                            <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {section.steps?.map((step, stepIndex) => (
+                            <div key={stepIndex} className="pl-4">
+                                {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction || step.content}</p>
+                            </div>
+                            ))}
+                            {section.parts?.map((part, partIndex) => (
+                            <div key={partIndex} className="pl-4">
+                                <p className="font-semibold text-sm mb-1">{part.title}</p>
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                            </div>
+                            ))}
+                            {section.report && (
+                                <Card className="mt-6 bg-blue-500/5 border-blue-500/20">
+                                    <CardHeader>
+                                        <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3">
+                                        {section.report.sections.map((reportSection, reportIndex) => (
+                                            <div key={reportIndex}>
+                                                <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
+                                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            )}
+                        </CardContent>
+                        </Card>
+                        {index < session8Guide.length - 1 && <Separator />}
+                    </React.Fragment>
+                    ))}
+                </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -912,3 +1109,5 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
+
+    
