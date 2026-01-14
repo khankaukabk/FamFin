@@ -119,7 +119,7 @@ export default function SecurityPlusTestPage() {
     setSelectedAnswer(answer);
     setIsAnswered(true);
 
-    if (answer === questions[currentQuestionIndex].correctAnswer) {
+    if (answer === questions[currentQuestionIndex].correct_answer) {
       setScore((prevScore) => prevScore + 1);
       setIsCorrect(true);
     } else {
@@ -273,8 +273,8 @@ export default function SecurityPlusTestPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {currentQuestion.answers.map((answer) => {
-                const isCorrectAnswer = answer === currentQuestion.correctAnswer;
-                const isSelected = selectedAnswer === answer;
+                const isThisTheCorrectAnswer = answer === currentQuestion.correct_answer;
+                const isThisTheSelectedAnswer = selectedAnswer === answer;
 
                 return (
                   <Button
@@ -283,14 +283,14 @@ export default function SecurityPlusTestPage() {
                     variant="outline"
                     className={cn(
                       "w-full h-auto min-h-[4rem] justify-start text-left p-4 text-base whitespace-normal",
-                      isAnswered && isCorrectAnswer && "bg-green-500/15 border-green-500 text-foreground",
-                      isAnswered && isSelected && !isCorrectAnswer && "bg-red-500/15 border-red-500 text-foreground",
+                      isAnswered && isThisTheCorrectAnswer && "bg-green-500/15 border-green-500 text-foreground",
+                      isAnswered && isThisTheSelectedAnswer && !isThisTheCorrectAnswer && "bg-red-500/15 border-red-500 text-foreground",
                       !isAnswered && "hover:bg-accent/50"
                     )}
                     disabled={isAnswered}
                   >
-                    {isAnswered && (isCorrectAnswer || isSelected) && (
-                        isCorrectAnswer ? <CheckCircle className="mr-3 h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="mr-3 h-5 w-5 text-red-500 flex-shrink-0" />
+                    {isAnswered && (isThisTheCorrectAnswer || isThisTheSelectedAnswer) && (
+                        isThisTheCorrectAnswer ? <CheckCircle className="mr-3 h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="mr-3 h-5 w-5 text-red-500 flex-shrink-0" />
                     )}
                     {answer}
                   </Button>
@@ -331,3 +331,5 @@ export default function SecurityPlusTestPage() {
     </div>
   );
 }
+
+    
