@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper, Milestone } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper, Milestone, PiggyBank, Receipt, ShoppingCart, Calculator } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -840,6 +840,92 @@ const session9Guide = [
   }
 ];
 
+const financialLiteracyGuide = [
+    {
+        id: "FL1",
+        title: "Welcome & Opening",
+        duration: "5 minutes",
+        icon: Users,
+        goal: "Make everyone feel comfortable talking about money (no judgment).",
+        steps: [
+            { title: "You Say", instruction: '"Welcome! Today we are talking about money. Money in a new country can be confusing and different."' },
+            { title: "You Ask (Ice Breaker)", instruction: '"When you first went to an American supermarket, what surprised you?"' },
+            { title: "You Ask", instruction: '"Is there anything about money in the U.S. that confuses you?"' },
+        ],
+        report: {
+            title: "Sample Responses",
+            sections: [
+                { title: "Supermarket Surprises:", content: '"There are too many choices of cereal!"\n"Vegetables are expensive."\n"The prices have tax added later."' },
+                { title: "Money Confusion:", content: '"How to pay bills?"\n"Why is rent so high?"' }
+            ]
+        }
+    },
+    {
+        id: "FL2",
+        title: "The Envelope Budgeting Game",
+        duration: "10-15 minutes",
+        icon: Receipt,
+        goal: 'Learn that we must pay for "Needs" before "Wants."',
+        parts: [
+            { title: "Preparation", content: 'Give each person play money (fake cash, e.g., $2,000) and 4 envelopes labeled: Rent, Utilities (Lights/Heat), Food, Savings.\nYou Say: "We are going to play a game. You have $2,000 for the month. You have 4 envelopes."' },
+            { title: "Round 1 (The Mistake)", content: 'You Say: "Put the money in the envelopes however you want. Go!"\nYou Ask: "Okay, look at your \'Rent\' envelope. Do you have enough? Look at your \'Food\'. Did you spend too much on nice food and forget the electric bill?"\nThe Lesson: Many will not have enough for rent.' },
+            { title: "Round 2 (The Solution - Needs vs. Wants)", content: 'You Say: "Let\'s try again. We must follow the Basic Rule: Money coming in must be MORE than money going out."\nYou Say: "We have Needs (Survival) and Wants (Fun). Rent is a NEED. Expensive fish is a WANT."\nYou Say: "Fill the envelopes in this order:\n1. Rent (You need a home).\n2. Utilities (You need lights/heat).\n3. Savings (Even just $5).\n4. Food (Use what is left for food)."\nYou Ask: "Why do we pay rent first?"' }
+        ],
+        report: {
+            title: "Sample Responses",
+            sections: [
+                { title: "Why pay rent first?", content: '"So we don\'t get evicted."\n"Because it is the most important need."' },
+            ]
+        }
+    },
+    {
+        id: "FL3",
+        title: "Smart Shopping & Unit Price Game",
+        duration: "15 minutes",
+        icon: ShoppingCart,
+        goal: "Learn how to save money at the grocery store.",
+        parts: [
+            { title: "Part A: Smart Rules", content: 'You Say: "Food is expensive. Here are 3 rules to save money:"\n1. "Make a List: Only buy what is on the paper."\n2. "Don\'t Shop Hungry: When you are hungry, you buy too much!"\n3. "Store Brands: The \'Great Value\' or store brand is the same food, but cheaper than the famous name."' },
+            { title: "Part B: The Unit Price Game", content: 'You Say: "Look at these two bags of rice." [Hold up a small bag and a big bag, or pictures]\nYou Ask: "The small bag is $2. The big bag is $5. Which is cheaper?"\nThey Answer: "The small bag is cheaper money ($2)."\nYou Say: "Be careful! We have to look at the Unit Price (Price per pound). The big bag lasts longer. It is actually cheaper per pound."\nActivity: Have them use their phone calculators.\nYou Say: "Take the Price ($) divided by the Weight (lb/oz). Let\'s practice."\n"It is better to buy the big bag of rice or lentils if you have the money today."' }
+        ]
+    },
+    {
+        id: "FL4",
+        title: "Savings Jar Demonstration",
+        duration: "10 minutes",
+        icon: PiggyBank,
+        goal: "Understand why we save for emergencies.",
+        parts: [
+            { title: "The Story", content: 'You Say: "I will tell you a story about two families."\nFamily A: They spend all their money every month. One day, their car breaks. They have no money to fix it. They lose their job because they can\'t drive. They are very stressed.\nFamily B: They save $20 every month. It feels small. But after one year, they have $240. When the car breaks, they can fix it.'},
+            { title: "Discussion", content: 'You Ask: "Why is it hard to save money?"\nYou Say: "I know it is hard. But try to save 5% or even just pennies. It adds up."'},
+            { title: "Activity", content: 'Give each family a physical jar (or an envelope).\nYou Say: "This is your Emergency Fund. Put a little bit in here every week. Do not touch it unless it is a Need (emergency)."' }
+        ],
+        report: {
+            title: "Sample Responses",
+            sections: [
+                { title: "Why is it hard to save?", content: '"We don\'t have enough money."\n"Everything is expensive."' },
+            ]
+        }
+    },
+    {
+        id: "FL5",
+        title: "Closing Commitments",
+        duration: "5 minutes",
+        icon: Calculator,
+        goal: "Promise to do one new thing this week.",
+        steps: [
+            { title: "You Say", instruction: '"We learned a lot today. I want you to pick ONE thing to do this week."' },
+            { title: "You Ask", instruction: '"What will you do differently next time you shop?"' },
+            { title: "You Say", instruction: '"Great job. Money is hard, but you are learning to be the boss of your money!"' }
+        ],
+        report: {
+            title: "Sample Commitments",
+            sections: [
+                { title: "New Shopping Habits:", content: '"I will make a shopping list."\n"I will look for the \'Unit Price\'."\n"I will buy the store brand sugar, not the expensive one."\n"I will put $5 in my jar."' },
+            ]
+        }
+    }
+];
 
 export default function RohingyaClassReportPage() {
   return (
@@ -855,8 +941,8 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-9" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 sm:grid-cols-4 md:grid-cols-8">
+          <Tabs defaultValue="session-9.2" className="w-full">
+            <TabsList className="grid w-full grid-cols-5 sm:grid-cols-5 md:grid-cols-9">
               <TabsTrigger value="session-2">Sess. 2</TabsTrigger>
               <TabsTrigger value="session-3">Sess. 3</TabsTrigger>
               <TabsTrigger value="session-4">Sess. 4</TabsTrigger>
@@ -865,6 +951,7 @@ export default function RohingyaClassReportPage() {
               <TabsTrigger value="session-7">Sess. 7</TabsTrigger>
               <TabsTrigger value="session-8">Sess. 8</TabsTrigger>
               <TabsTrigger value="session-9">Sess. 9</TabsTrigger>
+              <TabsTrigger value="session-9.2">Finance</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -1223,6 +1310,59 @@ export default function RohingyaClassReportPage() {
                     ))}
                 </div>
             </TabsContent>
+             <TabsContent value="session-9.2" className="mt-6">
+                <div className="space-y-6">
+                    {financialLiteracyGuide.map((section, index) => (
+                    <React.Fragment key={section.id}>
+                        <Card>
+                        <CardHeader>
+                            <div className="flex items-start gap-4">
+                            <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                            <div>
+                                <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                                <CardDescription>{section.duration}</CardDescription>
+                            </div>
+                            </div>
+                            <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                            <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                            <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {section.steps?.map((step, stepIndex) => (
+                            <div key={stepIndex} className="pl-4">
+                                {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction || step.content}</p>
+                            </div>
+                            ))}
+                            {section.parts?.map((part, partIndex) => (
+                            <div key={partIndex} className="pl-4">
+                                <p className="font-semibold text-sm mb-1">{part.title}</p>
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                            </div>
+                            ))}
+                            {section.report && (
+                                <Card className="mt-6 bg-blue-500/5 border-blue-500/20">
+                                    <CardHeader>
+                                        <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3">
+                                        {section.report.sections.map((reportSection, reportIndex) => (
+                                            <div key={reportIndex}>
+                                                <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
+                                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            )}
+                        </CardContent>
+                        </Card>
+                        {index < financialLiteracyGuide.length - 1 && <Separator />}
+                    </React.Fragment>
+                    ))}
+                </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -1233,6 +1373,3 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
-
-    
-```
