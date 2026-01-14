@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper, Milestone } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -770,6 +770,76 @@ const session8Guide = [
   },
 ];
 
+const session9Guide = [
+  {
+    id: "9A",
+    title: "Review and Next Steps",
+    duration: "10 minutes",
+    icon: Users,
+    goal: "Talk about the group ending and how to stay friends.",
+    steps: [
+      { title: "You Say", instruction: '"Welcome to our last session! I am so happy you are here, but also a little sad that our class is finishing."' },
+      { title: "You Ask", instruction: '"How do you feel about this being the last day?"' },
+      { title: "You Ask", instruction: '"Do you want to stay in touch with each other? We can make a list of phone numbers or a WhatsApp group. Is that okay?"' }
+    ],
+    report: {
+      title: "Sample Responses for Report (9A)",
+      sections: [
+        { title: "Feelings about Last Day:", content: '"I will miss seeing everyone."\n"I am proud that I finished."\n"I feel a little lonely."' },
+        { title: "Staying in Touch:", content: '"Yes, please add my number."\n"I can start the WhatsApp group."\n"No, I prefer not to share my number."' }
+      ]
+    }
+  },
+  {
+    id: "9B",
+    title: "The River and The Bridge",
+    duration: "15 minutes",
+    icon: Milestone,
+    goal: "A picture activity to understand how we overcome problems.",
+    steps: [
+      { title: "You Say", instruction: '"We are going to imagine a picture. Imagine a big river. You are on one side, and you want to get to the other side."' },
+      { title: "You Ask (The River)", instruction: '"The river is a problem or a challenge. What is the \'river\' in your life right now?"' },
+      { title: "You Ask (The Bridge)", instruction: '"The bridge is the help you have from the outside. Who or what is your bridge?"' },
+      { title: "You Ask (The Traveler/You)", instruction: '"Now think about YOU crossing the bridge. What strength do you have *inside* you that helps you walk across?"' },
+      { title: "You Ask (The Other Side)", instruction: '"What is on the other side of the river? What is your dream?"' },
+      { title: "You Ask (Reviewing Tools)", instruction: '"We learned many tools in this class (like deep breathing, the hope wall, or sharing stories). Which tool will you keep using?"' }
+    ],
+    report: {
+      title: "Sample Responses for Report (9B)",
+      sections: [
+        { title: "The River (Challenges):", content: '"Learning English is my river."\n"Finding a job."\n"Missing my family back home."' },
+        { title: "The Bridge (External Support):", content: '"This support group is my bridge."\n"My case manager."\n"My neighbor who drives me to the store."' },
+        { title: "The Traveler (Internal Strength):", content: '"I am patient."\n"I pray."\n"I do not give up for my children."' },
+        { title: "The Other Side (Dreams):", content: '"A safe home."\n"My children going to college."\n"Feeling peace."' },
+        { title: "Tools to Keep:", content: '"I will use the breathing when I am stressed."\n"I will remember to ask for help."' }
+      ]
+    }
+  },
+  {
+    id: "9C",
+    title: "Ending and Celebration",
+    duration: "30 minutes",
+    icon: PartyPopper,
+    goal: "Celebrate the participants and say goodbye.",
+    steps: [
+      { title: "You Say", instruction: '"Now it is time to celebrate! We are all heroes in our own stories."' },
+      { title: "You Ask", instruction: '"Did anyone bring something to share? A song, a poem, or a picture?"' },
+      { title: "You Say (Certificates)", instruction: '"I have a certificate for each of you to say \'Good Job\'!"' },
+      { title: "Action", instruction: 'Hold up the certificate on the screen (or give it to them if in person) and say their name loud and clear.\n"Congratulations, [Name]!"' },
+      { title: "You Ask", instruction: '"Let\'s all clap for [Name]!"' },
+      { title: "You Ask (Final Goodbye)", instruction: '"Before we go, does anyone have one last word they want to say to the group?"' },
+      { title: "You Say", instruction: '"Thank you for your energy and your trust. Even though the class is over, you are strong and you have each other. Goodbye and good luck!"' }
+    ],
+    report: {
+      title: "Sample Responses for Report (9C)",
+      sections: [
+        { title: "Shared Items:", content: '"I want to sing a song from my country."\n"I brought a picture of my family."\n"I want to tell a short story about when I was brave."' },
+        { title: "Final Words:", content: '"Thank you everyone."\n"You are my family now."\n"Good luck."' }
+      ]
+    }
+  }
+];
+
 
 export default function RohingyaClassReportPage() {
   return (
@@ -785,15 +855,16 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-8" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="session-2">Session 2</TabsTrigger>
-              <TabsTrigger value="session-3">Session 3</TabsTrigger>
-              <TabsTrigger value="session-4">Session 4</TabsTrigger>
-              <TabsTrigger value="session-5">Session 5</TabsTrigger>
-              <TabsTrigger value="session-6">Session 6</TabsTrigger>
-              <TabsTrigger value="session-7">Session 7</TabsTrigger>
-              <TabsTrigger value="session-8">Session 8</TabsTrigger>
+          <Tabs defaultValue="session-9" className="w-full">
+            <TabsList className="grid w-full grid-cols-4 sm:grid-cols-4 md:grid-cols-8">
+              <TabsTrigger value="session-2">Sess. 2</TabsTrigger>
+              <TabsTrigger value="session-3">Sess. 3</TabsTrigger>
+              <TabsTrigger value="session-4">Sess. 4</TabsTrigger>
+              <TabsTrigger value="session-5">Sess. 5</TabsTrigger>
+              <TabsTrigger value="session-6">Sess. 6</TabsTrigger>
+              <TabsTrigger value="session-7">Sess. 7</TabsTrigger>
+              <TabsTrigger value="session-8">Sess. 8</TabsTrigger>
+              <TabsTrigger value="session-9">Sess. 9</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -1099,6 +1170,59 @@ export default function RohingyaClassReportPage() {
                     ))}
                 </div>
             </TabsContent>
+            <TabsContent value="session-9" className="mt-6">
+                <div className="space-y-6">
+                    {session9Guide.map((section, index) => (
+                    <React.Fragment key={section.id}>
+                        <Card>
+                        <CardHeader>
+                            <div className="flex items-start gap-4">
+                            <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                            <div>
+                                <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                                <CardDescription>{section.duration}</CardDescription>
+                            </div>
+                            </div>
+                            <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                            <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                            <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {section.steps?.map((step, stepIndex) => (
+                            <div key={stepIndex} className="pl-4">
+                                {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction || step.content}</p>
+                            </div>
+                            ))}
+                            {section.parts?.map((part, partIndex) => (
+                            <div key={partIndex} className="pl-4">
+                                <p className="font-semibold text-sm mb-1">{part.title}</p>
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                            </div>
+                            ))}
+                            {section.report && (
+                                <Card className="mt-6 bg-blue-500/5 border-blue-500/20">
+                                    <CardHeader>
+                                        <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3">
+                                        {section.report.sections.map((reportSection, reportIndex) => (
+                                            <div key={reportIndex}>
+                                                <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
+                                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            )}
+                        </CardContent>
+                        </Card>
+                        {index < session9Guide.length - 1 && <Separator />}
+                    </React.Fragment>
+                    ))}
+                </div>
+            </TabsContent>
           </Tabs>
           
         </div>
@@ -1111,3 +1235,4 @@ export default function RohingyaClassReportPage() {
 }
 
     
+```
