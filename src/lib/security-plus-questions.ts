@@ -9,7 +9,7 @@ export const sets = {
       "B. Social engineering",
       "D. Trojan horse"
     ],
-    "explanation": "The correct answer is spear phishing. Spear phishing is targeted to a specific group, in this case insurance professionals. Although this is a form of phishing, the more specific answer is the one you will need to choose on questions like this. Phishing uses social engineering techniques to succeed but is once again a broader answer than spear phishing and thus is not the correct choice. Finally, a Trojan horse pretends to be a legitimate or desirable program or file, which this scenario doesn’t describe."
+    "explanation": "The correct answer is spear phishing. Spear phishing is targeted to a specific group, in this case insurance professionals. Although this is a form of phishing, the more specific answer is the one you will need to choose on questions like this. Phishing uses social engineering techniques to succeed but is once again a broader answer than spear phishing and thus is not the correct choice. Finally, a Trojan horse pretends to be a legitimate or desirable programme or file, which this scenario doesn’t describe."
   },
   {
     "question": "2. You are a security administrator for a medium-sized bank. You have discovered a piece of software on your bank's database server that is not supposed to be there. It appears that the software will begin deleting database files if a specific employee is terminated. What best describes this?",
@@ -19,7 +19,7 @@ export const sets = {
       "C. Trojan horse",
       "D. Rootkit"
     ],
-    "explanation": "A logic bomb is malware that performs its malicious activity when some condition is met. A worm is malware that self-propagates. A Trojan horse is malware attached to a legitimate program, and a rootkit is malware that gets root or administrative privileges."
+    "explanation": "A logic bomb is malware that performs its malicious activity when some condition is met. A worm is malware that self-propagates. A Trojan horse is malware attached to a legitimate programme, and a rootkit is malware that gets root or administrative privileges."
   },
   {
     "question": "3. You are responsible for incident response at Acme Bank. The Acme Bank website has been attacked. The attacker used the login screen, but rather than enter login credentials, they entered some odd text: ' or '1' = '1 . What is the best description for this attack?",
@@ -99,7 +99,7 @@ export const sets = {
       "C. Permissions creep",
       "D. Privilege escalation"
     ],
-    "explanation": "A segmentation fault will typically stop the program from running. This type of issue is why a NULL pointer or other pointer de-referencing error is considered a potential security issue, as a denial-of-service condition impacts the availability of the service. This type of error is unlikely to cause a data breach or allow privilege escalation, and permissions creep occurs as individuals accrue more permissions over time in a single organization as their permissions are not cleaned up when they switch positions or roles."
+    "explanation": "A segmentation fault will typically stop the programme from running. This type of issue is why a NULL pointer or other pointer de-referencing error is considered a potential security issue, as a denial-of-service condition impacts the availability of the service. This type of error is unlikely to cause a data breach or allow privilege escalation, and permissions creep occurs as individuals accrue more permissions over time in a single organisation as their permissions are not cleaned up when they switch positions or roles."
   },
   {
     "question": "11. Teresa is the security manager for a mid-sized insurance company. She receives a call from law enforcement, telling her that some computers on her network participated in a massive denial-of-service (DoS) attack. Teresa is certain that none of the employees at her company would be involved in a cybercrime. What would best explain this scenario?",
@@ -119,7 +119,7 @@ export const sets = {
       "B. OSINT",
       "D. Threat maps"
     ],
-    "explanation": "There are many indicators of compromise (IoCs), including unusual outbound network traffic, geographical irregularities like logins from a country where the person normally does not work, or increases in database read volumes beyond normal traffic patterns. Predictive analysis is analysis work done using datasets to attempt to determine trends and likely attack vectors so that analysts can focus their efforts where they will be most needed and effective. OSINT is open source intelligence, and threat maps are often real-time or near real-time visualizations of where threats are coming from and where they are headed to."
+    "explanation": "There are many indicators of compromise (IoCs), including unusual outbound network traffic, geographical irregularities like logins from a country where the person normally does not work, or increases in database read volumes beyond normal traffic patterns. Predictive analysis is analysis work done using datasets to attempt to determine trends and likely attack vectors so that analysts can focus their efforts where they will be most needed and effective. OSINT is open source intelligence, and threat maps are often real-time or near real-time visualisations of where threats are coming from and where they are headed to."
   },
   {
     "question": "13. Chris needs visibility into connection attempts through a firewall because he believes that a TCP handshake is not properly occurring. What security information and event management (SIEM) capability is best suited to troubleshooting this issue?",
@@ -139,7 +139,7 @@ export const sets = {
       "B. Log aggregation",
       "C. Security monitoring"
     ],
-    "explanation": "User behavior analysis is a key capability when attempting to detect potential insider threats. Chris can use his SIEM’s behavioral analysis capabilities to detect improper or illicit use of rights and privileges as well as abnormal behavior on the part of his users. Sentiment analysis helps analyze feelings, and log aggregation and security monitoring provide ways to gain insight into the overall security posture and status of the organization."
+    "explanation": "User behaviour analysis is a key capability when attempting to detect potential insider threats. Chris can use his SIEM’s behavioural analysis capabilities to detect improper or illicit use of rights and privileges as well as abnormal behaviour on the part of his users. Sentiment analysis helps analyse feelings, and log aggregation and security monitoring provide ways to gain insight into the overall security posture and status of the organisation."
   },
   {
     "question": "15. Chris has hundreds of systems spread across multiple locations and wants to better handle the amount of data that they create. What two technologies can help with this?",
@@ -149,7 +149,7 @@ export const sets = {
       "C. Security monitoring and log collectors",
       "D. Sentiment analysis and user behavior analysis"
     ],
-    "explanation": "Using log aggregation to pull together logs from multiple sources, and performing collection and initial analysis on log collectors can help centralize and handle large log volumes. Capturing packets is useful for network traffic analysis to identify issues or security concerns. Security monitoring is an overall function for security information and event management (SIEM) and doesn’t specifically help with this need. Both sentiment analysis and user behavior analysis are aimed at users and groups rather than at how data is collected and managed."
+    "explanation": "Using log aggregation to pull together logs from multiple sources, and performing collection and initial analysis on log collectors can help centralise and handle large log volumes. Capturing packets is useful for network traffic analysis to identify issues or security concerns. Security monitoring is an overall function for security information and event management (SIEM) and doesn’t specifically help with this need. Both sentiment analysis and user behaviour analysis are aimed at users and groups rather than at how data is collected and managed."
   },
   {
     "question": "16. What type of security team establishes the rules of engagement for a cybersecurity exercise?",
@@ -159,7 +159,7 @@ export const sets = {
       "C. Purple team",
       "D. Red team"
     ],
-    "explanation": "White teams act as judges and observers during cybersecurity exercises. Blue teams act as defenders, red teams act as attackers, and purple teams are composed of both blue and red team members to combine attack and defense knowledge to improve organizational security."
+    "explanation": "White teams act as judges and observers during cybersecurity exercises. Blue teams act as defenders, red teams act as attackers, and purple teams are composed of both blue and red team members to combine attack and defence knowledge to improve organisational security."
   },
   {
     "question": "17. Cynthia is concerned about attacks against an application programming interface (API) that her company provides for its customers. What should she recommend to ensure that the API is only used by customers who have paid for the service?",
@@ -259,7 +259,7 @@ export const sets = {
       "C. It is sent via SMS.",
       "D. It includes malware in the message."
     ],
-    "explanation": "Phishing is intended to acquire data, most often credentials or other information that will be useful to the attacker. Spam is a broader term for unwanted email, although the term is often generally used to describe unwanted communications. Spear phishing targets specific individuals, whereas whaling targets important people in an organization. Smishing is sent via SMS (text message). Malware can be sent in any of these instances, but there is not a specific related term that means “spam with malware in it.”"
+    "explanation": "Phishing is intended to acquire data, most often credentials or other information that will be useful to the attacker. Spam is a broader term for unwanted email, although the term is often generally used to describe unwanted communications. Spear phishing targets specific individuals, whereas whaling targets important people in an organisation. Smishing is sent via SMS (text message). Malware can be sent in any of these instances, but there is not a specific related term that means “spam with malware in it.”"
   },
   {
     "question": "27. Which of the following best describes a collection of computers that have been compromised and are being controlled from one central point?",
@@ -279,7 +279,7 @@ export const sets = {
       "C. Outsourced code development issues",
       "D. System integration and configuration issues"
     ],
-    "explanation": "Systems and software that no longer have vendor support can be a significant security risk, and ensuring that a vendor will continue to exist and provide support is an important part of many procurement processes. Selah’s questions are intended to assess the longevity and viability of the company and whether buying from them will result in her organization having a usable product for the long term."
+    "explanation": "Systems and software that no longer have vendor support can be a significant security risk, and ensuring that a vendor will continue to exist and provide support is an important part of many procurement processes. Selah’s questions are intended to assess the longevity and viability of the company and whether buying from them will result in her organisation having a usable product for the long term."
   },
   {
     "question": "29. John is conducting a penetration test of a client's network. He is currently gathering information from sources such as archive.org, netcraft.com, social media, and information websites. What best describes this stage?",
@@ -319,7 +319,7 @@ export const sets = {
       "B. External test",
       "D. Threat test"
     ],
-    "explanation": "An unknown environment test is also called black-box or a zero-knowledge test because it does not provide information beyond the basic information needed to identify the target. A known environment, or white-box test, involves very complete information being given to the tester. This scenario is probably done from outside the network, but external test is not the correct terminology. Threat test is not a term used in penetration testing."
+    "explanation": "An unknown environment test is also called a black-box or zero-knowledge test because it does not provide information beyond the basic information needed to identify the target. A known environment, or white-box test, involves very complete information being given to the tester. This scenario is probably done from outside the network, but external test is not the correct terminology. Threat test is not a term used in penetration testing."
   },
   {
     "question": "33. You work for a security company that performs penetration testing for clients. You are conducting a test of an e-commerce company. You discover that after compromising the web server, you can use the web server to launch a second attack into the company's internal network. What best describes this?",
@@ -339,7 +339,7 @@ export const sets = {
       "C. Backdoor",
       "D. Refactoring"
     ],
-    "explanation": "Shimming is when the attacker places some malware between an application and some other file and intercepts the communication to that file (usually to a library or system API). In many cases, this is done with a driver for a hardware component. A Trojan horse might be used to get the shim onto the system, but that is not described in this scenario. A backdoor is a means to circumvent system authorization and get direct access to the system. Refactoring is the process of changing names of variables, functions, and so forth in a program."
+    "explanation": "Shimming is when the attacker places some malware between an application and some other file and intercepts the communication to that file (usually to a library or system API). In many cases, this is done with a driver for a hardware component. A Trojan horse might be used to get the shim onto the system, but that is not described in this scenario. A backdoor is a means to circumvent system authorisation and get direct access to the system. Refactoring is the process of changing names of variables, functions, and so forth in a program."
   },
   {
     "question": "35. Which of the following capabilities is not a key part of a SOAR (security orchestration, automation, and response) tool?",
@@ -389,7 +389,7 @@ export const sets = {
       "C. Rootkit",
       "D. Macro virus"
     ],
-    "explanation": "A Trojan horse attaches a malicious program to a legitimate program. When the user downloads and installs the legitimate program, they get the malware. A logic bomb is malware that does its misdeeds when some condition is met. A rootkit is malware that gets administrative, or root, access. A macro virus is a virus that is embedded in a document as a macro."
+    "explanation": "A Trojan horse attaches a malicious programme to a legitimate programme. When the user downloads and installs the legitimate programme, they get the malware. A logic bomb is malware that does its misdeeds when some condition is met. A rootkit is malware that gets administrative, or root, access. A macro virus is a virus that is embedded in a document as a macro."
   },
   {
     "question": "40. When phishing attacks are so focused that they target a specific high-ranking or important individual, they are called what?",
@@ -399,7 +399,7 @@ export const sets = {
       "B. Targeted phishing",
       "C. Phishing"
     ],
-    "explanation": "Whaling is targeting a specific individual who is important in the organization like the president or chief financial officer (CFO). Spear phishing targets specific individuals or groups, but whaling is more specific in terms of the importance of the individuals involved. Targeted phishing is not a term used in the industry. Phishing is the generic term for a wide range of related attacks, and you should choose the most accurate answer for questions like this."
+    "explanation": "Whaling is targeting a specific individual who is important in the organisation like the president or chief financial officer (CFO). Spear phishing targets specific individuals or groups, but whaling is more specific in terms of the importance of the individuals involved. Targeted phishing is not a term used in the industry. Phishing is the generic term for a wide range of related attacks, and you should choose the most accurate answer for questions like this."
   },
   {
     "question": "41. What type of threat actors are most likely to have a profit motive for their malicious activities?",
@@ -459,7 +459,7 @@ export const sets = {
       "C. Social engineering",
       "D. Trash engineering"
     ],
-    "explanation": "Dumpster diving is the term for rummaging through the waste/trash to recover useful documents or materials. Penetration testers and attackers may dumpster-dive as part of their efforts. In fact, emptying trash cans in a location can provide useful information even without jumping into a dumpster! Trash diving and trash engineering are not the terms used in the industry. Nothing in this scenario describes social engineering."
+    "explanation": "Dumpster diving is the term for rummaging through the waste/rubbish to recover useful documents or materials. Penetration testers and attackers may dumpster-dive as part of their efforts. In fact, emptying rubbish bins in a location can provide useful information even without jumping into a dumpster! Trash diving and trash engineering are not the terms used in the industry. Nothing in this scenario describes social engineering."
   },
   {
     "question": "47. Louis is investigating a malware incident on one of the computers on his network. He has discovered unknown software that seems to be opening a port, allowing someone to remotely connect to the computer. This software seems to have been installed at the same time as a small shareware application. Which of the following best describes this malware?",
@@ -479,7 +479,7 @@ export const sets = {
       "C. The computer has a worm.",
       "D. The computer has a rootkit."
     ],
-    "explanation": "Zero-day exploits are new, and they are not in the virus definitions for the antivirus (AV) programs. This makes them difficult to detect, except by their behavior. RATs, worms, and rootkits are more likely to be detected by AV programs."
+    "explanation": "Zero-day exploits are new, and they are not in the virus definitions for the antivirus (AV) programmes. This makes them difficult to detect, except by their behaviour. RATs, worms, and rootkits are more likely to be detected by AV programmes."
   },
   {
     "question": "49. Which of the following is not a common means of attacking RFID badges?",
@@ -499,7 +499,7 @@ export const sets = {
       "B. Rogue WAP",
       "D. WPS attack"
     ],
-    "explanation": "Initialization vectors are used with stream ciphers. An IV attack attempts to exploit a flaw to use the IV to expose encrypted data. Nothing in this scenario requires or describes a rogue access point/evil twin. Wi-Fi Protected Setup (WPS) uses a PIN to connect to the wireless access point (WAP). The WPS attack attempts to intercept that PIN in transmission, connect to the WAP, and then steal the WPA2 password."
+    "explanation": "Initialisation vectors are used with stream ciphers. An IV attack attempts to exploit a flaw to use the IV to expose encrypted data. Nothing in this scenario requires or describes a rogue access point/evil twin. Wi-Fi Protected Setup (WPS) uses a PIN to connect to the wireless access point (WAP). The WPS attack attempts to intercept that PIN in transmission, connect to the WAP, and then steal the WPA2 password."
   },
   {
     "question": "51. The company that Scott works for has experienced a data breach, and the personal information of thousands of customers has been exposed. Which of the following impact categories is not a concern as described in this scenario?",
@@ -529,7 +529,7 @@ export const sets = {
       "C. It generates power for the local community in a secure way.",
       "D. It separates information by classification ratings to avoid accidental distribution."
     ],
-    "explanation": "Cyberintelligence fusion is the process of gathering, analyzing, and then distributing information between disparate agencies and organizations. Fusion centers like those operated by the U.S. Department of Homeland Security (DHS) focus on strengthening shared intelligence activities. They are not specifically tasked with building tools by combining other tools, although they may in some cases. They are not power plants, and they are focused on gathering and sharing information, not building a classification structure."
+    "explanation": "Cyberintelligence fusion is the process of gathering, analysing, and then distributing information between disparate agencies and organisations. Fusion centres like those operated by the U.S. Department of Homeland Security (DHS) focus on strengthening shared intelligence activities. They are not specifically tasked with building tools by combining other tools, although they may in some cases. They are not power plants, and they are focused on gathering and sharing information, not building a classification structure."
   },
   {
     "question": "54. CVE is an example of what type of feed?",
@@ -659,7 +659,7 @@ export const sets = {
       "C. RAT",
       "D. Ransomware"
     ],
-    "explanation": "Spyware and adware are both common examples PUPs, or potentially unwanted programs. Though not directly malicious, they can pose risks to user privacy as well as create annoyances like popups or other unwanted behaviors. Trojans appear to be legitimate programs or are paired with them, RATs provide remote access and are a subcategory of Trojans, and ransomware demands payment or other actions to avoid damage to files or reputation."
+    "explanation": "Spyware and adware are both common examples PUPs, or potentially unwanted programmes. Though not directly malicious, they can pose risks to user privacy as well as create annoyances like popups or other unwanted behaviours. Trojans appear to be legitimate programmes or are paired with them, RATs provide remote access and are a subcategory of Trojans, and ransomware demands payment or other actions to avoid damage to files or reputation."
   },
   {
     "question": "67. Mary has discovered that a web application used by her company does not always handle multithreading properly, particularly when multiple threads access the same variable. This could allow an attacker who discovered this vulnerability to exploit it and crash the server. What type of error has Mary discovered?",
@@ -719,7 +719,7 @@ export const sets = {
       "B. CSRF",
       "D. Logic bomb"
     ],
-    "explanation": "A buffer overflow is possible when boundaries are not checked and the attacker tries to put in more data than the variable can hold. Cross-site scripting (XSS) is a web page attack. Cross-site request forgery (CSRF) is a web page attack. A logic bomb is malware that performs its misdeed when some condition is met."
+    "explanation": "A buffer overflow is possible when boundaries are not checked and the attacker tries to put in more data than the variable can hold. Cross-site scripting (XSS) is a web page attack. Cross-site request forgery (CSRF) is a web page attack. A logic bomb is malware that performs its misdeed when some logical condition is met."
   },
   {
     "question": "73. Tracy is concerned that the software she wants to download may not be trustworthy, so she searches for it and finds many postings claiming that the software is legitimate. If she installs the software and later discovers it is malicious and that malicious actors have planted those reviews, what principle of social engineering have they used?",
@@ -729,7 +729,7 @@ export const sets = {
       "B. Familiarity",
       "D. Trust"
     ],
-    "explanation": "Consensus, sometimes called social proof, is a social engineering principle that leverages the fact that people are often willing to trust groups of other people. Here, the attackers have planted false information that the software is trustworthy, thus allowing targets to “prove” to themselves that they can safely install the software. Scarcity uses a perception that something may not be available or is uncommon and thus desirable. Familiarity takes advantage of the trust that individuals put into people and organizations they are already familiar with. Trust-based attacks exploit a perception of trustworthiness."
+    "explanation": "Consensus, sometimes called social proof, is a social engineering principle that leverages the fact that people are often willing to trust groups of other people. Here, the attackers have planted false information that the software is trustworthy, thus allowing targets to “prove” to themselves that they can safely install the software. Scarcity uses a perception that something may not be available or is uncommon and thus desirable. Familiarity takes advantage of the trust that individuals put into people and organisations they are already familiar with. Trust-based attacks exploit a perception of trustworthiness."
   },
   {
     "question": "74. Which of the following best describes malware that will execute some malicious activity when a particular condition is met (i.e., if the condition is met, then executed)?",
@@ -769,7 +769,7 @@ export const sets = {
       "C. Social engineering and active scans",
       "D. OSINT and war driving"
     ],
-    "explanation": "The best way for Scott to determine where an organization’s wireless networks can be accessed from is to use war driving, war flying, and/or war walking techniques to map out the wireless signal footprint of the organization. OSINT and active scans would be useful gathering information about the organization and its systems, but not about its wireless networks range and accessibility, and social engineering is more likely to be useful for gathering information or gaining access to facilities or systems."
+    "explanation": "The best way for Scott to determine where an organisation’s wireless networks can be accessed from is to use war driving, war flying, and/or war walking techniques to map out the wireless signal footprint of the organisation. OSINT and active scans would be useful gathering information about the organisation and its systems, but not about its wireless networks range and accessibility, and social engineering is more likely to be useful for gathering information or gaining access to facilities or systems."
   },
   {
     "question": "78. Gerald is a network administrator for a small financial services company. Users are reporting odd behavior that appears to be caused by a virus on their machines. After isolating the machines that he believes are infected, Gerald analyzes them. He finds that all the infected machines received an email purporting to be from accounting, with an Excel spreadsheet, and the users opened the spreadsheet. What is the most likely issue on these machines?",
@@ -779,7 +779,7 @@ export const sets = {
       "C. A Trojan horse",
       "D. A RAT"
     ],
-    "explanation": "A macro virus is a malicious script (macro) embedded into a file, typically a Microsoft Office file. They are typically written in Visual Basic for Applications (VBA) script. A boot sector virus infects the boot sector of the hard drive. A Trojan horse is malware that is tied to a legitimate program. In this scenario, the malware is actually embedded in an Office document. The two are similar, but not the same. A remote access Trojan (RAT) is a Trojan horse that gives the attacker remote access to the machine."
+    "explanation": "A macro virus is a malicious script (macro) embedded into a file, typically a Microsoft Office file. They are typically written in Visual Basic for Applications (VBA) script. A boot sector virus infects the boot sector of the hard drive. A Trojan horse is malware that is tied to a legitimate programme. In this scenario, the malware is actually embedded in an Office document. The two are similar, but not the same. A remote access Trojan (RAT) is a Trojan horse that gives the attacker remote access to the machine."
   },
   {
     "question": "79. Your company has hired an outside security firm to perform various tests of your network. During the vulnerability scan, you will provide that company with logins for various systems (i.e., database server, application server, web server, etc.) to aid in their scan. What best describes this?",
@@ -799,7 +799,7 @@ export const sets = {
       "C. Bash, vulnerability scanning",
       "D. PowerShell, port scanning"
     ],
-    "explanation": "The Security+ exam expects practitioners to be able to analyze scripts and code to determine roughly what function they perform and to be able to identify multiple programming languages. Python relies on formatting like indenting to indicate blocks of code and does not use line end indicators as you would find in some languages. This code is a basic Python port scanner that will scan every port from 1 to 9999, checking to see if it allows a connection."
+    "explanation": "The Security+ exam expects practitioners to be able to analyse scripts and code to determine roughly what function they perform and to be able to identify multiple programming languages. Python relies on formatting like indenting to indicate blocks of code and does not use line end indicators as you would find in some languages. This code is a basic Python port scanner that will scan every port from 1 to 9999, checking to see if it allows a connection."
   },
   {
     "question": "81. Which of the following is commonly used in a distributed denial-of-service (DDoS) attack?",
@@ -809,7 +809,7 @@ export const sets = {
       "B. Adware",
       "D. Trojan"
     ],
-    "explanation": "Botnets are often used to launch DDoS attacks, with the attack coming from all the computers in the botnet simultaneously. Phishing attacks attempt to get the user to give up information, click on a link, or open an attachment. Adware consists of unwanted popup ads. A Trojan horse attaches malware to a legitimate program."
+    "explanation": "Botnets are often used to launch DDoS attacks, with the attack coming from all the computers in the botnet simultaneously. Phishing attacks attempt to get the user to give up information, click on a link, or open an attachment. Adware consists of unwanted popup ads. A Trojan horse attaches malware to a legitimate programme."
   },
   {
     "question": "82. Amanda discovers that a member of her organization's staff has installed a remote access Trojan on their accounting software server and has been accessing it remotely. What type of threat has she discovered?",
@@ -879,7 +879,7 @@ export const sets = {
       "B. Trojan horse",
       "D. Rootkit"
     ],
-    "explanation": "A backdoor is a method for bypassing normal security and directly accessing the system. A logic bomb is malware that performs its misdeeds when some condition is met. A Trojan horse wraps a malicious program to a legitimate program. When the user downloads and installs the legitimate program, they get the malware. A rootkit is malware that gets root or administrative privileges."
+    "explanation": "A backdoor is a method for bypassing normal security and directly accessing the system. A logic bomb is malware that performs its misdeeds when some condition is met. A Trojan horse wraps a malicious programme to a legitimate programme. When the user downloads and installs the legitimate programme, they get the malware. A rootkit is malware that gets root or administrative privileges."
   },
   {
     "question": "89. Daryl is investigating a recent breach of his company's web server. The attacker used sophisticated techniques and then defaced the website, leaving messages that were denouncing the company's public policies. He and his team are trying to determine the type of actor who most likely committed the breach. Based on the information provided, who was the most likely threat actor?",
@@ -889,7 +889,7 @@ export const sets = {
       "B. A nation-state",
       "C. Organized crime"
     ],
-    "explanation": "The fact that the website is defaced in a manner related to the company’s public indicates that the attackers were most likely engaging in hacktivism to make a political or belief-based point. Scripts, nation-state actors, and organized crime don’t account for the statements adverse to the company’s policies, which is why hacktivism is the real cause."
+    "explanation": "The fact that the website is defaced in a manner related to the company’s public indicates that the attackers were most likely engaging in hacktivism to make a political or belief-based point. Scripts, nation-state actors, and organised crime don’t account for the statements adverse to the company’s policies, which is why hacktivism is the real cause."
   },
   {
     "question": "90. What two techniques are most commonly associated with a pharming attack?",
@@ -979,7 +979,7 @@ export const sets = {
       "B. An APT",
       "D. A Trojan horse"
     ],
-    "explanation": "DNS poisoning occurs when false DNS information is inserted into legitimate DNS servers, resulting in traffic being redirected to unwanted or malicious sites. A backdoor provides access to the system by circumventing normal authentication. An APT is an advanced persistent threat. A Trojan horse ties a malicious program to a legitimate program."
+    "explanation": "DNS poisoning occurs when false DNS information is inserted into legitimate DNS servers, resulting in traffic being redirected to unwanted or malicious sites. A backdoor provides access to the system by circumventing normal authentication. An APT is an advanced persistent threat. A Trojan horse ties a malicious programme to a legitimate programme."
   },
   {
     "question": "99. Spyware is an example of what type of malicious software?",
@@ -989,7 +989,7 @@ export const sets = {
       "B. A worm",
       "D. A Trojan"
     ],
-    "explanation": "Spyware and adware are both common examples of a PUP, or potentially unwanted program. A CAT was made up for this question and is not a common categorization for malware, whereas worms are self-spreading malware that often exploit vulnerabilities to spread via a network. Trojans pretend to be legitimate software or paired with legitimate software to gain entry to a system or device."
+    "explanation": "Spyware and adware are both common examples of a PUP, or potentially unwanted programme. A CAT was made up for this question and is not a common categorisation for malware, whereas worms are self-spreading malware that often exploit vulnerabilities to spread via a network. Trojans pretend to be legitimate software or paired with legitimate software to gain entry to a system or device."
   },
   {
     "question": "100. What best describes an attack that attaches some malware to a legitimate program so that when the user installs the legitimate program, they inadvertently install the malware?",
@@ -1061,7 +1061,7 @@ export const sets = {
         "B. A blue team",
         "C. A white team"
       ],
-      "explanation": "Purple teams are a combination of red and blue teams intended to leverage the techniques and tools from both sides to improve organizational security. A red team is a team that tests security by using tools and techniques like an actual attacker. A blue team is a defender team that protects against attackers (and testers like red teams!). White teams oversee cybersecurity contests and judge events between red teams and blue teams."
+      "explanation": "Purple teams are a combination of red and blue teams intended to leverage the techniques and tools from both sides to improve organisational security. A red team is a team that tests security by using tools and techniques like an actual attacker. A blue team is a defender team that protects against attackers (and testers like red teams!). White teams oversee cybersecurity contests and judge events between red teams and blue teams."
     },
     {
       "question": "107. Mike is a network administrator with a small financial services company. He has received a pop-up window that states his files are now encrypted and he must pay .5 bitcoins to get them decrypted. He tries to check the files in question, but their extensions have changed, and he cannot open them. What best describes this situation?",
@@ -1101,7 +1101,7 @@ export const sets = {
         "C. Disabling the administrative user account",
         "D. Analyzing Windows crash dump files"
       ],
-      "explanation": "Fileless viruses often take advantage of PowerShell to perform actions once they have used a vulnerability in a browser or browser plug-in to inject themselves into system memory. Rick’s best option from the list provided is to enable PowerShell logging and then to review the logs on systems he believes are infected. Since fileless viruses don’t use files, an image of the disk is unlikely to provide much useful data. Disabling the administrative user won’t have an impact, since the compromise will happen inside the account of whichever user is logged in and impacted by the malware. Crash dump files could have artifacts of the fileless virus if the machine crashed while it was active, but unless that occurs they will not have that information."
+      "explanation": "Fileless viruses often take advantage of PowerShell to perform actions once they have used a vulnerability in a browser or browser plug-in to inject themselves into system memory. Rick’s best option from the list provided is to enable PowerShell logging and then to review the logs on systems he believes are infected. Since fileless viruses don’t use files, an image of the disk is unlikely to provide much useful data. Disabling the administrative user won’t have an impact, since the compromise will happen inside the account of whichever user is logged in and impacted by the malware. Crash dump files could have artefacts of the fileless virus if the machine crashed while it was active, but unless that occurs they will not have that information."
     },
     {
       "question": "111. John is responsible for physical security at a large manufacturing plant. Employees all use a smartcard in order to open the front door and enter the facility. Which of the following is a common way attackers would circumvent this system?",
@@ -1131,7 +1131,7 @@ export const sets = {
         "C. A worm",
         "D. None of the above"
       ],
-      "explanation": "Malicious tools like BadUSB can make a USB cable or drive look like a keyboard when they are plugged in. Somewhat strangely, the Security+ exam outline focuses on malicious USB cables, but you should be aware that malicious thumb drives are far more common and have been used by penetration testers simply by dropping them in a parking lot near their intended target. A Trojan or a worm is a possibility, but the clue involving the keyboard would point to a USB device as the first place Naomi should look."
+      "explanation": "Malicious tools like BadUSB can make a USB cable or drive look like a keyboard when they are plugged in. Somewhat strangely, the Security+ exam outline focuses on malicious USB cables, but you should be aware that malicious thumb drives are far more common and have been used by penetration testers simply by dropping them in a car park near their intended target. A Trojan or a worm is a possibility, but the clue involving the keyboard would point to a USB device as the first place Naomi should look."
     },
     {
       "question": "114. You are responsible for incident response at Acme Corporation. You have discovered that someone has been able to circumvent the Windows authentication process for a specific network application. It appears that the attacker took the stored hash of the password and sent it directly to the backend authentication service, bypassing the application. What type of attack is this?",
@@ -1201,7 +1201,7 @@ export const sets = {
         "B. Phishing",
         "D. Smurf attack"
       ],
-      "explanation": "Shoulder surfing involves literally looking over someone’s shoulder in a public place and gathering information, perhaps login passwords. ARP poisoning alters the Address Resolution Protocol tables in the switch. Phishing is an attempt to gather information, often via email, or to convince a user to click a link to, and/or download, an attachment. A Smurf attack is a historical form of denial-of-service attack."
+      "explanation": "Shoulder surfing involves literally looking over someone’s shoulder in a public place and gathering information, perhaps login passwords. ARP poisoning alters the Address Resolution Protocol tables in the switch. Phishing is an attempt to gather information, often via email, or to convince a user to click a link or to, and/or download, an attachment. A Smurf attack is a historical form of denial-of-service attack."
     },
     {
       "question": "121. What are the two most common goals of invoice scams?",
@@ -1211,7 +1211,7 @@ export const sets = {
         "C. Receiving money or stealing cryptocurrency",
         "D. Acquiring credentials or delivering ransomware"
       ],
-      "explanation": "Invoice scams typically either send legitimate appearing invoices to trick an organization into paying the fake invoice, or they focus on tricking employees into logging into a fake site to allow the acquisition of credentials. They typically do not focus on delivery of malware or stealing cryptocurrency."
+      "explanation": "Invoice scams typically either send legitimate appearing invoices to trick an organisation into paying the fake invoice, or they focus on tricking employees into logging into a fake site to allow the acquisition of credentials. They typically do not focus on delivery of malware or stealing cryptocurrency."
     },
     {
       "question": "122. Which of the following type of testing uses an automated process of proactively identifying vulnerabilities of the computing systems present on a network?",
@@ -1281,7 +1281,7 @@ export const sets = {
         "C. LDAP injection",
         "D. Cross-site scripting"
       ],
-      "explanation": "Cross-site request forgery (XSRF or CSRF) takes advantage of the cookies and URL parameters legitimate sites use to help track and serve their visitors. In an XSRF or a CSRF attack, attackers leverage authorized, authenticated users’ rights by providing them with a cookie or session data that will be read and processed when they visit the target site. An attacker may embed a link within an email or other location that will be clicked or executed by the user or an automated process with that user’s session already open. This is not SQL injection, which would attempt to send commands to a database, or LDAP injection, which gathers data from a directory server. Cross-site scripting (XSS) would embed code in user-submittable data fields that a website will display to other users, causing it to run."
+      "explanation": "Cross-site request forgery (XSRF or CSRF) takes advantage of the cookies and URL parameters legitimate sites use to help track and serve their visitors. In an XSRF or a CSRF attack, attackers leverage authorised, authenticated users’ rights by providing them with a cookie or session data that will be read and processed when they visit the target site. An attacker may embed a link within an email or other location that will be clicked or executed by the user or an automated process with that user’s session already open. This is not SQL injection, which would attempt to send commands to a database, or LDAP injection, which gathers data from a directory server. Cross-site scripting (XSS) would embed code in user-submittable data fields that a website will display to other users, causing it to run."
     },
     {
       "question": "129. Nathan discovers the following code in the directory of a compromised user. What language is it using, and what will it do?\necho \"ssh-rsa ABBAB4KAE9sdafAK…Mq/jc5YLfnAnbFDRABMhuWzaWUp root@localhost\" >> /root/.ssh/authorized_keys",
@@ -1291,7 +1291,7 @@ export const sets = {
         "B. Bash, connects to another system using an SSH key",
         "C. Python, connects to another system using an SSH key"
       ],
-      "explanation": "You will need to be able to read and understand basic scripts and programs in multiple languages for the Security+ exam. In this example, you can recognize common Bash syntax and see that it is adding a key to the authorized keys file for root. If that’s not an expected script, you should be worried!"
+      "explanation": "You will need to be able to read and understand basic scripts and programmes in multiple languages for the Security+ exam. In this example, you can recognise common Bash syntax and see that it is adding a key to the authorised keys file for root. If that’s not an expected script, you should be worried!"
     },
     {
       "question": "130. Jared has discovered malware on the workstations of several users. This particular malware provides administrative privileges for the workstation to an external hacker. What best describes this malware?",
@@ -1301,7 +1301,7 @@ export const sets = {
         "B. Logic bomb",
         "C. Multipartite virus"
       ],
-      "explanation": "Rootkits provide administrative access to systems, thus the “root” in rootkit. A Trojan horse combines malware with a legitimate program. A logic bomb performs its malicious activity when some condition is met. A multipartite virus infects the boot sector and a file."
+      "explanation": "Rootkits provide administrative access to systems, thus the “root” in rootkit. A Trojan horse combines malware with a legitimate programme. A logic bomb performs its malicious activity when some condition is met. A multipartite virus infects the boot sector and a file."
     },
     {
       "question": "131. Why are memory leaks a potential security issue?",
@@ -1361,7 +1361,7 @@ export const sets = {
         "C. War dialing",
         "D. Robocalling"
       ],
-      "explanation": "This is vishing, or using voice calls for phishing. Spear phishing is targeting a small, specific group. War dialing is dialing numbers hoping a computer modem answers. Robocalling is used to place unsolicited telemarketing calls."
+      "explanation": "This is vishing, or using voice calls for phishing. Spear phishing is targeting a small, specific group. War dialling is dialling numbers hoping a computer modem answers. Robocalling is used to place unsolicited telemarketing calls."
     },
     {
       "question": "137. John is analyzing a recent malware infection on his company network. He discovers malware that can spread rapidly via vulnerable network services and does not require any interaction from the user. What best describes this malware?",
@@ -1371,7 +1371,7 @@ export const sets = {
         "C. Logic bomb",
         "D. Trojan horse"
       ],
-      "explanation": "Worms spread themselves via vulnerabilities, making this an example of a worm. A virus is software that self-replicates. A logic bomb executes its malicious activity when some condition is met. A Trojan horse combines malware with a legitimate program."
+      "explanation": "Worms spread themselves via vulnerabilities, making this an example of a worm. A virus is software that self-replicates. A logic bomb executes its malicious activity when some condition is met. A Trojan horse combines malware with a legitimate programme."
     },
     {
       "question": "138. Your company has issued some new security directives. One of these new directives is that all documents must be shredded before being thrown out. What type of attack is this trying to prevent?",
@@ -1381,7 +1381,7 @@ export const sets = {
         "C. Shoulder surfing",
         "D. On-path attack"
       ],
-      "explanation": "Dumpster diving is the process of going through the trash to find documents. Shredding documents will help to prevent dumpster diving, but truly dedicated dumpster divers can reassemble even well-shredded documents, leading some organizations to burn their most sensitive documents after they have been shredded. Phishing is often done via email or phone and is an attempt to elicit information or convince a user to click a link or open an attachment. Shoulder surfing is literally looking over someone’s shoulder. In the on-path (man-in-the-middle) attack, the attacker is between the client and the server, and to either end, the attacker appears like the legitimate other end."
+      "explanation": "Dumpster diving is the process of going through the rubbish to find documents. Shredding documents will help to prevent dumpster diving, but truly dedicated dumpster divers can reassemble even well-shredded documents, leading some organisations to burn their most sensitive documents after they have been shredded. Phishing is often done via email or phone and is an attempt to elicit information or convince a user to click a link or open an attachment. Shoulder surfing is literally looking over someone’s shoulder. In the on-path (man-in-the-middle) attack, the attacker is between the client and the server, and to either end, the attacker appears like the legitimate other end."
     },
     {
       "question": "139. Which of the following is not a common part of a cleanup process after a penetration test?",
@@ -1431,7 +1431,7 @@ export const sets = {
         "B. A RAT",
         "C. A worm"
       ],
-      "explanation": "Browser toolbars are sometimes examples of PUPs, or potentially unwanted programs like spyware or adware. A worm is a type of malware that spreads on its own by exploiting vulnerabilities on network-connected systems. Once it infects a system, it will typically scan for other vulnerable systems and continue to spread. A RAT is a remote-access Trojan, and a rootkit is used to gain and keep administrative access."
+      "explanation": "Browser toolbars are sometimes examples of PUPs, or potentially unwanted programmes like spyware or adware. A worm is a type of malware that spreads on its own by exploiting vulnerabilities on network-connected systems. Once it infects a system, it will typically scan for other vulnerable systems and continue to spread. A RAT is a remote-access Trojan, and a rootkit is used to gain and keep administrative access."
     },
     {
       "question": "144. What term describes data that is collected from publicly available sources that can be used in an intelligence context?",
@@ -1451,7 +1451,7 @@ export const sets = {
         "B. A phishing net attack",
         "D. A phish pond attack"
       ],
-      "explanation": "Watering hole attacks target groups by focusing on common shared behaviors like visiting specific websites. If attackers can compromise the site or deliver targeted attacks through it, they can then target that group. Watercooler, phishing net, and phish pond attacks were all made up for this question."
+      "explanation": "Watering hole attacks target groups by focusing on common shared behaviours like visiting specific websites. If attackers can compromise the site or deliver targeted attacks through it, they can then target that group. Watercooler, phishing net, and phish pond attacks were all made up for this question."
     },
     {
       "question": "146. Tracy is concerned about LDAP injection attacks against her directory server. Which of the following is not a common technique to prevent LDAP injection attacks?",
@@ -1461,7 +1461,7 @@ export const sets = {
         "B. User input validation",
         "D. Output filtering rules"
       ],
-      "explanation": "Although Structured Query Language (SQL) queries are often parameterized, Lightweight Directory Access Protocol (LDAP) security practices focus instead on user input validation and filtering of output to ensure that an excessive amount of data is not being returned in queries. As with all services, securely configuring LDAP services is one of the first protections that should be put in place."
+      "explanation": "Although Structured Query Language (SQL) queries are often parameterised, Lightweight Directory Access Protocol (LDAP) security practices focus instead on user input validation and filtering of output to ensure that an excessive amount of data is not being returned in queries. As with all services, securely configuring LDAP services is one of the first protections that should be put in place."
     },
     {
       "question": "147. Fred uses a Tor proxy to browse for sites as part of his threat intelligence. What term is frequently used to describe this part of the Internet?",
@@ -1491,7 +1491,7 @@ export const sets = {
         "C. The time required to remediate",
         "D. Your responsibility for compromised data"
       ],
-      "explanation": "Vulnerabilities in cloud services require work on the part of the cloud service provider to remediate them. You can remediate most vulnerabilities in your own infrastructure yourself without a third party. Vulnerabilities in cloud services and local infrastructure can both be as severe and take as much time to remediate. Regardless of where your organization stores its data, your responsibility for it is likely the same!"
+      "explanation": "Vulnerabilities in cloud services require work on the part of the cloud service provider to remediate them. You can remediate most vulnerabilities in your own infrastructure yourself without a third party. Vulnerabilities in cloud services and local infrastructure can both be as severe and take as much time to remediate. Regardless of where your organisation stores its data, your responsibility for it is likely the same!"
     },
     {
       "question": "150. Christina runs a vulnerability scan of a customer network and discovers that a consumer wireless router on the network returns a result reporting default login credentials. What common configuration issue has she encountered?",
@@ -1511,7 +1511,7 @@ export const sets = {
         "C. A white team",
         "D. A purple team"
       ],
-      "explanation": "A red team is a team that tests security by using tools and techniques like an actual attacker. A blue team is a defender team that protects against attackers (and testers like red teams!). Purple teams are a combination of red and blue teams intended to leverage the techniques and tools from both sides to improve organizational security. White teams oversee cybersecurity contests and judge events between red teams and blue teams."
+      "explanation": "A red team is a team that tests security by using tools and techniques like an actual attacker. A blue team is a defender team that protects against attackers (and testers like red teams!). Purple teams are a combination of red and blue teams intended to leverage the techniques and tools from both sides to improve organisational security. White teams oversee cybersecurity contests and judge events between red teams and blue teams."
     },
     {
       "question": "152. While reviewing web logs for her organization's website Kathleen discovers the entry shown here:\nGET http://example.com/viewarticle.php?view=../../../config.txt HTTP/1.1\nWhat type of attack has she potentially discovered?",
@@ -1581,7 +1581,7 @@ export const sets = {
         "C. A dark web tracker",
         "D. An OSINT repository"
       ],
-      "explanation": "Threat maps like those found at threatmap.fortiguard.com and threatmap.checkpoint.com are visualizations of real-time or near real-time data gathered by vendors and other organizations that can help visualize major threats and aid in analysis of them. Pie charts may be done in real time via security information and event management (SIEM) or other systems, but note that no SIEM or other device was mentioned. A dark web tracker was made up for the question, and OSINT repositories wouldn’t show real-time data like this."
+      "explanation": "Threat maps like those found at threatmap.fortiguard.com and threatmap.checkpoint.com are visualisations of real-time or near real-time data gathered by vendors and other organisations that can help visualise major threats and aid in analysis of them. Pie charts may be done in real time via security information and event management (SIEM) or other systems, but note that no SIEM or other device was mentioned. A dark web tracker was made up for the question, and OSINT repositories wouldn’t show real-time data like this."
     },
     {
       "question": "159. You have noticed that when in a crowded area, data from your cell phone is stolen. Later investigation shows a Bluetooth connection to your phone, one that you cannot explain. What describes this attack?",
@@ -1621,7 +1621,7 @@ export const sets = {
         "B. Scarcity",
         "D. Trust"
       ],
-      "explanation": "The penetration tester leveraged the principle of urgency and also used some elements of authority by claiming to be a senior member of the organization. They didn’t threaten or intimidate the help desk staff member and did not make something seem scarce, nor did they attempt to build trust with the staff member."
+      "explanation": "The penetration tester leveraged the principle of urgency and also used some elements of authority by claiming to be a senior member of the organisation. They didn’t threaten or intimidate the help desk staff member and did not make something seem scarce, nor did they attempt to build trust with the staff member."
     },
     {
       "question": "163. Patrick has subscribed to a commercial threat intelligence feed that is only provided to subscribers who have been vetted and who pay a monthly fee. What industry term is used to refer to this type of threat intelligence?",
@@ -1641,7 +1641,7 @@ export const sets = {
         "C. Threat feed analysis",
         "D. Bulletin analysis"
       ],
-      "explanation": "CompTIA defines “maneuver” in the context of threat hunting as how to think like a malicious user to help you identify potential indicators of compromise in your environment. Outside of the Security+ exam, this is not a commonly used term in normal security practice, although it does make an appearance in military usage. Since this term is not common outside of the Security+ exam, make sure you understand the CompTIA definition. Intelligence fusion adds multiple intelligence sources together, threat feeds are used to provide information about threats, and advisories and bulletins are often combined with threat feeds to understand new attacks, vulnerabilities, and other threat information."
+      "explanation": "CompTIA defines “manoeuvre” in the context of threat hunting as how to think like a malicious user to help you identify potential indicators of compromise in your environment. Outside of the Security+ exam, this is not a commonly used term in normal security practice, although it does make an appearance in military usage. Since this term is not common outside of the Security+ exam, make sure you understand the CompTIA definition. Intelligence fusion adds multiple intelligence sources together, threat feeds are used to provide information about threats, and advisories and bulletins are often combined with threat feeds to understand new attacks, vulnerabilities, and other threat information."
     },
     {
       "question": "165. What type of malicious actor will typically have the least amount of resources available to them?",
@@ -1651,7 +1651,7 @@ export const sets = {
         "C. Hacktivists",
         "D. Organized crime"
       ],
-      "explanation": "Script kiddies are the least resourced of the common threat actors listed above. In general, they flow from national state actors as the most highly resourced, to organized crime, to hacktivists, to inside actors, and then to script kiddies as the least capable and least resourced actors. As with any scale like this, there is room for some variability between specific actors, but for the exam, you should track them in that order."
+      "explanation": "Script kiddies are the least resourced of the common threat actors listed above. In general, they flow from national state actors as the most highly resourced, to organised crime, to hacktivists, to inside actors, and then to script kiddies as the least capable and least resourced actors. As with any scale like this, there is room for some variability between specific actors, but for the exam, you should track them in that order."
     },
     {
       "question": "166. A SYN flood seeks to overwhelm a system by tying up all the open sessions that it can create. What type of attack is this?",
@@ -1681,7 +1681,7 @@ export const sets = {
         "B. Air Snarfing",
         "D. Aerial snooping"
       ],
-      "explanation": "You may be familiar with the term war driving, but war flying is increasingly common as drones have entered wide use. Although penetration testers are somewhat unlikely to fly a helicopter or airplane over a target site, inexpensive drones can provide useful insight into both physical security and wireless network coverage if equipped with the right hardware. Droning and aerial snooping were made up for this question, and Air Snarf is an old tool for capturing usernames and passwords on vulnerable wireless networks."
+      "explanation": "You may be familiar with the term war driving, but war flying is increasingly common as drones have entered wide use. Although penetration testers are somewhat unlikely to fly a helicopter or aeroplane over a target site, inexpensive drones can provide useful insight into both physical security and wireless network coverage if equipped with the right hardware. Droning and aerial snooping were made up for this question, and Air Snarf is an old tool for capturing usernames and passwords on vulnerable wireless networks."
     },
     {
       "question": "169. Gabby wants to protect a legacy platform with known vulnerabilities. Which of the following is not a common option for this?",
@@ -1691,7 +1691,7 @@ export const sets = {
         "B. Place the device behind a dedicated firewall and restrict inbound and outbound traffic.",
         "D. Move the device to a protected VLAN."
       ],
-      "explanation": "Many organizations have legacy platforms in place that cannot be patched or upgraded but that are still an important part of their business. Security professionals are often asked to suggest ways to secure the systems while leaving them operational. Common options include moving the devices to an isolated virtual LAN (VLAN), disconnecting the devices from the network and ensuring they are not plugged back in, and using a firewall or other security device to ensure that the legacy system is protected from attacks and cannot browse the Internet or perform other actions that could result in compromise."
+      "explanation": "Many organisations have legacy platforms in place that cannot be patched or upgraded but that are still an important part of their business. Security professionals are often asked to suggest ways to secure the systems while leaving them operational. Common options include moving the devices to an isolated virtual LAN (VLAN), disconnecting the devices from the network and ensuring they are not plugged back in, and using a firewall or other security device to ensure that the legacy system is protected from attacks and cannot browse the Internet or perform other actions that could result in compromise."
     },
     {
       "question": "170. In the United States, collaborative industry organizations that analyze and share cybersecurity threat information within their industry verticals are known by what term?",
@@ -1701,7 +1701,7 @@ export const sets = {
         "C. Feedburners",
         "D. Vertical threat feeds"
       ],
-      "explanation": "According to the national council of ISACs, information sharing and analysis centers, “Information Sharing and Analysis Centers (ISACs) help critical infrastructure owners and operators protect their facilities, personnel and customers from cyber and physical security threats and other hazards. ISACs collect, analyze and disseminate actionable threat information to their members and provide members with tools to mitigate risks and enhance resiliency.” IRTs are incident response teams, Feedburner is Google’s RSS feed management tool, and vertical threat feeds is not an industry term."
+      "explanation": "According to the national council of ISACs, information sharing and analysis centres, “Information Sharing and Analysis Centers (ISACs) help critical infrastructure owners and operators protect their facilities, personnel and customers from cyber and physical security threats and other hazards. ISACs collect, analyze and disseminate actionable threat information to their members and provide members with tools to mitigate risks and enhance resiliency.” IRTs are incident response teams, Feedburner is Google’s RSS feed management tool, and vertical threat feeds is not an industry term."
     },
     {
       "question": "171. After running nmap against a system on a network, Lucca sees that TCP port 23 is open and a service is running on it. What issue should he identify?",
@@ -1741,7 +1741,7 @@ export const sets = {
         "C. Requiring change control and documentation for all changes to the algorithms",
         "D. Ensuring a secure environment for all development, data acquisition, and storage"
       ],
-      "explanation": "Although engaging domain experts is often encouraged, requiring third-party review of proprietary algorithms is not. Many machine learning algorithms are sensitive since they are part of an organization’s competitive advantage. Ensuring that data is secure and of sufficient quality, ensuring a secure development environment, and requiring change control are all common artificial intelligence (AI)/machine learning (ML) security practices."
+      "explanation": "Although engaging domain experts is often encouraged, requiring third-party review of proprietary algorithms is not. Many machine learning algorithms are sensitive since they are part of an organisation’s competitive advantage. Ensuring that data is secure and of sufficient quality, ensuring a secure development environment, and requiring change control are all common artificial intelligence (AI)/machine learning (ML) security practices."
     },
     {
       "question": "175. Frank is part of a white team for a cybersecurity exercise. What role will he and his team have?",
@@ -1751,7 +1751,7 @@ export const sets = {
         "C. Providing partial details of the environment to the participants",
         "D. Providing defense against the attackers in the exercise"
       ],
-      "explanation": "White teams act as judges and provide oversight of cybersecurity exercises and competitions. Options B and C may remind you of white- and gray-box tests, but they’re only there to confuse you. Cybersecurity teams are usually referred to with colors like red, blue, and purple as the most common colors, as well as the white teams that the Security+ exam outline mentions. Defenders in an exercise are part of the blue team."
+      "explanation": "White teams act as judges and provide oversight of cybersecurity exercises and competitions. Options B and C may remind you of white- and gray-box tests, but they’re only there to confuse you. Cybersecurity teams are usually referred to with colours like red, blue, and purple as the most common colours, as well as the white teams that the Security+ exam outline mentions. Defenders in an exercise are part of the blue team."
     },
     {
       "question": "176. Susan receives $10,000 for reporting a vulnerability to a vendor who participates in a program to identify issues. What term is commonly used to describe this type of payment?",
@@ -1761,7 +1761,7 @@ export const sets = {
         "B. A payday",
         "D. A zero-day disclosure"
       ],
-      "explanation": "Bug bounties are increasingly common and can be quite lucrative. Bug bounty websites match vulnerability researchers with organizations that are willing to pay for information about issues with their software or services. Ransoms are sometimes demanded by attackers, but this is not a ransom since it was voluntarily paid as part of a reward system. A zero-day disclosure happens when a vulnerability is disclosed and the organization has not been previously informed and allowed to fix the issue. Finally, you might feel like $10,000 is a payday, but the term is not used as a technical term and doesn’t appear on the exam."
+      "explanation": "Bug bounties are increasingly common and can be quite lucrative. Bug bounty websites match vulnerability researchers with organisations that are willing to pay for information about issues with their software or services. Ransoms are sometimes demanded by attackers, but this is not a ransom since it was voluntarily paid as part of a reward system. A zero-day disclosure happens when a vulnerability is disclosed and the organisation has not been previously informed and allowed to fix the issue. Finally, you might feel like $10,000 is a payday, but the term is not used as a technical term and doesn’t appear on the exam."
     },
     {
       "question": "177. Charles sets the permissions on the /etc directory on a Linux system to 777 using the chmod command. If Alex later discovers this, what should he report his finding as?",
@@ -1784,14 +1784,14 @@ export const sets = {
       "explanation": "Footprinting is the process of gathering information about a computer system or network, and it can involve both active and passive techniques. Mapping, fingerprinting, and aggregation are not the correct or common terms for this practice."
     },
     {
-      "question": "179. What term is used to describe mapping wireless networks while driving?",
+      "question": "179. What term describes mapping wireless networks while driving?",
       "correct_answer": "C. War driving",
       "incorrect_answers": [
         "A. Wi-driving",
         "B. Traffic testing",
         "D. CARINT"
       ],
-      "explanation": "When dial-up modems were in heavy use, hackers would conduct war dialing exercises to call many phone numbers to find modems that would answer. When wireless networks became the norm, the same type of language was used, leading to terms like war walking, war driving, and even war flying. The rest of the options were made up, but you should remember that the Security+ exam expects you to know about war driving and war flying."
+      "explanation": "When dial-up modems were in heavy use, hackers would conduct war dialling exercises to call many phone numbers to find modems that would answer. When wireless networks became the norm, the same type of language was used, leading to terms like war walking, war driving, and even war flying. The rest of the options were made up, but you should remember that the Security+ exam expects you to know about war driving and war flying."
     },
     {
       "question": "180. Fred discovers that the lighting and utility control systems for his company have been overwhelmed by traffic sent to them from hundreds of external network hosts. This has resulted in the lights and utility system management systems not receiving appropriate reporting, and the endpoint devices cannot receive commands. What type of attack is this?",
@@ -1861,7 +1861,7 @@ export const sets = {
         "C. Penetration testing",
         "D. Vulnerability scanning"
       ],
-      "explanation": "Threat hunting can involve a variety of activities such as intelligence fusion, combining multiple data sources and threat feeds, and reviewing advisories and bulletins to remain aware of the threat environment for your organization or industry."
+      "explanation": "Threat hunting can involve a variety of activities such as intelligence fusion, combining multiple data sources and threat feeds, and reviewing advisories and bulletins to remain aware of the threat environment for your organisation or industry."
     },
     {
       "question": "187. Why do attackers target passwords stored in memory?",
@@ -1901,7 +1901,7 @@ export const sets = {
         "C. A watering hole attack",
         "D. Prepending"
       ],
-      "explanation": "Angela has impersonated an actual employee of the delivery service to gain access to the company. Company uniforms are a very useful element for in-person social engineering. Whaling is a type of phishing attack aimed at leaders in an organization. A watering hole attack deploys malware or other attack tools at a site or sites that a target group frequently uses. Prepending is vaguely defined by the Security+ exam but can mean a number of things. When you see prepending on the exam, it should normally mean “adding something to the front of text.”"
+      "explanation": "Angela has impersonated an actual employee of the delivery service to gain access to the company. Company uniforms are a very useful element for in-person social engineering. Whaling is a type of phishing attack aimed at leaders in an organisation. A watering hole attack deploys malware or other attack tools at a site or sites that a target group frequently uses. Prepending is vaguely defined by the Security+ exam but can mean a number of things. When you see prepending on the exam, it should normally mean “adding something to the front of text.”"
     },
     {
       "question": "191. Nick purchases his network devices through a gray market supplier that imports them into his region without an official relationship with the network device manufacturer. What risk should Nick identify when he assesses his supply chain risk?",
@@ -1911,7 +1911,7 @@ export const sets = {
         "B. Lack of warranty coverage",
         "C. Inability to validate the source of the devices"
       ],
-      "explanation": "Acquisition via the gray market can lead to lack of vendor support, lack of warranty coverage, and the inability to validate where the devices came from. Nick should express concerns about the supply chain, and if his devices need to be from a trusted source or supplier with real support he may need to change his organization’s acquisition practices."
+      "explanation": "Acquisition via the grey market can lead to lack of vendor support, lack of warranty coverage, and the inability to validate where the devices came from. Nick should express concerns about the supply chain, and if his devices need to be from a trusted source or supplier with real support he may need to change his organisation’s acquisition practices."
     },
     {
       "question": "192. Christina wants to identify indicators of attack for XML-based web applications that her organization runs. Where is she most likely to find information that can help her determine whether XML injection is occurring against her web applications?",
@@ -1921,7 +1921,7 @@ export const sets = {
         "C. Authentication logs",
         "D. Event logs"
       ],
-      "explanation": "XML injection is often done by modifying HTTP queries sent to an XML-based web service. Reviewing web server logs to see what was sent and analyzing them for potential attacks will help Christina see if unexpected user input is visible in the logs. Syslog, authentication logs, and event logs are unlikely to contain information about web applications that would show evidence of an XML injection–based attack."
+      "explanation": "XML injection is often done by modifying HTTP queries sent to an XML-based web service. Reviewing web server logs to see what was sent and analysing them for potential attacks will help Christina see if unexpected user input is visible in the logs. Syslog, authentication logs, and event logs are unlikely to contain information about web applications that would show evidence of an XML injection–based attack."
     },
     {
       "question": "193. What can Frank do to determine if he is suffering from a denial-of-service (DoS) attack against his cloud hosting environment?",
@@ -1941,7 +1941,7 @@ export const sets = {
         "B. Apache logs",
         "D. None of the above"
       ],
-      "explanation": "Since Frank is using the cloud service provider’s web services, he will need to review the logs that they capture. If he has not configured them, he will need to do so, and he will then need a service or capability to analyze them for the types of traffic he is concerned about. Syslog and Apache logs are both found on a traditional web host, and they would be appropriate if Frank was running his own web servers in the infrastructure as a service (IaaS) environment."
+      "explanation": "Since Frank is using the cloud service provider’s web services, he will need to review the logs that they capture. If he has not configured them, he will need to do so, and he will then need a service or capability to analyse them for the types of traffic he is concerned about. Syslog and Apache logs are both found on a traditional web host, and they would be appropriate if Frank was running his own web servers in the infrastructure as a service (IaaS) environment."
     },
     {
       "question": "195. If Frank were still operating in his on-site infrastructure, which of the following technologies would provide the most insight into what type of attack he was seeing?",
@@ -1951,7 +1951,7 @@ export const sets = {
         "C. A vulnerability scanner",
         "D. Antimalware software"
       ],
-      "explanation": "The most useful data is likely to come from an IPS, or intrusion prevention system. He will be able to determine if the attack is a denial-of-service (DoS) attack, and the IPS may be able to help him determine the source of the denial-of-service attack. A firewall might provide some useful information but would only show whether or not traffic was allowed and would not analyze the traffic for attack information. A vulnerability scanner would indicate if there was an issue with his application or the server, but it would not identify this type of attack. Antimalware software can help find malware on the system but isn’t effective against a DoS attack."
+      "explanation": "The most useful data is likely to come from an IPS, or intrusion prevention system. He will be able to determine if the attack is a denial-of-service (DoS) attack, and the IPS may be able to help him determine the source of the denial-of-service attack. A firewall might provide some useful information but would only show whether or not traffic was allowed and would not analyse the traffic for attack information. A vulnerability scanner would indicate if there was an issue with his application or the server, but it would not identify this type of attack. Antimalware software can help find malware on the system but isn’t effective against a DoS attack."
     },
     {
       "question": "196. Alaina wants to ensure that the on-site system integration that a vendor that her company is working with is done in accordance with industry best practices. Which of the following is not a common method of ensuring this?",
@@ -1961,7 +1961,7 @@ export const sets = {
         "B. Auditing configurations",
         "C. Coordinating with the vendor for security reviews during and after installation"
       ],
-      "explanation": "Contractual terms, auditing, and security reviews are all common means of reducing third-party risks when working with a vendor that is performing systems integration work. An SOC (service organization controls) report would typically be requested if you were going to use a third-party vendor’s datacenter or hosted services."
+      "explanation": "Contractual terms, auditing, and security reviews are all common means of reducing third-party risks when working with a vendor that is performing systems integration work. An SOC (service organisation controls) report would typically be requested if you were going to use a third-party vendor’s datacenter or hosted services."
     },
     {
       "question": "197. Elias has implemented an AI-based network traffic analysis tool that requires him to allow the tool to monitor his network for a period of two weeks before being put into full production. What is the most significant concern he needs to address before using the AI's baselining capabilities?",
@@ -1981,7 +1981,7 @@ export const sets = {
         "B. Financial gain",
         "D. Gathering high-value data"
       ],
-      "explanation": "The most common motivation for hacktivists is to make a political statement. Reputational gains are often associated with script kiddies, whereas financial gain is most commonly a goal of organized crime or insider threats. Gathering high-value data is typical of both nation-state actors and organized crime."
+      "explanation": "The most common motivation for hacktivists is to make a political statement. Reputational gains are often associated with script kiddies, whereas financial gain is most commonly a goal of organised crime or insider threats. Gathering high-value data is typical of both nation-state actors and organised crime."
     },
     {
       "question": "199. Where does the information for predictive analysis for threat intelligence come from?",
@@ -1991,7 +1991,7 @@ export const sets = {
         "B. Large security datasets",
         "C. Behavior patterns"
       ],
-      "explanation": "Predictive analysis tools use large volumes of data, including information about security trends and threats, large security datasets from various security tools and other sources, and behavior patterns, to predict and identify malicious and suspicious behavior."
+      "explanation": "Predictive analysis tools use large volumes of data, including information about security trends and threats, large security datasets from various security tools and other sources, and behaviour patterns, to predict and identify malicious and suspicious behaviour."
     },
     {
       "question": "200. Social Security numbers and other personal information are often stolen for what purpose?",
@@ -2007,3 +2007,5 @@ export const sets = {
 }
 
 export const questions = [...sets.set1, ...sets.set2];
+
+    
