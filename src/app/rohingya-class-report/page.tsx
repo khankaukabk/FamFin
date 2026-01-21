@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -942,7 +943,7 @@ export default function RohingyaClassReportPage() {
           </Card>
           
           <Tabs defaultValue="session-9.2" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 sm:grid-cols-5 md:grid-cols-9">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="session-2">Sess. 2</TabsTrigger>
               <TabsTrigger value="session-3">Sess. 3</TabsTrigger>
               <TabsTrigger value="session-4">Sess. 4</TabsTrigger>
@@ -1294,7 +1295,7 @@ export default function RohingyaClassReportPage() {
                                         <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-3">
-                                        {section.report.sections.map((reportSection, reportIndex) => (
+                                        {session.report.sections.map((reportSection, reportIndex) => (
                                             <div key={reportIndex}>
                                                 <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
                                                 <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
@@ -1373,3 +1374,5 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
+
+    
