@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/ui/navigation";
 import { Separator } from "@/components/ui/separator";
-import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper, Milestone, PiggyBank, Receipt, ShoppingCart, Calculator } from "lucide-react";
+import { Target, CheckCircle, MessageSquare, BrainCircuit, Users, Hand, Lightbulb, Home, Heart, Coffee, Shield, BookHeart, HeartPulse, Salad, Rainbow, ClipboardList, Repeat, Globe, Trees, Anchor, AlertTriangle, Speaker, Paintbrush, Gamepad2, Phone, PartyPopper, Milestone, PiggyBank, Receipt, ShoppingCart, Calculator, Wind, Scissors, Shirt } from "lucide-react";
 
 const session2ReportSections = [
   {
@@ -1040,7 +1040,7 @@ export default function RohingyaClassReportPage() {
           </Card>
           
           <Tabs defaultValue="session-hygiene" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
               <TabsTrigger value="session-2">Sess. 2</TabsTrigger>
               <TabsTrigger value="session-3">Sess. 3</TabsTrigger>
               <TabsTrigger value="session-4">Sess. 4</TabsTrigger>
@@ -1525,5 +1525,3 @@ export default function RohingyaClassReportPage() {
     </div>
   );
 }
-
-    
