@@ -928,6 +928,103 @@ const financialLiteracyGuide = [
     }
 ];
 
+const hygieneGuide = [
+    {
+        id: "H1",
+        title: "Opening: Faith and Cleanliness",
+        duration: "5 minutes",
+        icon: Users,
+        goal: "To teach that cleanliness is an act of worship.",
+        steps: [
+            { title: "You Say", instruction: '"As Muslims, our faith is not just about praying. It is about how we live. Today we talk about cleanliness."' },
+            { title: "You Read", instruction: '"Indeed, Allah loves those who constantly repent and loves those who purify themselves.” (Qur’an 2:222)"' },
+            { title: "You Ask", instruction: '"The Prophet (peace be upon him) said cleanliness is part of what?"' },
+        ],
+        report: {
+            title: "Sample Responses",
+            sections: [
+                { title: "Answers:", content: '"It is part of Faith (Iman)."\n"Cleanliness is half of faith."' }
+            ]
+        }
+    },
+    {
+        id: "H2",
+        title: 'The "Toilet Paper Problem" (Istinja in the U.S.)',
+        duration: "10 minutes",
+        icon: AlertTriangle,
+        goal: "Provide a practical solution for maintaining ritual purity.",
+        parts: [
+            { title: "Context", content: 'Many refugees are stressed because U.S. toilets do not have water hoses (shattaf).' },
+            { title: "You Say", content: '"In our countries, bathrooms have water hoses. In the U.S., most toilets only have paper. This is very hard for Muslims who want to be pure (Tahir) for prayer."' },
+            { title: "You Ask", content: '"How can we use water in a U.S. toilet if there is no hose?"' },
+            { title: "Activity", content: 'Hold up the plastic watering can or empty water bottle.\n"You can buy a plastic watering can at the dollar store for $1. Or use an empty water bottle. Keep it filled next to the toilet. This is your \'mobile hose\' for Istinja."' },
+            { title: "Important Rule", content: '"In the U.S., the pipes are different. You must put the paper IN the toilet and flush it away. Dirty paper in the trash creates bad smells and bacteria."' }
+        ]
+    },
+    {
+        id: "H3",
+        title: "Body & Hair: Recognizing Products",
+        duration: "10 minutes",
+        icon: Paintbrush,
+        goal: "Preventing confusion between Shampoo and Conditioner to save money.",
+        parts: [
+            { title: "You Say", content: '"At the store, there are 100 bottles. They all look the same! It is easy to waste money."' },
+            { title: "Activity", content: 'Hold up the Shampoo and Conditioner.\n"Who knows the difference between these two words?"' },
+            { title: "Explanation", content: '"Shampoo = Cleans dirt and sweat. It is a NEED."\n"Conditioner = Makes hair soft. It does *not* clean. It is a WANT."' },
+            { title: "Tip", content: '"If you work hard and sweat, water is not enough. You need Shampoo or Soap to kill the smell."' }
+        ]
+    },
+    {
+        id: "H4",
+        title: "Deodorant & Smells",
+        duration: "10 minutes",
+        icon: Wind,
+        goal: 'Explain that deodorant is good manners, not "changing Allah\'s creation."',
+        parts: [
+            { title: "You Say", content: '"The Prophet (peace be upon him) disliked strong, bad smells because they bother the angels and the people praying next to you."' },
+            { title: "You Ask", content: '"We wash our bodies, but we sweat again quickly. What can we use under our arms?"' },
+            { title: "Discussion", content: '"Is using deodorant allowed in Islam? Yes! It is encouraged! It respects the people standing next to you in the Masjid or on the bus."' }
+        ]
+    },
+    {
+        id: "H5",
+        title: "Clothes & The Laundromat",
+        duration: "10 minutes",
+        icon: Shirt,
+        goal: "Teach shared laundry etiquette and managing winter coat smells.",
+        parts: [
+            { title: "You Read", content: '“And purify your garments.” (Qur’an 74:4)' },
+            { title: "You Say", content: '"Many of us use a Laundromat (shared washing machines). There is a special \'manners\' (Adab) for this."' },
+            { title: "You Ask", content: '"If you leave your wet clothes in the machine for 2 hours, what happens to the next person?"' },
+            { title: "Rule", content: '"In the U.S., you must move your clothes immediately. It is part of being a good neighbor."' },
+            { title: "Winter Coat Tip", content: '"Wool holds smells. Hang your coat away from the kitchen. Put it outside in the air for 1 hour so it smells fresh for Jumu\'ah (Friday prayer)."' }
+        ]
+    },
+    {
+        id: "H6",
+        title: "Sunnah Grooming",
+        duration: "5 minutes",
+        icon: Scissors,
+        goal: "Review basic Islamic grooming practices.",
+        steps: [
+            { title: "You Say", instruction: '"Islam teaches us to be neat. We should trim our nails and remove hair from underarms and private parts."' },
+            { title: "You Ask", instruction: '"What is the maximum time we can wait before doing this?" (Answer: 40 days)' },
+            { title: "You Say", instruction: '"Also, brush your teeth! You can use Siwak, but a toothbrush and toothpaste are excellent too. Clean mouths please Allah."' }
+        ]
+    },
+    {
+        id: "H7",
+        title: "Closing: The Power of Intention",
+        duration: "5 minutes",
+        icon: Lightbulb,
+        goal: "Connect hygiene practices to worship.",
+        steps: [
+            { title: "You Ask", instruction: '"How do I get Hasanat (reward) for taking a shower or brushing my teeth?"' },
+            { title: "You Say", instruction: '"Yes. Say in your heart: \'I am cleaning myself because Allah loves purity.\' Then, your hygiene becomes worship. Thank you for listening!"' }
+        ]
+    },
+];
+
 export default function RohingyaClassReportPage() {
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -942,7 +1039,7 @@ export default function RohingyaClassReportPage() {
             </CardHeader>
           </Card>
           
-          <Tabs defaultValue="session-9.2" className="w-full">
+          <Tabs defaultValue="session-hygiene" className="w-full">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="session-2">Sess. 2</TabsTrigger>
               <TabsTrigger value="session-3">Sess. 3</TabsTrigger>
@@ -953,6 +1050,7 @@ export default function RohingyaClassReportPage() {
               <TabsTrigger value="session-8">Sess. 8</TabsTrigger>
               <TabsTrigger value="session-9">Sess. 9</TabsTrigger>
               <TabsTrigger value="session-9.2">Finance</TabsTrigger>
+              <TabsTrigger value="session-hygiene">Hygiene</TabsTrigger>
             </TabsList>
             <TabsContent value="session-2" className="mt-6">
               <div className="space-y-6">
@@ -1295,7 +1393,7 @@ export default function RohingyaClassReportPage() {
                                         <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-3">
-                                        {session.report.sections.map((reportSection, reportIndex) => (
+                                        {section.report.sections.map((reportSection, reportIndex) => (
                                             <div key={reportIndex}>
                                                 <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
                                                 <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
@@ -1311,7 +1409,7 @@ export default function RohingyaClassReportPage() {
                     ))}
                 </div>
             </TabsContent>
-             <TabsContent value="session-9.2" className="mt-6">
+            <TabsContent value="session-9.2" className="mt-6">
                 <div className="space-y-6">
                     {financialLiteracyGuide.map((section, index) => (
                     <React.Fragment key={section.id}>
@@ -1360,6 +1458,59 @@ export default function RohingyaClassReportPage() {
                         </CardContent>
                         </Card>
                         {index < financialLiteracyGuide.length - 1 && <Separator />}
+                    </React.Fragment>
+                    ))}
+                </div>
+            </TabsContent>
+            <TabsContent value="session-hygiene" className="mt-6">
+                <div className="space-y-6">
+                    {hygieneGuide.map((section, index) => (
+                    <React.Fragment key={section.id}>
+                        <Card>
+                        <CardHeader>
+                            <div className="flex items-start gap-4">
+                            <section.icon className="h-8 w-8 text-primary mt-1 flex-shrink-0" />
+                            <div>
+                                <CardTitle className="font-headline text-lg">{section.id}. {section.title}</CardTitle>
+                                <CardDescription>{section.duration}</CardDescription>
+                            </div>
+                            </div>
+                            <div className="mt-4 flex items-center gap-3 rounded-lg bg-muted/50 p-3 border">
+                            <Target className="h-5 w-5 text-accent flex-shrink-0"/>
+                            <p className="text-sm font-semibold text-muted-foreground">{section.goal}</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {section.steps?.map((step, stepIndex) => (
+                            <div key={stepIndex} className="pl-4">
+                                {step.title && <p className="font-semibold text-sm mb-1">{step.title}</p>}
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{step.instruction || step.content}</p>
+                            </div>
+                            ))}
+                            {section.parts?.map((part, partIndex) => (
+                            <div key={partIndex} className="pl-4">
+                                <p className="font-semibold text-sm mb-1">{part.title}</p>
+                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{part.content}</p>
+                            </div>
+                            ))}
+                            {section.report && (
+                                <Card className="mt-6 bg-blue-500/5 border-blue-500/20">
+                                    <CardHeader>
+                                        <CardTitle className="text-base font-semibold text-blue-800">{section.report.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3">
+                                        {section.report.sections.map((reportSection, reportIndex) => (
+                                            <div key={reportIndex}>
+                                                <p className="font-semibold text-sm text-blue-700">{reportSection.title}</p>
+                                                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap">{reportSection.content}</p>
+                                            </div>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            )}
+                        </CardContent>
+                        </Card>
+                        {index < hygieneGuide.length - 1 && <Separator />}
                     </React.Fragment>
                     ))}
                 </div>
