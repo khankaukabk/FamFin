@@ -108,7 +108,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       
                       <NavGroupLabel>Family & Health</NavGroupLabel>
                       <NavLink href="/healthcare/kaukab-safura" onClick={closeSheet}><Heart className="w-5 h-5 text-[#bf953f]/70" /> Kaukab & Safura</NavLink>
-                      <NavLink href="/healthcare/aminuddin" onClick={closeSheet}><Users className="w-5 h-5 text-[#bf953f]/70" /> Aminuddin</NavLink>
                       <NavLink href="/ruma-personal-choice" onClick={closeSheet}><Briefcase className="w-5 h-5 text-[#bf953f]/70" /> Ruma's Job</NavLink>
                       <NavLink href="/medicare-roadmap" onClick={closeSheet}><Shield className="w-5 h-5 text-[#bf953f]/70" /> Medicare Roadmap</NavLink>
                       
@@ -125,7 +124,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavLink href="/six-qualities" onClick={closeSheet}><Star className="w-5 h-5 text-[#bf953f]/70" /> Six Qualities</NavLink>
                       <NavLink href="/rohingya-class-report" onClick={closeSheet}><Users className="w-5 h-5 text-[#bf953f]/70" /> Rohingya Report</NavLink>
                       <NavLink href="/rohingya-attendance" onClick={closeSheet}><ClipboardCheck className="w-5 h-5 text-[#bf953f]/70" /> Rohingya Attendance</NavLink>
-                      <NavLink href="/citizenship-test" onClick={closeSheet}><GraduationCap className="w-5 h-5 text-[#bf953f]/70" /> Citizenship Test</NavLink>
                       <NavLink href="/security-plus-test" onClick={closeSheet}><BookOpen className="w-5 h-5 text-[#bf953f]/70" /> Security+ Test</NavLink>
                       <NavLink href="/speed-reader" onClick={closeSheet}><Zap className="w-5 h-5 text-[#bf953f]/70" /> Zen Reader</NavLink>
                       
