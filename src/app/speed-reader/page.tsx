@@ -6,7 +6,7 @@ import ScrollReader from "@/components/speed-reader";
 import { books } from "@/lib/books"; 
 
 export default function SpeedReaderPage() {
-  const [selectedBookKey, setSelectedBookKey] = useState<string>("dune");
+  const [selectedBookKey, setSelectedBookKey] = useState<string>("gulistan");
   const activeBook = books[selectedBookKey];
 
   return (
