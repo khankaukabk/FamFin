@@ -5,3 +5,11 @@ runConfig:
   # Increase this value if you'd like to automatically spin up
   # more instances in response to increased traffic.
   maxInstances: 1
+
+env:
+  - variable: NEXT_PUBLIC_GOOGLE_API_KEY
+    value: AIzaSyDmo1l3FJqwXDO1UDL3jGzicE2DQjgyBNo
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: family-financials.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: family-financials
