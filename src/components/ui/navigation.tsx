@@ -133,7 +133,6 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       
                       <NavGroupLabel>Leisure</NavGroupLabel>
                       <NavLink href="/table-tennis" onClick={closeSheet}><Gamepad2 className="w-5 h-5 text-[#bf953f]/70" /> Table Tennis</NavLink>
-                      <NavLink href="/coding-sandbox" onClick={closeSheet}><Code className="w-5 h-5 text-[#bf953f]/70" /> Coding Sandbox</NavLink>
                       <NavLink href="/aoe4-build-order" onClick={closeSheet}><Swords className="w-5 h-5 text-[#bf953f]/70" /> AoE4 Build Order</NavLink>
                   </div>
                 </ScrollArea>
