@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { getApp } from "firebase/app";
 import { collection, getFirestore } from "firebase/firestore";
 import { useCollection, useMemoFirebase } from "@/firebase/firestore/use-collection";
-import { ChevronLeft, Book, Loader2, RotateCcw } from "lucide-react";
+import { ChevronLeft, Book, Loader2, RotateCcw, List, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // ----------------------------------------------------------------------
@@ -52,7 +52,8 @@ export default function ZenReadPage() {
 
   // 2. State
   const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
-  const [progressMap, setProgressMap] = useState<Record<string, number>>({}); // Stores progress for library view
+  const [progressMap, setProgressMap] = useState<Record<string, number>>({}); 
+  const [showTOC, setShowTOC] = useState(false); // State for Table of Contents menu
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // 3. Process Content (Memoized)
@@ -75,11 +76,17 @@ export default function ZenReadPage() {
     });
   }, [selectedBook]);
 
+  // 4. Extract Chapters (New Logic)
+  // This finds every "header" item in the reading queue and saves its index
+  const chapters = useMemo(() => {
+    return readingQueue
+      .map((item, index) => ({ text: item.text, type: item.type, index }))
+      .filter((item) => item.type === 'header');
+  }, [readingQueue]);
+
   // ------------------------------------------------------------------
   // PROGRESS LOGIC
   // ------------------------------------------------------------------
-  
-  // A. Load all progress indicators (Library View)
   useEffect(() => {
     if (books) {
       const newMap: Record<string, number> = {};
@@ -91,74 +98,61 @@ export default function ZenReadPage() {
     }
   }, [books]);
 
-  // B. Restore scroll position when opening a book (Reader View)
   useEffect(() => {
     if (selectedBook && readingQueue.length > 0 && scrollContainerRef.current) {
       const savedIndex = localStorage.getItem(`zen-read-progress-${selectedBook.id}`);
-      
       if (savedIndex) {
         const index = parseInt(savedIndex, 10);
-        // Small delay to ensure the DOM is ready for scrolling
         setTimeout(() => {
             if (scrollContainerRef.current) {
                 const targetSlide = scrollContainerRef.current.children[index];
-                if (targetSlide) {
-                    targetSlide.scrollIntoView({ behavior: 'auto' });
-                }
+                if (targetSlide) targetSlide.scrollIntoView({ behavior: 'auto' });
             }
         }, 50);
       }
     }
   }, [selectedBook, readingQueue.length]);
 
-  // C. Save progress while scrolling
   const handleScroll = () => {
     if (!scrollContainerRef.current || !selectedBook) return;
-
     const container = scrollContainerRef.current;
-    const slideHeight = container.clientHeight;
-    const currentScroll = container.scrollTop;
-    
-    // Calculate which slide index we are mostly looking at
-    const index = Math.round(currentScroll / slideHeight);
-
-    if (index >= 0) {
-      localStorage.setItem(`zen-read-progress-${selectedBook.id}`, index.toString());
-    }
+    const index = Math.round(container.scrollTop / container.clientHeight);
+    if (index >= 0) localStorage.setItem(`zen-read-progress-${selectedBook.id}`, index.toString());
   };
 
-  // D. Reset Progress
   const resetProgress = (e: React.MouseEvent, bookId: string) => {
     e.stopPropagation();
     localStorage.removeItem(`zen-read-progress-${bookId}`);
-    
-    // Update local state map
     const newMap = { ...progressMap };
     delete newMap[bookId];
     setProgressMap(newMap);
-
     if (selectedBook?.id === bookId && scrollContainerRef.current) {
         scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   // ------------------------------------------------------------------
-  // LOADING / ERROR STATES
+  // NAVIGATION HELPER
   // ------------------------------------------------------------------
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-muted-foreground">Loading your library...</p>
-        </div>
-      </div>
-    );
-  }
+  const jumpToSlide = (index: number) => {
+    setShowTOC(false); // Close menu
+    if (scrollContainerRef.current) {
+      const targetSlide = scrollContainerRef.current.children[index];
+      if (targetSlide) {
+        targetSlide.scrollIntoView({ behavior: 'smooth' });
+        // Update storage immediately so progress is saved
+        if (selectedBook) {
+            localStorage.setItem(`zen-read-progress-${selectedBook.id}`, index.toString());
+        }
+      }
+    }
+  };
 
-  if (error) {
-    return <div className="p-10 text-red-500">Error: {error.message}</div>;
-  }
+  // ------------------------------------------------------------------
+  // LOADING / ERROR
+  // ------------------------------------------------------------------
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-background"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
+  if (error) return <div className="p-10 text-red-500">Error: {error.message}</div>;
 
   // ------------------------------------------------------------------
   // VIEW 1: BOOK LIBRARY
@@ -186,16 +180,8 @@ export default function ZenReadPage() {
                     <div className="p-3 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
                       <Book className="w-6 h-6 text-primary" />
                     </div>
-                    
-                    <h3 className="font-semibold text-lg leading-tight mb-2 pr-6">
-                      {book.title}
-                    </h3>
-
-                    {/* Progress Badge */}
-                    {hasProgress && (
-                        <span className="absolute top-6 right-6 h-2 w-2 rounded-full bg-green-500 ring-4 ring-green-500/20 shadow-sm" />
-                    )}
-                    
+                    <h3 className="font-semibold text-lg leading-tight mb-2 pr-6">{book.title}</h3>
+                    {hasProgress && <span className="absolute top-6 right-6 h-2 w-2 rounded-full bg-green-500 ring-4 ring-green-500/20 shadow-sm" />}
                     <div className="mt-auto pt-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-full flex justify-between items-center">
                       <span>{book.content?.length || 0} Segments</span>
                       {hasProgress && <span className="text-green-600 font-bold">Resume</span>}
@@ -210,22 +196,40 @@ export default function ZenReadPage() {
   }
 
   // ------------------------------------------------------------------
-  // VIEW 2: VERTICAL SNAP READER
+  // VIEW 2: READER (with Table of Contents)
   // ------------------------------------------------------------------
   return (
     <div className="h-[100dvh] w-full bg-background overflow-hidden relative touch-none">
       
-      {/* Top Controls */}
-      <div className="absolute top-4 left-4 z-50 flex gap-3">
+      {/* --- TOP CONTROLS --- */}
+      <div className="absolute top-4 left-4 z-50 flex gap-2">
+        {/* Back Button */}
         <Button
           variant="secondary"
           size="icon"
           className="rounded-full h-10 w-10 shadow-md bg-background/80 backdrop-blur-md border border-border/50"
-          onClick={() => setSelectedBook(null)}
+          onClick={() => {
+             setSelectedBook(null);
+             setShowTOC(false);
+          }}
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
 
+        {/* Table of Contents Toggle */}
+        <Button
+            variant="secondary"
+            size="icon"
+            className={`rounded-full h-10 w-10 shadow-md backdrop-blur-md border border-border/50 transition-colors ${
+                showTOC ? 'bg-primary text-primary-foreground' : 'bg-background/80 text-foreground'
+            }`}
+            onClick={() => setShowTOC(!showTOC)}
+            title="Table of Contents"
+        >
+            {showTOC ? <X className="h-5 w-5" /> : <List className="h-5 w-5" />}
+        </Button>
+
+        {/* Reset Progress */}
         <Button
             variant="secondary"
             size="icon"
@@ -237,67 +241,70 @@ export default function ZenReadPage() {
         </Button>
       </div>
 
-      {/* Snap Container */}
+      {/* --- TABLE OF CONTENTS MENU --- */}
+      {showTOC && (
+        <div className="absolute top-16 left-4 z-40 w-64 md:w-80 max-h-[70vh] overflow-y-auto bg-background/95 backdrop-blur-xl border rounded-2xl shadow-2xl p-2 animate-in fade-in slide-in-from-top-4">
+            <div className="px-4 py-3 border-b mb-2">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Chapters</h3>
+            </div>
+            <div className="space-y-1">
+                {chapters.length === 0 && (
+                    <div className="p-4 text-center text-sm text-muted-foreground">No chapters found.</div>
+                )}
+                {chapters.map((chapter, i) => (
+                    <button
+                        key={i}
+                        onClick={() => jumpToSlide(chapter.index)}
+                        className="w-full text-left px-4 py-3 text-sm font-medium rounded-lg hover:bg-primary/10 hover:text-primary transition-colors truncate"
+                    >
+                        {chapter.text}
+                    </button>
+                ))}
+            </div>
+        </div>
+      )}
+
+      {/* --- READER SCROLL CONTAINER --- */}
       <div 
         ref={scrollContainerRef}
         onScroll={handleScroll}
         className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
+        onClick={() => setShowTOC(false)} // Clicking content closes menu
       >
         
-        {/* Title Page (Index 0) */}
+        {/* Title Page */}
         <div className="snap-center h-full w-full flex flex-col items-center justify-center p-8 text-center space-y-6">
-            <h1 className="text-3xl md:text-6xl font-black tracking-tighter leading-tight">
-                {selectedBook.title}
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground animate-bounce uppercase tracking-widest mt-8">
-                Swipe up to read
-            </p>
+            <h1 className="text-3xl md:text-6xl font-black tracking-tighter leading-tight">{selectedBook.title}</h1>
+            <p className="text-sm md:text-base text-muted-foreground animate-bounce uppercase tracking-widest mt-8">Swipe up to read</p>
         </div>
 
-        {/* Content Slides */}
+        {/* Slides */}
         {readingQueue.map((item, index) => (
-          <div 
-            key={index} 
-            className="snap-center h-full w-full flex items-center justify-center p-6 md:p-12 relative"
-          >
+          <div key={index} className="snap-center h-full w-full flex items-center justify-center p-6 md:p-12 relative">
             <div className="max-w-xl text-center w-full">
-                
                 {item.type === 'header' && (
                     <h2 className="text-2xl md:text-5xl font-bold text-primary tracking-tight uppercase leading-snug break-words">
                         {item.text}
                     </h2>
                 )}
-
                 {item.type === 'commentary' && (
                     <div className="flex flex-col items-center space-y-6">
-                        <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-600 text-[10px] md:text-xs font-bold uppercase tracking-wider">
-                            Commentary
-                        </span>
-                        <p className="text-xl md:text-3xl font-sans italic text-muted-foreground leading-normal md:leading-relaxed">
-                            "{item.text}"
-                        </p>
+                        <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-600 text-[10px] md:text-xs font-bold uppercase tracking-wider">Commentary</span>
+                        <p className="text-xl md:text-3xl font-sans italic text-muted-foreground leading-normal md:leading-relaxed">"{item.text}"</p>
                     </div>
                 )}
-
                 {item.type === 'story' && (
-                    <p className="text-2xl md:text-4xl font-serif font-medium leading-normal md:leading-relaxed text-foreground/90">
-                        {item.text}
-                    </p>
+                    <p className="text-2xl md:text-4xl font-serif font-medium leading-normal md:leading-relaxed text-foreground/90">{item.text}</p>
                 )}
             </div>
-
-            <div className="absolute bottom-6 text-[10px] text-muted-foreground/30 font-mono">
-              {index + 1} / {readingQueue.length}
-            </div>
+            <div className="absolute bottom-6 text-[10px] text-muted-foreground/30 font-mono">{index + 1} / {readingQueue.length}</div>
           </div>
         ))}
 
         {/* End Page */}
         <div className="snap-center h-full w-full flex flex-col items-center justify-center p-12 text-center space-y-6">
             <h2 className="text-2xl font-bold text-muted-foreground">End of Book</h2>
-            <Button size="lg" onClick={() => setSelectedBook(null)} className="mt-4 rounded-full px-8">
-                Back to Library
-            </Button>
+            <Button size="lg" onClick={() => setSelectedBook(null)} className="mt-4 rounded-full px-8">Back to Library</Button>
         </div>
 
       </div>
