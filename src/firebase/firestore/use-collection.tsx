@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Query,
   onSnapshot,
@@ -37,22 +37,41 @@ export interface InternalQuery extends Query<DocumentData> {
   }
 }
 
+// Define the type for our memoized object
+type MemoizedQuery = (CollectionReference<DocumentData> | Query<DocumentData>) & { __memo?: boolean };
+
+/**
+ * Custom hook to safely memoize Firestore queries.
+ * It adds a hidden flag (__memo) that useCollection checks for.
+ */
+export function useMemoFirebase(
+  factory: () => CollectionReference<DocumentData> | Query<DocumentData> | null,
+  deps: any[]
+): MemoizedQuery | null {
+  return useMemo(() => {
+    const query = factory();
+    
+    // SAFETY CHECK: Only try to define the property if query is an object
+    if (query && typeof query === 'object') {
+      Object.defineProperty(query, '__memo', {
+        value: true,
+        enumerable: false, // Hide it from console logs
+        writable: true
+      });
+      return query as MemoizedQuery;
+    }
+    
+    return null;
+  }, deps);
+}
+
 /**
  * React hook to subscribe to a Firestore collection or query in real-time.
  * Handles nullable references/queries.
- * 
- *
- * IMPORTANT! YOU MUST MEMOIZE the inputted memoizedTargetRefOrQuery or BAD THINGS WILL HAPPEN
- * use useMemo to memoize it per React guidence.  Also make sure that it's dependencies are stable
- * references
- *  
- * @template T Optional type for document data. Defaults to any.
- * @param {CollectionReference<DocumentData> | Query<DocumentData> | null | undefined} targetRefOrQuery -
- * The Firestore CollectionReference or Query. Waits if null/undefined.
- * @returns {UseCollectionResult<T>} Object with data, isLoading, error.
+ * * IMPORTANT: You must use useMemoFirebase() to create the query passed to this hook.
  */
 export function useCollection<T = any>(
-    memoizedTargetRefOrQuery: ((CollectionReference<DocumentData> | Query<DocumentData>) & {__memo?: boolean})  | null | undefined,
+  memoizedTargetRefOrQuery: MemoizedQuery | null | undefined,
 ): UseCollectionResult<T> {
   type ResultItemType = WithId<T>;
   type StateDataType = ResultItemType[] | null;
@@ -107,8 +126,11 @@ export function useCollection<T = any>(
 
     return () => unsubscribe();
   }, [memoizedTargetRefOrQuery]); // Re-run if the target query/reference changes.
+
+  // Safety check: Ensure the user actually used useMemoFirebase
   if(memoizedTargetRefOrQuery && !memoizedTargetRefOrQuery.__memo) {
-    throw new Error(memoizedTargetRefOrQuery + ' was not properly memoized using useMemoFirebase');
+    throw new Error('You passed a raw query to useCollection. Please wrap it in useMemoFirebase(() => query, [deps])');
   }
+
   return { data, isLoading, error };
 }

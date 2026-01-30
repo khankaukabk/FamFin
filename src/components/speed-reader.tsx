@@ -1,152 +1,126 @@
-
 "use client";
 
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef, useEffect, useState } from "react";
 import type { BookSegment } from "@/lib/books";
 
-interface ScrollReaderProps {
-  bookContent: BookSegment[];
-  bookKey: string;
-}
-
-interface SlideItem {
-  text: string;
-  type: "story" | "commentary" | "chapter-title";
-}
-
-export default function ScrollReader({ bookContent, bookKey }: ScrollReaderProps) {
+const premiumStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
   
-  const slides: SlideItem[] = useMemo(() => {
-    const result: SlideItem[] = [];
+  .font-reading { font-family: 'Quicksand', sans-serif; }
+  
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* Smooth fade-in for each slide */
+  .fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+`;
+
+export default function ScrollReader({ bookContent, bookKey }: { bookContent: BookSegment[], bookKey: string }) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const STORAGE_KEY = `zen-reader-pos-${bookKey}`;
+
+  const slides = useMemo(() => {
+    const result: { text: string; type: string }[] = [];
     bookContent.forEach((segment) => {
-      const rawText = typeof segment === "string" ? segment : segment.text;
-      const type = typeof segment === "string" ? "story" : segment.type;
+      const text = typeof segment === "string" ? segment : segment.text;
+      const type = typeof segment === "string" ? "chapter" : segment.type;
 
-      if (rawText.toUpperCase() === rawText || rawText.startsWith("CHAPTER")) {
-        result.push({ text: rawText, type: "chapter-title" });
-        return;
+      if (typeof segment === "string") {
+        result.push({ text, type: "chapter" });
+      } else {
+        const sentences = text.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [text];
+        sentences.forEach(s => result.push({ text: s.trim(), type }));
       }
-
-      const sentences = rawText.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [rawText];
-
-      sentences.forEach((sentence) => {
-        if (sentence.trim().length > 0) {
-          result.push({ 
-            text: sentence.trim(), 
-            type: type as any 
-          });
-        }
-      });
     });
-
     return result;
   }, [bookContent]);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const LOCAL_STORAGE_KEY = `scroll-reader-progress-${bookKey}`;
-
-  // Load initial scroll position
   useEffect(() => {
-    const savedIndex = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedIndex && scrollContainerRef.current) {
-      const index = parseInt(savedIndex, 10);
-      const { clientHeight } = scrollContainerRef.current;
-      scrollContainerRef.current.scrollTop = index * clientHeight;
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && scrollContainerRef.current) {
+      const index = parseInt(saved, 10);
+      setTimeout(() => {
+        if (scrollContainerRef.current) {
+          const h = scrollContainerRef.current.clientHeight;
+          scrollContainerRef.current.scrollTo({ top: index * h, behavior: 'instant' });
+        }
+      }, 150);
     }
-  }, [bookKey, LOCAL_STORAGE_KEY]);
+  }, [bookKey]);
 
-  // Handle saving scroll position
-  const handleScroll = () => {
-    if (!scrollContainerRef.current) return;
-
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const index = Math.round(container.scrollTop / container.clientHeight);
+    if (index !== currentIndex) {
+      setCurrentIndex(index);
+      localStorage.setItem(STORAGE_KEY, index.toString());
     }
-
-    scrollTimeoutRef.current = setTimeout(() => {
-      if (scrollContainerRef.current) {
-        const { scrollTop, clientHeight } = scrollContainerRef.current;
-        const currentIndex = Math.round(scrollTop / clientHeight);
-        localStorage.setItem(LOCAL_STORAGE_KEY, currentIndex.toString());
-      }
-    }, 250); // Debounce to avoid excessive writes
   };
 
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    container?.addEventListener('scroll', handleScroll);
-    return () => {
-      container?.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookKey]); // Rerun if the book changes
-
-
   return (
-    <div 
-      ref={scrollContainerRef}
-      className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
-    >
-      
-      {slides.map((slide, index) => (
+    <>
+      <style>{premiumStyles}</style>
+      <div 
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="h-full w-full overflow-y-scroll snap-y snap-mandatory no-scrollbar bg-[#0f1115] font-reading"
+      >
+        {/* Sleek Gradient Progress Bar */}
         <div 
-          key={index} 
-          className="snap-center h-full w-full flex flex-col items-center justify-center p-8 transition-all duration-500"
-        >
-          <div className="max-w-md w-full">
-            
-            {slide.type === "commentary" && (
-              <div className="mb-6 flex justify-center">
-                 <span className="bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest border border-yellow-500/30">
-                   Analysis
-                 </span>
+          className="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-teal-500 to-emerald-400 z-50 transition-all duration-500 rounded-r-full"
+          style={{ width: `${((currentIndex + 1) / slides.length) * 100}%` }}
+        />
+
+        {slides.map((slide, i) => (
+          <div key={i} className="h-full w-full snap-start snap-always flex flex-col items-center justify-center p-10 relative">
+            <div className={`max-w-md w-full text-center ${currentIndex === i ? 'fade-up' : 'opacity-0'}`}>
+              
+              {/* Important Tag - Categorized by Color */}
+              <div className="mb-8">
+                <span className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.25em] shadow-sm border ${
+                  slide.type === 'commentary' 
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' 
+                    : slide.type === 'chapter'
+                    ? 'bg-teal-500/10 text-teal-400 border-teal-500/20'
+                    : 'bg-neutral-500/10 text-neutral-400 border-neutral-500/20'
+                }`}>
+                  {slide.type === 'chapter' ? 'The Brief' : slide.type}
+                </span>
               </div>
-            )}
 
-            {slide.type === "chapter-title" && (
-              <div className="mb-6 flex justify-center">
-                 <span className="text-teal-500 text-xs font-mono uppercase tracking-widest">
-                   New Section
-                 </span>
-              </div>
-            )}
+              {/* The Reading Text */}
+              <p 
+                suppressHydrationWarning 
+                className={`leading-relaxed transition-colors duration-500 ${
+                  slide.type === 'chapter' ? 'text-4xl font-bold text-white' :
+                  slide.type === 'commentary' ? 'text-2xl font-medium text-amber-100/90' :
+                  'text-3xl font-semibold text-neutral-200'
+                }`}
+              >
+                {slide.text}
+              </p>
 
-            <p className={`
-              text-center leading-relaxed transition-all
-              ${slide.type === "chapter-title" 
-                ? "text-3xl font-black text-teal-400 uppercase tracking-widest" 
-                : ""}
-              ${slide.type === "story" 
-                ? "text-2xl sm:text-3xl font-medium text-neutral-200" 
-                : ""}
-              ${slide.type === "commentary" 
-                ? "text-xl sm:text-2xl font-serif italic text-yellow-100/90" 
-                : ""}
-            `}>
-              {slide.text}
-            </p>
+              {/* Subtle underline for important Commentary */}
+              {slide.type === 'commentary' && (
+                <div className="mt-6 w-12 h-0.5 bg-amber-500/40 mx-auto rounded-full" />
+              )}
+            </div>
 
-            {slide.type === "commentary" && (
-              <div className="mt-8 w-16 h-1 bg-yellow-500/30 mx-auto rounded-full" />
-            )}
-
+            {/* Bottom Counter with Glass effect */}
+            <div className="absolute bottom-12 px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-mono text-neutral-500 tracking-[3px]">
+              {i + 1} / {slides.length}
+            </div>
           </div>
-          
-          <div className="absolute bottom-8 opacity-20 text-white animate-bounce">
-            ↓
-          </div>
-        </div>
-      ))}
-      
-      <div className="snap-center h-1/2 w-full flex items-center justify-center text-neutral-500">
-        End of Preview
+        ))}
       </div>
-
-    </div>
+    </>
   );
 }
