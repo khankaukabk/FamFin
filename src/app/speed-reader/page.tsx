@@ -1,101 +1,116 @@
 "use client";
 
-import { useState, useEffect } from "react";
-// 1. Changed import to use standard getApp
-import { getApp } from "firebase/app"; 
-import { collection, getFirestore } from "firebase/firestore";
-
-// 2. We assume you fixed the export in Step 1. 
-// If this still errors, see the note below code.
-import { useCollection, useMemoFirebase } from "@/firebase/firestore/use-collection";
-import { ChevronLeft, Book, List } from "lucide-react";
+import { useState, useMemo } from "react";
+import { books } from "@/lib/books"; 
+import { ChevronLeft, Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // ----------------------------------------------------------------------
-// Types for your Book Data
+// Types
 // ----------------------------------------------------------------------
-type Chapter = {
-  title: string;
-  content: string;
-};
+type BookSegment = string | { text: string; type: "story" | "commentary" };
 
 type BookData = {
   id: string;
   title: string;
-  author?: string;
-  chapters?: Chapter[];
-  content?: string;
+  content: BookSegment[];
 };
 
-export default function ZenReadPage() {
-  // 3. Initialize Firestore using standard getApp()
-  const app = getApp(); 
-  const db = getFirestore(app);
+// ----------------------------------------------------------------------
+// Helper: Smart Text Chunking
+// ----------------------------------------------------------------------
+// This splits long text into smaller "bite-sized" chunks that fit on a phone screen
+const MAX_CHARS_PER_SLIDE = 180; // Approx 30-40 words, safe for mobile screens
 
-  // 4. Create a "Memoized" Query
-  const booksQuery = useMemoFirebase(
-    () => collection(db, "books"),
-    [db]
-  );
+function splitIntoReadableChunks(text: string): string[] {
+  // 1. If it's short enough, just return it
+  if (text.length <= MAX_CHARS_PER_SLIDE) return [text];
 
-  // 5. Fetch Data
-  const { data: books, isLoading: loading, error } = useCollection(booksQuery);
+  // 2. If it's too long, split by words to preserve meaning
+  const words = text.split(" ");
+  const chunks: string[] = [];
+  let currentChunk = "";
 
-  const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
-  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
-
-  const getCurrentContent = () => {
-    if (!selectedBook) return "";
-    if (selectedBook.chapters && selectedBook.chapters.length > 0) {
-      return selectedBook.chapters[currentChapterIndex]?.content || "";
+  for (const word of words) {
+    // Check if adding the next word exceeds the limit
+    if ((currentChunk + word).length > MAX_CHARS_PER_SLIDE) {
+      if (currentChunk) chunks.push(currentChunk.trim() + "..."); // Add trailing dots to indicate continuation
+      currentChunk = (chunks.length > 0 ? "..." : "") + word + " "; // Add leading dots for continuity
+    } else {
+      currentChunk += word + " ";
     }
-    return selectedBook.content || "No content found for this book.";
-  };
+  }
+  if (currentChunk) chunks.push(currentChunk.trim());
+  
+  return chunks;
+}
+
+export default function ZenReadPage() {
+  const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
+
+  // 1. Transform the 'books' Object into an Array
+  const booksArray = Object.entries(books).map(([id, data]) => ({
+    id,
+    ...data,
+  }));
+
+  // 2. Process Content: Split paragraphs -> sentences -> fit-to-screen chunks
+  const readingQueue = useMemo(() => {
+    if (!selectedBook) return [];
+
+    return selectedBook.content.flatMap((segment) => {
+      // CASE A: Header (String) - Keep as is
+      if (typeof segment === 'string') {
+        return [{ text: segment, type: 'header' }];
+      }
+
+      // CASE B: Story/Commentary Object
+      // Step 1: Split massive block into sentences first
+      // Regex looks for punctuation (.!?) followed by space or end of string
+      const rawSentences = segment.text.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [segment.text];
+      
+      // Step 2: Check each sentence. If it's too long, chop it further.
+      return rawSentences.flatMap((sentence) => {
+        const cleanSentence = sentence.trim();
+        const chunks = splitIntoReadableChunks(cleanSentence);
+        
+        return chunks.map(chunk => ({
+          text: chunk,
+          type: segment.type, // Preserve type ('story' or 'commentary')
+        }));
+      });
+    });
+  }, [selectedBook]);
 
   // ------------------------------------------------------------------
   // VIEW 1: BOOK LIBRARY
   // ------------------------------------------------------------------
   if (!selectedBook) {
     return (
-      <div className="min-h-screen bg-background p-8 font-sans">
+      <div className="min-h-screen bg-background p-6 font-sans">
         <div className="max-w-4xl mx-auto space-y-8">
-          <div className="space-y-2">
+          <div className="space-y-2 mt-8">
             <h1 className="text-3xl font-bold tracking-tight">Library</h1>
             <p className="text-muted-foreground">
               Choose a book to enter Zen Read mode.
             </p>
           </div>
 
-          {loading && <div>Loading your library...</div>}
-          {error && <div className="text-red-500">Error loading books.</div>}
-
-          {!loading && books && books.length === 0 && (
-            <div className="p-8 border rounded-lg text-center text-muted-foreground bg-muted/20">
-              No books found. Add a document to the 'books' collection in Firestore.
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {books?.map((book: any) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {booksArray.map((book) => (
               <button
                 key={book.id}
-                onClick={() => {
-                  setSelectedBook(book);
-                  setCurrentChapterIndex(0);
-                }}
-                className="group flex flex-col items-start text-left p-6 h-full border rounded-xl hover:border-primary/50 hover:bg-muted/30 transition-all shadow-sm hover:shadow-md"
+                onClick={() => setSelectedBook(book)}
+                className="group flex flex-col items-start text-left p-6 h-full border rounded-xl hover:border-primary/50 hover:bg-muted/30 transition-all shadow-sm hover:shadow-md active:scale-95 duration-200"
               >
                 <div className="p-3 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
                   <Book className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-semibold text-lg leading-tight mb-2">
-                  {book.title || "Untitled Book"}
+                  {book.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
-                  {book.author || "Unknown Author"}
-                </p>
                 <div className="mt-auto pt-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {book.chapters?.length ? `${book.chapters.length} Chapters` : "Single Text"}
+                  {book.content.length} Segments
                 </div>
               </button>
             ))}
@@ -106,74 +121,88 @@ export default function ZenReadPage() {
   }
 
   // ------------------------------------------------------------------
-  // VIEW 2: READER MODE
+  // VIEW 2: VERTICAL SNAP READER (Mobile Optimized)
   // ------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex h-16 items-center px-4 max-w-5xl mx-auto w-full gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setSelectedBook(null)}
-            title="Back to Library"
+    <div className="h-[100dvh] w-full bg-background overflow-hidden relative touch-none">
+      
+      {/* Floating Back Button */}
+      <div className="absolute top-4 left-4 z-50">
+        <Button
+          variant="secondary"
+          size="icon"
+          className="rounded-full h-10 w-10 shadow-md bg-background/80 backdrop-blur-md border border-border/50"
+          onClick={() => setSelectedBook(null)}
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+      </div>
+
+      {/* Snap Container */}
+      {/* 'touch-action-pan-y' ensures smooth vertical scrolling on mobile */}
+      <div className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
+        
+        {/* Title Page */}
+        <div className="snap-center h-full w-full flex flex-col items-center justify-center p-8 text-center space-y-6">
+            <h1 className="text-3xl md:text-6xl font-black tracking-tighter leading-tight">
+                {selectedBook.title}
+            </h1>
+            <p className="text-sm md:text-base text-muted-foreground animate-bounce uppercase tracking-widest mt-8">
+                Swipe up to read
+            </p>
+        </div>
+
+        {/* Content Slides */}
+        {readingQueue.map((item, index) => (
+          <div 
+            key={index} 
+            className="snap-center h-full w-full flex items-center justify-center p-6 md:p-12 relative"
           >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
+            <div className="max-w-xl text-center w-full">
+                
+                {/* CASE 1: HEADERS */}
+                {item.type === 'header' && (
+                    <h2 className="text-2xl md:text-5xl font-bold text-primary tracking-tight uppercase leading-snug break-words">
+                        {item.text}
+                    </h2>
+                )}
 
-          <div className="flex-1 min-w-0">
-             <h2 className="text-sm font-medium text-muted-foreground truncate">Reading</h2>
-             <h1 className="text-base font-semibold truncate">{selectedBook.title}</h1>
-          </div>
+                {/* CASE 2: COMMENTARY */}
+                {item.type === 'commentary' && (
+                    <div className="flex flex-col items-center space-y-6">
+                        <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-600 text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                            Commentary
+                        </span>
+                        <p className="text-xl md:text-3xl font-sans italic text-muted-foreground leading-normal md:leading-relaxed">
+                            "{item.text}"
+                        </p>
+                    </div>
+                )}
 
-          {selectedBook.chapters && selectedBook.chapters.length > 1 && (
-            <div className="flex items-center gap-2">
-              <List className="h-4 w-4 text-muted-foreground hidden sm:block" />
-              <select
-                className="h-9 w-[180px] rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                value={currentChapterIndex}
-                onChange={(e) => setCurrentChapterIndex(Number(e.target.value))}
-              >
-                {selectedBook.chapters.map((chapter, index) => (
-                  <option key={index} value={index}>
-                    {chapter.title || `Chapter ${index + 1}`}
-                  </option>
-                ))}
-              </select>
+                {/* CASE 3: STORY */}
+                {item.type === 'story' && (
+                    <p className="text-2xl md:text-4xl font-serif font-medium leading-normal md:leading-relaxed text-foreground/90">
+                        {item.text}
+                    </p>
+                )}
             </div>
-          )}
-        </div>
-      </header>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto p-6 sm:p-10">
-        <div className="prose dark:prose-invert prose-lg max-w-none">
-            <h2 className="mb-6 text-2xl font-bold text-primary">
-               {selectedBook.chapters?.[currentChapterIndex]?.title}
-            </h2>
-            <div className="whitespace-pre-wrap leading-relaxed text-foreground/90">
-                {getCurrentContent()}
+            {/* Page Number Indicator (Optional, helpful for context) */}
+            <div className="absolute bottom-6 text-[10px] text-muted-foreground/30 font-mono">
+              {index + 1} / {readingQueue.length}
             </div>
+          </div>
+        ))}
+
+        {/* End Page */}
+        <div className="snap-center h-full w-full flex flex-col items-center justify-center p-12 text-center space-y-6">
+            <h2 className="text-2xl font-bold text-muted-foreground">End of Book</h2>
+            <Button size="lg" onClick={() => setSelectedBook(null)} className="mt-4 rounded-full px-8">
+                Back to Library
+            </Button>
         </div>
 
-        {selectedBook.chapters && selectedBook.chapters.length > 1 && (
-          <div className="flex justify-between mt-16 pt-8 border-t">
-            <Button
-              variant="outline"
-              disabled={currentChapterIndex === 0}
-              onClick={() => setCurrentChapterIndex((prev) => prev - 1)}
-            >
-              Previous Chapter
-            </Button>
-            <Button
-              variant="default"
-              disabled={currentChapterIndex === (selectedBook.chapters.length - 1)}
-              onClick={() => setCurrentChapterIndex((prev) => prev + 1)}
-            >
-              Next Chapter
-            </Button>
-          </div>
-        )}
-      </main>
+      </div>
     </div>
   );
 }
