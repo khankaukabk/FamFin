@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { getApp } from "firebase/app";
 import { collection, getFirestore } from "firebase/firestore";
 import { useCollection, useMemoFirebase } from "@/firebase/firestore/use-collection";
-import { ChevronLeft, Book, Loader2 } from "lucide-react";
+import { ChevronLeft, Book, Loader2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // ----------------------------------------------------------------------
@@ -19,7 +19,7 @@ type BookData = {
 };
 
 // ----------------------------------------------------------------------
-// Helper: Smart Text Chunking (Keeps text readable on mobile)
+// Helper: Smart Text Chunking
 // ----------------------------------------------------------------------
 const MAX_CHARS_PER_SLIDE = 180; 
 
@@ -44,38 +44,29 @@ function splitIntoReadableChunks(text: string): string[] {
 }
 
 export default function ZenReadPage() {
-  // 1. Setup Firebase Connection
+  // 1. Firebase Setup
   const app = getApp();
   const db = getFirestore(app);
-
-  // 2. Create Memoized Query
-  const booksQuery = useMemoFirebase(
-    () => collection(db, "books"),
-    [db]
-  );
-
-  // 3. Fetch Data from Cloud
+  const booksQuery = useMemoFirebase(() => collection(db, "books"), [db]);
   const { data: books, isLoading, error } = useCollection(booksQuery);
 
+  // 2. State
   const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
+  const [progressMap, setProgressMap] = useState<Record<string, number>>({}); // Stores progress for library view
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // 4. Process Content: Split paragraphs -> sentences -> fit-to-screen chunks
+  // 3. Process Content (Memoized)
   const readingQueue = useMemo(() => {
     if (!selectedBook || !selectedBook.content) return [];
 
     return selectedBook.content.flatMap((segment) => {
-      // CASE A: Header (String)
-      if (typeof segment === 'string') {
-        return [{ text: segment, type: 'header' }];
-      }
+      if (typeof segment === 'string') return [{ text: segment, type: 'header' }];
 
-      // CASE B: Story/Commentary Object
       const rawSentences = segment.text.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [segment.text];
       
       return rawSentences.flatMap((sentence) => {
         const cleanSentence = sentence.trim();
         const chunks = splitIntoReadableChunks(cleanSentence);
-        
         return chunks.map(chunk => ({
           text: chunk,
           type: segment.type,
@@ -83,6 +74,73 @@ export default function ZenReadPage() {
       });
     });
   }, [selectedBook]);
+
+  // ------------------------------------------------------------------
+  // PROGRESS LOGIC
+  // ------------------------------------------------------------------
+  
+  // A. Load all progress indicators (Library View)
+  useEffect(() => {
+    if (books) {
+      const newMap: Record<string, number> = {};
+      books.forEach((book: any) => {
+        const saved = localStorage.getItem(`zen-read-progress-${book.id}`);
+        if (saved) newMap[book.id] = parseInt(saved, 10);
+      });
+      setProgressMap(newMap);
+    }
+  }, [books]);
+
+  // B. Restore scroll position when opening a book (Reader View)
+  useEffect(() => {
+    if (selectedBook && readingQueue.length > 0 && scrollContainerRef.current) {
+      const savedIndex = localStorage.getItem(`zen-read-progress-${selectedBook.id}`);
+      
+      if (savedIndex) {
+        const index = parseInt(savedIndex, 10);
+        // Small delay to ensure the DOM is ready for scrolling
+        setTimeout(() => {
+            if (scrollContainerRef.current) {
+                const targetSlide = scrollContainerRef.current.children[index];
+                if (targetSlide) {
+                    targetSlide.scrollIntoView({ behavior: 'auto' });
+                }
+            }
+        }, 50);
+      }
+    }
+  }, [selectedBook, readingQueue.length]);
+
+  // C. Save progress while scrolling
+  const handleScroll = () => {
+    if (!scrollContainerRef.current || !selectedBook) return;
+
+    const container = scrollContainerRef.current;
+    const slideHeight = container.clientHeight;
+    const currentScroll = container.scrollTop;
+    
+    // Calculate which slide index we are mostly looking at
+    const index = Math.round(currentScroll / slideHeight);
+
+    if (index >= 0) {
+      localStorage.setItem(`zen-read-progress-${selectedBook.id}`, index.toString());
+    }
+  };
+
+  // D. Reset Progress
+  const resetProgress = (e: React.MouseEvent, bookId: string) => {
+    e.stopPropagation();
+    localStorage.removeItem(`zen-read-progress-${bookId}`);
+    
+    // Update local state map
+    const newMap = { ...progressMap };
+    delete newMap[bookId];
+    setProgressMap(newMap);
+
+    if (selectedBook?.id === bookId && scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // ------------------------------------------------------------------
   // LOADING / ERROR STATES
@@ -99,11 +157,7 @@ export default function ZenReadPage() {
   }
 
   if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        Error loading library: {error.message}
-      </div>
-    );
+    return <div className="p-10 text-red-500">Error: {error.message}</div>;
   }
 
   // ------------------------------------------------------------------
@@ -115,30 +169,40 @@ export default function ZenReadPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-2 mt-8">
             <h1 className="text-3xl font-bold tracking-tight">Library</h1>
-            <p className="text-muted-foreground">
-              Choose a book to enter Zen Read mode.
-            </p>
+            <p className="text-muted-foreground">Choose a book to enter Zen Read mode.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {/* The 'books' array comes directly from Firestore now */}
-            {books?.map((book: any) => (
-              <button
-                key={book.id}
-                onClick={() => setSelectedBook(book)}
-                className="group flex flex-col items-start text-left p-6 h-full border rounded-xl hover:border-primary/50 hover:bg-muted/30 transition-all shadow-sm hover:shadow-md active:scale-95 duration-200"
-              >
-                <div className="p-3 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
-                  <Book className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-lg leading-tight mb-2">
-                  {book.title}
-                </h3>
-                <div className="mt-auto pt-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {book.content?.length || 0} Segments
-                </div>
-              </button>
-            ))}
+            {books?.map((book: any) => {
+                const currentProgress = progressMap[book.id];
+                const hasProgress = currentProgress && currentProgress > 1;
+
+                return (
+                  <button
+                    key={book.id}
+                    onClick={() => setSelectedBook(book)}
+                    className="group relative flex flex-col items-start text-left p-6 h-full border rounded-xl hover:border-primary/50 hover:bg-muted/30 transition-all shadow-sm hover:shadow-md active:scale-95 duration-200"
+                  >
+                    <div className="p-3 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
+                      <Book className="w-6 h-6 text-primary" />
+                    </div>
+                    
+                    <h3 className="font-semibold text-lg leading-tight mb-2 pr-6">
+                      {book.title}
+                    </h3>
+
+                    {/* Progress Badge */}
+                    {hasProgress && (
+                        <span className="absolute top-6 right-6 h-2 w-2 rounded-full bg-green-500 ring-4 ring-green-500/20 shadow-sm" />
+                    )}
+                    
+                    <div className="mt-auto pt-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-full flex justify-between items-center">
+                      <span>{book.content?.length || 0} Segments</span>
+                      {hasProgress && <span className="text-green-600 font-bold">Resume</span>}
+                    </div>
+                  </button>
+                )
+            })}
           </div>
         </div>
       </div>
@@ -151,8 +215,8 @@ export default function ZenReadPage() {
   return (
     <div className="h-[100dvh] w-full bg-background overflow-hidden relative touch-none">
       
-      {/* Floating Back Button */}
-      <div className="absolute top-4 left-4 z-50">
+      {/* Top Controls */}
+      <div className="absolute top-4 left-4 z-50 flex gap-3">
         <Button
           variant="secondary"
           size="icon"
@@ -161,12 +225,26 @@ export default function ZenReadPage() {
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
+
+        <Button
+            variant="secondary"
+            size="icon"
+            className="rounded-full h-10 w-10 shadow-md bg-background/80 backdrop-blur-md border border-border/50 text-muted-foreground hover:text-red-500"
+            onClick={(e) => resetProgress(e, selectedBook.id)}
+            title="Reset Progress"
+        >
+            <RotateCcw className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Snap Container */}
-      <div className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
+      <div 
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar"
+      >
         
-        {/* Title Page */}
+        {/* Title Page (Index 0) */}
         <div className="snap-center h-full w-full flex flex-col items-center justify-center p-8 text-center space-y-6">
             <h1 className="text-3xl md:text-6xl font-black tracking-tighter leading-tight">
                 {selectedBook.title}
