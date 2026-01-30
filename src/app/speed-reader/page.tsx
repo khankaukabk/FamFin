@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { books } from "@/lib/books"; 
-import { ChevronLeft, Book } from "lucide-react";
+import { getApp } from "firebase/app";
+import { collection, getFirestore } from "firebase/firestore";
+import { useCollection, useMemoFirebase } from "@/firebase/firestore/use-collection";
+import { ChevronLeft, Book, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // ----------------------------------------------------------------------
@@ -17,25 +19,21 @@ type BookData = {
 };
 
 // ----------------------------------------------------------------------
-// Helper: Smart Text Chunking
+// Helper: Smart Text Chunking (Keeps text readable on mobile)
 // ----------------------------------------------------------------------
-// This splits long text into smaller "bite-sized" chunks that fit on a phone screen
-const MAX_CHARS_PER_SLIDE = 180; // Approx 30-40 words, safe for mobile screens
+const MAX_CHARS_PER_SLIDE = 180; 
 
 function splitIntoReadableChunks(text: string): string[] {
-  // 1. If it's short enough, just return it
   if (text.length <= MAX_CHARS_PER_SLIDE) return [text];
 
-  // 2. If it's too long, split by words to preserve meaning
   const words = text.split(" ");
   const chunks: string[] = [];
   let currentChunk = "";
 
   for (const word of words) {
-    // Check if adding the next word exceeds the limit
     if ((currentChunk + word).length > MAX_CHARS_PER_SLIDE) {
-      if (currentChunk) chunks.push(currentChunk.trim() + "..."); // Add trailing dots to indicate continuation
-      currentChunk = (chunks.length > 0 ? "..." : "") + word + " "; // Add leading dots for continuity
+      if (currentChunk) chunks.push(currentChunk.trim() + "...");
+      currentChunk = (chunks.length > 0 ? "..." : "") + word + " ";
     } else {
       currentChunk += word + " ";
     }
@@ -46,41 +44,67 @@ function splitIntoReadableChunks(text: string): string[] {
 }
 
 export default function ZenReadPage() {
+  // 1. Setup Firebase Connection
+  const app = getApp();
+  const db = getFirestore(app);
+
+  // 2. Create Memoized Query
+  const booksQuery = useMemoFirebase(
+    () => collection(db, "books"),
+    [db]
+  );
+
+  // 3. Fetch Data from Cloud
+  const { data: books, isLoading, error } = useCollection(booksQuery);
+
   const [selectedBook, setSelectedBook] = useState<BookData | null>(null);
 
-  // 1. Transform the 'books' Object into an Array
-  const booksArray = Object.entries(books).map(([id, data]) => ({
-    id,
-    ...data,
-  }));
-
-  // 2. Process Content: Split paragraphs -> sentences -> fit-to-screen chunks
+  // 4. Process Content: Split paragraphs -> sentences -> fit-to-screen chunks
   const readingQueue = useMemo(() => {
-    if (!selectedBook) return [];
+    if (!selectedBook || !selectedBook.content) return [];
 
     return selectedBook.content.flatMap((segment) => {
-      // CASE A: Header (String) - Keep as is
+      // CASE A: Header (String)
       if (typeof segment === 'string') {
         return [{ text: segment, type: 'header' }];
       }
 
       // CASE B: Story/Commentary Object
-      // Step 1: Split massive block into sentences first
-      // Regex looks for punctuation (.!?) followed by space or end of string
       const rawSentences = segment.text.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [segment.text];
       
-      // Step 2: Check each sentence. If it's too long, chop it further.
       return rawSentences.flatMap((sentence) => {
         const cleanSentence = sentence.trim();
         const chunks = splitIntoReadableChunks(cleanSentence);
         
         return chunks.map(chunk => ({
           text: chunk,
-          type: segment.type, // Preserve type ('story' or 'commentary')
+          type: segment.type,
         }));
       });
     });
   }, [selectedBook]);
+
+  // ------------------------------------------------------------------
+  // LOADING / ERROR STATES
+  // ------------------------------------------------------------------
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-muted-foreground">Loading your library...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        Error loading library: {error.message}
+      </div>
+    );
+  }
 
   // ------------------------------------------------------------------
   // VIEW 1: BOOK LIBRARY
@@ -97,7 +121,8 @@ export default function ZenReadPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {booksArray.map((book) => (
+            {/* The 'books' array comes directly from Firestore now */}
+            {books?.map((book: any) => (
               <button
                 key={book.id}
                 onClick={() => setSelectedBook(book)}
@@ -110,7 +135,7 @@ export default function ZenReadPage() {
                   {book.title}
                 </h3>
                 <div className="mt-auto pt-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {book.content.length} Segments
+                  {book.content?.length || 0} Segments
                 </div>
               </button>
             ))}
@@ -121,7 +146,7 @@ export default function ZenReadPage() {
   }
 
   // ------------------------------------------------------------------
-  // VIEW 2: VERTICAL SNAP READER (Mobile Optimized)
+  // VIEW 2: VERTICAL SNAP READER
   // ------------------------------------------------------------------
   return (
     <div className="h-[100dvh] w-full bg-background overflow-hidden relative touch-none">
@@ -139,7 +164,6 @@ export default function ZenReadPage() {
       </div>
 
       {/* Snap Container */}
-      {/* 'touch-action-pan-y' ensures smooth vertical scrolling on mobile */}
       <div className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
         
         {/* Title Page */}
@@ -160,14 +184,12 @@ export default function ZenReadPage() {
           >
             <div className="max-w-xl text-center w-full">
                 
-                {/* CASE 1: HEADERS */}
                 {item.type === 'header' && (
                     <h2 className="text-2xl md:text-5xl font-bold text-primary tracking-tight uppercase leading-snug break-words">
                         {item.text}
                     </h2>
                 )}
 
-                {/* CASE 2: COMMENTARY */}
                 {item.type === 'commentary' && (
                     <div className="flex flex-col items-center space-y-6">
                         <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-600 text-[10px] md:text-xs font-bold uppercase tracking-wider">
@@ -179,7 +201,6 @@ export default function ZenReadPage() {
                     </div>
                 )}
 
-                {/* CASE 3: STORY */}
                 {item.type === 'story' && (
                     <p className="text-2xl md:text-4xl font-serif font-medium leading-normal md:leading-relaxed text-foreground/90">
                         {item.text}
@@ -187,7 +208,6 @@ export default function ZenReadPage() {
                 )}
             </div>
 
-            {/* Page Number Indicator (Optional, helpful for context) */}
             <div className="absolute bottom-6 text-[10px] text-muted-foreground/30 font-mono">
               {index + 1} / {readingQueue.length}
             </div>

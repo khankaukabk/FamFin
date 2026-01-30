@@ -1,76 +1,71 @@
-
 'use client';
 
 import { useState } from 'react';
 import { getApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { books as booksObject } from '@/lib/books'; 
-
-// Convert the object of books into an array for uploading
-const booksArray = Object.values(booksObject);
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { books } from '@/lib/books'; // Importing your local data
 
 export default function UploadBooksPage() {
   const [status, setStatus] = useState('Idle');
   const [isUploading, setIsUploading] = useState(false);
 
   const handleUpload = async () => {
-    if (!booksArray || booksArray.length === 0) {
-      setStatus('No books found in the import file!');
-      return;
-    }
-
     setIsUploading(true);
-    setStatus('Initializing...');
+    setStatus('Initializing connection...');
 
     try {
       const app = getApp();
       const db = getFirestore(app);
-      const booksCollection = collection(db, 'books');
-
+      
+      const entries = Object.entries(books);
       let count = 0;
-      for (const book of booksArray) {
-        // We use addDoc to let Firestore generate a unique ID for each book
-        await addDoc(booksCollection, book);
+
+      for (const [id, bookData] of entries) {
+        setStatus(`Uploading: ${bookData.title}...`);
+        
+        // We use setDoc with the specific ID (e.g., 'security-plus') 
+        // so it overwrites/updates the existing document if it exists.
+        await setDoc(doc(db, "books", id), bookData);
+        
         count++;
-        setStatus(`Uploaded ${count} of ${booksArray.length}...`);
       }
 
-      setStatus(`Success! Uploaded ${count} books to Firestore.`);
+      setStatus(`Success! ✅ Uploaded ${count} books to Firestore.`);
     } catch (error: any) {
       console.error(error);
-      setStatus(`Error: ${error.message}`);
+      setStatus(`❌ Error: ${error.message}`);
     } finally {
       setIsUploading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white p-10 font-sans">
-      <div className="max-w-xl mx-auto space-y-6 bg-gray-800 p-8 rounded-lg shadow-2xl">
-        <h1 className="text-3xl font-bold text-teal-400">Database Seeder</h1>
+    <div className="min-h-screen bg-background text-foreground p-10 font-sans flex flex-col items-center justify-center">
+      <div className="max-w-xl w-full space-y-8 text-center">
+        <h1 className="text-4xl font-bold">Database Seeder</h1>
         
-        <div className="p-4 border border-gray-700 rounded bg-gray-900">
-          <p className="mb-2">
+        <div className="p-6 border rounded-xl bg-muted/20">
+          <p className="text-lg mb-2">
             <strong>Source:</strong> <code>src/lib/books.ts</code>
           </p>
-          <p>
-            <strong>Books Found:</strong> {booksArray?.length || 0}
+          <p className="text-muted-foreground">
+            Ready to upload <strong>{Object.keys(books).length}</strong> books to your live database.
           </p>
         </div>
 
         <button
           onClick={handleUpload}
-          disabled={isUploading || !booksArray?.length}
-          className={`w-full px-6 py-3 rounded text-white font-medium transition-colors ${
+          disabled={isUploading}
+          className={`w-full py-4 rounded-lg text-white font-bold text-lg transition-all ${
             isUploading 
-              ? 'bg-gray-600 cursor-not-allowed' 
-              : 'bg-teal-600 hover:bg-teal-700'
+              ? 'bg-gray-500 cursor-not-allowed' 
+              : 'bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl'
           }`}
         >
-          {isUploading ? 'Uploading...' : 'Upload Data to Firestore'}
+          {isUploading ? 'Uploading...' : 'Start Upload'}
         </button>
 
-        <div className="p-4 border-l-4 border-blue-500 bg-blue-900/50 rounded">
+        <div className="p-4 bg-muted rounded text-sm font-mono">
           <strong>Status:</strong> {status}
         </div>
       </div>
