@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -85,11 +84,14 @@ export default function HomePage() {
     return taskMonths.find(m => m.id === alertState.monthId)?.weeks[alertState.weekIndex]?.tasks.find(t => t.id === alertState.taskId);
   }, [taskMonths, alertState]);
 
-  const { decemberData, novemberData } = useMemo(() => {
-    if (!taskMonths) return { decemberData: null, novemberData: null };
+  // --- CHANGED: Updated Month Selection for 2026 ---
+  const { januaryData, decemberArchive } = useMemo(() => {
+    if (!taskMonths) return { januaryData: null, decemberArchive: null };
     return {
-      decemberData: taskMonths.find(m => m.id === "december-2024"),
-      novemberData: taskMonths.find(m => m.id === "november-2024")
+      // 1. Look for January 2026 as the current month
+      januaryData: taskMonths.find(m => m.id === "january-2026"),
+      // 2. Look for December 2025 as the archive
+      decemberArchive: taskMonths.find(m => m.id === "december-2025")
     };
   }, [taskMonths]);
 
@@ -187,7 +189,8 @@ export default function HomePage() {
             <div className="absolute top-0 right-0 p-16 bg-[#bf953f]/10 blur-[50px] rounded-full pointer-events-none" />
             
             <Crown className="w-8 h-8 text-[#bf953f] mx-auto mb-3" />
-            <h1 className="font-serif text-4xl text-white mb-2">December</h1>
+            {/* CHANGED: Title to January 2026 */}
+            <h1 className="font-serif text-4xl text-white mb-2">January '26</h1>
             <p className="text-neutral-500 uppercase tracking-[0.2em] text-xs font-medium">Platinum Itinerary</p>
           </div>
 
@@ -200,30 +203,31 @@ export default function HomePage() {
              </div>
           ) : (
             <>
-                {/* CURRENT MONTH */}
-                {decemberData ? renderMonthTasks(decemberData) : (
+                {/* CURRENT MONTH (JANUARY 2026) */}
+                {januaryData ? renderMonthTasks(januaryData) : (
                   <div className="text-center py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                    <p className="font-serif text-lg text-neutral-400">Your schedule is clear.</p>
+                    <p className="font-serif text-lg text-neutral-400">Your January 2026 schedule is clear.</p>
                   </div>
                 )}
 
-                {/* ARCHIVE ACCORDION - TOUCH FRIENDLY */}
-                {novemberData && (
+                {/* ARCHIVE ACCORDION (DECEMBER 2025) */}
+                {decemberArchive && (
                     <Accordion type="single" collapsible className="w-full mt-8 border-t border-white/10">
-                        <AccordionItem value="november" className="border-none">
+                        <AccordionItem value="december" className="border-none">
                             <AccordionTrigger className="hover:no-underline py-6 group active:bg-white/5 px-2 rounded-xl transition-colors">
                                 <div className="flex items-center gap-4 w-full">
                                     <div className="p-2.5 bg-[#bf953f]/10 rounded-full">
                                       <Archive className="h-4 w-4 text-[#bf953f]" />
                                     </div>
                                     <div className="text-left flex-grow">
-                                      <span className="block font-serif text-lg text-neutral-300">November History</span>
+                                      {/* CHANGED: Label to December 2025 History */}
+                                      <span className="block font-serif text-lg text-neutral-300">December '25 History</span>
                                     </div>
                                     <div className="text-xs text-neutral-600 uppercase tracking-widest mr-2">View</div>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="pt-2 pb-8">
-                                {renderMonthTasks(novemberData)}
+                                {renderMonthTasks(decemberArchive)}
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
