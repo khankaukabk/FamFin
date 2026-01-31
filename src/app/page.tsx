@@ -8,9 +8,7 @@ import type { TaskMonth } from "@/lib/task-service";
 import { toggleTaskCompletion, initializeTasks } from "@/lib/task-service";
 import * as LucideIcons from "lucide-react";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { Navigation } from "@/components/ui/navigation"; 
-import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,21 +20,13 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Archive, Crown, Star, ChevronDown } from "lucide-react";
+import { Archive, Crown } from "lucide-react";
 
 // --- CSS UTILITIES ---
 const styles = `
   .font-serif { font-family: 'Playfair Display', serif; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  
-  /* Gold Gradient Text */
-  .text-gold {
-    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 `;
 
 // Helper to get a specific icon
@@ -84,14 +74,19 @@ export default function HomePage() {
     return taskMonths.find(m => m.id === alertState.monthId)?.weeks[alertState.weekIndex]?.tasks.find(t => t.id === alertState.taskId);
   }, [taskMonths, alertState]);
 
-  // --- CHANGED: Updated Month Selection for 2026 ---
-  const { januaryData, decemberArchive } = useMemo(() => {
-    if (!taskMonths) return { januaryData: null, decemberArchive: null };
+  // --- CHANGED: Updated Month Selection for FEB 2026 ---
+  const { currentMonth, historyMonths } = useMemo(() => {
+    if (!taskMonths) return { currentMonth: null, historyMonths: [] };
+    
     return {
-      // 1. Look for January 2026 as the current month
-      januaryData: taskMonths.find(m => m.id === "january-2026"),
-      // 2. Look for December 2025 as the archive
-      decemberArchive: taskMonths.find(m => m.id === "december-2025")
+      // 1. Current Focus: February 2026
+      currentMonth: taskMonths.find(m => m.id === "february-2026"),
+      
+      // 2. History: January 2026 + December 2025
+      historyMonths: [
+        taskMonths.find(m => m.id === "january-2026"),
+        taskMonths.find(m => m.id === "december-2025")
+      ].filter(Boolean) // Removes nulls if a month is missing
     };
   }, [taskMonths]);
 
@@ -103,14 +98,12 @@ export default function HomePage() {
         onClick={() => openConfirmationDialog(monthId, weekIndex, task.id)}
         className="group relative active:scale-[0.98] transition-transform duration-200"
       >
-        {/* Active Tap Highlight */}
         <div className={`
           absolute inset-0 bg-gradient-to-r from-[#bf953f]/20 to-transparent opacity-0 transition-opacity duration-300 active:opacity-100 rounded-xl
           ${task.completed ? 'opacity-0' : ''}
         `} />
         
         <div className="relative flex items-center gap-4 py-5 px-3 border-b border-white/5">
-          {/* Checkbox Area - Large Touch Target */}
           <div className="flex-none pt-1">
             <div className={`
                 h-6 w-6 border-2 transition-all duration-500 rounded-full flex items-center justify-center
@@ -120,7 +113,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Text Area */}
           <div className="flex-grow min-w-0">
             <div className="flex justify-between items-start mb-1">
                <h4 className={`
@@ -129,7 +121,6 @@ export default function HomePage() {
                `}>
                  {task.title}
                </h4>
-               {/* Icon moved to right for cleaner reading flow */}
                <TaskIcon className={`w-4 h-4 flex-none mt-1 ${task.completed ? 'text-[#bf953f]' : 'text-neutral-600'}`} />
             </div>
             
@@ -144,11 +135,9 @@ export default function HomePage() {
 
   // --- MOBILE COMPONENT: MONTH RENDERER ---
   const renderMonthTasks = (monthData: TaskMonth) => (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 pb-4">
       {monthData.weeks.map((weekData, weekIndex) => (
         <div key={weekData.week} className="relative">
-          
-          {/* Week Header - Sticky for long lists */}
           <div className="sticky top-[80px] z-30 bg-black/90 backdrop-blur-xl border-b border-[#bf953f]/30 py-3 px-1 mb-2 flex justify-between items-center shadow-lg">
             <div>
               <h3 className="font-serif text-xl text-[#fcf6ba] tracking-wide">{weekData.week}</h3>
@@ -157,8 +146,6 @@ export default function HomePage() {
                 {weekData.dates}
             </span>
           </div>
-
-          {/* Task List */}
           <div className="px-1">
             {weekData.tasks.map((task) => (
               <TaskRow key={task.id} task={task} monthId={monthData.id} weekIndex={weekIndex} />
@@ -171,7 +158,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* FIXED: dangerouslySetInnerHTML prevents the Hydration Error */}
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       
       <div className="flex min-h-screen w-full flex-col bg-black text-neutral-200 font-sans selection:bg-[#bf953f] selection:text-black pb-safe">
@@ -187,10 +173,8 @@ export default function HomePage() {
           {/* PAGE TITLE CARD */}
           <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900 to-black border border-white/10 rounded-2xl p-6 text-center mb-8 shadow-2xl">
             <div className="absolute top-0 right-0 p-16 bg-[#bf953f]/10 blur-[50px] rounded-full pointer-events-none" />
-            
             <Crown className="w-8 h-8 text-[#bf953f] mx-auto mb-3" />
-            {/* CHANGED: Title to January 2026 */}
-            <h1 className="font-serif text-4xl text-white mb-2">January '26</h1>
+            <h1 className="font-serif text-4xl text-white mb-2">February '26</h1>
             <p className="text-neutral-500 uppercase tracking-[0.2em] text-xs font-medium">Platinum Itinerary</p>
           </div>
 
@@ -199,70 +183,70 @@ export default function HomePage() {
              <div className="space-y-6 opacity-20 animate-pulse">
                <div className="h-24 bg-white/10 rounded-xl"></div>
                <div className="h-24 bg-white/10 rounded-xl"></div>
-               <div className="h-24 bg-white/10 rounded-xl"></div>
              </div>
           ) : (
             <>
-                {/* CURRENT MONTH (JANUARY 2026) */}
-                {januaryData ? renderMonthTasks(januaryData) : (
+                {/* CURRENT MONTH (FEBRUARY) */}
+                {currentMonth ? renderMonthTasks(currentMonth) : (
                   <div className="text-center py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                    <p className="font-serif text-lg text-neutral-400">Your January 2026 schedule is clear.</p>
+                    <p className="font-serif text-lg text-neutral-400">February schedule is clearing...</p>
                   </div>
                 )}
 
-                {/* ARCHIVE ACCORDION (DECEMBER 2025) */}
-                {decemberArchive && (
-                    <Accordion type="single" collapsible className="w-full mt-8 border-t border-white/10">
-                        <AccordionItem value="december" className="border-none">
-                            <AccordionTrigger className="hover:no-underline py-6 group active:bg-white/5 px-2 rounded-xl transition-colors">
-                                <div className="flex items-center gap-4 w-full">
-                                    <div className="p-2.5 bg-[#bf953f]/10 rounded-full">
-                                      <Archive className="h-4 w-4 text-[#bf953f]" />
-                                    </div>
-                                    <div className="text-left flex-grow">
-                                      {/* CHANGED: Label to December 2025 History */}
-                                      <span className="block font-serif text-lg text-neutral-300">December '25 History</span>
-                                    </div>
-                                    <div className="text-xs text-neutral-600 uppercase tracking-widest mr-2">View</div>
-                                </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="pt-2 pb-8">
-                                {renderMonthTasks(decemberArchive)}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                {/* HISTORY ACCORDION (Jan + Dec) */}
+                {historyMonths.length > 0 && (
+                    <div className="mt-12 pt-8 border-t border-white/10">
+                        <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4 px-2">
+                            Archive
+                        </h3>
+                        <Accordion type="single" collapsible className="w-full space-y-4">
+                            {historyMonths.map((month: any) => (
+                                <AccordionItem key={month.id} value={month.id} className="border border-white/5 rounded-xl bg-white/[0.02] overflow-hidden">
+                                    <AccordionTrigger className="hover:no-underline py-4 px-4 group active:bg-white/5 transition-colors">
+                                        <div className="flex items-center gap-3 w-full">
+                                            <div className="p-2 bg-[#bf953f]/10 rounded-full">
+                                              <Archive className="h-4 w-4 text-[#bf953f]" />
+                                            </div>
+                                            <div className="text-left flex-grow">
+                                              <span className="block font-serif text-lg text-neutral-300">
+                                                {month.month} '{month.year.toString().slice(-2)}
+                                              </span>
+                                            </div>
+                                            <div className="text-[10px] text-neutral-500 uppercase tracking-widest mr-2">View</div>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-2 pb-6 pt-0 bg-black/20">
+                                        {renderMonthTasks(month)}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    </div>
                 )}
             </>
           )}
         </main>
 
-        {/* FOOTER */}
         <footer className="text-center py-8 border-t border-white/5 bg-black">
           <p className="font-serif text-[#bf953f]/60 text-xs italic">"At your service, always."</p>
         </footer>
       </div>
       
-      {/* MOBILE ALERT DIALOG (BOTTOM SHEET STYLE) */}
+      {/* ALERT DIALOG */}
       <AlertDialog open={alertState.isOpen} onOpenChange={(isOpen) => !isOpen && React.startTransition(() => handleConfirmToggle())}>
         <AlertDialogContent className="bg-[#111] border-t border-[#bf953f]/30 rounded-t-[20px] rounded-b-none bottom-0 top-auto translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] fixed max-w-full w-full mx-0 p-6">
           <AlertDialogHeader>
-            <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" /> {/* Handle bar */}
+            <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" />
             <AlertDialogTitle className="font-serif text-xl text-[#fcf6ba] text-center">Update Task Status</AlertDialogTitle>
             <AlertDialogDescription className="text-center text-neutral-400 pt-2 pb-4">
               <span className="block font-serif text-lg text-white leading-relaxed">"{currentTaskForAlert?.title}"</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex-col gap-3 sm:flex-col space-y-2">
-            <AlertDialogAction 
-              onClick={handleConfirmToggle}
-              className="w-full bg-[#bf953f] text-black hover:bg-[#aa771c] rounded-xl font-bold py-6 text-lg"
-            >
+            <AlertDialogAction onClick={handleConfirmToggle} className="w-full bg-[#bf953f] text-black hover:bg-[#aa771c] rounded-xl font-bold py-6 text-lg">
               {currentTaskForAlert?.completed ? "Mark Incomplete" : "Complete Task"}
             </AlertDialogAction>
-            <AlertDialogCancel 
-              onClick={() => setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null })}
-              className="w-full rounded-xl border-white/10 hover:bg-white/10 hover:text-white py-6 text-base"
-            >
+            <AlertDialogCancel onClick={() => setAlertState({ isOpen: false, monthId: null, weekIndex: null, taskId: null })} className="w-full rounded-xl border-white/10 hover:bg-white/10 hover:text-white py-6 text-base">
               Cancel
             </AlertDialogCancel>
           </AlertDialogFooter>
