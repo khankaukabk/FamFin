@@ -18,7 +18,9 @@ const februaryTemplate = {
         { id: "feb1_2", title: "USPS Submission", description: "Submit required documents.", icon: "Mail", completed: false },
         { id: "feb1_3", title: "Toyota Service", description: "Drop off at Discount Tire.", icon: "Car", completed: false },
         { id: "feb1_4", title: "Director Payment", description: "Contact Abid regarding payment.", icon: "CreditCard", completed: false },
-        { id: "feb1_5", title: "Investor Cheque", description: "Fix issue with Chicago investor cheque.", icon: "FileText", completed: false }
+        { id: "feb1_5", title: "Investor Cheque", description: "Fix issue with Chicago investor cheque.", icon: "FileText", completed: false },
+        // NEW TASK ADDED HERE
+        { id: "feb1_6", title: "Cullman Meat Visit", description: "Confirm visit for Saturday, Feb 7th.", icon: "CalendarCheck", completed: false }
       ]
     },
     {
@@ -53,11 +55,10 @@ export default function SeedTasksPage() {
     try {
       const db = getFirestore(getApp());
       
-      // Upload February 2026
-      // (We use setDoc with merge:true just in case you modify it later)
+      // Upload February 2026 with merge: true to update existing data
       await setDoc(doc(db, "taskMonths", "february-2026"), februaryTemplate, { merge: true });
 
-      setStatus('✅ Success! February 2026 has been added.');
+      setStatus('✅ Success! February 2026 has been updated.');
     } catch (error: any) {
       console.error(error);
       setStatus(`❌ Error: ${error.message}`);
@@ -69,15 +70,15 @@ export default function SeedTasksPage() {
       <h1 className="text-3xl font-bold text-[#bf953f]">February Task Seeder</h1>
       
       <div className="text-gray-400 text-center space-y-2 max-w-md border border-gray-800 p-6 rounded-xl">
-        <p><strong>Target:</strong> Creates <code>february-2026</code> in database.</p>
-        <p><strong>Includes:</strong> Weekly Directors' Meetings + Specific Week 1 Tasks.</p>
+        <p><strong>Target:</strong> Updates <code>february-2026</code>.</p>
+        <p><strong>Added:</strong> Cullman Meat Processing confirmation (Feb 7th).</p>
       </div>
 
       <button 
         onClick={handleUpload}
         className="px-8 py-4 bg-[#bf953f] text-black font-bold rounded-xl hover:bg-[#aa771c] transition-all shadow-lg hover:shadow-[#bf953f]/20"
       >
-        Upload February
+        Update February
       </button>
       
       <p className="font-mono text-sm text-[#bf953f]">{status}</p>
