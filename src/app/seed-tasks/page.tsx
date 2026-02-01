@@ -20,7 +20,9 @@ const februaryTemplate = {
         { id: "feb1_4", title: "Director Payment", description: "Contact Abid regarding payment.", icon: "CreditCard", completed: false },
         { id: "feb1_5", title: "Investor Cheque", description: "Fix issue with Chicago investor cheque.", icon: "FileText", completed: false },
         { id: "feb1_6", title: "Cullman Meat Visit", description: "Confirm visit for Saturday, Feb 7th.", icon: "CalendarCheck", completed: false },
-        // NEW: Personal Choice Hours
+        // NEW: BIS Email
+        { id: "feb1_bis", title: "Email BIS", description: "Contact BIS regarding the Pelham project.", icon: "Mail", completed: false },
+        // Personal Choice Audit
         { id: "feb1_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
@@ -29,7 +31,6 @@ const februaryTemplate = {
       dates: "Feb 8 - Feb 14",
       tasks: [
         { id: "feb2_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
-        // NEW: Personal Choice Hours
         { id: "feb2_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
@@ -38,7 +39,6 @@ const februaryTemplate = {
       dates: "Feb 15 - Feb 21",
       tasks: [
         { id: "feb3_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
-        // NEW: Personal Choice Hours
         { id: "feb3_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
@@ -47,9 +47,7 @@ const februaryTemplate = {
       dates: "Feb 22 - Feb 28",
       tasks: [
         { id: "feb4_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
-        // NEW: Personal Choice Hours
         { id: "feb4_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false },
-        // NEW: Amazon Payment (Last Week Only)
         { id: "feb4_amazon", title: "Amazon Payment", description: "Check Amazon payment to ensure no interest charge.", icon: "CreditCard", completed: false }
       ]
     }
@@ -80,7 +78,7 @@ export default function SeedTasksPage() {
       
       <div className="text-gray-400 text-center space-y-2 max-w-md border border-gray-800 p-6 rounded-xl">
         <p><strong>Status:</strong> Ready to update.</p>
-        <p><strong>Added:</strong> 36hr Personal Choice (All Weeks) + Amazon Payment (Week 4).</p>
+        <p><strong>Added:</strong> Email BIS for Pelham Project (Week 1).</p>
       </div>
 
       <button 
