@@ -19,29 +19,38 @@ const februaryTemplate = {
         { id: "feb1_3", title: "Toyota Service", description: "Drop off at Discount Tire.", icon: "Car", completed: false },
         { id: "feb1_4", title: "Director Payment", description: "Contact Abid regarding payment.", icon: "CreditCard", completed: false },
         { id: "feb1_5", title: "Investor Cheque", description: "Fix issue with Chicago investor cheque.", icon: "FileText", completed: false },
-        // NEW TASK ADDED HERE
-        { id: "feb1_6", title: "Cullman Meat Visit", description: "Confirm visit for Saturday, Feb 7th.", icon: "CalendarCheck", completed: false }
+        { id: "feb1_6", title: "Cullman Meat Visit", description: "Confirm visit for Saturday, Feb 7th.", icon: "CalendarCheck", completed: false },
+        // NEW: Personal Choice Hours
+        { id: "feb1_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
     {
       week: "Week 2",
       dates: "Feb 8 - Feb 14",
       tasks: [
-        { id: "feb2_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false }
+        { id: "feb2_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
+        // NEW: Personal Choice Hours
+        { id: "feb2_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
     {
       week: "Week 3",
       dates: "Feb 15 - Feb 21",
       tasks: [
-        { id: "feb3_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false }
+        { id: "feb3_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
+        // NEW: Personal Choice Hours
+        { id: "feb3_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
     {
       week: "Week 4",
       dates: "Feb 22 - Feb 28",
       tasks: [
-        { id: "feb4_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false }
+        { id: "feb4_1", title: "Directors' Meeting", description: "Weekly board review.", icon: "Users", completed: false },
+        // NEW: Personal Choice Hours
+        { id: "feb4_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false },
+        // NEW: Amazon Payment (Last Week Only)
+        { id: "feb4_amazon", title: "Amazon Payment", description: "Check Amazon payment to ensure no interest charge.", icon: "CreditCard", completed: false }
       ]
     }
   ]
@@ -70,8 +79,8 @@ export default function SeedTasksPage() {
       <h1 className="text-3xl font-bold text-[#bf953f]">February Task Seeder</h1>
       
       <div className="text-gray-400 text-center space-y-2 max-w-md border border-gray-800 p-6 rounded-xl">
-        <p><strong>Target:</strong> Updates <code>february-2026</code>.</p>
-        <p><strong>Added:</strong> Cullman Meat Processing confirmation (Feb 7th).</p>
+        <p><strong>Status:</strong> Ready to update.</p>
+        <p><strong>Added:</strong> 36hr Personal Choice (All Weeks) + Amazon Payment (Week 4).</p>
       </div>
 
       <button 
