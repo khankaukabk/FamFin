@@ -20,9 +20,13 @@ const februaryTemplate = {
         { id: "feb1_4", title: "Director Payment", description: "Contact Abid regarding payment.", icon: "CreditCard", completed: false },
         { id: "feb1_5", title: "Investor Cheque", description: "Fix issue with Chicago investor cheque.", icon: "FileText", completed: false },
         { id: "feb1_6", title: "Cullman Meat Visit", description: "Confirm visit for Saturday, Feb 7th.", icon: "CalendarCheck", completed: false },
-        // NEW: BIS Email
         { id: "feb1_bis", title: "Email BIS", description: "Contact BIS regarding the Pelham project.", icon: "Mail", completed: false },
-        // Personal Choice Audit
+        
+        // --- NEW TASKS ADDED HERE ---
+        { id: "feb1_tax", title: "Tax Preparation", description: "Prepare taxes for Amin Consulting.", icon: "FileText", completed: false },
+        { id: "feb1_uab", title: "Update Healthcare", description: "Change provider to UAB Medicine Hoover.", icon: "Activity", completed: false },
+        
+        // Always keep this at the bottom of the week
         { id: "feb1_pc", title: "Personal Choice Audit", description: "Check all personal choice hours to ensure 36 hours have been done.", icon: "Clock", completed: false }
       ]
     },
@@ -78,7 +82,7 @@ export default function SeedTasksPage() {
       
       <div className="text-gray-400 text-center space-y-2 max-w-md border border-gray-800 p-6 rounded-xl">
         <p><strong>Status:</strong> Ready to update.</p>
-        <p><strong>Added:</strong> Email BIS for Pelham Project (Week 1).</p>
+        <p><strong>Added:</strong> Amin Consulting Tax Prep & UAB Medicine (Week 1).</p>
       </div>
 
       <button 
