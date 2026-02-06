@@ -16,27 +16,40 @@ type BookSegment = string | {
 
 type BookData = { id: string; title: string; content: BookSegment[]; };
 
-// FIX: Explicitly define what a "Reading Item" looks like so TypeScript doesn't guess
+// Defined Type for Reading Queue Items
 type QueueItem = {
     text: string;
-    type: "story" | "commentary" | "header"; // We explicitly allow "header" here
+    type: "story" | "commentary" | "header";
     pronunciation?: string;
 };
 
-// --- HELPER: TEXT CHUNKING ---
-const MAX_CHARS_PER_SLIDE = 180; 
-function splitIntoReadableChunks(text: string): string[] {
+// --- HELPER: ROBUST TEXT CHUNKING ---
+// Increased to 600 to prevent cutting text too short. 
+// This creates a nice "page" feel on mobile without scrolling inside the card.
+const MAX_CHARS_PER_SLIDE = 600; 
+
+function splitTextIdeally(text: string): string[] {
+  // If short enough, don't touch it.
   if (text.length <= MAX_CHARS_PER_SLIDE) return [text];
+
   const words = text.split(" ");
   const chunks: string[] = [];
   let currentChunk = "";
-  for (const word of words) {
-    if ((currentChunk + word).length > MAX_CHARS_PER_SLIDE) {
-      if (currentChunk) chunks.push(currentChunk.trim() + "...");
-      currentChunk = (chunks.length > 0 ? "..." : "") + word + " ";
-    } else { currentChunk += word + " "; }
-  }
+
+  words.forEach((word) => {
+    // If adding the next word would overflow the limit, save current chunk and start new one
+    if ((currentChunk + " " + word).length > MAX_CHARS_PER_SLIDE) {
+      chunks.push(currentChunk.trim());
+      currentChunk = word;
+    } else {
+      // Otherwise add word to current chunk
+      currentChunk = currentChunk ? `${currentChunk} ${word}` : word;
+    }
+  });
+  
+  // Add the last remaining piece
   if (currentChunk) chunks.push(currentChunk.trim());
+  
   return chunks;
 }
 
@@ -81,30 +94,27 @@ export default function ZenReadPage() {
   const [showTOC, setShowTOC] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // --- FIXED: Added ': QueueItem[]' to flatMap callback ---
+  // --- FIXED LOGIC: No more Regex sentence splitting ---
   const readingQueue = useMemo<QueueItem[]>(() => {
     if (!selectedBook || !selectedBook.content) return [];
 
-    // The ': QueueItem[]' here tells TypeScript to expect our broader type
     return selectedBook.content.flatMap((segment): QueueItem[] => {
       
-      // 1. Handle Headers
+      // 1. Handle Headers (Chapter Titles)
       if (typeof segment === 'string') {
           return [{ text: segment, type: 'header', pronunciation: undefined }];
       }
 
-      // 2. Handle Objects
-      const rawSentences = segment.text.match(/[^.!?]+[.!?]+["']?|[^.!?]+$/g) || [segment.text];
+      // 2. Handle Text Blocks
+      // We pass the FULL text to the splitter. 
+      // We do NOT split by sentence first, which was causing the data loss.
+      const chunks = splitTextIdeally(segment.text);
       
-      return rawSentences.flatMap((sentence) => {
-        const cleanSentence = sentence.trim();
-        const chunks = splitIntoReadableChunks(cleanSentence);
-        return chunks.map(chunk => ({
+      return chunks.map(chunk => ({
           text: chunk,
           type: segment.type,
           pronunciation: segment.pronunciation 
-        }));
-      });
+      }));
     });
   }, [selectedBook]);
 
@@ -174,6 +184,7 @@ export default function ZenReadPage() {
   if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-background"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   if (error) return <div className="p-10 text-red-500">Error: {error.message}</div>;
 
+  // --- VIEW 1: LIBRARY ---
   if (!selectedBook) {
     return (
       <div className="min-h-screen bg-background p-6 font-sans">
@@ -204,6 +215,7 @@ export default function ZenReadPage() {
     );
   }
 
+  // --- VIEW 2: READER ---
   return (
     <div className="h-[100dvh] w-full bg-background overflow-hidden relative touch-none">
       <div className="absolute top-4 left-4 z-50 flex gap-2">
@@ -243,14 +255,25 @@ export default function ZenReadPage() {
         {readingQueue.map((item, index) => (
           <div key={index} className="snap-center h-full w-full flex flex-col items-center justify-center p-6 md:p-12 relative">
             <div className="max-w-xl text-center w-full">
-                {item.type === 'header' && <h2 className="text-2xl md:text-5xl font-bold text-primary tracking-tight uppercase leading-snug break-words">{item.text}</h2>}
+                
+                {item.type === 'header' && (
+                    <h2 className="text-2xl md:text-5xl font-bold text-primary tracking-tight uppercase leading-snug break-words">
+                        {item.text}
+                    </h2>
+                )}
+                
                 {item.type === 'commentary' && (
                     <div className="flex flex-col items-center space-y-6">
                         <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-600 text-[10px] md:text-xs font-bold uppercase tracking-wider">Commentary</span>
-                        <p className="text-xl md:text-3xl font-sans italic text-muted-foreground leading-normal md:leading-relaxed">"{item.text}"</p>
+                        <p className="text-xl md:text-2xl font-sans italic text-muted-foreground leading-relaxed">"{item.text}"</p>
                     </div>
                 )}
-                {item.type === 'story' && <p className="text-2xl md:text-4xl font-serif font-medium leading-normal md:leading-relaxed text-foreground/90">{item.text}</p>}
+                
+                {item.type === 'story' && (
+                    <p className="text-xl md:text-3xl font-serif font-medium leading-relaxed text-foreground/90">
+                        {item.text}
+                    </p>
+                )}
                 
                 {item.pronunciation && <PronunciationBadge text={item.pronunciation} />}
 
