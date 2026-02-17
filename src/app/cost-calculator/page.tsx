@@ -263,5 +263,5 @@ export default function InteractiveCostCalculator() {
                 }
             `}</style>
         </div>
-    
-    
+    );
+}
