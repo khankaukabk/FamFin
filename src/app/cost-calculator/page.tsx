@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Copy, Printer, RotateCcw, Calculator, ArrowRight } from 'lucide-react';
+import { RotateCcw, Calculator, ArrowRight } from 'lucide-react';
 import { Navigation } from '@/components/ui/navigation';
 
-// --- 1. THE COMPLETE DATA STRUCTURE ---
+// --- DATA STRUCTURE ---
 const INITIAL_DATA = {
     cakes: [
         {
@@ -194,7 +194,6 @@ const INITIAL_DATA = {
 export default function InteractiveCostCalculator() {
     const [data, setData] = useState(INITIAL_DATA);
     const [activeTab, setActiveTab] = useState<'cakes' | 'cupcakes'>('cakes');
-    const containerRef = useRef<HTMLDivElement>(null);
     const { toast } = useToast();
 
     // Reset Function
@@ -206,9 +205,20 @@ export default function InteractiveCostCalculator() {
         });
     };
 
-    // Universal Update Logic (Category -> Recipe -> Section -> Item)
+    // Helper: Focus handler to auto-select text
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.select();
+    };
+
+    // 1. Logic for updating Quantity or Unit Cost (Updates Total automatically)
     const updateItem = (category: 'cakes' | 'cupcakes', recipeId: string, itemId: string, field: 'qty' | 'cost', value: string) => {
-        const numValue = value === '' ? 0 : parseFloat(value);
+        // FIX: Strip leading zeros (e.g., "08" becomes "8")
+        let cleanValue = value;
+        if (value.length > 1 && value.startsWith('0') && value[1] !== '.') {
+            cleanValue = value.substring(1);
+        }
+
+        const numValue = cleanValue === '' ? 0 : parseFloat(cleanValue);
         
         setData(prev => ({
             ...prev,
@@ -228,6 +238,39 @@ export default function InteractiveCostCalculator() {
         }));
     };
 
+    // 2. Logic for updating TOTAL directly
+    const updateTotal = (category: 'cakes' | 'cupcakes', recipeId: string, itemId: string, newTotalValue: string) => {
+        // FIX: Strip leading zeros
+        let cleanValue = newTotalValue;
+        if (newTotalValue.length > 1 && newTotalValue.startsWith('0') && newTotalValue[1] !== '.') {
+            cleanValue = newTotalValue.substring(1);
+        }
+
+        const numTotal = cleanValue === '' ? 0 : parseFloat(cleanValue);
+
+        setData(prev => ({
+            ...prev,
+            [category]: prev[category].map(recipe => {
+                if (recipe.id !== recipeId) return recipe;
+                return {
+                    ...recipe,
+                    sections: recipe.sections.map(section => ({
+                        ...section,
+                        items: section.items.map(item => {
+                            if (item.id !== itemId) return item;
+                            
+                            // Prevent division by zero
+                            if (item.qty === 0) return item;
+
+                            const newUnitCost = numTotal / item.qty;
+                            return { ...item, cost: newUnitCost };
+                        })
+                    }))
+                };
+            })
+        }));
+    };
+
     // Calculate Total for a specific recipe
     const calculateRecipeTotal = (recipe: any) => {
         return recipe.sections.reduce((acc: number, section: any) => {
@@ -235,23 +278,7 @@ export default function InteractiveCostCalculator() {
         }, 0);
     };
 
-    const copyForDocs = () => {
-        if (containerRef.current) {
-            const range = document.createRange();
-            range.selectNode(containerRef.current);
-            window.getSelection()?.removeAllRanges();
-            window.getSelection()?.addRange(range);
-            try {
-                document.execCommand('copy');
-                toast({ title: "Copied to Clipboard", description: "Ready to paste into docs." });
-            } catch (err) {
-                toast({ title: "Error", variant: "destructive" });
-            }
-            window.getSelection()?.removeAllRanges();
-        }
-    };
-
-    const handlePrint = () => window.print();
+    // Helper to format currency
     const fmt = (num: number) => `$${num.toFixed(2)}`;
 
     return (
@@ -279,8 +306,8 @@ export default function InteractiveCostCalculator() {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col md:flex-row justify-center gap-3 mb-8 md:mb-10">
+                    {/* Reset Button */}
+                    <div className="flex justify-center mb-8 md:mb-10">
                         <Button 
                             onClick={handleReset} 
                             variant="outline" 
@@ -288,23 +315,12 @@ export default function InteractiveCostCalculator() {
                         >
                             <RotateCcw className="mr-2 h-4 w-4" /> RESET DEFAULTS
                         </Button>
-                        <div className="flex gap-3">
-                            <Button onClick={copyForDocs} className="flex-1 bg-primary hover:bg-primary/90 text-black rounded-lg tracking-widest text-xs h-12 md:h-10">
-                                <Copy className="mr-2 h-4 w-4" /> COPY
-                            </Button>
-                            <Button onClick={handlePrint} variant="outline" className="flex-1 rounded-lg tracking-widest text-xs h-12 md:h-10 text-white border-white/20 hover:bg-white/10 hover:text-white">
-                                <Printer className="mr-2 h-4 w-4" /> PDF
-                            </Button>
-                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Main Container */}
-            <div 
-                ref={containerRef}
-                className="w-full md:max-w-4xl mx-auto bg-neutral-950 shadow-2xl border border-white/10 rounded-2xl mb-20"
-            >
+            <div className="w-full md:max-w-4xl mx-auto bg-neutral-950 shadow-2xl border border-white/10 rounded-2xl mb-20">
                 {/* Header */}
                 <header className="text-center p-8 md:p-12 pb-8 border-b border-white/10">
                     <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-2 text-white font-serif">
@@ -346,27 +362,32 @@ export default function InteractiveCostCalculator() {
                                                 
                                                 {section.items.map((item) => (
                                                     <tr key={item.id} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
+                                                        {/* NAME */}
                                                         <td className="py-3 px-2 text-sm font-medium text-white">
                                                             {item.name} <br className="md:hidden"/>
                                                             <span className="text-[10px] text-muted-foreground font-normal">({item.unit})</span>
                                                         </td>
 
+                                                        {/* QUANTITY INPUT */}
                                                         <td className="py-3 px-2 text-center">
                                                             <input 
                                                                 type="number" 
                                                                 value={item.qty}
+                                                                onFocus={handleFocus}
                                                                 onChange={(e) => updateItem(activeTab, recipe.id, item.id, 'qty', e.target.value)}
                                                                 className="w-16 md:w-20 bg-neutral-800 border border-neutral-700 focus:bg-black hover:border-neutral-600 focus:border-primary rounded-md py-1 px-1 outline-none text-sm text-center font-mono text-white transition-all"
                                                                 step="0.1"
                                                             />
                                                         </td>
 
+                                                        {/* UNIT COST INPUT */}
                                                         <td className="py-3 px-2">
                                                             <div className="flex items-center text-sm font-mono text-white pl-2">
                                                                 <span className="mr-1 text-muted-foreground">$</span>
                                                                 <input 
                                                                     type="number" 
                                                                     value={item.cost}
+                                                                    onFocus={handleFocus}
                                                                     onChange={(e) => updateItem(activeTab, recipe.id, item.id, 'cost', e.target.value)}
                                                                     className="w-20 md:w-24 bg-transparent border-b border-dashed border-neutral-600 focus:border-primary outline-none text-sm font-mono py-1"
                                                                     step="0.01"
@@ -374,8 +395,20 @@ export default function InteractiveCostCalculator() {
                                                             </div>
                                                         </td>
 
-                                                        <td className="py-3 px-2 text-sm text-right font-mono font-bold text-white">
-                                                            {fmt(item.qty * item.cost)}
+                                                        {/* TOTAL COST INPUT (EDITABLE) */}
+                                                        <td className="py-3 px-2 text-right">
+                                                            <div className="flex items-center justify-end text-sm font-mono text-white font-bold">
+                                                                <span className="mr-1 text-muted-foreground">$</span>
+                                                                <input 
+                                                                    type="number" 
+                                                                    // We calculate total for display, formatted to 2 decimals
+                                                                    value={(item.qty * item.cost).toFixed(2)}
+                                                                    onFocus={handleFocus}
+                                                                    onChange={(e) => updateTotal(activeTab, recipe.id, item.id, e.target.value)}
+                                                                    className="w-20 bg-transparent border-b border-transparent hover:border-dashed hover:border-neutral-600 focus:border-primary outline-none text-sm font-mono py-1 text-right font-bold text-white"
+                                                                    step="0.01"
+                                                                />
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 ))}
