@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Menu, Crown, LayoutDashboard, Home, Leaf, Gamepad2, Users, ClipboardCheck, 
   Briefcase, GraduationCap, Timer, BookOpen, Heart, 
-  ArchiveRestore, Code, DollarSign, Swords, Zap, Car, Plane, Warehouse, Shield, Star, LogOut, RotateCw
+  ArchiveRestore, Code, DollarSign, Swords, Zap, Car, Plane, Warehouse, Shield, Star, LogOut, RotateCw, Calculator
 } from "lucide-react";
 
 const styles = `
@@ -117,6 +117,7 @@ export function Navigation({ title, showRestartButton = false, onRestart, timer 
                       <NavLink href="/tesla-2024" onClick={closeSheet}><Car className="w-5 h-5 text-[#bf953f]/70" /> Tesla Plan</NavLink>
                       <NavLink href="/travel-plan" onClick={closeSheet}><Plane className="w-5 h-5 text-[#bf953f]/70" /> Travel Plan</NavLink>
                       <NavLink href="/farm-business-plan" onClick={closeSheet}><Warehouse className="w-5 h-5 text-[#bf953f]/70" /> Farm Plan</NavLink>
+                      <NavLink href="/cost-calculator" onClick={closeSheet}><Calculator className="w-5 h-5 text-[#bf953f]/70" /> Cost Calculator</NavLink>
                       
                       <div className="mx-4 my-2 border-t border-[#bf953f]/10" />
                       
